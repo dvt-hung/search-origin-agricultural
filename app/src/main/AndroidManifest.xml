@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".view.SplashActivity"
+            android:name=".view.AdminActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +39,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".view.AdminActivity"
+            android:name=".view.SplashActivity"
             android:exported="false" />
     </application>
 

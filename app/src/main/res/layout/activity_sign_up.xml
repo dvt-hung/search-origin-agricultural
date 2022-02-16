@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/custom_actionbar"
+            android:background="@drawable/custom_toolbar"
             >
             <ImageView
                 android:id="@+id/img_Back_SU"

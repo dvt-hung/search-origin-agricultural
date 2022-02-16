@@ -35,7 +35,15 @@
     <string name="title_error_sendOTP"> Đang có lỗi trong quá trình gửi mã </string>
     <string name="title_success_sendOTP"> Đã gửi mã thành công vui lòng kiểm tra </string>
     <string name="title_error_sign_up"> Đăng ký thấy bại. Vui lòng kiểm tra lại </string>
+    <string name="title_administrator"> Administrator </string>
     <!-- TODO: Remove or change this placeholder text -->
 
+    <!-- MENU   -->
+    <string name="menu_category_admin"> Danh mục </string>
+    <string name="menu_products_admin"> Sản phẩm </string>
+    <string name="menu_account_admin"> Tài khoản </string>
+    <string name="menu_setting_admin"> Cài đặt </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

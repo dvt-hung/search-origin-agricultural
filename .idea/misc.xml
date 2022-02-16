@@ -9,7 +9,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/custom_button_confirm.xml" value="0.26614583333333336" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/top_dialog.xml" value="0.26205128205128203" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/top_signup.xml" value="0.264" />
-        <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_admin.xml" value="0.24954710144927536" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_admin.xml" value="0.2" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_customer.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_farmer.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_login.xml" value="0.264" />
@@ -19,6 +19,8 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_splash.xml" value="0.176" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_sign_up.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_type_user.xml" value="0.24954710144927536" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_account__admin_.xml" value="0.25" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_category__admin_.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_customer1.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_customer_1.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_customer_2.xml" value="0.24954710144927536" />
@@ -26,11 +28,14 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_enterprise_1.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_enterprise_2.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_login.xml" value="0.2318840579710145" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_product__admin_.xml" value="0.25" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_setting__admin_.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_sign_up.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_sign_up_customer.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_sign_up_enterprise.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/test1.xml" value="0.2318840579710145" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/test2.xml" value="0.2318840579710145" />
+        <entry key="..\:/App_TXNG/app/src/main/res/menu/menu_admin.xml" value="0.25" />
       </map>
     </option>
   </component>
