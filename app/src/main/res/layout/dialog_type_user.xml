@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@drawable/top_signup"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_question_type"
+        android:fontFamily="@font/coiny"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        />
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="UselessParent"
+        android:padding="10dp"
+
+        >
+
+        <RadioButton
+            android:id="@+id/radio_farmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_type_farmer"
+            android:layout_marginStart="10dp"
+            android:textSize="16sp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            />
+        <RadioButton
+            android:id="@+id/radio_customer"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_type_customer"
+            android:layout_marginStart="10dp"
+
+            />
+    </RadioGroup>
+</LinearLayout>
