@@ -1,11 +1,14 @@
 package com.example.apptxng.view;
 
+import androidx.activity.result.ActivityResultCaller;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -24,6 +27,8 @@ public class AdminActivity extends AppCompatActivity {
     private final int FRAGMENT_ACCOUNT = 3;
     private final int FRAGMENT_SETTING = 4;
     private int FRAGMENT_CURRENT;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -21,11 +21,11 @@ import java.util.List;
 public class category_Admin_Adapter extends RecyclerView.Adapter<category_Admin_Adapter.CategoryAdminViewHolder> {
 
     private List<Category> categoryList;
-    private Context context;
-    private IListenerCategoryAdmin listenerCategoryAdmin;
+    private final Context context;
+    private final IListenerCategoryAdmin listenerCategoryAdmin;
 
     public interface IListenerCategoryAdmin{
-        void onClickItemCategoryAdmin();
+        void onClickItemCategoryAdmin(Category category);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -58,7 +58,7 @@ public class category_Admin_Adapter extends RecyclerView.Adapter<category_Admin_
             holder.layout_Category_Admin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listenerCategoryAdmin.onClickItemCategoryAdmin();
+                    listenerCategoryAdmin.onClickItemCategoryAdmin(category);
                 }
             });
         }

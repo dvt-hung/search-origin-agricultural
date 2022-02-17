@@ -1,16 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.Category_Admin_Fragment"
-    android:padding="10dp"
+    android:orientation="vertical"
     >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/custom_toolbar"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_category_admin"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/coiny"
+            android:textSize="18sp"/>
 
+        <ImageView
+            android:id="@+id/img_Add_Category_Admin"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@null"
+            android:backgroundTint="@null"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ic_add" />
+    </RelativeLayout>
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_Category_Admin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        />
 
-</FrameLayout>
+</LinearLayout>

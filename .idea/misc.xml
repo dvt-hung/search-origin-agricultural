@@ -5,8 +5,9 @@
       <map>
         <entry key="..\:/App_TXNG/app/src/main/res/drawable-v24/custom_actionbar.xml" value="0.14322916666666666" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable-v24/custom_edittext.xml" value="0.26614583333333336" />
-        <entry key="..\:/App_TXNG/app/src/main/res/drawable/bottom_dialog.xml" value="0.26205128205128203" />
-        <entry key="..\:/App_TXNG/app/src/main/res/drawable/custom_button_confirm.xml" value="0.26614583333333336" />
+        <entry key="..\:/App_TXNG/app/src/main/res/drawable/bottom_dialog.xml" value="0.2" />
+        <entry key="..\:/App_TXNG/app/src/main/res/drawable/custom_button_cancel.xml" value="0.176" />
+        <entry key="..\:/App_TXNG/app/src/main/res/drawable/custom_button_confirm.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/top_dialog.xml" value="0.26205128205128203" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/top_signup.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_admin.xml" value="0.2" />
@@ -17,6 +18,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_main.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_sign_up.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_splash.xml" value="0.176" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_add_category_admin.xml" value="0.2" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_sign_up.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_type_user.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_account__admin_.xml" value="0.25" />

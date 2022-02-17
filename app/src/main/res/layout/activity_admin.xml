@@ -7,35 +7,13 @@
     tools:context=".view.AdminActivity">
 
 
-    <RelativeLayout
-        android:id="@+id/toolbar_Admin"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/custom_toolbar"
-        android:padding="10dp"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/title_administrator"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:fontFamily="@font/coiny"
-            />
-
-
-    </RelativeLayout>
-
     <FrameLayout
         android:id="@+id/frame_Admin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/navigation_Admin"
-        android:layout_below="@+id/toolbar_Admin"
-        android:layout_marginTop="21dp"
-        android:layout_marginBottom="-21dp" />
+        android:layout_marginBottom="5dp"
+         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation_Admin"

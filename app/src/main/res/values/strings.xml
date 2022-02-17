@@ -13,6 +13,7 @@
     <string name="title_login">Đăng nhập </string>
     <string name="title_signup">Đăng ký </string>
     <string name="title_confirm">Xác nhận </string>
+    <string name="title_cancel">Hủy</string>
     <string name="title_question_account1">Bạn chưa có tài khoản? </string>
     <string name="title_question_account2">Đăng ký </string>
     <string name="title_name">Họ và tên </string>
@@ -36,6 +37,9 @@
     <string name="title_success_sendOTP"> Đã gửi mã thành công vui lòng kiểm tra </string>
     <string name="title_error_sign_up"> Đăng ký thấy bại. Vui lòng kiểm tra lại </string>
     <string name="title_administrator"> Administrator </string>
+    <string name="title_choice_image_category"> Hãy chọn ảnh cho danh mục </string>
+    <string name="title_input_name_category"> Nhập tên cho danh mục </string>
+    <string name="title_add_category"> Thêm danh mục </string>
     <!-- TODO: Remove or change this placeholder text -->
 
     <!-- MENU   -->

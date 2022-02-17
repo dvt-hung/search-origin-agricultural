@@ -1,15 +1,16 @@
 package com.example.apptxng.model;
 
+import android.net.Uri;
+
 public class Category {
     private int idCategory;
     private String nameCategory;
-    private String imageCategory;
+    private Uri imageCategory;
 
     public Category() {
     }
 
-    public Category(int idCategory, String nameCategory, String imageCategory) {
-        this.idCategory = idCategory;
+    public Category( String nameCategory, Uri imageCategory) {
         this.nameCategory = nameCategory;
         this.imageCategory = imageCategory;
     }
@@ -30,11 +31,11 @@ public class Category {
         this.nameCategory = nameCategory;
     }
 
-    public String getImageCategory() {
+    public Uri getImageCategory() {
         return imageCategory;
     }
 
-    public void setImageCategory(String imageCategory) {
+    public void setImageCategory(Uri imageCategory) {
         this.imageCategory = imageCategory;
     }
 }
