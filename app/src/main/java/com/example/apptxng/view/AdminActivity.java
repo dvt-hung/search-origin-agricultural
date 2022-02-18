@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
@@ -27,8 +28,6 @@ public class AdminActivity extends AppCompatActivity {
     private final int FRAGMENT_ACCOUNT = 3;
     private final int FRAGMENT_SETTING = 4;
     private int FRAGMENT_CURRENT;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +38,9 @@ public class AdminActivity extends AppCompatActivity {
 
         // cài đặt fragment ban đầu
         navigation_Admin.setSelectedItemId(R.id.manager_category_admin);
-        replace_Fragment(new Category_Admin_Fragment());
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.frame_Admin,new Category_Admin_Fragment(), "currentFragment")
+                .commit();
         FRAGMENT_CURRENT = FRAGMENT_CATEGORY;
     }
 
@@ -52,33 +53,34 @@ public class AdminActivity extends AppCompatActivity {
             @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fm = getSupportFragmentManager().findFragmentByTag("currentFragment");
                 switch (item.getItemId())
                 {
                     case R.id.manager_category_admin:
-                        if (FRAGMENT_CURRENT != FRAGMENT_CATEGORY)
+                        if (FRAGMENT_CURRENT != FRAGMENT_CATEGORY && fm != null)
                         {
-                            replace_Fragment(new Category_Admin_Fragment());
+                            replace_Fragment(fm, new Category_Admin_Fragment());
                             FRAGMENT_CURRENT = FRAGMENT_CATEGORY;
                         }
                         break;
                     case R.id.manager_product_admin:
-                        if (FRAGMENT_CURRENT != FRAGMENT_PRODUCT)
+                        if (FRAGMENT_CURRENT != FRAGMENT_PRODUCT && fm != null)
                         {
-                            replace_Fragment(new Product_Admin_Fragment());
+                            replace_Fragment(fm, new Product_Admin_Fragment());
                             FRAGMENT_CURRENT = FRAGMENT_PRODUCT;
                         }
                         break;
                     case R.id.manager_account_admin:
                         if (FRAGMENT_CURRENT != FRAGMENT_ACCOUNT)
                         {
-                            replace_Fragment(new Account_Admin_Fragment());
+                            replace_Fragment(fm, new Account_Admin_Fragment());
                             FRAGMENT_CURRENT = FRAGMENT_ACCOUNT;
                         }
                         break;
                     case R.id.manager_setting_admin:
                         if (FRAGMENT_CURRENT != FRAGMENT_SETTING)
                         {
-                            replace_Fragment(new Setting_Admin_Fragment());
+                            replace_Fragment(fm, new Setting_Admin_Fragment());
                             FRAGMENT_CURRENT = FRAGMENT_CATEGORY;
                         }
                         break;
@@ -91,11 +93,13 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     // Thay đổi Fragment
-    private void replace_Fragment(Fragment fragment)
+    private void replace_Fragment(Fragment fragmentCurrent, Fragment fragmentNew)
     {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_Admin,fragment);
-        transaction.commit();
+        FragmentTransaction manager = getSupportFragmentManager().beginTransaction();
+                manager.remove(fragmentCurrent)
+                        .add(R.id.frame_Admin, fragmentNew, "currentFragment")
+                        .addToBackStack(null)
+                        .commit();
     }
 
     // Init view

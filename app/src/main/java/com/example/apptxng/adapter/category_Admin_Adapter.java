@@ -2,6 +2,7 @@ package com.example.apptxng.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,6 @@ public class category_Admin_Adapter extends RecyclerView.Adapter<category_Admin_
     @Override
     public void onBindViewHolder(@NonNull CategoryAdminViewHolder holder, int position) {
         Category category = categoryList.get(position);
-
         if (category != null)
         {
             holder.name_Category_Admin.setText(category.getNameCategory());
@@ -69,6 +69,7 @@ public class category_Admin_Adapter extends RecyclerView.Adapter<category_Admin_
         if (categoryList != null)
         {
             return categoryList.size();
+
         }
         return 0;
     }

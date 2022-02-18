@@ -5,12 +5,12 @@ import android.net.Uri;
 public class Category {
     private int idCategory;
     private String nameCategory;
-    private Uri imageCategory;
+    private String imageCategory;
 
     public Category() {
     }
 
-    public Category( String nameCategory, Uri imageCategory) {
+    public Category( String nameCategory, String imageCategory) {
         this.nameCategory = nameCategory;
         this.imageCategory = imageCategory;
     }
@@ -31,11 +31,11 @@ public class Category {
         this.nameCategory = nameCategory;
     }
 
-    public Uri getImageCategory() {
+    public String getImageCategory() {
         return imageCategory;
     }
 
-    public void setImageCategory(Uri imageCategory) {
+    public void setImageCategory(String imageCategory) {
         this.imageCategory = imageCategory;
     }
 }
