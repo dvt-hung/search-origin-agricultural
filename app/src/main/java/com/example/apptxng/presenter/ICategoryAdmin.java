@@ -6,7 +6,10 @@ import java.util.List;
 
 public interface ICategoryAdmin {
     void addSuccess(String message);
+    void deleteSuccess(String message);
     void addFailed(String message);
-    void addException(String message);
+    void deleteFailed(String message);
+    void Exception(String message);
+
     void getAllCategorySuccess(List<Category> categoryList);
 }

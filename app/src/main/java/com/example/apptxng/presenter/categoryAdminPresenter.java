@@ -28,7 +28,7 @@ import retrofit2.Response;
 public class categoryAdminPresenter {
 
     private final ICategoryAdmin iCategoryAdmin;
-    private Context context;
+    private final Context context;
     private List<Category> categoryList;
 
     public categoryAdminPresenter(Context context, ICategoryAdmin iCategoryAdmin) {
@@ -37,8 +37,7 @@ public class categoryAdminPresenter {
     }
 
     // Add new category
-    public void addCategory(Category category)
-    {
+    public void addCategory(Category category){
         Uri uriImageCategory = Uri.parse(category.getImageCategory());
         File file = new File(getRealPathFromURI(uriImageCategory));
 
@@ -70,15 +69,40 @@ public class categoryAdminPresenter {
 
                     @Override
                     public void onFailure(Call<responsePOST> call, Throwable t) {
-                        iCategoryAdmin.addException(t.getMessage());
+                        iCategoryAdmin.Exception(t.getMessage());
                     }
                 });
     }
 
 
+    // Delete category
+    public void deleteCategory(int idCategory){
+        Common.api.deleteCategory(idCategory)
+                .enqueue(new Callback<responsePOST>() {
+                    @Override
+                    public void onResponse(Call<responsePOST> call, Response<responsePOST> response) {
+                        responsePOST responsePOST = response.body();
+                        assert responsePOST != null;
+                        if (responsePOST.getStatus() == 1)
+                        {
+                            iCategoryAdmin.deleteSuccess(responsePOST.getMessage());
+                            getAllCategory();
+                        }
+                        else
+                        {
+                            iCategoryAdmin.deleteFailed(responsePOST.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<responsePOST> call, Throwable t) {
+                        iCategoryAdmin.Exception(t.getMessage());
+                    }
+                });
+    }
+
     // Get all category
-    public void getAllCategory()
-    {
+    public void getAllCategory(){
         categoryList = new ArrayList<>();
         Common.api.getAllCategory()
                 .enqueue(new Callback<List<Category>>() {
@@ -90,7 +114,7 @@ public class categoryAdminPresenter {
 
                     @Override
                     public void onFailure(Call<List<Category>> call, Throwable t) {
-
+                        iCategoryAdmin.Exception(t.getMessage());
                     }
                 });
     }

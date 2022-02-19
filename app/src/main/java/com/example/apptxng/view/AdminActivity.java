@@ -19,7 +19,7 @@ import com.example.apptxng.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class AdminActivity extends AppCompatActivity {
+public class AdminActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener{
 
     BottomNavigationView navigation_Admin;
     FrameLayout frame_Admin;
@@ -37,11 +37,7 @@ public class AdminActivity extends AppCompatActivity {
         initView();
 
         // cài đặt fragment ban đầu
-        navigation_Admin.setSelectedItemId(R.id.manager_category_admin);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.frame_Admin,new Category_Admin_Fragment(), "currentFragment")
-                .commit();
-        FRAGMENT_CURRENT = FRAGMENT_CATEGORY;
+        loadFragment(new Category_Admin_Fragment());
     }
 
     @Override
@@ -49,62 +45,63 @@ public class AdminActivity extends AppCompatActivity {
         super.onResume();
 
         // Chọn item của bottom navigation
-        navigation_Admin.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fm = getSupportFragmentManager().findFragmentByTag("currentFragment");
-                switch (item.getItemId())
-                {
-                    case R.id.manager_category_admin:
-                        if (FRAGMENT_CURRENT != FRAGMENT_CATEGORY && fm != null)
-                        {
-                            replace_Fragment(fm, new Category_Admin_Fragment());
-                            FRAGMENT_CURRENT = FRAGMENT_CATEGORY;
-                        }
-                        break;
-                    case R.id.manager_product_admin:
-                        if (FRAGMENT_CURRENT != FRAGMENT_PRODUCT && fm != null)
-                        {
-                            replace_Fragment(fm, new Product_Admin_Fragment());
-                            FRAGMENT_CURRENT = FRAGMENT_PRODUCT;
-                        }
-                        break;
-                    case R.id.manager_account_admin:
-                        if (FRAGMENT_CURRENT != FRAGMENT_ACCOUNT)
-                        {
-                            replace_Fragment(fm, new Account_Admin_Fragment());
-                            FRAGMENT_CURRENT = FRAGMENT_ACCOUNT;
-                        }
-                        break;
-                    case R.id.manager_setting_admin:
-                        if (FRAGMENT_CURRENT != FRAGMENT_SETTING)
-                        {
-                            replace_Fragment(fm, new Setting_Admin_Fragment());
-                            FRAGMENT_CURRENT = FRAGMENT_CATEGORY;
-                        }
-                        break;
-
-                }
-                return true;
-            }
-        });
+        navigation_Admin.setOnItemSelectedListener(this);
 
     }
 
     // Thay đổi Fragment
-    private void replace_Fragment(Fragment fragmentCurrent, Fragment fragmentNew)
+    private boolean loadFragment (Fragment fragment)
     {
-        FragmentTransaction manager = getSupportFragmentManager().beginTransaction();
-                manager.remove(fragmentCurrent)
-                        .add(R.id.frame_Admin, fragmentNew, "currentFragment")
-                        .addToBackStack(null)
-                        .commit();
+        if (fragment != null)
+        {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frame_Admin, fragment)
+                    .commit();
+        }
+        return true;
     }
 
     // Init view
     private void initView() {
         navigation_Admin    = findViewById(R.id.navigation_Admin);
         frame_Admin         = findViewById(R.id.frame_Admin);
+    }
+
+    // Select item navigation
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fm = null;
+        switch (item.getItemId())
+        {
+            case R.id.manager_category_admin:
+                fm = new Category_Admin_Fragment();
+                break;
+            case R.id.manager_product_admin:
+                 fm = new Product_Admin_Fragment();
+
+                break;
+            case R.id.manager_account_admin:
+                fm = new Account_Admin_Fragment();
+                break;
+            case R.id.manager_setting_admin:
+                fm = new Setting_Admin_Fragment();
+                break;
+
+        }
+        return loadFragment(fm);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (navigation_Admin.getSelectedItemId() == R.id.manager_category_admin)
+        {
+            super.onBackPressed();
+            finish();
+        }
+        else
+        {
+            navigation_Admin.setSelectedItemId(R.id.manager_category_admin);
+        }
     }
 }

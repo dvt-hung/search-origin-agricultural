@@ -46,4 +46,11 @@ public interface API {
     // Get all category
     @GET("get_category.php")
     Call<List<Category>> getAllCategory();
+
+    // Delete category
+    @FormUrlEncoded
+    @POST("delete_category.php")
+    Call<responsePOST> deleteCategory(
+            @Field("idCategory") int idCategory
+    );
 }

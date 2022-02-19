@@ -14,6 +14,8 @@
     <string name="title_signup">Đăng ký </string>
     <string name="title_confirm">Xác nhận </string>
     <string name="title_cancel">Hủy</string>
+    <string name="title_delete">Xóa</string>
+    <string name="title_update">Chỉnh sửa</string>
     <string name="title_question_account1">Bạn chưa có tài khoản? </string>
     <string name="title_question_account2">Đăng ký </string>
     <string name="title_name">Họ và tên </string>
@@ -40,6 +42,7 @@
     <string name="title_choice_image_category"> Hãy chọn ảnh cho danh mục </string>
     <string name="title_input_name_category"> Nhập tên cho danh mục </string>
     <string name="title_add_category"> Thêm danh mục </string>
+    <string name="title_update_category"> Chỉnh sửa danh mục </string>
     <!-- TODO: Remove or change this placeholder text -->
 
     <!-- MENU   -->
