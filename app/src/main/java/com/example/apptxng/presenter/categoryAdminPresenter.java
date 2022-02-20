@@ -74,8 +74,7 @@ public class categoryAdminPresenter {
                 });
     }
 
-
-    // Delete category
+    // Delete category : Xóa ảnh khi xóa category và xóa các sản phẩm có trong category (Chưa làm)
     public void deleteCategory(int idCategory){
         Common.api.deleteCategory(idCategory)
                 .enqueue(new Callback<responsePOST>() {
@@ -97,6 +96,52 @@ public class categoryAdminPresenter {
                     @Override
                     public void onFailure(Call<responsePOST> call, Throwable t) {
                         iCategoryAdmin.Exception(t.getMessage());
+                    }
+                });
+    }
+
+    // Update category
+    public void updateCategory(Category category, Uri imageNewCategory){
+        // Khởi tạo ban đầu
+        RequestBody requestBodyImage = null;
+        MultipartBody.Part requestPartImage = null;
+        String nameCategoryNew = "";
+
+        // Nếu có thay đổi ảnh mới hay không, nếu không thì request Image = null
+        if (imageNewCategory != null)
+        {
+            File file = new File(getRealPathFromURI(imageNewCategory));
+            String filePath = file.getAbsolutePath();
+            String[] arraySplitPath = filePath.split("\\.");
+            nameCategoryNew = arraySplitPath[0] + System.currentTimeMillis() + "." + arraySplitPath[1];
+            requestBodyImage = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+            requestPartImage = MultipartBody.Part.createFormData("imageCategory", nameCategoryNew,requestBodyImage);
+
+        }
+        // tạo các Request body: idCategory, nameCategory, imgOld_Category
+        RequestBody requestBodyName = RequestBody.create(MediaType.parse("multipart/form-data"),category.getNameCategory());
+        RequestBody requestBodyID = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(category.getIdCategory()));
+        RequestBody requestBodyImageOld = RequestBody.create(MediaType.parse("multipart/form-data"),category.getImageCategory());
+        Common.api.updateCategory(requestBodyID, requestBodyImageOld, requestBodyName, requestPartImage)
+                .enqueue(new Callback<responsePOST>() {
+                    @Override
+                    public void onResponse(Call<responsePOST> call, Response<responsePOST> response) {
+                            responsePOST responsePOST = response.body();
+                            assert responsePOST != null;
+                            if (responsePOST.getStatus() == 1)
+                            {
+                                getAllCategory();
+                                iCategoryAdmin.updateSuccess(responsePOST.getMessage());
+                            }
+                            else
+                            {
+                                iCategoryAdmin.updateFailed(responsePOST.getMessage());
+                            }
+                    }
+
+                    @Override
+                    public void onFailure(Call<responsePOST> call, Throwable t) {
+                            iCategoryAdmin.Exception(t.getMessage());
                     }
                 });
     }

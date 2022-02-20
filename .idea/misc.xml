@@ -23,10 +23,13 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_splash.xml" value="0.176" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_add_category_admin.xml" value="0.2" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_bottom_option.xml" value="0.25" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_delete_category_admin.xml" value="0.21014492753623187" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_sign_up.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_type_user.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_update_category_admin.xml" value="0.21965579710144928" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_account__admin_.xml" value="0.25" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_account_customer__admin_.xml" value="0.25" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_account_farmer__admin_.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_category__admin_.xml" value="0.2" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_customer1.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_customer_1.xml" value="0.24954710144927536" />

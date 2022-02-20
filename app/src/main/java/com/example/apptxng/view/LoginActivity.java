@@ -2,6 +2,7 @@ package com.example.apptxng.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,7 +23,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
     private EditText edt_UserName_Login,edt_Password_Login;
     private Button btn_Login;
     private loginPresenter loginPresenter;
-
+    private ProgressDialog progressLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
                 String email = edt_UserName_Login.getText().toString().trim();
                 String passWord = edt_Password_Login.getText().toString().trim();
                 loginPresenter.Login(email,passWord);
+                progressLogin.show();
             }
         });
 
@@ -62,6 +64,8 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
         edt_Password_Login      = findViewById(R.id.edt_Password_Login);
         btn_Login               = findViewById(R.id.btn_Login);
         loginPresenter          = new loginPresenter(this);
+        progressLogin          = new ProgressDialog(this);
+        progressLogin.setMessage("Đợi trong giây lát...");
     }
 
     @Override
@@ -71,23 +75,30 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
 
     @Override
     public void loginSuccess(User user) {
-
-        if (user.getIdRole() == 1)
+        if (user.isAccept())
         {
-            startActivity(new Intent(LoginActivity.this, AdminActivity.class));
-        } else if (user.getIdRole() == 3)
-        {
-            startActivity(new Intent(LoginActivity.this, FarmerActivity.class));
-        } else if (user.getIdRole() == 4)
-        {
-            startActivity(new Intent(LoginActivity.this, CustomerActivity.class));
+            if (user.getIdRole() == 1)
+            {
+                startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+            } else if (user.getIdRole() == 3)
+            {
+                startActivity(new Intent(LoginActivity.this, FarmerActivity.class));
+            } else if (user.getIdRole() == 4)
+            {
+                startActivity(new Intent(LoginActivity.this, CustomerActivity.class));
+            }
+            finishAffinity();
         }
-        finishAffinity();
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Tài khoản của bạn đang chờ duyệt", Toast.LENGTH_SHORT).show();
+        }
+        progressLogin.dismiss();
     }
 
     @Override
     public void loginFailed(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-
+        progressLogin.dismiss();
     }
 }

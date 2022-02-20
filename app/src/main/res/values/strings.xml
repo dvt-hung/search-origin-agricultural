@@ -43,6 +43,8 @@
     <string name="title_input_name_category"> Nhập tên cho danh mục </string>
     <string name="title_add_category"> Thêm danh mục </string>
     <string name="title_update_category"> Chỉnh sửa danh mục </string>
+    <string name="title_delete_category"> Xóa danh mục </string>
+    <string name="title_question_delete_category"> Bạn có chắc là xóa danh mục này không </string>
     <!-- TODO: Remove or change this placeholder text -->
 
     <!-- MENU   -->

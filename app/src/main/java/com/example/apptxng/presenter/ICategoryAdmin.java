@@ -9,6 +9,9 @@ public interface ICategoryAdmin {
     void deleteSuccess(String message);
     void addFailed(String message);
     void deleteFailed(String message);
+    void updateFailed(String message);
+    void updateSuccess(String message);
+
     void Exception(String message);
 
     void getAllCategorySuccess(List<Category> categoryList);

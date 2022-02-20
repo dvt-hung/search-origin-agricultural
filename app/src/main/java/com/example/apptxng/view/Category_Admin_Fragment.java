@@ -52,6 +52,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,12 +66,14 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
     private View viewFragment;
     private ImageView img_Add_Category;                     // Nút thêm category mới
     private category_Admin_Adapter category_Admin_Adapter;  // Biến adapter recycler view
-    private Uri uri_ImageCategory;                          // Uri của ảnh category
+    private Uri uri_ImageCategory = null;                          // Uri của ảnh category
     private ImageView img_Category_Dialog;               // Ảnh của category
     private RecyclerView recycler_Category_Admin;           // Recycler view category
     private com.example.apptxng.presenter.categoryAdminPresenter categoryPresenter;     // Tạo biến Category Presenter
     private ProgressDialog progressDialogCategoryAdmin;     // Tạo progress dialog
     private Dialog dialogCategoryAdmin;                     // Tạo dialog dùng chung cho Fragment
+
+
     // Tạo biến Result Launcher để lấy URI ảnh chọn từ người dùng
     private final ActivityResultLauncher<Intent> intentGalleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -82,8 +85,6 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
                     }
                 }
             });
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -116,9 +117,6 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
         return viewFragment;
     }
 
-
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -131,22 +129,32 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
 
     }
 
+
+
+    // Ánh xạ view
+    private void initView(View view) {
+        recycler_Category_Admin         = view.findViewById(R.id.recycler_Category_Admin);
+        img_Add_Category                = view.findViewById(R.id.img_Add_Category_Admin);
+        categoryPresenter               = new categoryAdminPresenter(viewFragment.getContext(),this);
+        progressDialogCategoryAdmin     = new ProgressDialog(viewFragment.getContext());
+        progressDialogCategoryAdmin.setMessage("Chờ trong giây lát...");
+    }
+
     // Hiện dialog lựa chọn
     private void showDialogOptionCategory(Category category) {
-
         // Tạo và cài đặt layout cho dialog
-        dialogCategoryAdmin = new Dialog(viewFragment.getContext());
-        dialogCategoryAdmin.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogCategoryAdmin.setCanceledOnTouchOutside(false);
-        dialogCategoryAdmin.setContentView(R.layout.dialog_bottom_option);
-        dialogCategoryAdmin.getWindow().setGravity(Gravity.BOTTOM);
-        dialogCategoryAdmin.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
-        dialogCategoryAdmin.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Dialog dialogOptions = new Dialog(viewFragment.getContext());
+        dialogOptions.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogOptions.setCanceledOnTouchOutside(false);
+        dialogOptions.setContentView(R.layout.dialog_bottom_option);
+        dialogOptions.getWindow().setGravity(Gravity.BOTTOM);
+        dialogOptions.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogOptions.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         // Khởi tạo và ảnh xạ view trong dialog Option
-        Button btn_Update_DialogOption = dialogCategoryAdmin.findViewById(R.id.btn_Update_DialogOption);
-        Button btn_Delete_DialogOption = dialogCategoryAdmin.findViewById(R.id.btn_Delete_DialogOption);
-        Button btn_Cancel_DialogOption = dialogCategoryAdmin.findViewById(R.id.btn_Cancel_DialogOption);
+        Button btn_Update_DialogOption = dialogOptions.findViewById(R.id.btn_Update_DialogOption);
+        Button btn_Delete_DialogOption = dialogOptions.findViewById(R.id.btn_Delete_DialogOption);
+        Button btn_Cancel_DialogOption = dialogOptions.findViewById(R.id.btn_Cancel_DialogOption);
 
         // Xự kiện khi chọn Update
         btn_Update_DialogOption.setOnClickListener(new View.OnClickListener() {
@@ -160,8 +168,7 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
         btn_Delete_DialogOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialogCategoryAdmin.show();
-                categoryPresenter.deleteCategory(category.getIdCategory());
+                showDialogDeleteCategory(category);
             }
         });
 
@@ -169,22 +176,14 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
         btn_Cancel_DialogOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogCategoryAdmin.dismiss();
+                dialogOptions.cancel();
             }
         });
 
         // Hiện dialog
-        dialogCategoryAdmin.show();
+        dialogOptions.show();
     }
 
-    // Ánh xạ view
-    private void initView(View view) {
-        recycler_Category_Admin         = view.findViewById(R.id.recycler_Category_Admin);
-        img_Add_Category                = view.findViewById(R.id.img_Add_Category_Admin);
-        categoryPresenter               = new categoryAdminPresenter(viewFragment.getContext(),this);
-        progressDialogCategoryAdmin     = new ProgressDialog(viewFragment.getContext());
-        progressDialogCategoryAdmin.setMessage("Chờ trong giây lát...");
-    }
 
     // Dialog add Category
     private void showDialogAddCategory() {
@@ -283,7 +282,7 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
             }
         });
 
-        // Hủy dialog thêm category
+        // Hủy dialog cập nhật category
         btn_Cancel_UpdateCategory_Dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -291,25 +290,70 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
             }
         });
 
-        // Xác nhận thêm category
+        // Xác nhận cập nhật category
         btn_Confirm_UpdateCategory_Dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Kiểm tra dữ liệu có rỗng hay không
+                progressDialogCategoryAdmin.show();
                 String nameCategory = edt_Name_UpdateCategory_Dialog.getText().toString().trim();
 
-                if (nameCategory.isEmpty() || uri_ImageCategory == null)
+                // Trường hợp xóa tên thì không được
+                if (nameCategory.isEmpty())
                 {
                     Toast.makeText(view.getContext(), "Bạn đang bỏ trống dữ liệu nào đó.", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-
+                    category.setNameCategory(nameCategory);
+                    categoryPresenter.updateCategory(category,uri_ImageCategory);
+                    Log.e("HH", "Uri image category: " + uri_ImageCategory );
                 }
             }
         });
 
         // Show dialog
+        dialogCategoryAdmin.show();
+    }
+
+    // Dialog delete Category
+    private void showDialogDeleteCategory(Category category) {
+
+        dialogCategoryAdmin = new Dialog(viewFragment.getContext());
+        dialogCategoryAdmin.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogCategoryAdmin.setContentView(R.layout.dialog_delete_category_admin);
+
+        Window window = dialogCategoryAdmin.getWindow();
+
+        if (window != null)
+        {
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            window.setGravity(Gravity.CENTER);
+        }
+
+        // Khai báo và ánh xạ view của dialog update
+
+        Button btn_Cancel_DeleteCategory_Dialog     = dialogCategoryAdmin.findViewById(R.id.btn_Cancel_DeleteCategory_Dialog);
+        Button btn_Confirm_DeleteCategory_Dialog    = dialogCategoryAdmin.findViewById(R.id.btn_Confirm_DeleteCategory_Dialog);
+
+        // Button cancel
+        btn_Cancel_DeleteCategory_Dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogCategoryAdmin.cancel();
+            }
+        });
+
+        // Button confirm
+        btn_Confirm_DeleteCategory_Dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressDialogCategoryAdmin.show();
+                categoryPresenter.deleteCategory(category.getIdCategory());
+            }
+        });
+
         dialogCategoryAdmin.show();
     }
 
@@ -359,6 +403,7 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
         Toast.makeText(viewFragment.getContext(), message, Toast.LENGTH_LONG).show();
         dialogCategoryAdmin.dismiss();
         progressDialogCategoryAdmin.dismiss();
+        uri_ImageCategory = null;
     }
 
     @Override
@@ -370,14 +415,28 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
     @Override
     public void deleteSuccess(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-        dialogCategoryAdmin.dismiss();
+        dialogCategoryAdmin.cancel();
         progressDialogCategoryAdmin.dismiss();
     }
 
     @Override
     public void deleteFailed(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        progressDialogCategoryAdmin.dismiss();
+    }
+
+    @Override
+    public void updateFailed(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        progressDialogCategoryAdmin.dismiss();
+
+    }
+
+    @Override
+    public void updateSuccess(String message) {
         dialogCategoryAdmin.dismiss();
+        progressDialogCategoryAdmin.dismiss();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

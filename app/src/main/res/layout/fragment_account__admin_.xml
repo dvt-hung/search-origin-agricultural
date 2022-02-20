@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Category_Admin_Fragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.Category_Admin_Fragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout_Account_Admin"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:tabTextColor="@color/gray"
+        android:background="@drawable/custom_toolbar"
+        app:tabIndicatorColor="@color/white"
+        app:tabSelectedTextColor="@color/white"
+        app:tabIndicatorFullWidth="false"
+        />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager_Account_Admin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Account" />
+        android:layout_marginTop="10dp"
+        />
 
-</FrameLayout>
+
+</LinearLayout>

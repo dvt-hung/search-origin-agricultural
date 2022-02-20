@@ -53,4 +53,14 @@ public interface API {
     Call<responsePOST> deleteCategory(
             @Field("idCategory") int idCategory
     );
+
+    // Update category
+    @Multipart
+    @POST("update_category.php")
+    Call<responsePOST> updateCategory (
+            @Part("idCategory") RequestBody idCategory,
+            @Part("imgOld_Category") RequestBody imgOld_Category,
+            @Part("nameCategory") RequestBody nameCategory,
+            @Part MultipartBody.Part imgCategory
+    );
 }
