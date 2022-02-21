@@ -4,9 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+
 
 import androidx.annotation.NonNull;
 
@@ -52,7 +50,7 @@ public class categoryAdminPresenter {
         Common.api.addCategory(requestBodyName, requestPartImage)
                 .enqueue(new Callback<responsePOST>() {
                     @Override
-                    public void onResponse(Call<responsePOST> call, Response<responsePOST> response) {
+                    public void onResponse(@NonNull Call<responsePOST> call, @NonNull Response<responsePOST> response) {
                         responsePOST result = response.body();
                         assert result != null;
 
@@ -68,15 +66,15 @@ public class categoryAdminPresenter {
                     }
 
                     @Override
-                    public void onFailure(Call<responsePOST> call, Throwable t) {
+                    public void onFailure(@NonNull Call<responsePOST> call, @NonNull Throwable t) {
                         iCategoryAdmin.Exception(t.getMessage());
                     }
                 });
     }
 
     // Delete category : Xóa ảnh khi xóa category và xóa các sản phẩm có trong category (Chưa làm)
-    public void deleteCategory(int idCategory){
-        Common.api.deleteCategory(idCategory)
+    public void deleteCategory(int idCategory, String imageCategory){
+        Common.api.deleteCategory(idCategory,imageCategory)
                 .enqueue(new Callback<responsePOST>() {
                     @Override
                     public void onResponse(Call<responsePOST> call, Response<responsePOST> response) {
@@ -103,9 +101,9 @@ public class categoryAdminPresenter {
     // Update category
     public void updateCategory(Category category, Uri imageNewCategory){
         // Khởi tạo ban đầu
-        RequestBody requestBodyImage = null;
+        RequestBody requestBodyImage;
         MultipartBody.Part requestPartImage = null;
-        String nameCategoryNew = "";
+        String nameCategoryNew;
 
         // Nếu có thay đổi ảnh mới hay không, nếu không thì request Image = null
         if (imageNewCategory != null)
@@ -125,7 +123,7 @@ public class categoryAdminPresenter {
         Common.api.updateCategory(requestBodyID, requestBodyImageOld, requestBodyName, requestPartImage)
                 .enqueue(new Callback<responsePOST>() {
                     @Override
-                    public void onResponse(Call<responsePOST> call, Response<responsePOST> response) {
+                    public void onResponse(@NonNull Call<responsePOST> call, @NonNull Response<responsePOST> response) {
                             responsePOST responsePOST = response.body();
                             assert responsePOST != null;
                             if (responsePOST.getStatus() == 1)
@@ -140,7 +138,7 @@ public class categoryAdminPresenter {
                     }
 
                     @Override
-                    public void onFailure(Call<responsePOST> call, Throwable t) {
+                    public void onFailure(@NonNull Call<responsePOST> call, @NonNull Throwable t) {
                             iCategoryAdmin.Exception(t.getMessage());
                     }
                 });
@@ -152,13 +150,13 @@ public class categoryAdminPresenter {
         Common.api.getAllCategory()
                 .enqueue(new Callback<List<Category>>() {
                     @Override
-                    public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                    public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
                         categoryList = response.body();
                         iCategoryAdmin.getAllCategorySuccess(categoryList);
                     }
 
                     @Override
-                    public void onFailure(Call<List<Category>> call, Throwable t) {
+                    public void onFailure(@NonNull Call<List<Category>> call, @NonNull Throwable t) {
                         iCategoryAdmin.Exception(t.getMessage());
                     }
                 });

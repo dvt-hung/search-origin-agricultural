@@ -45,6 +45,15 @@
     <string name="title_update_category"> Chỉnh sửa danh mục </string>
     <string name="title_delete_category"> Xóa danh mục </string>
     <string name="title_question_delete_category"> Bạn có chắc là xóa danh mục này không </string>
+    <string name="title_scale"> Đơn vị tính </string>
+    <string name="title_banner"> Banner </string>
+    <string name="title_change_password"> Đổi mật khẩu </string>
+    <string name="title_log_out"> Đăng xuất </string>
+    <string name="title_new_product"> Sản phẩm mới </string>
+    <string name="title_price"> Giá </string>
+    <string name="title_quantity">Số lượng </string>
+    <string name="title_balance">Đơn vị </string>
+
     <!-- TODO: Remove or change this placeholder text -->
 
     <!-- MENU   -->

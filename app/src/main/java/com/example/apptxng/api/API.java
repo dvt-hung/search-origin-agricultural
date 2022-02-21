@@ -51,7 +51,9 @@ public interface API {
     @FormUrlEncoded
     @POST("delete_category.php")
     Call<responsePOST> deleteCategory(
-            @Field("idCategory") int idCategory
+            @Field("idCategory") int idCategory,
+            @Field("imageCategory") String imageCategory
+
     );
 
     // Update category

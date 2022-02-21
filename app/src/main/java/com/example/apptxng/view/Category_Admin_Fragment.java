@@ -6,9 +6,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,10 +17,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,14 +30,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.category_Admin_Adapter;
 import com.example.apptxng.model.Category;
-import com.example.apptxng.model.Common;
 import com.example.apptxng.presenter.ICategoryAdmin;
 import com.example.apptxng.presenter.categoryAdminPresenter;
 import com.karumi.dexter.Dexter;
@@ -49,16 +43,9 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin {
@@ -120,12 +107,7 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
     @Override
     public void onResume() {
         super.onResume();
-        img_Add_Category.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogAddCategory();
-            }   
-        });
+        img_Add_Category.setOnClickListener(view -> showDialogAddCategory());
 
     }
 
@@ -145,16 +127,15 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
         // Tạo và cài đặt layout cho dialog
         Dialog dialogOptions = new Dialog(viewFragment.getContext());
         dialogOptions.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogOptions.setCanceledOnTouchOutside(false);
         dialogOptions.setContentView(R.layout.dialog_bottom_option);
         dialogOptions.getWindow().setGravity(Gravity.BOTTOM);
         dialogOptions.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
         dialogOptions.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         // Khởi tạo và ảnh xạ view trong dialog Option
-        Button btn_Update_DialogOption = dialogOptions.findViewById(R.id.btn_Update_DialogOption);
-        Button btn_Delete_DialogOption = dialogOptions.findViewById(R.id.btn_Delete_DialogOption);
-        Button btn_Cancel_DialogOption = dialogOptions.findViewById(R.id.btn_Cancel_DialogOption);
+        Button btn_Update_DialogOption      = dialogOptions.findViewById(R.id.btn_Update_DialogOption);
+        Button btn_Delete_DialogOption      = dialogOptions.findViewById(R.id.btn_Delete_DialogOption);
+        Button btn_Cancel_DialogOption      = dialogOptions.findViewById(R.id.btn_Cancel_DialogOption);
 
         // Xự kiện khi chọn Update
         btn_Update_DialogOption.setOnClickListener(new View.OnClickListener() {
@@ -350,7 +331,7 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
             @Override
             public void onClick(View view) {
                 progressDialogCategoryAdmin.show();
-                categoryPresenter.deleteCategory(category.getIdCategory());
+                categoryPresenter.deleteCategory(category.getIdCategory(), category.getImageCategory());
             }
         });
 

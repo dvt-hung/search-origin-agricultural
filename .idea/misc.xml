@@ -11,6 +11,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/custom_button_cancel.xml" value="0.176" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/custom_button_confirm.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/custom_button_delete.xml" value="0.176" />
+        <entry key="..\:/App_TXNG/app/src/main/res/drawable/custom_radius_item.xml" value="0.176" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/top_dialog.xml" value="0.26205128205128203" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/top_signup.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_admin.xml" value="0.2" />
@@ -19,6 +20,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_login2.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_main.xml" value="0.24954710144927536" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_products_admin.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_sign_up.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_splash.xml" value="0.176" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_add_category_admin.xml" value="0.2" />
@@ -44,6 +46,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_sign_up_customer.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_sign_up_enterprise.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_category_admin.xml" value="0.176" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/item_product_admin.xml" value="0.536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/test1.xml" value="0.2318840579710145" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/test2.xml" value="0.2318840579710145" />
         <entry key="..\:/App_TXNG/app/src/main/res/menu/menu_admin.xml" value="0.25" />
