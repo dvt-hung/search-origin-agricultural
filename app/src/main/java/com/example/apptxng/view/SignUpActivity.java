@@ -122,14 +122,7 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp {
                     user.setEmail(email);
                     user.setPassWord(passWord);
                     user.setIdRole(idRole);
-                    if (idRole == 3)
-                    {
-                        user.setAccept(false);
-                    }
-                    else
-                    {
-                        user.setAccept(true);
-                    }
+                    user.setAccept(true);
                     signUpPresenter.signUpUser(user,codeEmail,passWordConfirm);
                 }
             }

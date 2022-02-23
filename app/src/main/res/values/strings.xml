@@ -25,6 +25,8 @@
     <string name="title_input_password"> Nhập mật khẩu </string>
     <string name="title_input_name"> Nhập họ và tên </string>
     <string name="title_email"> Email </string>
+    <string name="title_address"> Địa chỉ </string>
+    <string name="title_phone"> SĐT </string>
     <string name="title_input_email"> Email </string>
     <string name="title_input_verify">Nhập mã xác nhận  </string>
     <string name="title_type_farmer">Nông dân  </string>
@@ -49,10 +51,11 @@
     <string name="title_banner"> Banner </string>
     <string name="title_change_password"> Đổi mật khẩu </string>
     <string name="title_log_out"> Đăng xuất </string>
-    <string name="title_new_product"> Sản phẩm mới </string>
+    <string name="title_message"> Tin nhắn </string>
     <string name="title_price"> Giá </string>
     <string name="title_quantity">Số lượng </string>
     <string name="title_balance">Đơn vị </string>
+    <string name="title_error_empty_user">Đang cập nhật </string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

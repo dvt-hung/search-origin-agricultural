@@ -17,14 +17,14 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/coiny"
-            android:text="@string/title_new_product"
+            android:text="@string/title_message"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_Products_Admin"
+        android:id="@+id/recycler_Message_Admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

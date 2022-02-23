@@ -65,4 +65,12 @@ public interface API {
             @Part("nameCategory") RequestBody nameCategory,
             @Part MultipartBody.Part imgCategory
     );
+
+    // Get list customer
+    @GET("get_list_customer.php")
+    Call<List<User>> getListCustomer();
+
+    // Get list farmer
+    @GET("get_list_farmer.php")
+    Call<List<User>> getListFarmer();
 }

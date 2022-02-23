@@ -1,19 +1,12 @@
 package com.example.apptxng.view;
 
-import androidx.activity.result.ActivityResultCaller;
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.example.apptxng.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -76,8 +69,8 @@ public class AdminActivity extends AppCompatActivity implements NavigationBarVie
             case R.id.manager_category_admin:
                 fm = new Category_Admin_Fragment();
                 break;
-            case R.id.manager_product_admin:
-                 fm = new Product_Admin_Fragment();
+            case R.id.manager_message_admin:
+                 fm = new Chat_Admin_Fragment();
 
                 break;
             case R.id.manager_account_admin:

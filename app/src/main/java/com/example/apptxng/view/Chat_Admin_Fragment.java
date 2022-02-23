@@ -11,10 +11,10 @@ import com.example.apptxng.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Product_Admin_Fragment#newInstance} factory method to
+ * Use the {@link Chat_Admin_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Product_Admin_Fragment extends Fragment {
+public class Chat_Admin_Fragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +25,7 @@ public class Product_Admin_Fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Product_Admin_Fragment() {
+    public Chat_Admin_Fragment() {
         // Required empty public constructor
     }
 
@@ -38,8 +38,8 @@ public class Product_Admin_Fragment extends Fragment {
      * @return A new instance of fragment Category_Admin_Fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Product_Admin_Fragment newInstance(String param1, String param2) {
-        Product_Admin_Fragment fragment = new Product_Admin_Fragment();
+    public static Chat_Admin_Fragment newInstance(String param1, String param2) {
+        Chat_Admin_Fragment fragment = new Chat_Admin_Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,6 +60,6 @@ public class Product_Admin_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product__admin_, container, false);
+        return inflater.inflate(R.layout.fragment_message__admin_, container, false);
     }
 }

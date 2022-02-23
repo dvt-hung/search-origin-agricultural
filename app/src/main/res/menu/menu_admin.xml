@@ -6,8 +6,8 @@
         android:icon="@drawable/ic_categories"
         />
 
-    <item android:id="@+id/manager_product_admin"
-        android:title="@string/menu_products_admin"
+    <item android:id="@+id/manager_message_admin"
+        android:title="@string/title_message"
         android:icon="@drawable/ic_products"
         />
 
