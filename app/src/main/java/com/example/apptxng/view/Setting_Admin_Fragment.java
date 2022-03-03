@@ -1,65 +1,55 @@
 package com.example.apptxng.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.apptxng.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Setting_Admin_Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class Setting_Admin_Fragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public Setting_Admin_Fragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Category_Admin_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Setting_Admin_Fragment newInstance(String param1, String param2) {
-        Setting_Admin_Fragment fragment = new Setting_Admin_Fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    private View viewSetting;
+    private LinearLayout layout_Scale_Setting_Admin, layout_Banner_Setting_Admin, layout_changePassword_Setting_Admin, layout_LogOut_Setting_Admin;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting__admin_, container, false);
+        viewSetting =  inflater.inflate(R.layout.fragment_setting__admin_, container, false);
+
+        // init view
+        initView(viewSetting);
+        return viewSetting;
+    }
+
+    // Init view: Ánh xạ view của setting fragment
+    private void initView(View viewSetting) {
+        layout_Scale_Setting_Admin          = viewSetting.findViewById(R.id.layout_Scale_Setting_Admin);
+        layout_Banner_Setting_Admin         = viewSetting.findViewById(R.id.layout_Banner_Setting_Admin);
+        layout_changePassword_Setting_Admin = viewSetting.findViewById(R.id.layout_changePassword_Setting_Admin);
+        layout_LogOut_Setting_Admin         = viewSetting.findViewById(R.id.layout_LogOut_Setting_Admin);
+    }
+
+
+    // Event: Chọn các option tại setting fragment
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Scale: Click layout Scale - Chuyển qua activity quản lý các đơn vị tính của ứng dụng
+        layout_Scale_Setting_Admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(viewSetting.getContext(), Balance_Admin_Activity.class));
+            }
+        });
+
+
     }
 }

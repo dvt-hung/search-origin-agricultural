@@ -5,12 +5,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.apptxng.view.customerAccount_Admin_Fragment;
-import com.example.apptxng.view.farmerAccount_Admin_Fragment;
+import com.example.apptxng.view.CustomerAccount_Admin_Fragment;
+import com.example.apptxng.view.FarmerAccount_Admin_Fragment;
 
-public class account_Admin_Adapter extends FragmentStateAdapter {
+public class Account_Admin_Adapter extends FragmentStateAdapter {
 
-    public account_Admin_Adapter(@NonNull FragmentActivity fragmentActivity) {
+    public Account_Admin_Adapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 
@@ -18,9 +18,9 @@ public class account_Admin_Adapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         if (position == 1) {
-            return new customerAccount_Admin_Fragment();
+            return new CustomerAccount_Admin_Fragment();
         }
-        return new farmerAccount_Admin_Fragment();
+        return new FarmerAccount_Admin_Fragment();
     }
 
     @Override

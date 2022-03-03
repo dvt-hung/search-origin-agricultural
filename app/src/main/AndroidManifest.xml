@@ -15,6 +15,9 @@
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.Balance_Admin_Activity"
+            android:exported="false" />
+        <activity
             android:name=".view.Products_Admin_Activity"
             android:exported="false" />
         <activity

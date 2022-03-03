@@ -34,10 +34,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.apptxng.R;
-import com.example.apptxng.adapter.category_Admin_Adapter;
+import com.example.apptxng.adapter.Category_Admin_Adapter;
 import com.example.apptxng.model.Category;
 import com.example.apptxng.presenter.ICategoryAdmin;
-import com.example.apptxng.presenter.categoryAdminPresenter;
+import com.example.apptxng.presenter.Category_Admin_Presenter;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -52,11 +52,11 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
 
     private View viewFragment;
     private ImageView img_Add_Category;                     // Nút thêm category mới
-    private category_Admin_Adapter category_Admin_Adapter;  // Biến adapter recycler view
+    private Category_Admin_Adapter category_Admin_Adapter;  // Biến adapter recycler view
     private Uri uri_ImageCategory = null;                          // Uri của ảnh category
     private ImageView img_Category_Dialog;               // Ảnh của category
     private RecyclerView recycler_Category_Admin;           // Recycler view category
-    private com.example.apptxng.presenter.categoryAdminPresenter categoryPresenter;     // Tạo biến Category Presenter
+    private Category_Admin_Presenter categoryPresenter;     // Tạo biến Category Presenter
     private ProgressDialog progressDialogCategoryAdmin;     // Tạo progress dialog
     private Dialog dialogCategoryAdmin;                     // Tạo dialog dùng chung cho Fragment
 
@@ -84,7 +84,7 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
         initView(viewFragment);
 
         // Khởi tạo adapter Recycler Category
-        category_Admin_Adapter = new category_Admin_Adapter(viewFragment.getContext(), new category_Admin_Adapter.IListenerCategoryAdmin() {
+        category_Admin_Adapter = new Category_Admin_Adapter(viewFragment.getContext(), new Category_Admin_Adapter.IListenerCategoryAdmin() {
             @Override
             public void onClickItemCategoryAdmin(Category category) {
                 showDialogOptionCategory(category);
@@ -117,7 +117,7 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
     private void initView(View view) {
         recycler_Category_Admin         = view.findViewById(R.id.recycler_Category_Admin);
         img_Add_Category                = view.findViewById(R.id.img_Add_Category_Admin);
-        categoryPresenter               = new categoryAdminPresenter(viewFragment.getContext(),this);
+        categoryPresenter               = new Category_Admin_Presenter(viewFragment.getContext(),this);
         progressDialogCategoryAdmin     = new ProgressDialog(viewFragment.getContext());
         progressDialogCategoryAdmin.setMessage("Chờ trong giây lát...");
     }
@@ -220,6 +220,7 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
                 {
                     progressDialogCategoryAdmin.show();
                     Category category = new Category(nameCategory,uri_ImageCategory.toString());
+
                     categoryPresenter.addCategory(category);
                     closeKeyboard();
                 }
@@ -288,7 +289,6 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
                 {
                     category.setNameCategory(nameCategory);
                     categoryPresenter.updateCategory(category,uri_ImageCategory);
-                    Log.e("HH", "Uri image category: " + uri_ImageCategory );
                 }
             }
         });
@@ -418,6 +418,7 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
         dialogCategoryAdmin.dismiss();
         progressDialogCategoryAdmin.dismiss();
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        uri_ImageCategory = null;
     }
 
     @Override

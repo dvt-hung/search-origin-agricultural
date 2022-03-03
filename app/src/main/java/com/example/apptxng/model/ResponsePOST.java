@@ -1,6 +1,6 @@
 package com.example.apptxng.model;
 
-public class responsePOST {
+public class ResponsePOST {
     private int status;
     private String message;
 

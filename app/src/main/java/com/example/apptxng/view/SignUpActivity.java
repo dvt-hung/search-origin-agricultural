@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
@@ -24,16 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apptxng.R;
-import com.example.apptxng.api.API;
-import com.example.apptxng.api.Retrofit_Client;
 import com.example.apptxng.model.User;
-import com.example.apptxng.model.responsePOST;
 import com.example.apptxng.presenter.ISignUp;
-import com.example.apptxng.presenter.signUpPresenter;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.example.apptxng.presenter.SignUp_Presenter;
 
 public class SignUpActivity extends AppCompatActivity implements ISignUp {
 
@@ -41,7 +33,7 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp {
     private TextView txt_Type_SU,txt_Error_SU;
     private ImageView img_Back_SU;
     private Button btn_SendOTP, btn_SignUp;
-    private signUpPresenter signUpPresenter;
+    private SignUp_Presenter signUpPresenter;
     private String name, passWord, passWordConfirm, email,codeEmail;
     private int idRole;
     private User user = new User();
@@ -122,7 +114,7 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp {
                     user.setEmail(email);
                     user.setPassWord(passWord);
                     user.setIdRole(idRole);
-                    user.setAccept(true);
+                    user.setAccept(1);
                     signUpPresenter.signUpUser(user,codeEmail,passWordConfirm);
                 }
             }
@@ -206,7 +198,7 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp {
         txt_Type_SU                 = findViewById(R.id.txt_Type_SU);
         txt_Error_SU                = findViewById(R.id.txt_Error_SU);
         img_Back_SU                 = findViewById(R.id.img_Back_SU);
-        signUpPresenter             = new signUpPresenter(this);
+        signUpPresenter             = new SignUp_Presenter(this);
     }
 
     // OVERRIDE INTERFACE

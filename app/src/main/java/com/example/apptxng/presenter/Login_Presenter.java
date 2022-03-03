@@ -9,11 +9,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class loginPresenter {
+public class Login_Presenter {
 
     private final ILogin iLogin;
 
-    public loginPresenter(ILogin iLogin) {
+    public Login_Presenter(ILogin iLogin) {
         this.iLogin = iLogin;
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_Farmer_Account_Admin"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
@@ -18,17 +19,28 @@
         >
 
         <TextView
+            android:id="@+id/title_nameFarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/title_nameFarm"
+            android:textColor="@color/black" />
+        <TextView
             android:id="@+id/title_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:text="@string/title_name"
             android:textColor="@color/black"
+            android:layout_below="@id/title_nameFarm"
             />
+
         <TextView
             android:id="@+id/title_email"
             android:layout_width="wrap_content"
@@ -53,9 +65,8 @@
             android:text="@string/title_phone"
             android:textColor="@color/black" />
 
-
         <TextView
-            android:id="@+id/txt_Name_Customer_Account"
+            android:id="@+id/txt_NameGarden_Farmer_Account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -66,10 +77,22 @@
             android:text="@string/title_name" />
 
         <TextView
-            android:id="@+id/txt_Email_Customer_Account"
+            android:id="@+id/txt_Name_Farmer_Account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txt_Name_Customer_Account"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toEndOf="@id/title_name"
+            android:layout_below="@id/txt_NameGarden_Farmer_Account"
+            android:text="@string/title_name" />
+
+        <TextView
+            android:id="@+id/txt_Email_Farmer_Account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_Name_Farmer_Account"
             android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
@@ -78,10 +101,10 @@
             android:text="@string/title_name" />
 
         <TextView
-            android:id="@+id/txt_Phone_Customer_Account"
+            android:id="@+id/txt_Phone_Farmer_Account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txt_Email_Customer_Account"
+            android:layout_below="@id/txt_Email_Farmer_Account"
             android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
@@ -92,7 +115,7 @@
     </RelativeLayout>
 
     <Switch
-        android:id="@+id/switch_Customer_Account"
+        android:id="@+id/switch_Farmer_Account"
         android:layout_weight="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

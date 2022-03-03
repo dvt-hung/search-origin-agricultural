@@ -1,31 +1,24 @@
 package com.example.apptxng.presenter;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.apptxng.R;
-import com.example.apptxng.api.API;
-import com.example.apptxng.api.Retrofit_Client;
 import com.example.apptxng.model.Common;
 import com.example.apptxng.model.User;
-import com.example.apptxng.model.responsePOST;
-import com.google.gson.JsonObject;
+import com.example.apptxng.model.ResponsePOST;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
-public class signUpPresenter {
+public class SignUp_Presenter {
 
     private final ISignUp iSignUp;
     public  long rd = 1000 + (int)(Math.random() * 9999);
     public String message;
-    public signUpPresenter(ISignUp iSignUp) {
+    public SignUp_Presenter(ISignUp iSignUp) {
         this.iSignUp = iSignUp;
     }
 
@@ -73,10 +66,10 @@ public class signUpPresenter {
         else
         {
             Common.api.signUpUser(user)
-                    .enqueue(new Callback<responsePOST>() {
+                    .enqueue(new Callback<ResponsePOST>() {
                         @Override
-                        public void onResponse(@NonNull Call<responsePOST> call, @NonNull Response<responsePOST> response) {
-                            responsePOST responsePOST = response.body();
+                        public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
+                            ResponsePOST responsePOST = response.body();
 
                             assert responsePOST != null;
                             if (responsePOST.getStatus() == 0)
@@ -90,7 +83,7 @@ public class signUpPresenter {
                         }
 
                         @Override
-                        public void onFailure(@NonNull Call<responsePOST> call, @NonNull Throwable t) {
+                        public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
 
                         }
                     });

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,14 +14,14 @@ import android.widget.Toast;
 import com.example.apptxng.R;
 import com.example.apptxng.model.User;
 import com.example.apptxng.presenter.ILogin;
-import com.example.apptxng.presenter.loginPresenter;
+import com.example.apptxng.presenter.Login_Presenter;
 
 public class LoginActivity extends AppCompatActivity implements ILogin {
 
     private LinearLayout layout_Create_Account;
     private EditText edt_UserName_Login,edt_Password_Login;
     private Button btn_Login;
-    private loginPresenter loginPresenter;
+    private Login_Presenter loginPresenter;
     private ProgressDialog progressLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
         edt_UserName_Login      = findViewById(R.id.edt_UserName_Login);
         edt_Password_Login      = findViewById(R.id.edt_Password_Login);
         btn_Login               = findViewById(R.id.btn_Login);
-        loginPresenter          = new loginPresenter(this);
+        loginPresenter          = new Login_Presenter(this);
         progressLogin          = new ProgressDialog(this);
         progressLogin.setMessage("Đợi trong giây lát...");
     }
@@ -75,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
 
     @Override
     public void loginSuccess(User user) {
-        if (user.isAccept())
+        if (user.isAccept() == 1)
         {
             if (user.getIdRole() == 1)
             {

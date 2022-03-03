@@ -1,10 +1,5 @@
 package com.example.apptxng.model;
 
-import android.text.TextUtils;
-import android.util.Patterns;
-
-import java.util.regex.Pattern;
-
 public class User {
     private int idUser;
     private String email;
@@ -13,14 +8,14 @@ public class User {
     private String passWord;
     private String nameFarm;
     private String address;
-    private boolean accept;
+    private int accept;
     private int idRole;
     private String name;
-    private  responsePOST response;
+    private ResponsePOST response;
     public User() {
     }
 
-    public User(String name, String email, String passWord, boolean accept, int idRole) {
+    public User(String name, String email, String passWord, int accept, int idRole) {
         this.name = name;
         this.email = email;
         this.passWord = passWord;
@@ -43,11 +38,11 @@ public class User {
 
     // Getter, Setter
 
-    public responsePOST getResponse() {
+    public ResponsePOST getResponse() {
         return response;
     }
 
-    public void setResponse(responsePOST response) {
+    public void setResponse(ResponsePOST response) {
         this.response = response;
     }
 
@@ -115,11 +110,11 @@ public class User {
         this.address = address;
     }
 
-    public boolean isAccept() {
+    public int isAccept() {
         return accept;
     }
 
-    public void setAccept(boolean accept) {
+    public void setAccept(int accept) {
         this.accept = accept;
     }
 

@@ -19,6 +19,7 @@
     <string name="title_question_account1">Bạn chưa có tài khoản? </string>
     <string name="title_question_account2">Đăng ký </string>
     <string name="title_name">Họ và tên </string>
+    <string name="title_nameFarm">Tên vườn </string>
     <string name="title_type">Loại thành viên </string>
     <string name="title_choice">Vui lòng chọn </string>
     <string name="title_symbol"> * </string>
@@ -43,9 +44,11 @@
     <string name="title_administrator"> Administrator </string>
     <string name="title_choice_image_category"> Hãy chọn ảnh cho danh mục </string>
     <string name="title_input_name_category"> Nhập tên cho danh mục </string>
+    <string name="title_input_name_balance"> Nhập tên cho danh mục </string>
     <string name="title_add_category"> Thêm danh mục </string>
     <string name="title_update_category"> Chỉnh sửa danh mục </string>
     <string name="title_delete_category"> Xóa danh mục </string>
+    <string name="title_update_accept"> Thay đổi quyền truy cập </string>
     <string name="title_question_delete_category"> Bạn có chắc là xóa danh mục này không </string>
     <string name="title_scale"> Đơn vị tính </string>
     <string name="title_banner"> Banner </string>
@@ -56,6 +59,7 @@
     <string name="title_quantity">Số lượng </string>
     <string name="title_balance">Đơn vị </string>
     <string name="title_error_empty_user">Đang cập nhật </string>
+    <string name="title_add_balance">Thêm đơn vị tính </string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

@@ -4,13 +4,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 
 
 import androidx.annotation.NonNull;
 
 import com.example.apptxng.model.Category;
 import com.example.apptxng.model.Common;
-import com.example.apptxng.model.responsePOST;
+import com.example.apptxng.model.ResponsePOST;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,13 +24,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class categoryAdminPresenter {
+public class Category_Admin_Presenter {
 
     private final ICategoryAdmin iCategoryAdmin;
     private final Context context;
     private List<Category> categoryList;
 
-    public categoryAdminPresenter(Context context, ICategoryAdmin iCategoryAdmin) {
+    public Category_Admin_Presenter(Context context, ICategoryAdmin iCategoryAdmin) {
         this.iCategoryAdmin = iCategoryAdmin;
         this.context = context;
     }
@@ -41,6 +42,7 @@ public class categoryAdminPresenter {
 
         String filePath = file.getAbsolutePath();
         String[] arraySplitPath = filePath.split("\\.");
+
         String nameCategoryNew = arraySplitPath[0] + System.currentTimeMillis() + "." + arraySplitPath[1];
 
         RequestBody requestBodyName = RequestBody.create(MediaType.parse("multipart/form-data"),category.getNameCategory());
@@ -48,10 +50,10 @@ public class categoryAdminPresenter {
         MultipartBody.Part requestPartImage = MultipartBody.Part.createFormData("imageCategory", nameCategoryNew,requestBodyImage);
 
         Common.api.addCategory(requestBodyName, requestPartImage)
-                .enqueue(new Callback<responsePOST>() {
+                .enqueue(new Callback<ResponsePOST>() {
                     @Override
-                    public void onResponse(@NonNull Call<responsePOST> call, @NonNull Response<responsePOST> response) {
-                        responsePOST result = response.body();
+                    public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
+                        ResponsePOST result = response.body();
                         assert result != null;
 
                         if (result.getStatus() == 1)
@@ -66,8 +68,9 @@ public class categoryAdminPresenter {
                     }
 
                     @Override
-                    public void onFailure(@NonNull Call<responsePOST> call, @NonNull Throwable t) {
+                    public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
                         iCategoryAdmin.Exception(t.getMessage());
+                        Log.e("a", "onFailure: " + t.getMessage() );
                     }
                 });
     }
@@ -75,10 +78,10 @@ public class categoryAdminPresenter {
     // Delete category : Xóa ảnh khi xóa category và xóa các sản phẩm có trong category (Chưa làm)
     public void deleteCategory(int idCategory, String imageCategory){
         Common.api.deleteCategory(idCategory,imageCategory)
-                .enqueue(new Callback<responsePOST>() {
+                .enqueue(new Callback<ResponsePOST>() {
                     @Override
-                    public void onResponse(Call<responsePOST> call, Response<responsePOST> response) {
-                        responsePOST responsePOST = response.body();
+                    public void onResponse(Call<ResponsePOST> call, Response<ResponsePOST> response) {
+                        ResponsePOST responsePOST = response.body();
                         assert responsePOST != null;
                         if (responsePOST.getStatus() == 1)
                         {
@@ -92,7 +95,7 @@ public class categoryAdminPresenter {
                     }
 
                     @Override
-                    public void onFailure(Call<responsePOST> call, Throwable t) {
+                    public void onFailure(Call<ResponsePOST> call, Throwable t) {
                         iCategoryAdmin.Exception(t.getMessage());
                     }
                 });
@@ -101,7 +104,7 @@ public class categoryAdminPresenter {
     // Update category
     public void updateCategory(Category category, Uri imageNewCategory){
         // Khởi tạo ban đầu
-        RequestBody requestBodyImage;
+        RequestBody requestBodyImage,requestBodyImageOld = null;
         MultipartBody.Part requestPartImage = null;
         String nameCategoryNew;
 
@@ -114,17 +117,18 @@ public class categoryAdminPresenter {
             nameCategoryNew = arraySplitPath[0] + System.currentTimeMillis() + "." + arraySplitPath[1];
             requestBodyImage = RequestBody.create(MediaType.parse("multipart/form-data"),file);
             requestPartImage = MultipartBody.Part.createFormData("imageCategory", nameCategoryNew,requestBodyImage);
+            requestBodyImageOld = RequestBody.create(MediaType.parse("multipart/form-data"),category.getImageCategory());
 
         }
         // tạo các Request body: idCategory, nameCategory, imgOld_Category
         RequestBody requestBodyName = RequestBody.create(MediaType.parse("multipart/form-data"),category.getNameCategory());
         RequestBody requestBodyID = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(category.getIdCategory()));
-        RequestBody requestBodyImageOld = RequestBody.create(MediaType.parse("multipart/form-data"),category.getImageCategory());
+
         Common.api.updateCategory(requestBodyID, requestBodyImageOld, requestBodyName, requestPartImage)
-                .enqueue(new Callback<responsePOST>() {
+                .enqueue(new Callback<ResponsePOST>() {
                     @Override
-                    public void onResponse(@NonNull Call<responsePOST> call, @NonNull Response<responsePOST> response) {
-                            responsePOST responsePOST = response.body();
+                    public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
+                            ResponsePOST responsePOST = response.body();
                             assert responsePOST != null;
                             if (responsePOST.getStatus() == 1)
                             {
@@ -138,7 +142,7 @@ public class categoryAdminPresenter {
                     }
 
                     @Override
-                    public void onFailure(@NonNull Call<responsePOST> call, @NonNull Throwable t) {
+                    public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
                             iCategoryAdmin.Exception(t.getMessage());
                     }
                 });
@@ -153,6 +157,10 @@ public class categoryAdminPresenter {
                     public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
                         categoryList = response.body();
                         iCategoryAdmin.getAllCategorySuccess(categoryList);
+                        for (Category c : categoryList)
+                        {
+                            Log.e("img", "onResponse: " + c.getImageCategory() + "--" + c.getNameCategory() );
+                        }
                     }
 
                     @Override

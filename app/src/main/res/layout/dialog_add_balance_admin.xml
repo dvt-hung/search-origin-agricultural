@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="15dp"
+    android:padding="10dp">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:text="@string/title_add_balance"
+        android:background="@drawable/top_dialog"
+        android:gravity="center"
+        android:fontFamily="@font/coiny"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bottom_dialog"
+        >
+
+
+        <EditText
+            android:id="@+id/edt_Name_AddBalance_Dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title_input_name_balance"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            android:background="@drawable/custom_edittext"
+            android:padding="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            >
+
+            <Button
+                android:id="@+id/btn_Cancel_AddBalance_Dialog"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/title_cancel"
+                android:background="@drawable/custom_button_cancel"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"
+                android:layout_marginEnd="10dp"
+                />
+
+            <Button
+                android:id="@+id/btn_Confirm_AddBalance_Dialog"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/title_confirm"
+                android:background="@drawable/custom_button_confirm"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"
+                android:layout_marginStart="10dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

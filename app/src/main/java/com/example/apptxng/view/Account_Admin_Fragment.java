@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.apptxng.R;
-import com.example.apptxng.adapter.account_Admin_Adapter;
+import com.example.apptxng.adapter.Account_Admin_Adapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -21,7 +21,7 @@ public class Account_Admin_Fragment extends Fragment {
     private View viewAccount;
     private TabLayout tabLayout_Account;
     private ViewPager2 viewPager_Account;
-    private account_Admin_Adapter account_admin_adapter;
+    private Account_Admin_Adapter account_admin_adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,6 +56,6 @@ public class Account_Admin_Fragment extends Fragment {
     private void initView(View viewAccount) {
         tabLayout_Account = viewAccount.findViewById(R.id.tabLayout_Account_Admin);
         viewPager_Account = viewAccount.findViewById(R.id.viewPager_Account_Admin);
-        account_admin_adapter = new account_Admin_Adapter((FragmentActivity) viewAccount.getContext());
+        account_admin_adapter = new Account_Admin_Adapter((FragmentActivity) viewAccount.getContext());
     }
 }
