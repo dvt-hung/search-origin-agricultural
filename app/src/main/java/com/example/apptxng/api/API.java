@@ -95,4 +95,16 @@ public interface API {
         @FormUrlEncoded
         @POST("add_balance.php")
         Call<ResponsePOST> addBalance(@Field("nameBalance") String nameBalance);
+
+        // Update balance
+        @FormUrlEncoded
+        @POST("update_balance.php")
+        Call<ResponsePOST> updateBalance(
+                @Field("idBalance") String idBalance,
+                @Field("nameBalance") String nameBalance);
+
+        // Delete balance
+        @FormUrlEncoded
+        @POST("delete_balance.php")
+        Call<ResponsePOST> deleteBalance(@Field("idBalance") String idBalance);
 }

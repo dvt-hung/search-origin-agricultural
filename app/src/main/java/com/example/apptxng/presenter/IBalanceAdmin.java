@@ -8,4 +8,6 @@ public interface IBalanceAdmin {
     void getBalance(List<Balance> list);
     void Exception(String message);
     void addBalanceMessage(String message);
+    void updateBalanceMessage(String message);
+    void deleteBalanceMessage(String message);
 }

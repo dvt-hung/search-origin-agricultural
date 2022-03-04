@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:text="@string/title_delete_category"
+        android:text="@string/title_update_balance"
         android:background="@drawable/top_dialog"
         android:gravity="center"
         android:fontFamily="@font/coiny"
@@ -24,34 +24,30 @@
         android:orientation="vertical"
         android:background="@drawable/bottom_dialog"
         >
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/ic_delete"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"/>
-        <TextView
+
+
+        <EditText
+            android:id="@+id/edt_Name_UpdateBalance_Dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/title_question_delete_category"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:fontFamily="@font/coiny"
-            android:textSize="14sp"
-            android:textColor="@color/black"
+            android:hint="@string/title_input_name_balance"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            android:background="@drawable/custom_edittext"
+            android:padding="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"
             />
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginBottom="20dp"
-            android:layout_marginTop="15dp"
             >
 
             <Button
-                android:id="@+id/btn_Cancel_DeleteCategory_Dialog"
+                android:id="@+id/btn_Cancel_UpdateBalance_Dialog"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="@string/title_cancel"
@@ -62,7 +58,7 @@
                 />
 
             <Button
-                android:id="@+id/btn_Confirm_DeleteCategory_Dialog"
+                android:id="@+id/btn_Confirm_UpdateBalance_Dialog"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="@string/title_confirm"

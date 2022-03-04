@@ -30,6 +30,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -302,7 +303,7 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
 
         dialogCategoryAdmin = new Dialog(viewFragment.getContext());
         dialogCategoryAdmin.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogCategoryAdmin.setContentView(R.layout.dialog_delete_category_admin);
+        dialogCategoryAdmin.setContentView(R.layout.dialog_delete_admin);
 
         Window window = dialogCategoryAdmin.getWindow();
 
@@ -314,9 +315,17 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
         }
 
         // Khai báo và ánh xạ view của dialog update
-
         Button btn_Cancel_DeleteCategory_Dialog     = dialogCategoryAdmin.findViewById(R.id.btn_Cancel_DeleteCategory_Dialog);
         Button btn_Confirm_DeleteCategory_Dialog    = dialogCategoryAdmin.findViewById(R.id.btn_Confirm_DeleteCategory_Dialog);
+        TextView txt_Title_Delete_Dialog            = dialogCategoryAdmin.findViewById(R.id.txt_Title_Delete_Dialog);
+        TextView txt_Message_Delete_Dialog          = dialogCategoryAdmin.findViewById(R.id.txt_Message_Delete_Dialog);
+
+        // Gán Title, Message cho dialog
+        txt_Title_Delete_Dialog.setText(R.string.title_delete_category);
+        txt_Message_Delete_Dialog.setText(R.string.title_question_delete_category);
+
+        // Hiển thị dialog
+        dialogCategoryAdmin.show();
 
         // Button cancel
         btn_Cancel_DeleteCategory_Dialog.setOnClickListener(new View.OnClickListener() {
@@ -335,7 +344,6 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
             }
         });
 
-        dialogCategoryAdmin.show();
     }
 
     // Xin quyền truy cập thư viện

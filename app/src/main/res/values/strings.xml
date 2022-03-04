@@ -60,6 +60,9 @@
     <string name="title_balance">Đơn vị </string>
     <string name="title_error_empty_user">Đang cập nhật </string>
     <string name="title_add_balance">Thêm đơn vị tính </string>
+    <string name="title_update_balance">Chỉnh sửa đơn vị tính </string>
+    <string name="title_delete_balance"> Xóa đơn vị tính </string>
+    <string name="title_question_delete_balance"> Bạn có chắc là xóa đơn vị này không </string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apptxng.R;
@@ -78,7 +79,6 @@ public class Balance_Admin_Activity extends AppCompatActivity implements IBalanc
 
     }
 
-
     // Hiện Dialog thêm đơn vị tính
     private void showDialogAddBalance() {
         // Tạo và cài đặt layout cho dialog
@@ -127,12 +127,10 @@ public class Balance_Admin_Activity extends AppCompatActivity implements IBalanc
         });
     }
 
-
     // Lấy danh sách đơn vị tính
     private void getBalanceAdmin() {
         balancePresenter.getBalance();
     }
-
 
     // Khởi tạo và ảnh xạ View
     private void initView() {
@@ -174,6 +172,18 @@ public class Balance_Admin_Activity extends AppCompatActivity implements IBalanc
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void updateBalanceMessage(String message) {
+        progressBalance.cancel();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void deleteBalanceMessage(String message) {
+        progressBalance.cancel();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     public void onClickBalance(Balance balance) {
@@ -210,7 +220,8 @@ public class Balance_Admin_Activity extends AppCompatActivity implements IBalanc
         btn_Update_DialogOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                    dialogOptions.cancel();
+                    showDialogUpdateBalance(balance);
             }
         });
 
@@ -218,7 +229,8 @@ public class Balance_Admin_Activity extends AppCompatActivity implements IBalanc
         btn_Delete_DialogOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                dialogOptions.cancel();
+                showDialogDeleteBalance(balance);
             }
         });
 
@@ -230,4 +242,109 @@ public class Balance_Admin_Activity extends AppCompatActivity implements IBalanc
             }
         });
     }
+
+
+    // 1. Dialog update balance
+    private void showDialogUpdateBalance(Balance balance) {
+
+        // Khởi tạo dialog
+        Dialog dialogUpdate = new Dialog(this);
+        dialogUpdate.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogUpdate.setContentView(R.layout.dialog_update_balance_admin);
+        dialogUpdate.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogUpdate.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // Khai báo, ánh xạ view trong dialog update
+        EditText edt_Name_UpdateBalance_Dialog  = dialogUpdate.findViewById(R.id.edt_Name_UpdateBalance_Dialog);
+        Button btn_Cancel_UpdateBalance_Dialog  = dialogUpdate.findViewById(R.id.btn_Cancel_UpdateBalance_Dialog);
+        Button btn_Confirm_UpdateBalance_Dialog = dialogUpdate.findViewById(R.id.btn_Confirm_UpdateBalance_Dialog);
+
+        // Gán tên hiện tại của đơn vị tính
+        edt_Name_UpdateBalance_Dialog.setText(balance.getNameBalance());
+
+        //Hiện dialog
+        dialogUpdate.show();
+
+        /*
+        * 1. Khi chọn vào Confirm Button: Kiểm tra dữ liệu có rỗng hay không. Nếu không thì sửa đổi
+        * 2. Khi chọn vào Cancel Button: tắt dialog
+        * */
+
+        // 1. Confirm Button
+        btn_Confirm_UpdateBalance_Dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    String nameBalance = edt_Name_UpdateBalance_Dialog.getText().toString().trim();
+
+                    if (nameBalance.isEmpty())
+                    {
+                        Toast.makeText(Balance_Admin_Activity.this, R.string.title_error_empty, Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        progressBalance.show();
+                        balance.setNameBalance(nameBalance);
+                        balancePresenter.updateBalance(balance);
+                        dialogUpdate.cancel();
+                    }
+            }
+        });
+
+        // 2. Cancel Button
+        btn_Cancel_UpdateBalance_Dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogUpdate.cancel();
+            }
+        });
+    }
+
+    // 2. Dialog delete balance
+    private void showDialogDeleteBalance(Balance balance) {
+        // Khởi tạo dialog
+        Dialog dialogDelete = new Dialog(this);
+        dialogDelete.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogDelete.setContentView(R.layout.dialog_delete_admin);
+        dialogDelete.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogDelete.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // Khai báo và ánh xạ view của dialog update
+        Button btn_Cancel_DeleteCategory_Dialog     = dialogDelete.findViewById(R.id.btn_Cancel_DeleteCategory_Dialog);
+        Button btn_Confirm_DeleteCategory_Dialog    = dialogDelete.findViewById(R.id.btn_Confirm_DeleteCategory_Dialog);
+        TextView txt_Title_Delete_Dialog            = dialogDelete.findViewById(R.id.txt_Title_Delete_Dialog);
+        TextView txt_Message_Delete_Dialog          = dialogDelete.findViewById(R.id.txt_Message_Delete_Dialog);
+
+        // Gán Title, Message cho dialog
+        txt_Title_Delete_Dialog.setText(R.string.title_delete_balance);
+        txt_Message_Delete_Dialog.setText(R.string.title_question_delete_balance);
+
+        // Hiển thị dialog
+        dialogDelete.show();
+
+        /*
+        * 1. Khi chọn Confirm Button: Sẽ xóa đi đơn vị tính này
+        * 2. Khu chọn Cancel Button: Sẽ tắt đi dialog
+        * */
+
+        //1. Confirm Button
+        btn_Confirm_DeleteCategory_Dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressBalance.show();
+                balancePresenter.deleteBalance(balance);
+                dialogDelete.cancel();
+            }
+        });
+
+        // 2. Cancel Button
+        btn_Cancel_DeleteCategory_Dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogDelete.cancel();
+            }
+        });
+
+
+    }
+
 }
