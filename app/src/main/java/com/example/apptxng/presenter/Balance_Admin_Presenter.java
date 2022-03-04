@@ -62,7 +62,7 @@ public class Balance_Admin_Presenter {
     // 3. Update Balance: Truyền tên mới và id của đơn vị vào để sửa đổi
     public void updateBalance(Balance balance)
     {
-        Common.api.updateBalance(String.valueOf(balance.getIdBalance()), balance.getNameBalance())
+        Common.api.updateBalance(balance.getIdBalance(), balance.getNameBalance())
                 .enqueue(new Callback<ResponsePOST>() {
                     @Override
                     public void onResponse(Call<ResponsePOST> call, Response<ResponsePOST> response) {
@@ -82,7 +82,7 @@ public class Balance_Admin_Presenter {
     // 4. Delete Balance: Truyền id của Balance vào để xóa
     public void deleteBalance(Balance balance)
     {
-        Common.api.deleteBalance(String.valueOf(balance.getIdBalance()))
+        Common.api.deleteBalance(balance.getIdBalance())
                 .enqueue(new Callback<ResponsePOST>() {
                     @Override
                     public void onResponse(Call<ResponsePOST> call, Response<ResponsePOST> response) {

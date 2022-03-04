@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -61,6 +62,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationBarVie
     }
 
     // Select item navigation
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fm = null;
@@ -71,7 +73,6 @@ public class AdminActivity extends AppCompatActivity implements NavigationBarVie
                 break;
             case R.id.manager_message_admin:
                  fm = new Chat_Admin_Fragment();
-
                 break;
             case R.id.manager_account_admin:
                 fm = new Account_Admin_Fragment();

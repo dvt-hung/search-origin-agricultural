@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="15dp"
+    android:padding="10dp">
+
+
+    <TextView
+        android:id="@+id/txt_Title_Delete_Dialog"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/top_dialog"
+        android:gravity="center"
+        android:text="@string/title_log_out"
+        android:fontFamily="@font/coiny"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bottom_dialog"
+        >
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_log_out"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"/>
+        <TextView
+            android:id="@+id/txt_Message_Delete_Dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:fontFamily="@font/coiny"
+            android:textSize="14sp"
+            android:text="@string/question_sign_out"
+            android:textColor="@color/black"
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="15dp"
+            >
+
+            <Button
+                android:id="@+id/btn_Cancel_SignOut_Dialog"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/title_cancel"
+                android:background="@drawable/custom_button_cancel"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"
+                android:layout_marginEnd="10dp"
+                />
+
+            <Button
+                android:id="@+id/btn_Confirm_SignOut_Dialog"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/title_confirm"
+                android:background="@drawable/custom_button_confirm"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"
+                android:layout_marginStart="10dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

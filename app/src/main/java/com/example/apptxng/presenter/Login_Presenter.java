@@ -21,18 +21,19 @@ public class Login_Presenter {
 
     public void Login(String email, String passWord)
     {
+
         if (email.isEmpty() || passWord.isEmpty())
         {
             iLogin.emptyValueLogin();
         }
         else
         {
+
             Common.api.login(email,passWord)
                     .enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
                             User user = response.body();
-
                             assert user != null;
                             if (user.getResponse().getStatus() == 1)
                             {

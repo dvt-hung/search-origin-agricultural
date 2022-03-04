@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,7 +45,6 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
                 String email = edt_UserName_Login.getText().toString().trim();
                 String passWord = edt_Password_Login.getText().toString().trim();
                 loginPresenter.Login(email,passWord);
-                progressLogin.show();
             }
         });
 
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
 
     @Override
     public void emptyValueLogin() {
-        Toast.makeText(getApplicationContext(), "Vui lòng không bỏ trống!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), R.string.title_error_empty, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -90,9 +90,10 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
         }
         else
         {
-            Toast.makeText(getApplicationContext(), "Tài khoản của bạn đang chờ duyệt", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Tài khoản của bạn chưa được phép đăng nhập", Toast.LENGTH_SHORT).show();
         }
         progressLogin.dismiss();
+        Log.e("login", "loginSuccess: " + user.getEmail() );
     }
 
     @Override

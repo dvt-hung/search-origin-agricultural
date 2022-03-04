@@ -35,6 +35,11 @@ public class User {
         return this.passWord.equals(confirmPass);
     }
 
+    // Check pass word old
+    public boolean checkPasswordOld(String passOld)
+    {
+        return this.getPassWord().equals(passOld);
+    }
 
     // Getter, Setter
 

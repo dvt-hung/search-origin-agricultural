@@ -36,6 +36,15 @@ public interface API {
     Call<User> login (@Field("email") String email,
                       @Field("passWord") String passWord);
 
+    // *Change Password: done
+    @FormUrlEncoded
+    @POST("change_password.php")
+    Call<ResponsePOST> change_password (
+                    @Field("email") String email,
+                    @Field("passNew") String passNew,
+                    @Field("idUser") int idUser);
+
+
     // *CATEGORY - ADMIN
         // Add category: Done
         @Multipart
@@ -100,11 +109,11 @@ public interface API {
         @FormUrlEncoded
         @POST("update_balance.php")
         Call<ResponsePOST> updateBalance(
-                @Field("idBalance") String idBalance,
+                @Field("idBalance") int idBalance,
                 @Field("nameBalance") String nameBalance);
 
         // Delete balance
         @FormUrlEncoded
         @POST("delete_balance.php")
-        Call<ResponsePOST> deleteBalance(@Field("idBalance") String idBalance);
+        Call<ResponsePOST> deleteBalance(@Field("idBalance") int idBalance);
 }

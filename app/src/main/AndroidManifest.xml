@@ -21,7 +21,7 @@
             android:name=".view.Products_Admin_Activity"
             android:exported="false" />
         <activity
-            android:name=".view.AdminActivity"
+            android:name=".view.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +42,7 @@
             android:name=".view.FarmerActivity"
             android:exported="false" />
         <activity
-            android:name=".view.SplashActivity"
+            android:name=".view.AdminActivity"
             android:exported="false" />
     </application>
 

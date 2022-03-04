@@ -63,6 +63,10 @@
     <string name="title_update_balance">Chỉnh sửa đơn vị tính </string>
     <string name="title_delete_balance"> Xóa đơn vị tính </string>
     <string name="title_question_delete_balance"> Bạn có chắc là xóa đơn vị này không </string>
+    <string name="title_password_old"> Mật khẩu cũ </string>
+    <string name="title_input_password_old"> Nhập mật khẩu cũ </string>
+    <string name="title_password_new"> Mật khẩu mới </string>
+    <string name="title_input_password_new"> Nhập mật khẩu mới </string>
 
     <!-- TODO: Remove or change this placeholder text -->
 
@@ -73,5 +77,12 @@
     <string name="menu_setting_admin"> Cài đặt </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- SETTING ADMIN FRAGMENT   -->
+    <string name="inCorrectPassOld"> Mật khẩu cũ không đúng </string>
+    <string name="inCorrectPassConfirm"> Mật khẩu nhập lại không chính xác </string>
+    <string name="inCorrectPassLength"> Độ dài mật khẩu phải hơn 6 kí tự </string>
+    <string name="question_sign_out"> Bạn có chắc muốn đăng xuất không? </string>
 
 </resources>
