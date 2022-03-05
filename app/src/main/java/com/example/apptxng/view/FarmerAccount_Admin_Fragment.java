@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,6 +51,10 @@ public class FarmerAccount_Admin_Fragment extends Fragment implements IFarmerAcc
         LinearLayoutManager layoutManager = new LinearLayoutManager(viewFarmerAccount.getContext(),RecyclerView.VERTICAL,true);
         recycler_AccountFarmer_Admin.setLayoutManager(layoutManager);
 
+        // Set item decoration cho recycler view
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(viewFarmerAccount.getContext(),DividerItemDecoration.VERTICAL);
+        recycler_AccountFarmer_Admin.addItemDecoration(itemDecoration);
+
         // Load list farmer
         loadListFarmer();
         return viewFarmerAccount;
@@ -59,7 +64,7 @@ public class FarmerAccount_Admin_Fragment extends Fragment implements IFarmerAcc
         recycler_AccountFarmer_Admin = viewFarmerAccount.findViewById(R.id.recycler_AccountFarmer_Admin);
         farmerAccountAdminPresenter = new Farmer_Account_Admin_Presenter(this);
 
-        // Adapter
+        // Khởi tạo Adapter
         farmerAdapter = new Farmer_Account_Admin_Adapter(new Farmer_Account_Admin_Adapter.IFarmerAccountListener() {
             @Override
             public void onClickItem(User user) {
@@ -102,6 +107,12 @@ public class FarmerAccount_Admin_Fragment extends Fragment implements IFarmerAcc
         // Set message for dialog
         txt_Message_Accept_Dialog.setText(messageDialog);
 
+        dialogAccept.show();
+
+        /*
+        * 1. Cancel Button: Tắt dialog
+        * 2. Confirm Button: Thay đổi quyền truy cập
+        * */
         // Click cancel button
         btn_Cancel_UpdateAccept_Dialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +130,6 @@ public class FarmerAccount_Admin_Fragment extends Fragment implements IFarmerAcc
                 dialogAccept.dismiss();
             }
         });
-        dialogAccept.show();
     }
 
     // Load list account farmer

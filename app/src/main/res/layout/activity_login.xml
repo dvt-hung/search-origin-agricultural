@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/title_email"
-            android:text="admin@gmail.com"
+            android:text="abc@gmail.com"
             android:layout_marginTop="30dp"
             android:textSize="16sp"
             android:background="@drawable/custom_edittext"

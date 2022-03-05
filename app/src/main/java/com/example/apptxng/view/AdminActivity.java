@@ -17,11 +17,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationBarVie
 
     BottomNavigationView navigation_Admin;
     FrameLayout frame_Admin;
-    private final int FRAGMENT_CATEGORY = 1;
-    private final int FRAGMENT_PRODUCT = 2;
-    private final int FRAGMENT_ACCOUNT = 3;
-    private final int FRAGMENT_SETTING = 4;
-    private int FRAGMENT_CURRENT;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

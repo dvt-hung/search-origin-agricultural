@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,6 +52,10 @@ public class CustomerAccount_Admin_Fragment extends Fragment implements ICustome
         LinearLayoutManager layoutManager = new LinearLayoutManager(viewAccountCustomer.getContext(),RecyclerView.VERTICAL,false);
         recycler_AccountCustomer_Admin.setLayoutManager(layoutManager);
 
+        // Set item decoration cho recycler view
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(viewAccountCustomer.getContext(),DividerItemDecoration.VERTICAL);
+        recycler_AccountCustomer_Admin.addItemDecoration(itemDecoration);
+
         // Load list customer
         loadCustomer();
         return viewAccountCustomer;
@@ -78,8 +83,8 @@ public class CustomerAccount_Admin_Fragment extends Fragment implements ICustome
         });
     }
 
+    // * Dialog Accept
     private void showDialogAccept(User user, String messageDialog, int status) {
-
         // Create dialog
         Dialog dialogAccept = new Dialog(viewAccountCustomer.getContext());
         dialogAccept.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -102,6 +107,14 @@ public class CustomerAccount_Admin_Fragment extends Fragment implements ICustome
         // Set message for dialog
         txt_Message_Accept_Dialog.setText(messageDialog);
 
+        // Hiền thị dialog
+        dialogAccept.show();
+
+        /*
+        * 1. Cancel Button: Tắt dialog
+        * 2. Confirm Button: Thay đổi quyền truy cập
+        * */
+
         // Click cancel button
         btn_Cancel_UpdateAccept_Dialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +132,6 @@ public class CustomerAccount_Admin_Fragment extends Fragment implements ICustome
                 dialogAccept.cancel();
             }
         });
-        dialogAccept.show();
     }
 
     private void loadCustomer() {
