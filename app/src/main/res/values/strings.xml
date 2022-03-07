@@ -52,6 +52,7 @@
     <string name="title_scale"> Đơn vị tính </string>
     <string name="title_banner"> Banner </string>
     <string name="title_change_password"> Đổi mật khẩu </string>
+    <string name="title_type_factory"> Loại cơ sở </string>
     <string name="title_log_out"> Đăng xuất </string>
     <string name="title_message"> Tin nhắn </string>
     <string name="title_price"> Giá </string>
@@ -93,6 +94,26 @@
     <!-- HOME FARMER FRAGMENT   -->
     <string name="name_farm"> Tên vườn </string>
     <string name="product_farm"> Sản phẩm </string>
+    <string name="empty_product"> Hiện tại chưa có sản phẩm nào </string>
 
 
+    <!-- INSERT PRODUCT FARMER -->
+
+    <string name="choice_image_product"> Hãy chọn ảnh cho sản phẩm </string>
+
+    <string name="insert_product">Thêm sản phẩm</string>
+    <string name="name_product">Tên sản phẩm</string>
+    <string name="input_name_product">Nhập tên sản phẩm</string>
+
+    <string name="price_product">Giá sản phẩm</string>
+    <string name="input_price_product">Nhập giá sản phẩm</string>
+
+    <string name="description_product">Mô tả sản phẩm</string>
+    <string name="input_description_product">Nhập mô tả sản phẩm</string>
+
+    <string name="quantity_product">Số lượng</string>
+    <string name="input_quantity_product">Nhập số lượng sản phẩm</string>
+
+    <string name="choice_category_product">Chọn danh mục cho sản phẩm</string>
+    <string name="choice_balance_product">Chọn đơn vị tính cho sản phẩm</string>
 </resources>

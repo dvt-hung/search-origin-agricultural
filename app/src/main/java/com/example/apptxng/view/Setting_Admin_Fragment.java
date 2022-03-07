@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +24,6 @@ import com.example.apptxng.model.Common;
 import com.example.apptxng.presenter.ISettingAdmin;
 import com.example.apptxng.presenter.Setting_Admin_Presenter;
 
-import java.util.Objects;
-
 
 public class Setting_Admin_Fragment extends Fragment implements ISettingAdmin {
 
@@ -35,7 +32,7 @@ public class Setting_Admin_Fragment extends Fragment implements ISettingAdmin {
     private View viewSetting;
     private ProgressDialog progressSettingAdmin;
     private TextView txt_Error_ChangePassword_Dialog;
-    private LinearLayout layout_Scale_Setting_Admin, layout_Banner_Setting_Admin, layout_ChangePassword_Setting_Admin, layout_LogOut_Setting_Admin;
+    private LinearLayout layout_Scale_Setting_Admin,layout_Linked_Setting_Admin ,layout_Banner_Setting_Admin, layout_ChangePassword_Setting_Admin, layout_LogOut_Setting_Admin;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,6 +51,7 @@ public class Setting_Admin_Fragment extends Fragment implements ISettingAdmin {
         layout_Banner_Setting_Admin         = viewSetting.findViewById(R.id.layout_Banner_Setting_Admin);
         layout_ChangePassword_Setting_Admin = viewSetting.findViewById(R.id.layout_changePassword_Setting_Admin);
         layout_LogOut_Setting_Admin         = viewSetting.findViewById(R.id.layout_LogOut_Setting_Admin);
+        layout_Linked_Setting_Admin         = viewSetting.findViewById(R.id.layout_Linked_Setting_Admin);
         settingAdminPresenter               = new Setting_Admin_Presenter(this);
         progressSettingAdmin                = new ProgressDialog(viewSetting.getContext());
         progressSettingAdmin.setMessage("Vui lòng chờ...");
@@ -87,6 +85,14 @@ public class Setting_Admin_Fragment extends Fragment implements ISettingAdmin {
             @Override
             public void onClick(View view) {
                 showDialogSignOut();
+            }
+        });
+
+        // 4. Linked: Mở activity mới hiển thị các chuỗi liên kết đang quản lý
+        layout_Linked_Setting_Admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(viewSetting.getContext(), TypeFactory_Admin_Activity.class));
             }
         });
     }

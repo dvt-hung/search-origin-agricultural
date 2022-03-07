@@ -2,6 +2,7 @@ package com.example.apptxng.api;
 
 import com.example.apptxng.model.Balance;
 import com.example.apptxng.model.Category;
+import com.example.apptxng.model.TypeFactory;
 import com.example.apptxng.model.User;
 import com.example.apptxng.model.ResponsePOST;
 
@@ -116,4 +117,10 @@ public interface API {
         @FormUrlEncoded
         @POST("delete_balance.php")
         Call<ResponsePOST> deleteBalance(@Field("idBalance") int idBalance);
+
+
+    // *LINKED - ADMIN
+        // Load linked
+        @GET("get_type_factory.php")
+        Call<List<TypeFactory>> getTypeFactory();
 }

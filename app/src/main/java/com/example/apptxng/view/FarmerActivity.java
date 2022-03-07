@@ -27,7 +27,7 @@ public class FarmerActivity extends AppCompatActivity implements NavigationBarVi
         initView();
 
         // Hiển thị fragment home khi đang nhập thành công
-        loadFragment(new Home_Farmer_Fragment());
+        loadFragment(new Product_Farmer_Fragment());
     }
 
     @Override
@@ -61,7 +61,7 @@ public class FarmerActivity extends AppCompatActivity implements NavigationBarVi
         switch (item.getItemId())
         {
             case R.id.home_farmer:
-                fm = new Home_Farmer_Fragment();
+                fm = new Product_Farmer_Fragment();
                 break;
             case R.id.message_farmer:
                 fm = new Message_Farmer_Fragment();
