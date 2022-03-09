@@ -15,7 +15,7 @@
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".view.SplashActivity"
+            android:name=".view.InsertProductFarmerActivity"
             android:exported="false" />
         <activity
             android:name=".view.TypeFactory_Admin_Activity"
@@ -27,7 +27,7 @@
             android:name=".view.Products_Admin_Activity"
             android:exported="false" />
         <activity
-            android:name=".view.InsertProductFarmerActivity"
+            android:name=".view.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

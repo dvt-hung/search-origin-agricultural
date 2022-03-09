@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.apptxng.R;
+import com.example.apptxng.model.Common;
 import com.example.apptxng.model.User;
 import com.example.apptxng.presenter.ILogin;
 import com.example.apptxng.presenter.Login_Presenter;
@@ -31,6 +32,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
 
         // Init view
         initView();
+
 
 
     }
@@ -53,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this,SignUpActivity.class));
+
             }
         });
     }

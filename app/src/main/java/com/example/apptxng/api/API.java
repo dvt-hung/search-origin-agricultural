@@ -2,6 +2,7 @@ package com.example.apptxng.api;
 
 import com.example.apptxng.model.Balance;
 import com.example.apptxng.model.Category;
+import com.example.apptxng.model.Product;
 import com.example.apptxng.model.TypeFactory;
 import com.example.apptxng.model.User;
 import com.example.apptxng.model.ResponsePOST;
@@ -18,6 +19,8 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface API {
 
@@ -119,8 +122,31 @@ public interface API {
         Call<ResponsePOST> deleteBalance(@Field("idBalance") int idBalance);
 
 
-    // *LINKED - ADMIN
+    // *Factory - ADMIN
         // Load linked
         @GET("get_type_factory.php")
         Call<List<TypeFactory>> getTypeFactory();
+
+    // ========= FARMER =============
+
+    // *Product
+
+        // Get Product
+        @GET("test.php")
+        Call<List<Product>> getProducts(@Query("idUser") int idUser);
+
+        // Insert Product
+        @Multipart
+        @POST("add_product.php")
+        Call<ResponsePOST> addProduct (
+                @Part("nameProduct")        RequestBody nameProduct,
+                @Part("priceProduct")       RequestBody priceProduct,
+                @Part("descriptionProduct") RequestBody descriptionProduct,
+                @Part("quantityProduct")    RequestBody quantityProduct,
+                @Part("idUser")             RequestBody idUser,
+                @Part("idCategory")         RequestBody idCategory,
+                @Part("idBalance")          RequestBody idBalance,
+                @Part("dateProduct")        RequestBody dateProduct,
+                @Part MultipartBody.Part                imageProduct
+        );
 }

@@ -95,6 +95,9 @@
     <string name="name_farm"> Tên vườn </string>
     <string name="product_farm"> Sản phẩm </string>
     <string name="empty_product"> Hiện tại chưa có sản phẩm nào </string>
+    <string name="detail_product">Chi tiết sản phẩm </string>
+    <string name="history_product">Lịch sử sản phẩm </string>
+
 
 
     <!-- INSERT PRODUCT FARMER -->
@@ -116,4 +119,9 @@
 
     <string name="choice_category_product">Chọn danh mục cho sản phẩm</string>
     <string name="choice_balance_product">Chọn đơn vị tính cho sản phẩm</string>
+
+    <string name="quantity_sold_product">Đã bán</string>
+    <string name="date_product">Ngày đăng</string>
+    <string name="close">Đóng </string>
+
 </resources>

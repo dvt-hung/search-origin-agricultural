@@ -221,7 +221,6 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
                 {
                     progressDialogCategoryAdmin.show();
                     Category category = new Category(nameCategory,uri_ImageCategory.toString());
-
                     categoryPresenter.addCategory(category);
                     closeKeyboard();
                 }
