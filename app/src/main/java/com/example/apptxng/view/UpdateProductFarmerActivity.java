@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -25,18 +24,19 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.ChoiceType_Adapter;
 import com.example.apptxng.model.Balance;
 import com.example.apptxng.model.Category;
 import com.example.apptxng.model.Common;
 import com.example.apptxng.model.Product;
-import com.example.apptxng.presenter.IInsertProduct;
-import com.example.apptxng.presenter.Insert_Product_Presenter;
+import com.example.apptxng.presenter.IUpdateProduct;
+import com.example.apptxng.presenter.Update_Product_Presenter;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -44,160 +44,153 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-public class InsertProductFarmerActivity extends AppCompatActivity implements ChoiceType_Adapter.IListenerChoiceType, IInsertProduct {
+public class UpdateProductFarmerActivity extends AppCompatActivity implements ChoiceType_Adapter.IListenerChoiceType, IUpdateProduct {
 
-
-    private ImageView img_Back_InsertProduct, img_InsertProduct;
-    private EditText edt_Name_InsertProduct,edt_Price_InsertProduct,edt_Des_InsertProduct,edt_Quantity_InsertProduct;
-    private TextView txt_ChoiceCategory_InsertProduct,txt_ResultCategory_InsertProduct, txt_ChoiceBalance_InsertProduct,txt_ResultBalance_InsertProduct;
-    private Button btn_InsertProduct;
-    private ChoiceType_Adapter choiceTypeAdapter;
+    private ImageView img_UpdateProduct,img_Back_UpdateProduct;
+    private EditText edt_Name_UpdateProduct, edt_Price_UpdateProduct,edt_Des_UpdateProduct,edt_Quantity_UpdateProduct;
+    private TextView txt_ChoiceCategory_UpdateProduct, txt_ResultCategory_UpdateProduct, txt_ChoiceBalance_UpdateProduct, txt_ResultBalance_UpdateProduct;
+    private Button btn_UpdateProduct;
+    private Product product;
     private Dialog dialogChoiceCategory;
-    private Insert_Product_Presenter insertProductPresenter;
+    private ChoiceType_Adapter choiceTypeAdapter;
     private List<Category> typeCategoryList = new ArrayList<>() ;
     private List<Balance> typeBalanceList = new ArrayList<>() ;
-    private Product product;
-    private ProgressDialog progressAddProduct;
+    private Uri uri_ImageProductTemp;
+    private Update_Product_Presenter updateProductPresenter;
+    private ProgressDialog progressUpdate;
 
-    private ActivityResultLauncher<Intent> resultLauncherGallery = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+    private final ActivityResultLauncher<Intent> resultLauncherGallery = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null)
-                {
-                    Uri uri_ImageProduct = result.getData().getData(); // Gán Uri của ảnh đã chọn cho biến
-                    img_InsertProduct.setImageURI(uri_ImageProduct);
-                    product.setImageProduct(uri_ImageProduct.toString());
-                }
+            if (result.getResultCode() == RESULT_OK && result.getData() != null)
+            {
+                uri_ImageProductTemp = result.getData().getData(); // Gán Uri của ảnh đã chọn cho biến
+                img_UpdateProduct.setImageURI(uri_ImageProductTemp);
+            }
         }
     });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_insert_prodcut_farmer);
+        setContentView(R.layout.activity_update_product_farmer);
 
-        // initView: Ánh xạ view
+        // Khởi tạo, ánh xạ view
         initView();
 
     }
+
+
+    // Ánh xạ view
+    private void initView() {
+        img_UpdateProduct                   = findViewById(R.id.img_UpdateProduct);
+        img_Back_UpdateProduct              = findViewById(R.id.img_Back_UpdateProduct);
+        edt_Name_UpdateProduct              = findViewById(R.id.edt_Name_UpdateProduct);
+        edt_Price_UpdateProduct             = findViewById(R.id.edt_Price_UpdateProduct);
+        edt_Des_UpdateProduct               = findViewById(R.id.edt_Des_UpdateProduct);
+        edt_Quantity_UpdateProduct          = findViewById(R.id.edt_Quantity_UpdateProduct);
+        txt_ChoiceCategory_UpdateProduct    = findViewById(R.id.txt_ChoiceCategory_UpdateProduct);
+        txt_ResultCategory_UpdateProduct    = findViewById(R.id.txt_ResultCategory_UpdateProduct);
+        txt_ChoiceBalance_UpdateProduct     = findViewById(R.id.txt_ChoiceBalance_UpdateProduct);
+        txt_ResultBalance_UpdateProduct     = findViewById(R.id.txt_ResultBalance_UpdateProduct);
+        btn_UpdateProduct                   = findViewById(R.id.btn_UpdateProduct);
+        choiceTypeAdapter                   = new ChoiceType_Adapter(this);
+        updateProductPresenter              = new Update_Product_Presenter(this,this);
+        progressUpdate                      = new ProgressDialog(this);
+        progressUpdate.setMessage("Vui lòng chờ...");
+        // Nhận Product từ Detail chuyển sang
+        Bundle bundleUpdate  = getIntent().getBundleExtra("bundle_product");
+        product = (Product) bundleUpdate.getSerializable("product_detail");
+        // Hiển thị dữ liệu ban đầu
+        displayValue();
+    }
+
+    // Hiển thị dữ liệu ban đầu của Product
+    private void displayValue() {
+        edt_Name_UpdateProduct.setText(product.getNameProduct());
+
+        edt_Price_UpdateProduct.setText(String.valueOf(product.getPriceProduct()));
+
+        edt_Des_UpdateProduct.setText(product.getDescriptionProduct());
+
+        edt_Quantity_UpdateProduct.setText(String.valueOf(product.getQuantityProduct()));
+
+        Glide.with(this).load(product.getImageProduct()).into(img_UpdateProduct);
+
+        txt_ResultCategory_UpdateProduct.setText(product.getCategory().getNameCategory());
+
+        txt_ResultBalance_UpdateProduct.setText(product.getBalance().getNameBalance());
+    }
+
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        // 0. Load danh sách danh mục + đơn vị tính
         loadListChoiceType();
 
-        /*
-        * 1. Chọn ảnh cho sản phẩm
-        * - Xin quyển để truy cập thư viện ảnh
-        * - Chọn và hiển thị ảnh lên
-        * */
-        img_InsertProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPermissionOpenGallery();
-            }
-        });
-
-        /*
-        * 2. Nút quay về
-        * - Khi ấn vào thì sẽ đóng activity đi
-        * */
-        img_Back_InsertProduct.setOnClickListener(new View.OnClickListener() {
+        // Khi ấn sẽ tắt activity đi
+        img_Back_UpdateProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
 
-        /*
-        * 3. Chọn danh mục cho sản phẩm
-        * - Hiển thị bottom dialog cho người dùng chọn
-        * - Danh sách đơn vị tính sẽ tại từ csdl
-        * - Danh sách danh mục sẽ hiển thị trên recycler view
-        * - Sau khi chọn xong sẽ thay đổi text view kết quả đã chọn
-        * */
-        txt_ChoiceCategory_InsertProduct.setOnClickListener(new View.OnClickListener() {
+        // 2. Chọn danh mục sản phẩm mới
+        txt_ChoiceCategory_UpdateProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialogChoiceCategory();
             }
         });
 
-
-        /*
-        * 4. Chọn đơn vị tính cho sản phẩm
-        * - Hiển thị bottom dialog cho người dùng chọn
-        * - Danh sách đơn vị tính sẽ tại từ csdl
-        * - Hiển thị danh sách tại recycler view
-        * - Sau khi đã chọn xong sẽ thay đổi text view kết quả đã chọn
-        * */
-        txt_ChoiceBalance_InsertProduct.setOnClickListener(new View.OnClickListener() {
+        // 3. Chọn đơn vị tính mới cho sản phẩm
+        txt_ChoiceBalance_UpdateProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialogChoiceBalance();
             }
         });
 
+        // 4. Chọn ảnh mới cho sản phẩm
+        img_UpdateProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPermissionOpenGallery();
+            }
+        });
 
-        /*
-        * 5. Nút thêm sản phẩm
-        * - Gán các dữ liệu như tên, giá, mô tả, số lượng cho biến product
-        * - Sau đó chuyển qua cho Present sử lý
-        * */
-
-        btn_InsertProduct.setOnClickListener(new View.OnClickListener() {
+        // 5. Confirm button: Tiến hành thêm sản phẩm
+        btn_UpdateProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String nameProduct, priceProduct, desProduct, quantityProduct;
-                nameProduct = edt_Name_InsertProduct.getText().toString().trim();
-                priceProduct = edt_Price_InsertProduct.getText().toString().trim();
-                desProduct = edt_Des_InsertProduct.getText().toString().trim();
-                quantityProduct = edt_Quantity_InsertProduct.getText().toString().trim();
+                String name         = edt_Name_UpdateProduct.getText().toString().trim();
+                String price        = edt_Price_UpdateProduct.getText().toString().trim();
+                String des          = edt_Des_UpdateProduct.getText().toString().trim();
+                String quantity     = edt_Quantity_UpdateProduct.getText().toString().trim();
 
-                // Set nội dung cho progress dialog
-                progressAddProduct.setMessage("Vui lòng chờ...");
-                progressAddProduct.show();
-                if (nameProduct.isEmpty() || priceProduct.isEmpty() || desProduct.isEmpty() || quantityProduct.isEmpty())
-                {
-                    Toast.makeText(InsertProductFarmerActivity.this, R.string.title_error_empty, Toast.LENGTH_SHORT).show();
-                    progressAddProduct.cancel();
-                }
-                else
-                {
-                    product.setNameProduct(nameProduct); // Set tên cho product
-                    product.setPriceProduct(Integer.parseInt(priceProduct)); // Set giá cho product
-                    product.setDescriptionProduct(desProduct); // Set des cho product
-                    product.setQuantityProduct(Integer.parseInt(quantityProduct)); // Set số lượng cho product
-                    product.setIdUser(Common.currentUser.getIdUser());
-                    // Set ngày cho product
-                    @SuppressLint("SimpleDateFormat")
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                    Date date = Calendar.getInstance().getTime();
-                    String dateProduct = formatter.format(date);
-                    product.setDateProduct(dateProduct); // Set ngày cho Product
-                    insertProductPresenter.insertProduct(product);
-                }
+                // Gán giá trị đã thay đổi
+                product.setNameProduct(name);
+                product.setPriceProduct(Integer.parseInt(price));
+                product.setDescriptionProduct(des);
+                product.setQuantityProduct(Integer.parseInt(quantity));
 
+                updateProductPresenter.updateProduct(product,uri_ImageProductTemp);
+                progressUpdate.show();
             }
         });
     }
-
-
     // LOAD LIST CHOICE TYPE: Tải dữ liệu danh sách các đơn vị tính và danh mục
     private void loadListChoiceType() {
-        insertProductPresenter.getCategory();
-        insertProductPresenter.getBalance();
+        updateProductPresenter.getCategory();
+        updateProductPresenter.getBalance();
     }
-
     // Dialog: Chọn danh mục cho sản phẩm
     private void showDialogChoiceCategory() {
         dialogChoiceCategory = new Dialog(this);
@@ -289,53 +282,32 @@ public class InsertProductFarmerActivity extends AppCompatActivity implements Ch
         resultLauncherGallery.launch(intent);
     }
 
-    // INIT VIEW
-    private void initView() {
-        img_Back_InsertProduct              = findViewById(R.id.img_Back_InsertProduct);
-        img_InsertProduct                   = findViewById(R.id.img_InsertProduct);
-        edt_Name_InsertProduct              = findViewById(R.id.edt_Name_InsertProduct);
-        edt_Price_InsertProduct             = findViewById(R.id.edt_Price_InsertProduct);
-        edt_Des_InsertProduct               = findViewById(R.id.edt_Des_InsertProduct);
-        edt_Quantity_InsertProduct          = findViewById(R.id.edt_Quantity_InsertProduct);
-        txt_ChoiceCategory_InsertProduct    = findViewById(R.id.txt_ChoiceCategory_InsertProduct);
-        txt_ResultCategory_InsertProduct    = findViewById(R.id.txt_ResultCategory_InsertProduct);
-        txt_ChoiceBalance_InsertProduct     = findViewById(R.id.txt_ChoiceBalance_InsertProduct);
-        txt_ResultBalance_InsertProduct     = findViewById(R.id.txt_ResultBalance_InsertProduct);
-        btn_InsertProduct                   = findViewById(R.id.btn_InsertProduct);
-        choiceTypeAdapter                   = new ChoiceType_Adapter(this);
-        insertProductPresenter              = new Insert_Product_Presenter(this, this);
-        product                             = new Product();
-        progressAddProduct                  = new ProgressDialog(this);
 
-    }
-
-    // OVERRIDE METHOD CHOICE TYPE ADAPTER
     @Override
     public void onClickChoiceType(Object obj) {
         if (obj.getClass() == Category.class)
         {
             product.setCategory((Category) obj);
-            txt_ResultCategory_InsertProduct.setText(product.getCategory().getNameCategory());
-
+            txt_ResultCategory_UpdateProduct.setText(product.getCategory().getNameCategory());
         }
         else if (obj.getClass() == Balance.class)
         {
             product.setBalance((Balance) obj);
-            txt_ResultBalance_InsertProduct.setText(product.getBalance().getNameBalance());
-        }
+            txt_ResultBalance_UpdateProduct.setText(product.getBalance().getNameBalance());
 
+        }
         dialogChoiceCategory.cancel();
     }
 
-    // OVERRIDE METHOD INTERFACE: INSERT PRODUCT
     @Override
     public void Exception(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        progressUpdate.cancel();
     }
 
     @Override
     public void getCategory(List<Category> List) {
-        typeCategoryList = List; // gán danh sách category đã tải về
+        typeCategoryList = List;
     }
 
     @Override
@@ -349,15 +321,16 @@ public class InsertProductFarmerActivity extends AppCompatActivity implements Ch
     }
 
     @Override
-    public void addProductSuccess(String message) {
+    public void success(String message) {
         finish();
-        progressAddProduct.cancel();
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        progressUpdate.cancel();
+
     }
 
     @Override
-    public void addProductFailed(String message) {
-        progressAddProduct.cancel();
+    public void failed(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        progressUpdate.cancel();
     }
 }

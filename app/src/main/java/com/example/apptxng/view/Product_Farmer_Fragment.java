@@ -43,7 +43,6 @@ public class Product_Farmer_Fragment extends Fragment implements IProductFarmer,
     private RecyclerView recycler_Product_Farmer;
     private ImageView img_Add_Product_Farmer;
     private Product_Farmer_Presenter productFarmerPresenter;
-    private List<Product> productList = new ArrayList<>();
     private Product_Adapter productAdapter;
     private Dialog dialogProduct;
     @Override
@@ -118,110 +117,15 @@ public class Product_Farmer_Fragment extends Fragment implements IProductFarmer,
     // OVERRIDE METHOD: interface IProductAdapterListener
     @Override
     public void onClickProduct(Product product) {
-        showDialogOption(product);
+        // Khi click vào sản phẩm sẽ chuyển sang activity chi tiết sản phẩm
+        Bundle bundleProduct = new Bundle();
+        bundleProduct.putSerializable("product",product);
+
+        Intent intentDetailProduct = new Intent(requireActivity(),DetailProductFarmerActivity.class);
+        intentDetailProduct.putExtra("b_product",bundleProduct);
+        startActivity(intentDetailProduct);
     }
 
 
-    // Show dialog option
-    private void showDialogOption(Product product) {
-        Dialog dialogOptions = new Dialog(viewProduct.getContext());
-        dialogOptions.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogOptions.setContentView(R.layout.dialog_bottom_product_farmer);
-        dialogOptions.getWindow().setGravity(Gravity.BOTTOM);
-        dialogOptions.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
-        dialogOptions.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        // Khai báo ảnh xạ view cho dialog
-        Button btn_Detail_OptionProduct     = dialogOptions.findViewById(R.id.btn_Detail_OptionProduct);
-        Button btn_History_OptionProduct    = dialogOptions.findViewById(R.id.btn_History_OptionProduct);
-        Button btn_Update_OptionProduct     = dialogOptions.findViewById(R.id.btn_Update_OptionProduct);
-        Button btn_Delete_OptionProduct     = dialogOptions.findViewById(R.id.btn_Delete_OptionProduct);
-
-        // Hiện dialog
-        dialogOptions.show();
-
-        /*
-        * 1. Detail Button: Mở dialog hiển thị tất cả các thông tin của Sản Phẩm
-        * 2. History Button: Mở sang activity History
-        * 3. Update Button: Mở sang activity Update
-        * 4. Delete Button: Mở dialog xác nhận xóa
-        * */
-
-        // 1. Detail Button
-        btn_Detail_OptionProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogDetail(product);
-                dialogOptions.cancel();
-            }
-        });
-
-
-        // 2. History Button
-        btn_History_OptionProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        // 3. Update Button
-        btn_Update_OptionProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        // 4. Delete Button
-        btn_Delete_OptionProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-    }
-
-    private void showDialogDetail(Product product) {
-        dialogProduct = new Dialog(viewProduct.getContext());
-        dialogProduct.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogProduct.setCanceledOnTouchOutside(false);
-        dialogProduct.setContentView(R.layout.dialog_details_product);
-        dialogProduct.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
-        dialogProduct.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        // Khởi tạo và ánh xạ view cho dialog
-        TextView txt_Name_Detail_Product            = dialogProduct.findViewById(R.id.txt_Name_Detail_Product);
-        TextView txt_Price_Detail_Product           = dialogProduct.findViewById(R.id.txt_Price_Detail_Product);
-        TextView txt_Quantity_Detail_Product        = dialogProduct.findViewById(R.id.txt_Quantity_Detail_Product);
-        TextView txt_QuantitySold_Detail_Product    = dialogProduct.findViewById(R.id.txt_QuantitySold_Detail_Product);
-        TextView txt_Date_Detail_Product            = dialogProduct.findViewById(R.id.txt_Date_Detail_Product);
-        TextView txt_Des_Detail_Product             = dialogProduct.findViewById(R.id.txt_Des_Detail_Product);
-        ImageView img_Detail_Product                = dialogProduct.findViewById(R.id.img_Detail_Product);
-        Button btn_Cancel_Detail_Product            = dialogProduct.findViewById(R.id.btn_Cancel_Detail_Product);
-
-        dialogProduct.show();
-
-        // Gán dữ liệu cho view
-        txt_Name_Detail_Product.setText(product.getNameProduct());
-
-        txt_Price_Detail_Product.setText(Common.numberFormat.format(product.getPriceProduct()));
-
-        txt_Quantity_Detail_Product.setText(String.valueOf(product.getQuantityProduct()));
-
-        txt_QuantitySold_Detail_Product.setText(String.valueOf(product.getQuantitySold()));
-
-        txt_Date_Detail_Product.setText(product.getDateProduct());
-
-        txt_Des_Detail_Product.setText(product.getDescriptionProduct());
-
-        Glide.with(viewProduct.getContext()).load(product.getImageProduct()).error(R.drawable.logo).into(img_Detail_Product);
-
-        btn_Cancel_Detail_Product.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogProduct.cancel();
-            }
-        });
-    }
 }

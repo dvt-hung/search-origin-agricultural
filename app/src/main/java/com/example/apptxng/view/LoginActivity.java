@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
         btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressLogin.show();
                 String email = edt_UserName_Login.getText().toString().trim();
                 String passWord = edt_Password_Login.getText().toString().trim();
                 loginPresenter.Login(email,passWord);
@@ -72,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
 
     @Override
     public void emptyValueLogin() {
+        progressLogin.cancel();
         Toast.makeText(getApplicationContext(), R.string.title_error_empty, Toast.LENGTH_SHORT).show();
     }
 
@@ -96,12 +98,11 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
             Toast.makeText(getApplicationContext(), "Tài khoản của bạn chưa được phép đăng nhập", Toast.LENGTH_SHORT).show();
         }
         progressLogin.dismiss();
-        Log.e("login", "loginSuccess: " + user.getEmail() );
     }
 
     @Override
     public void loginFailed(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-        progressLogin.dismiss();
+        progressLogin.cancel();
     }
 }

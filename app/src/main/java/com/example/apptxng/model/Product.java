@@ -1,6 +1,8 @@
 package com.example.apptxng.model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private int idProduct;
     private String nameProduct;
     private int priceProduct;
@@ -9,14 +11,14 @@ public class Product {
     private int quantityProduct;
     private int quantitySold;
     private int idUser;
-    private int idCategory;
-    private int idBalance;
+    private Category category;
+    private Balance balance;
     private String dateProduct;
 
     public Product() {
     }
 
-    public Product(int idProduct, String nameProduct, int priceProduct, String imageProduct, String descriptionProduct, int quantityProduct, int quantitySold, int idUser, int idCategory, int idBalance, String dateProduct) {
+    public Product(int idProduct, String nameProduct, int priceProduct, String imageProduct, String descriptionProduct, int quantityProduct, int quantitySold, int idUser, Category category, Balance balance, String dateProduct) {
         this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.priceProduct = priceProduct;
@@ -25,8 +27,8 @@ public class Product {
         this.quantityProduct = quantityProduct;
         this.quantitySold = quantitySold;
         this.idUser = idUser;
-        this.idCategory = idCategory;
-        this.idBalance = idBalance;
+        this.category = category;
+        this.balance = balance;
         this.dateProduct = dateProduct;
     }
 
@@ -94,20 +96,20 @@ public class Product {
         this.idUser = idUser;
     }
 
-    public int getIdCategory() {
-        return idCategory;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setIdCategory(int idCategory) {
-        this.idCategory = idCategory;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    public int getIdBalance() {
-        return idBalance;
+    public Balance getBalance() {
+        return balance;
     }
 
-    public void setIdBalance(int idBalance) {
-        this.idBalance = idBalance;
+    public void setBalance(Balance balance) {
+        this.balance = balance;
     }
 
     public String getDateProduct() {

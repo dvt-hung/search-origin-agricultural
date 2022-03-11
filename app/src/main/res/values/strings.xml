@@ -78,7 +78,7 @@
     <string name="menu_home_farmer"> Trang chủ </string>
     <string name="menu_message_farmer"> Tin nhắn </string>
     <string name="menu_order_farmer"> Đơn hàng </string>
-    <string name="menu_setting_farmer"> Tài khoản </string>
+    <string name="menu_setting_farmer"> Cá nhân </string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -91,16 +91,12 @@
     <string name="inCorrectPassLength"> Độ dài mật khẩu phải hơn 6 kí tự </string>
     <string name="question_sign_out"> Bạn có chắc muốn đăng xuất không? </string>
 
-    <!-- HOME FARMER FRAGMENT   -->
+    <!-- PRODUCT FARMER FRAGMENT   -->
     <string name="name_farm"> Tên vườn </string>
     <string name="product_farm"> Sản phẩm </string>
     <string name="empty_product"> Hiện tại chưa có sản phẩm nào </string>
     <string name="detail_product">Chi tiết sản phẩm </string>
-    <string name="history_product">Lịch sử sản phẩm </string>
-
-
-
-    <!-- INSERT PRODUCT FARMER -->
+    <string name="history_product">Nhật ký sản phẩm </string>
 
     <string name="choice_image_product"> Hãy chọn ảnh cho sản phẩm </string>
 
@@ -121,7 +117,21 @@
     <string name="choice_balance_product">Chọn đơn vị tính cho sản phẩm</string>
 
     <string name="quantity_sold_product">Đã bán</string>
+
     <string name="date_product">Ngày đăng</string>
+
     <string name="close">Đóng </string>
+
+    <string name="insert_history">Thêm nhật ký sản phẩm </string>
+
+    <string name="delete_product">Xóa sản phẩm </string>
+    <string name="question_delete_product">Bạn có chắc xóa sản phẩm này không </string>
+
+    <!--  SETTING FRAGMENT FARMER  -->
+    <string name="title_change_info"> Thay đổi thông tin </string>
+    <string name="title_link_factory"> Cơ sở liên kết </string>
+    <string name="title_info"> Thông tin cá nhân </string>
+
+    <string name="owner_farm"> Người đại diện </string>
 
 </resources>

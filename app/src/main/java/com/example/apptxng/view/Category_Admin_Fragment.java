@@ -302,7 +302,7 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
 
         dialogCategoryAdmin = new Dialog(viewFragment.getContext());
         dialogCategoryAdmin.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogCategoryAdmin.setContentView(R.layout.dialog_delete_admin);
+        dialogCategoryAdmin.setContentView(R.layout.dialog_delete);
 
         Window window = dialogCategoryAdmin.getWindow();
 
@@ -314,8 +314,8 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
         }
 
         // Khai báo và ánh xạ view của dialog update
-        Button btn_Cancel_DeleteCategory_Dialog     = dialogCategoryAdmin.findViewById(R.id.btn_Cancel_DeleteCategory_Dialog);
-        Button btn_Confirm_DeleteCategory_Dialog    = dialogCategoryAdmin.findViewById(R.id.btn_Confirm_DeleteCategory_Dialog);
+        Button btn_Cancel_Delete_Dialog             = dialogCategoryAdmin.findViewById(R.id.btn_Cancel_Delete_Dialog);
+        Button btn_Confirm_Delete_Dialog            = dialogCategoryAdmin.findViewById(R.id.btn_Confirm_Delete_Dialog);
         TextView txt_Title_Delete_Dialog            = dialogCategoryAdmin.findViewById(R.id.txt_Title_Delete_Dialog);
         TextView txt_Message_Delete_Dialog          = dialogCategoryAdmin.findViewById(R.id.txt_Message_Delete_Dialog);
 
@@ -327,7 +327,7 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
         dialogCategoryAdmin.show();
 
         // Button cancel
-        btn_Cancel_DeleteCategory_Dialog.setOnClickListener(new View.OnClickListener() {
+        btn_Cancel_Delete_Dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogCategoryAdmin.cancel();
@@ -335,7 +335,7 @@ public class Category_Admin_Fragment extends Fragment implements ICategoryAdmin 
         });
 
         // Button confirm
-        btn_Confirm_DeleteCategory_Dialog.setOnClickListener(new View.OnClickListener() {
+        btn_Confirm_Delete_Dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 progressDialogCategoryAdmin.show();

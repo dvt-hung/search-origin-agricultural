@@ -15,6 +15,15 @@
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.ChangeInfoFarmerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.UpdateProductFarmerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.DetailProductFarmerActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.InsertProductFarmerActivity"
             android:exported="false" />
         <activity

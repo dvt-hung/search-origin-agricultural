@@ -2,7 +2,6 @@ package com.example.apptxng.presenter;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 
 import com.example.apptxng.model.Balance;
 import com.example.apptxng.model.Category;
@@ -20,13 +19,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Insert_Product_Presenter {
+public class Update_Product_Presenter {
 
-    private final IInsertProduct iInsertProduct;
+    private final IUpdateProduct iUpdateProduct;
     private final Context context;
 
-    public Insert_Product_Presenter(IInsertProduct iInsertProduct, Context context) {
-        this.iInsertProduct = iInsertProduct;
+    public Update_Product_Presenter(IUpdateProduct iUpdateProduct, Context context) {
+        this.iUpdateProduct = iUpdateProduct;
         this.context = context;
     }
 
@@ -35,12 +34,12 @@ public class Insert_Product_Presenter {
                 .enqueue(new Callback<List<Category>>() {
                     @Override
                     public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                        iInsertProduct.getCategory(response.body());
+                        iUpdateProduct.getCategory(response.body());
                     }
 
                     @Override
                     public void onFailure(Call<List<Category>> call, Throwable t) {
-                        iInsertProduct.Exception(t.getMessage());
+                        iUpdateProduct.Exception(t.getMessage());
                     }
                 });
     }
@@ -51,47 +50,51 @@ public class Insert_Product_Presenter {
                 .enqueue(new Callback<List<Balance>>() {
                         @Override
                         public void onResponse(Call<List<Balance>> call, Response<List<Balance>> response) {
-                            iInsertProduct.getBalance(response.body());
+                            iUpdateProduct.getBalance(response.body());
                         }
 
                         @Override
                         public void onFailure(Call<List<Balance>> call, Throwable t) {
-                            iInsertProduct.Exception(t.getMessage());
+                            iUpdateProduct.Exception(t.getMessage());
                         }
                     });
     }
 
-    public void insertProduct(Product product){
+    public void updateProduct(Product product, Uri imageNew){
         //Kiểm tra dữ liệu
-        if (product.getBalance().getIdBalance() == 0 || product.getCategory().getIdCategory() == 0 || product.getImageProduct() == null)
+        if ( product.getBalance().getIdBalance() == 0 || product.getCategory().getIdCategory() == 0||product.getNameProduct() == null || product.getDescriptionProduct() == null || product.getPriceProduct() == 0 || product.getQuantityProduct() == 0)
         {
-            iInsertProduct.emptyValue();
+            iUpdateProduct.emptyValue();
         }
 
-        Uri uriImageProduct = Uri.parse(product.getImageProduct());
-        File file = new File(Common.getRealPathFromURI(uriImageProduct,context));
+        RequestBody imgOld_Product = null;
+        RequestBody requestBodyImage = null;
+        MultipartBody.Part requestPartImage = null;
+        if (imageNew != null)
+        {
+            File file = new File(Common.getRealPathFromURI(imageNew,context));
 
-        String filePath = file.getAbsolutePath();
-        String[] arraySplitPath = filePath.split("\\.");
+            String filePath = file.getAbsolutePath();
+            String[] arraySplitPath = filePath.split("\\.");
 
-        String nameProductNew = arraySplitPath[0] + System.currentTimeMillis() + "." + arraySplitPath[1];
+            String nameProductNew = arraySplitPath[0] + System.currentTimeMillis() + "." + arraySplitPath[1];
 
+            requestBodyImage = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+            requestPartImage = MultipartBody.Part.createFormData("imageProduct", nameProductNew,requestBodyImage);
+
+            imgOld_Product = RequestBody.create(MediaType.parse("multipart/form-data"),product.getImageProduct());
+        }
 
         RequestBody nameProduct             = RequestBody.create(MediaType.parse("multipart/form-data"),product.getNameProduct());
         RequestBody priceProduct            = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getPriceProduct()));
         RequestBody descriptionProduct      = RequestBody.create(MediaType.parse("multipart/form-data"),product.getDescriptionProduct());
         RequestBody quantityProduct         = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getQuantityProduct()));
-        RequestBody idUser                  = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getIdUser()));
         RequestBody idCategory              = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getCategory().getIdCategory()));
         RequestBody idBalance               = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getBalance().getIdBalance()));
-        RequestBody dateProduct             = RequestBody.create(MediaType.parse("multipart/form-data"),product.getDateProduct());
-
-        RequestBody requestBodyImage        = RequestBody.create(MediaType.parse("multipart/form-data"),file);
-        MultipartBody.Part requestPartImage = MultipartBody.Part.createFormData("imageProduct", nameProductNew,requestBodyImage);
+        RequestBody idProduct               = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getIdProduct()));
 
 
-
-        Common.api.addProduct(nameProduct,priceProduct,descriptionProduct,quantityProduct, idUser, idCategory, idBalance, dateProduct, requestPartImage)
+        Common.api.updateProduct(idProduct,nameProduct,priceProduct,descriptionProduct,quantityProduct,imgOld_Product,idCategory,idBalance,requestPartImage)
                 .enqueue(new Callback<ResponsePOST>() {
                     @Override
                     public void onResponse(Call<ResponsePOST> call, Response<ResponsePOST> response) {
@@ -100,20 +103,19 @@ public class Insert_Product_Presenter {
                         assert responsePOST != null;
                         if (responsePOST.getStatus() == 1)
                         {
-                            iInsertProduct.addProductSuccess(responsePOST.getMessage());
+                            iUpdateProduct.success(responsePOST.getMessage());
                         }
                         else
                         {
-                            iInsertProduct.addProductFailed(responsePOST.getMessage());
+                            iUpdateProduct.failed(responsePOST.getMessage());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponsePOST> call, Throwable t) {
-                        iInsertProduct.Exception(t.getMessage());
+                        iUpdateProduct.Exception(t.getMessage());
                     }
                 });
-
 
     }
 }

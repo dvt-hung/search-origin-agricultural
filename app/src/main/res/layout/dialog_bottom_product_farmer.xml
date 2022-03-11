@@ -10,7 +10,7 @@
 
 
     <Button
-        android:id="@+id/btn_Detail_OptionProduct"
+        android:id="@+id/btn_InsertHistory_OptionProduct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@null"
@@ -19,21 +19,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:text="@string/detail_product"
-        android:textStyle="bold"
-
-        />
-    <Button
-        android:id="@+id/btn_History_OptionProduct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@null"
-        app:backgroundTint="@null"
-        android:background="@drawable/custom_button_confirm"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:text="@string/history_product"
+        android:text="@string/insert_history"
         android:textStyle="bold"
 
         />

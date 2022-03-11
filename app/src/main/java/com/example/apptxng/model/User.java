@@ -1,5 +1,7 @@
 package com.example.apptxng.model;
 
+import com.example.apptxng.R;
+
 public class User {
     private int idUser;
     private String email;
@@ -39,6 +41,16 @@ public class User {
     public boolean checkPasswordOld(String passOld)
     {
         return this.getPassWord().equals(passOld);
+    }
+
+    // Check check and display value
+    public String displayInfoValueString(String value)
+    {
+        if (value == null)
+        {
+            return "Đang cập nhật";
+        }
+        return value;
     }
 
     // Getter, Setter

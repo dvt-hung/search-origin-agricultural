@@ -132,7 +132,7 @@ public interface API {
     // *Product
 
         // Get Product
-        @GET("test.php")
+        @GET("get_products.php")
         Call<List<Product>> getProducts(@Query("idUser") int idUser);
 
         // Insert Product
@@ -149,4 +149,26 @@ public interface API {
                 @Part("dateProduct")        RequestBody dateProduct,
                 @Part MultipartBody.Part                imageProduct
         );
+
+        // Update Product
+        @Multipart
+        @POST("update_product.php")
+        Call<ResponsePOST> updateProduct (
+                @Part("idProduct")          RequestBody idProduct,
+                @Part("nameProduct")        RequestBody nameProduct,
+                @Part("priceProduct")       RequestBody priceProduct,
+                @Part("descriptionProduct") RequestBody descriptionProduct,
+                @Part("quantityProduct")    RequestBody quantityProduct,
+                @Part("imgOld_Product")     RequestBody imgOld_Product,
+                @Part("idCategory")         RequestBody idCategory,
+                @Part("idBalance")          RequestBody idBalance,
+                @Part MultipartBody.Part                imageProduct
+        );
+
+        // Delete Product
+        @FormUrlEncoded
+        @POST("delete_product.php")
+        Call<ResponsePOST> deleteProduct(
+                @Field("idProduct") int idProduct,
+                @Field("imgOld_Product") String imgOld_Product);
 }

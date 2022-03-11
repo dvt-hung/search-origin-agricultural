@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ChangeInfoFarmerActivity"
+
+    >
+
+
+    <RelativeLayout
+        android:id="@+id/layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/custom_toolbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/coiny"
+            android:text="@string/menu_setting_farmer"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/img_Back_Info_Farmer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_back"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"/>
+    </RelativeLayout>
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_Farmer_Info"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/layout_toolbar"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/txt_NameFarm_Info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_Farmer_Info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/coiny"
+        android:gravity="center"
+        android:text="@string/title_balance"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+
+        <!--        1 -->
+
+    <TextView
+        android:id="@+id/title_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_NameFarm_Info"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@id/img_Farmer_Info"
+        android:text="@string/title_email"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/txt_Email_Info_Farmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_NameFarm_Info"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/title_email"
+        android:text="@string/owner_farm"
+        android:textSize="16sp"
+
+        />
+
+            <!--     2   -->
+
+    <TextView
+        android:id="@+id/title_owner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_email"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@id/img_Farmer_Info"
+        android:text="@string/owner_farm"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+
+        />
+
+    <TextView
+        android:id="@+id/txt_Name_Info_Farmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_Email_Info_Farmer"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/title_email"
+        android:text="@string/title_name"
+        android:textSize="16sp"
+
+        />
+            <!--        3 -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_Name_Info_Farmer"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@id/img_Farmer_Info"
+        android:text="@string/title_phone"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+
+        />
+
+    <TextView
+        android:id="@+id/txt_Phone_Info_Farmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_Name_Info_Farmer"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/title_email"
+        android:text="@string/title_name"
+        android:textSize="16sp"
+
+        />
+        <!--        4 -->
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_Phone_Info_Farmer"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@id/img_Farmer_Info"
+        android:text="@string/title_address"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+
+        />
+
+    <TextView
+        android:id="@+id/txt_Address_Info_Farmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_Phone_Info_Farmer"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/title_email"
+        android:text="@string/title_name"
+        android:textSize="16sp"
+
+        />
+
+
+    <Button
+        android:id="@+id/btn_Change_Info_Farmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/custom_button_confirm"
+        android:backgroundTint="@null"
+        android:text="@string/title_change_info"
+        app:backgroundTint="@null" />
+</RelativeLayout>

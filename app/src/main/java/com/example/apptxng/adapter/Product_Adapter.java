@@ -24,7 +24,7 @@ import java.util.Locale;
 public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.ProductViewHolder>{
 
     private List<Product> productList;
-    private Context context;
+    private final Context context;
     private final IProductAdapterListener iListener;
 
     // Interface: Sự kiện click khi chọn vào product
@@ -57,7 +57,6 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.Produc
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
-
 
         if (product != null)
         {

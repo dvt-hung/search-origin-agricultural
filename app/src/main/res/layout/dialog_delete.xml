@@ -51,7 +51,7 @@
             >
 
             <Button
-                android:id="@+id/btn_Cancel_DeleteCategory_Dialog"
+                android:id="@+id/btn_Cancel_Delete_Dialog"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="@string/title_cancel"
@@ -62,7 +62,7 @@
                 />
 
             <Button
-                android:id="@+id/btn_Confirm_DeleteCategory_Dialog"
+                android:id="@+id/btn_Confirm_Delete_Dialog"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="@string/title_confirm"

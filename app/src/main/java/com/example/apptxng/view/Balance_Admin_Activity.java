@@ -304,13 +304,13 @@ public class Balance_Admin_Activity extends AppCompatActivity implements IBalanc
         // Khởi tạo dialog
         Dialog dialogDelete = new Dialog(this);
         dialogDelete.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogDelete.setContentView(R.layout.dialog_delete_admin);
+        dialogDelete.setContentView(R.layout.dialog_delete);
         dialogDelete.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
         dialogDelete.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         // Khai báo và ánh xạ view của dialog update
-        Button btn_Cancel_DeleteCategory_Dialog     = dialogDelete.findViewById(R.id.btn_Cancel_DeleteCategory_Dialog);
-        Button btn_Confirm_DeleteCategory_Dialog    = dialogDelete.findViewById(R.id.btn_Confirm_DeleteCategory_Dialog);
+        Button btn_Cancel_DeleteCategory_Dialog     = dialogDelete.findViewById(R.id.btn_Cancel_Delete_Dialog);
+        Button btn_Confirm_DeleteCategory_Dialog    = dialogDelete.findViewById(R.id.btn_Confirm_Delete_Dialog);
         TextView txt_Title_Delete_Dialog            = dialogDelete.findViewById(R.id.txt_Title_Delete_Dialog);
         TextView txt_Message_Delete_Dialog          = dialogDelete.findViewById(R.id.txt_Message_Delete_Dialog);
 

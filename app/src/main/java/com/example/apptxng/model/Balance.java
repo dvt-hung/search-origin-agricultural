@@ -1,8 +1,13 @@
 package com.example.apptxng.model;
 
-public class Balance {
+import java.io.Serializable;
+
+public class Balance implements Serializable {
     private int idBalance;
     private String nameBalance;
+
+    public Balance() {
+    }
 
     public Balance(String nameBalance) {
         this.nameBalance = nameBalance;
