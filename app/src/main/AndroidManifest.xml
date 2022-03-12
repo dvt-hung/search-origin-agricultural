@@ -18,6 +18,9 @@
             android:name=".view.ChangeInfoFarmerActivity"
             android:exported="false" />
         <activity
+            android:name=".view.InfoFarmerActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.UpdateProductFarmerActivity"
             android:exported="false" />
         <activity

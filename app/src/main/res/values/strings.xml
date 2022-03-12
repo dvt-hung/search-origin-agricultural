@@ -133,5 +133,11 @@
     <string name="title_info"> Thông tin cá nhân </string>
 
     <string name="owner_farm"> Người đại diện </string>
+    <string name="input_owner_farm">Nhập tên người đại diện </string>
+    <string name="input_name_farm">Nhập tên vườn </string>
+    <string name="input_phone_farm">Nhập số điện thoại </string>
+    <string name="input_address_farm">Nhập địa chỉ </string>
+    <string name="choice_image_user"> Chọn ảnh đại diện mới </string>
+
 
 </resources>

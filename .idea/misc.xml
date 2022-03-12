@@ -19,6 +19,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_customer.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_detail_product_farmer.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_farmer.xml" value="0.24954710144927536" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_info_farmer.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_insert_prodcut_farmer.xml" value="0.2" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_linked_admin.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_login.xml" value="0.264" />
@@ -35,12 +36,13 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_bottom_option.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_bottom_product_farmer.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_change_accept_admim.xml" value="0.25" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_change_info_farmer.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_change_password.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_delete.xml" value="0.1" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_delete_admin.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_delete_category_admin.xml" value="0.21014492753623187" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_details_product.xml" value="0.4" />
-        <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_sign_out.xml" value="0.23505434782608695" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_sign_out.xml" value="0.1" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_sign_up.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_type_user.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_update_balance_admin.xml" value="0.25" />

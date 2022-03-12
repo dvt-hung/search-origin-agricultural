@@ -40,6 +40,11 @@ public interface API {
     Call<User> login (@Field("email") String email,
                       @Field("passWord") String passWord);
 
+
+    // * Reload
+    @GET("reload_info.php")
+    Call<User> reloadInfo (@Query("idUser") int idUser);
+
     // *Change Password: done
     @FormUrlEncoded
     @POST("change_password.php")
@@ -129,6 +134,19 @@ public interface API {
 
     // ========= FARMER =============
 
+    // * Info
+        // Change Info
+        @Multipart
+        @POST("update_info.php")
+        Call<ResponsePOST> changeInfo (
+                @Part("idUser")             RequestBody idUser,
+                @Part("name")               RequestBody name,
+                @Part("phone")              RequestBody phone,
+                @Part("nameFarm")           RequestBody nameFarm,
+                @Part("address")            RequestBody address,
+                @Part("imageOld")           RequestBody imageOld,
+                @Part MultipartBody.Part    imageNew
+        );
     // *Product
 
         // Get Product

@@ -25,6 +25,12 @@ public class User {
         this.idRole = idRole;
     }
 
+    public  boolean checkValueString(String value)
+    {
+        return value == null;
+    }
+
+
     // Check length password
     public boolean checkLengthPassword()
     {

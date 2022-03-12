@@ -5,8 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.example.apptxng.api.API;
 import com.example.apptxng.api.Retrofit_Client;
@@ -14,6 +16,10 @@ import com.example.apptxng.api.Retrofit_Client;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Common {
     public static User currentUser;
@@ -45,6 +51,23 @@ public class Common {
         }
         cursor.close();
         return path;
+    }
+
+    // Cập nhật thông tin currentUser
+    public static void reloadCurrentUser()
+    {
+        Common.api.reloadInfo(currentUser.getIdUser())
+                .enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        currentUser = response.body();
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.e("reload", "onFailure: " + t.getMessage() );
+                    }
+                });
     }
 
 }

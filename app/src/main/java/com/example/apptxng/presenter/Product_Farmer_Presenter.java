@@ -22,6 +22,7 @@ public class Product_Farmer_Presenter {
 
     public void getProducts()
     {
+        Log.e("a", "getProducts: " + Common.currentUser.getIdUser() );
         Common.api.getProducts(Common.currentUser.getIdUser())
                 .enqueue(new Callback<List<Product>>() {
                     @Override

@@ -1,6 +1,10 @@
 package com.example.apptxng.view;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,21 +12,31 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.apptxng.R;
 import com.example.apptxng.model.Common;
+import com.example.apptxng.presenter.ISettingFarmer;
+import com.example.apptxng.presenter.Setting_Farmer_Presenter;
 
 
-public class Setting_Farmer_Fragment extends Fragment {
+public class Setting_Farmer_Fragment extends Fragment implements ISettingFarmer {
 
     private View viewSetting;
     private ImageView img_Farmer_Setting;
-    private TextView txt_NameFarm_Setting;
+    private TextView txt_NameFarm_Setting, txt_Error_ChangePassword_Dialog;
     private LinearLayout layout_Info_Setting_Farmer,layout_Password_Setting_Farmer, layout_Factory_Setting_Farmer, layout_LogOut_Setting_Farmer;
+    private Dialog dialogSettingFarmer;
+    private Setting_Farmer_Presenter settingFarmerPresenter;
+    private ProgressDialog progressSettingFarmer;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,7 +56,9 @@ public class Setting_Farmer_Fragment extends Fragment {
         layout_Password_Setting_Farmer      = viewSetting.findViewById(R.id.layout_Password_Setting_Farmer);
         layout_Factory_Setting_Farmer       = viewSetting.findViewById(R.id.layout_Factory_Setting_Farmer);
         layout_LogOut_Setting_Farmer        = viewSetting.findViewById(R.id.layout_LogOut_Setting_Farmer);
-
+        settingFarmerPresenter              = new Setting_Farmer_Presenter(this);
+        progressSettingFarmer               = new ProgressDialog(viewSetting.getContext());
+        progressSettingFarmer.setMessage("Vui lòng chờ...");
     }
 
     @Override
@@ -83,7 +99,7 @@ public class Setting_Farmer_Fragment extends Fragment {
         layout_Info_Setting_Farmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(viewSetting.getContext(),ChangeInfoFarmerActivity.class));
+                startActivity(new Intent(viewSetting.getContext(), InfoFarmerActivity.class));
             }
         });
 
@@ -91,7 +107,7 @@ public class Setting_Farmer_Fragment extends Fragment {
         layout_Password_Setting_Farmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                showDialogChangePassword();
             }
         });
 
@@ -107,8 +123,147 @@ public class Setting_Farmer_Fragment extends Fragment {
         layout_LogOut_Setting_Farmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                showDialogSignOut();
             }
         });
+    }
+
+    // Dialog đăng xuất
+    private void showDialogSignOut() {
+        dialogSettingFarmer = new Dialog(viewSetting.getContext());
+        dialogSettingFarmer.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogSettingFarmer.setContentView(R.layout.dialog_sign_out);
+        dialogSettingFarmer.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogSettingFarmer.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+        // Khai báo, ánh xạ view trong dialog sign out
+        Button btn_Cancel_SignOut_Dialog    = dialogSettingFarmer.findViewById(R.id.btn_Cancel_SignOut_Dialog);
+        Button btn_Confirm_SignOut_Dialog   = dialogSettingFarmer.findViewById(R.id.btn_Confirm_SignOut_Dialog);
+
+        dialogSettingFarmer.show();
+
+        /*
+         * 1. Khi chọn vào Cancel Button: đóng dialog
+         * 2. Khi chọn vào Confirm Button: Chuyển đến login activity và set currentUser = null
+         * */
+
+        // 1. Cancel Button
+        btn_Cancel_SignOut_Dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogSettingFarmer.cancel();
+                dialogSettingFarmer = null;
+            }
+        });
+
+        // 2. Confirm Button
+        btn_Confirm_SignOut_Dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(requireActivity(),LoginActivity.class));
+                requireActivity().finishAffinity();
+                Common.currentUser = null;
+                dialogSettingFarmer = null;
+            }
+        });
+    }
+
+    // Dialog đổi mật khẩu
+    private void showDialogChangePassword() {
+
+        // Khởi tạo dialog
+        dialogSettingFarmer = new Dialog(viewSetting.getContext());
+        dialogSettingFarmer.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogSettingFarmer.setContentView(R.layout.dialog_change_password);
+        dialogSettingFarmer.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogSettingFarmer.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // Khai báo, ánh xạ view trong dialog
+
+        EditText edt_Password_Old_Dialog            = dialogSettingFarmer.findViewById(R.id.edt_Password_Old_Dialog);
+        EditText edt_Password_New_Dialog            = dialogSettingFarmer.findViewById(R.id.edt_Password_New_Dialog);
+        EditText edt_Password_NewConfirm_Dialog     = dialogSettingFarmer.findViewById(R.id.edt_Password_NewConfirm_Dialog);
+        txt_Error_ChangePassword_Dialog             = dialogSettingFarmer.findViewById(R.id.txt_Error_ChangePassword_Dialog);
+        Button btn_Cancel_ChangePassword_Dialog     = dialogSettingFarmer.findViewById(R.id.btn_Cancel_ChangePassword_Dialog);
+        Button btn_Confirm_ChangePassword_Dialog    = dialogSettingFarmer.findViewById(R.id.btn_Confirm_ChangePassword_Dialog);
+
+        // Hiển thị dialog
+        dialogSettingFarmer.show();
+
+        /*
+         * 1. Khi người dùng click Cancel Button: Tắt dialog
+         * 2. Khi người dùng click Confirm Button: Đổi mật khẩu
+         *   - Kiểm tra mật khẩu hiện tại đúng chưa.
+         *   - Kiểm tra 2 mật khẩu mới có khớp nhau chưa
+         *   - Kiểm tra mật khẩu mới có rỗng hay không, độ dài phải > 6 kí tự
+         *   - Thực hiện thay đổi mật khẩu
+         * */
+
+        // 1. Cancel Button
+        btn_Cancel_ChangePassword_Dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogSettingFarmer.cancel();
+                dialogSettingFarmer = null;
+            }
+        });
+
+        // 2. Confirm Button
+        btn_Confirm_ChangePassword_Dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Lấy dữ liệu người dùng nhập
+                String passWordOld          = edt_Password_Old_Dialog.getText().toString().trim();
+                String passWordNew          = edt_Password_New_Dialog.getText().toString().trim();
+                String passWordNewConfirm   = edt_Password_NewConfirm_Dialog.getText().toString().trim();
+                // Kiểm tra dữ liệu có rỗng hay không
+                if (passWordOld.isEmpty() || passWordNew.isEmpty() || passWordNewConfirm.isEmpty())
+                {
+                    txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
+                    txt_Error_ChangePassword_Dialog.setText(R.string.title_error_empty);
+                }
+                else
+                {
+                    dialogSettingFarmer.show();
+                    settingFarmerPresenter.change_Password(passWordOld,passWordNew,passWordNewConfirm);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void inCorrectPassOld() {
+        txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
+        progressSettingFarmer.cancel();
+        txt_Error_ChangePassword_Dialog.setText(R.string.inCorrectPassOld);
+    }
+
+    @Override
+    public void inCorrectPassConfirm() {
+        txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
+
+        progressSettingFarmer.cancel();
+        txt_Error_ChangePassword_Dialog.setText(R.string.inCorrectPassConfirm);
+    }
+
+    @Override
+    public void inCorrectPassLength() {
+        txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
+        progressSettingFarmer.cancel();
+        txt_Error_ChangePassword_Dialog.setText(R.string.inCorrectPassLength);
+    }
+
+    @Override
+    public void resultChangePass(String message) {
+        progressSettingFarmer.cancel();
+        dialogSettingFarmer.cancel();
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void Exception(String message) {
+        progressSettingFarmer.cancel();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
