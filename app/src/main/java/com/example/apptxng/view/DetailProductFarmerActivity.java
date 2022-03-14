@@ -134,7 +134,7 @@ public class DetailProductFarmerActivity extends AppCompatActivity {
         btn_InsertHistory_OptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(DetailProductFarmerActivity.this,InsertHistoryProductActivity.class));
             }
         });
 

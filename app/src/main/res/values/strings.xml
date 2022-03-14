@@ -122,7 +122,7 @@
 
     <string name="close">Đóng </string>
 
-    <string name="insert_history">Thêm nhật ký sản phẩm </string>
+    <string name="insert_history">Thêm nhật ký </string>
 
     <string name="delete_product">Xóa sản phẩm </string>
     <string name="question_delete_product">Bạn có chắc xóa sản phẩm này không </string>
@@ -138,6 +138,11 @@
     <string name="input_phone_farm">Nhập số điện thoại </string>
     <string name="input_address_farm">Nhập địa chỉ </string>
     <string name="choice_image_user"> Chọn ảnh đại diện mới </string>
+    <string name="choice_factory_history"> Cơ sở đang tiếp nhận sản phẩm </string>
+    <string name="choice_factory_history2"> Chọn cơ sở </string>
+    <string name="description"> Mô tả của nhật ký</string>
+    <string name="choice_image_history"> Hình ảnh kiểm định </string>
+    <string name="empty_factory"> Nhấp vào đây để thêm cơ sở liên kết </string>
 
 
 </resources>

@@ -28,10 +28,9 @@
             android:id="@+id/img_Back_ChangeInfo_Farmer"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_back"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            />
+            android:src="@drawable/ic_back" />
 
     </RelativeLayout>
 

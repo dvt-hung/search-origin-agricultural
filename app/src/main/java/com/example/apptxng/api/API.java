@@ -2,6 +2,7 @@ package com.example.apptxng.api;
 
 import com.example.apptxng.model.Balance;
 import com.example.apptxng.model.Category;
+import com.example.apptxng.model.Factory;
 import com.example.apptxng.model.Product;
 import com.example.apptxng.model.TypeFactory;
 import com.example.apptxng.model.User;
@@ -189,4 +190,8 @@ public interface API {
         Call<ResponsePOST> deleteProduct(
                 @Field("idProduct") int idProduct,
                 @Field("imgOld_Product") String imgOld_Product);
+    //  *FACTORY
+        // Get factory by idUser
+        @GET("get_factory.php")
+        Call<List<Factory>> getFactory(@Query("idUser") int idUser);
 }

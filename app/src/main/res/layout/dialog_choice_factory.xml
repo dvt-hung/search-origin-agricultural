@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:text="@string/choice_factory_history2"
+        android:background="@drawable/top_dialog"
+        android:gravity="center"
+        android:fontFamily="@font/coiny"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bottom_dialog"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/txt_Insert_Factory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_factory"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_Choice_Factory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp" />
+    </LinearLayout>
+
+</LinearLayout>
+

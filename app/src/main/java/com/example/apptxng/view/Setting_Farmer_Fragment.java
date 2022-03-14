@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -266,4 +267,6 @@ public class Setting_Farmer_Fragment extends Fragment implements ISettingFarmer 
         progressSettingFarmer.cancel();
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
+
+
 }
