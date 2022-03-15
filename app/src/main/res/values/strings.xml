@@ -143,6 +143,8 @@
     <string name="description"> Mô tả của nhật ký</string>
     <string name="choice_image_history"> Hình ảnh kiểm định </string>
     <string name="empty_factory"> Nhấp vào đây để thêm cơ sở liên kết </string>
+    <string name="pick_camera"> Camera </string>
+    <string name="pick_gallery"> Thư viện ảnh </string>
 
 
 </resources>

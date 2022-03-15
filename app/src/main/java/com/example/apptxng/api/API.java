@@ -194,4 +194,18 @@ public interface API {
         // Get factory by idUser
         @GET("get_factory.php")
         Call<List<Factory>> getFactory(@Query("idUser") int idUser);
+
+
+    // ******** HISTORY **********
+
+    // Insert history
+    @Multipart
+    @POST("insert_history.php")
+    Call<ResponsePOST> insertHistory (
+            @Part("idProduct")                      RequestBody idProduct,
+            @Part("idFactory")                      RequestBody idFactory,
+            @Part("descriptionHistory")             RequestBody descriptionHistory,
+            @Part("dateHistory")                    RequestBody dateHistory,
+            @Part MultipartBody.Part                imageHistory
+    );
 }

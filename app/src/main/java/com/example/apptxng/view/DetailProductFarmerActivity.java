@@ -134,7 +134,10 @@ public class DetailProductFarmerActivity extends AppCompatActivity {
         btn_InsertHistory_OptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DetailProductFarmerActivity.this,InsertHistoryProductActivity.class));
+                Intent intentInsertHistory = new Intent(DetailProductFarmerActivity.this,InsertHistoryProductActivity.class);
+                intentInsertHistory.putExtra("idProduct",product.getIdProduct());
+                startActivity(intentInsertHistory);
+                dialogOptions.dismiss();
             }
         });
 
@@ -150,7 +153,7 @@ public class DetailProductFarmerActivity extends AppCompatActivity {
                 intentUpdate.putExtra("bundle_product",bundleUpdate);
 
                 startActivity(intentUpdate);
-                dialogOptions.cancel();
+                dialogOptions.dismiss();
                 finish();
             }
         });
@@ -160,8 +163,7 @@ public class DetailProductFarmerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showDialogDeleteProduct();
-                dialogOptions.cancel();
-
+                dialogOptions.dismiss();
             }
         });
     }
