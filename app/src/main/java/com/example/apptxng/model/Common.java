@@ -16,7 +16,12 @@ import com.example.apptxng.api.Retrofit_Client;
 
 import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -33,6 +38,10 @@ public class Common {
 
     @SuppressLint("SimpleDateFormat")
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+    @SuppressLint("SimpleDateFormat")
+    public static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+
 
     public static void closeKeyboard(View view){
         if (view != null)
@@ -80,4 +89,25 @@ public class Common {
         return Uri.parse(path);
     }
 
+    // Sắp xếp mảng theo ngày tăng dần
+    public static void sortDates(List<History> historyList)
+    {
+        Collections.sort(historyList, new Comparator<History>() {
+            @Override
+            public int compare(History history, History t1) {
+                try {
+                    Date d1 = Common.dateFormat.parse(history.getDateHistory());
+                    Date d2 = Common.dateFormat.parse(t1.getDateHistory());
+
+                    assert d1 != null;
+                    return d1.compareTo(d2);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                return 0;
+            }
+        });
+    }
 }

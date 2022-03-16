@@ -1,6 +1,8 @@
 package com.example.apptxng.model;
 
-public class Factory {
+import java.io.Serializable;
+
+public class Factory implements Serializable {
     private int idFactory;
     private String nameFactory;
     private String addressFactory;

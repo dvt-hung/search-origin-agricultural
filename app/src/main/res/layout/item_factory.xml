@@ -15,11 +15,20 @@
         >
 
         <TextView
+            android:id="@+id/txt_Name_TypeFactory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_error_email"
+            android:textColor="@color/green2"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/txt_Name_Factory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/coiny"
             android:text="@string/title_error_email"
+            android:layout_below="@id/txt_Name_TypeFactory"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />

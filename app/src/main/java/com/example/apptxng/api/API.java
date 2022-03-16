@@ -3,6 +3,7 @@ package com.example.apptxng.api;
 import com.example.apptxng.model.Balance;
 import com.example.apptxng.model.Category;
 import com.example.apptxng.model.Factory;
+import com.example.apptxng.model.History;
 import com.example.apptxng.model.Product;
 import com.example.apptxng.model.TypeFactory;
 import com.example.apptxng.model.User;
@@ -208,4 +209,8 @@ public interface API {
             @Part("dateHistory")                    RequestBody dateHistory,
             @Part MultipartBody.Part                imageHistory
     );
+
+    // Get history
+    @GET("get_history.php")
+    Call<List<History>> getHistory(@Query("idProduct") int idProduct);
 }

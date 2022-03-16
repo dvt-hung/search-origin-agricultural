@@ -2,6 +2,8 @@ package com.example.apptxng.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -19,19 +21,28 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.apptxng.R;
+import com.example.apptxng.adapter.History_Adapter;
 import com.example.apptxng.model.Common;
+import com.example.apptxng.model.History;
 import com.example.apptxng.model.Product;
 import com.example.apptxng.model.ResponsePOST;
+import com.example.apptxng.presenter.History_Presenter;
+import com.example.apptxng.presenter.IHistory;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailProductFarmerActivity extends AppCompatActivity {
+public class DetailProductFarmerActivity extends AppCompatActivity implements History_Adapter.IListenerHistory, IHistory {
 
     private ImageView img_Option_Detail_Product,img_Close_Detail_Product,img_Detail_Product;
     private TextView txt_Balance_Detail_Product,txt_Name_Detail_Product,txt_Des_Detail_Product,txt_Price_Detail_Product,txt_Quantity_Detail_Product,txt_QuantitySold_Detail_Product;
     private Product product;
+    private RecyclerView recycler_History_Detail_Product;
+    private History_Adapter historyAdapter;
+    private History_Presenter historyPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,19 +55,63 @@ public class DetailProductFarmerActivity extends AppCompatActivity {
 
     // Ánh xạ view
     private void initView() {
-        img_Option_Detail_Product       = findViewById(R.id.img_Option_Detail_Product);
-        img_Detail_Product              = findViewById(R.id.img_Detail_Product);
-        txt_Name_Detail_Product         = findViewById(R.id.txt_Name_Detail_Product);
-        txt_Des_Detail_Product          = findViewById(R.id.txt_Des_Detail_Product);
-        txt_Price_Detail_Product        = findViewById(R.id.txt_Price_Detail_Product);
-        txt_Quantity_Detail_Product     = findViewById(R.id.txt_Quantity_Detail_Product);
-        txt_QuantitySold_Detail_Product = findViewById(R.id.txt_QuantitySold_Detail_Product);
-        txt_Balance_Detail_Product      = findViewById(R.id.txt_Balance_Detail_Product);
-        img_Close_Detail_Product        = findViewById(R.id.img_Close_Detail_Product);
+        img_Option_Detail_Product               = findViewById(R.id.img_Option_Detail_Product);
+        img_Detail_Product                      = findViewById(R.id.img_Detail_Product);
+        txt_Name_Detail_Product                 = findViewById(R.id.txt_Name_Detail_Product);
+        txt_Des_Detail_Product                  = findViewById(R.id.txt_Des_Detail_Product);
+        txt_Price_Detail_Product                = findViewById(R.id.txt_Price_Detail_Product);
+        txt_Quantity_Detail_Product             = findViewById(R.id.txt_Quantity_Detail_Product);
+        txt_QuantitySold_Detail_Product         = findViewById(R.id.txt_QuantitySold_Detail_Product);
+        txt_Balance_Detail_Product              = findViewById(R.id.txt_Balance_Detail_Product);
+        img_Close_Detail_Product                = findViewById(R.id.img_Close_Detail_Product);
+        recycler_History_Detail_Product         = findViewById(R.id.recycler_History_Detail_Product);
+        historyPresenter                        = new History_Presenter(this,this);
 
         // Get Bundle: Nhận đối tượng product đã truyền qua
         Bundle bundleDetailsProduct = getIntent().getBundleExtra("b_product");
         product = (Product) bundleDetailsProduct.getSerializable("product");
+
+        // Khởi tạo adapter cho recycler view
+        historyAdapter = new History_Adapter(this,this);
+
+        // Gán adapter cho recycler view
+        recycler_History_Detail_Product.setAdapter(historyAdapter);
+
+        // Tạo layout manager cho recycler view
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
+        recycler_History_Detail_Product.setLayoutManager(layoutManager);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // 1. Hiển thị giá trị của sản phẩm lên text view
+        displayValueProduct();
+
+        // 2. Tải danh sách nhật ký của sản phẩm
+        loadHistory();
+
+        // 2. Close Button: Khi ấn thì sẽ đóng activity lại
+        img_Close_Detail_Product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        // 3. Option Button: Mở dialog bottom có 3 chức năng: Thêm nhật ký, Chỉnh sửa sản phẩm, Xóa sản phẩm
+        img_Option_Detail_Product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogOption();
+            }
+        });
+    }
+
+    private void loadHistory() {
+        historyPresenter.loadHistory(product.getIdProduct());
     }
 
     // Gán giá trị của product, hiển thị lên text view
@@ -83,30 +138,8 @@ public class DetailProductFarmerActivity extends AppCompatActivity {
         Glide.with(this).load(product.getImageProduct()).error(R.drawable.logo).into(img_Detail_Product);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-        // 1. Hiển thị giá trị của sản phẩm lên text view
-        displayValueProduct();
-
-        // 2. Close Button: Khi ấn thì sẽ đóng activity lại
-        img_Close_Detail_Product.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        // 3. Option Button: Mở dialog bottom có 3 chức năng: Thêm nhật ký, Chỉnh sửa sản phẩm, Xóa sản phẩm
-        img_Option_Detail_Product.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogOption();
-            }
-        });
-    }
-    // Show dialog option
+    // Show dialog option: Hiển thị các lựa chọn
     private void showDialogOption() {
         Dialog dialogOptions = new Dialog(this);
         dialogOptions.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -168,6 +201,7 @@ public class DetailProductFarmerActivity extends AppCompatActivity {
         });
     }
 
+    // Show dialog delete: Xác nhận có muốn xóa hay không
     private void showDialogDeleteProduct() {
         Dialog dialogDelete = new Dialog(this);
         dialogDelete.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -233,4 +267,64 @@ public class DetailProductFarmerActivity extends AppCompatActivity {
         });
     }
 
+
+    // OVERRIDE METHOD: interface IListenerHistory
+    @Override
+    public void onClickHistoryItem(History history) {
+
+    }
+
+    @Override
+    public void onClickImageItem(History history) {
+        showFullImage(history);
+    }
+
+    private void showFullImage(History history) {
+        Dialog dialogDisplay = new Dialog(this);
+        dialogDisplay.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogDisplay.setContentView(R.layout.display_image);
+        dialogDisplay.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogDisplay.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        // Ánh xạ view
+        ImageView img_Display = dialogDisplay.findViewById(R.id.img_Display);
+        ImageView img_Close = dialogDisplay.findViewById(R.id.img_Close_Display);
+
+
+        dialogDisplay.show();
+        Glide.with(this).load(history.getImageHistory()).error(R.drawable.logo).into(img_Display);
+
+        img_Close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogDisplay.dismiss();
+            }
+        });
+    }
+
+
+    // OVERRIDE METHOD: interface IHistory
+    @Override
+    public void successMessage(String message) {
+
+    }
+
+    @Override
+    public void failedMessage(String message) {
+
+    }
+
+    @Override
+    public void exceptionMessage(String message) {
+
+    }
+
+    @Override
+    public void emptyValue() {
+
+    }
+
+    @Override
+    public void getHistory(List<History> histories) {
+        historyAdapter.setHistoryList(histories);
+    }
 }

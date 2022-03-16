@@ -45,6 +45,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_delete_admin.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_delete_category_admin.xml" value="0.21014492753623187" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_details_product.xml" value="0.4" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_factory_farmer.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_pick_image.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_sign_out.xml" value="0.1" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_sign_up.xml" value="0.264" />
@@ -52,6 +53,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_update_balance_admin.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_update_category_admin.xml" value="0.21965579710144928" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_update_change_password.xml" value="0.25" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/display_image.xml" value="0.20471014492753623" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_account__admin_.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_account_customer__admin_.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_account_farmer__admin_.xml" value="0.25" />
@@ -78,11 +80,13 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_category_admin.xml" value="0.176" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_customer_account.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_dialog_choice_type.xml" value="0.25" />
-        <entry key="..\:/App_TXNG/app/src/main/res/layout/item_factory.xml" value="0.4" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/item_factory.xml" value="0.2669902912621359" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_farmer_account.xml" value="0.25" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/item_history.xml" value="0.4" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_linked_admin.xml" value="0.23505434782608695" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_product.xml" value="0.35185185185185186" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_product_admin.xml" value="0.536" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/show_image.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/test1.xml" value="0.2318840579710145" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/test2.xml" value="0.2318840579710145" />
         <entry key="..\:/App_TXNG/app/src/main/res/menu/menu_admin.xml" value="0.25" />

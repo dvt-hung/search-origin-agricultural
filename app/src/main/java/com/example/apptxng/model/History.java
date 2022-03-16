@@ -1,14 +1,41 @@
 package com.example.apptxng.model;
 
-public class History {
+import java.io.Serializable;
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+
+public class History implements Serializable {
     private int idHistory;
     private int idProduct;
-    private int idFactory;
     private String descriptionHistory;
     private String dateHistory;
     private String imageHistory;
+    private Factory factory;
+    private TypeFactory type_factory;
 
     public History() {
+    }
+
+
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
+
+    public TypeFactory getType_factory() {
+        return type_factory;
+    }
+
+    public void setType_factory(TypeFactory type_factory) {
+        this.type_factory = type_factory;
     }
 
     public int getIdHistory() {
@@ -27,13 +54,7 @@ public class History {
         this.idProduct = idProduct;
     }
 
-    public int getIdFactory() {
-        return idFactory;
-    }
 
-    public void setIdFactory(int idFactory) {
-        this.idFactory = idFactory;
-    }
 
     public String getDescriptionHistory() {
         return descriptionHistory;
@@ -58,4 +79,5 @@ public class History {
     public void setImageHistory(String imageHistory) {
         this.imageHistory = imageHistory;
     }
+
 }

@@ -51,6 +51,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -64,13 +65,14 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
     private ImageView img_Back_History, img_Insert_History, img_History;
     private TextView txt_ChoiceFactory_History, txt_ResultFactory_History;
     private EditText edt_Des_History;
-    private Factory_Adapter factoryAdapter;
     private Dialog dialogInsertHistory;
     private Factory factoryTemp;
     private History historyTemp;
     private Uri uriTemp;
     private int idProduct;
     private History_Presenter historyPresenter;
+    private List<Factory> listTemp = new ArrayList<>();
+    private BottomDialogChoiceFactory choiceFactory;
 
     private final ActivityResultLauncher<Intent> launcherCamera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -120,11 +122,13 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
         txt_ChoiceFactory_History   = findViewById(R.id.txt_ChoiceFactory_History);
         txt_ResultFactory_History   = findViewById(R.id.txt_ResultFactory_History);
         edt_Des_History             = findViewById(R.id.edt_Des_History);
-        factoryAdapter              = new Factory_Adapter(this);
         factoryTemp                 = new Factory();
         historyTemp                 = new History();
 
         historyPresenter            = new History_Presenter(this, this);
+
+        loadListFactory();
+
     }
 
     @Override
@@ -163,18 +167,16 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
                 historyTemp.setDescriptionHistory(des);
 
                 // Set idFactory cho history
-                historyTemp.setIdFactory(factoryTemp.getIdFactory());
+                historyTemp.setFactory(factoryTemp);
 
                 // Set idProduct cho history
                 historyTemp.setIdProduct(idProduct);
-
 
 
                 // Ngày của history
                 Date date = Calendar.getInstance().getTime();
                 String dateHistory = Common.dateFormat.format(date);
                 historyTemp.setDateHistory(dateHistory);
-
 
                 // Gọi đến Presenter
                 historyPresenter.InsertHistory(historyTemp,uriTemp);
@@ -187,6 +189,7 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
             @Override
             public void onClick(View view) {
                 showDialogChoiceFactory();
+
             }
         });
 
@@ -321,49 +324,8 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
 
     // Dialog Choice Factory: Mở dialog hiển thị các cơ sở đã liên kết
     private void showDialogChoiceFactory() {
-
-        dialogInsertHistory  = new Dialog(this);
-        dialogInsertHistory.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogInsertHistory.setContentView(R.layout.dialog_choice_factory);
-
-        Window window = dialogInsertHistory.getWindow();
-
-        if (window != null)
-        {
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            window.setGravity(Gravity.CENTER);
-        }
-
-        dialogInsertHistory.show();
-
-        // Khai báo, ánh xạ view trong dialog
-        TextView txt_Insert_Factory             = dialogInsertHistory.findViewById(R.id.txt_Insert_Factory);
-        RecyclerView recycler_Choice_Factory    = dialogInsertHistory.findViewById(R.id.recycler_Choice_Factory);
-
-        recycler_Choice_Factory.setAdapter(factoryAdapter);
-
-        /*
-        * 1. Load danh sách cơ sở
-        * 2. Chuyển sang activity cơ sở
-        * */
-
-        // 1. Chọn vào text view thêm cơ sở
-        txt_Insert_Factory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(InsertHistoryProductActivity.this, FactoryActivity.class));
-                dialogInsertHistory.dismiss();
-            }
-        });
-
-        // 2. Load danh sách và chọn Factory
-            // Set layout manager cho recycler view
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL,false);
-        recycler_Choice_Factory.setLayoutManager(layoutManager);
-
-        loadListFactory();
-
+        choiceFactory = new BottomDialogChoiceFactory(listTemp,this);
+        choiceFactory.show(getSupportFragmentManager(),choiceFactory.getTag());
     }
 
     // Load list factory: Tải dữ liệu danh sách các cơ sở liên kết theo idUser
@@ -375,7 +337,8 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
                     .enqueue(new Callback<List<Factory>>() {
                         @Override
                         public void onResponse(@NonNull Call<List<Factory>> call, @NonNull Response<List<Factory>> response) {
-                            factoryAdapter.setFactoryList(response.body());
+                            listTemp = response.body();
+
                             progressDialog.dismiss();
                         }
 
@@ -393,7 +356,7 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
         factoryTemp = factory;
         txt_ResultFactory_History.setVisibility(View.VISIBLE);
         txt_ResultFactory_History.setText(factory.getNameFactory());
-        dialogInsertHistory.dismiss();
+        choiceFactory.dismiss();
     }
 
     // OVERRIED METHOD: interface: IHistory
@@ -418,6 +381,11 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
     public void emptyValue() {
         Toast.makeText(this, R.string.title_error_empty, Toast.LENGTH_LONG).show();
 
+
+    }
+
+    @Override
+    public void getHistory(List<History> histories) {
 
     }
 

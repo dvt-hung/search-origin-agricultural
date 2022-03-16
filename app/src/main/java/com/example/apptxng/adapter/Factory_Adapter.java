@@ -50,7 +50,7 @@ public class Factory_Adapter extends RecyclerView.Adapter<Factory_Adapter.Factor
             holder.txt_Name_Factory.setText(factory.getNameFactory());
             holder.txt_Address_Factory.setText(factory.getAddressFactory());
             holder.txt_Phone_Factory.setText(factory.getPhoneFactory());
-
+            holder.txt_Name_TypeFactory.setText(factory.getType_factory().getNameTypeFactory());
             holder.layout_Factory.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -71,13 +71,14 @@ public class Factory_Adapter extends RecyclerView.Adapter<Factory_Adapter.Factor
 
     public static class FactoryViewHolder extends RecyclerView.ViewHolder {
         private final CardView layout_Factory;
-        private final TextView txt_Name_Factory, txt_Address_Factory, txt_Phone_Factory;
+        private final TextView txt_Name_Factory, txt_Address_Factory, txt_Phone_Factory, txt_Name_TypeFactory;
         public FactoryViewHolder(@NonNull View itemView) {
             super(itemView);
-            layout_Factory          = itemView.findViewById(R.id.layout_Factory);
-            txt_Name_Factory        = itemView.findViewById(R.id.txt_Name_Factory);
-            txt_Address_Factory     = itemView.findViewById(R.id.txt_Address_Factory);
-            txt_Phone_Factory        = itemView.findViewById(R.id.txt_Phone_Factory);
+            layout_Factory              = itemView.findViewById(R.id.layout_Factory);
+            txt_Name_Factory            = itemView.findViewById(R.id.txt_Name_Factory);
+            txt_Address_Factory         = itemView.findViewById(R.id.txt_Address_Factory);
+            txt_Phone_Factory           = itemView.findViewById(R.id.txt_Phone_Factory);
+            txt_Name_TypeFactory        = itemView.findViewById(R.id.txt_Name_TypeFactory);
         }
     }
 }

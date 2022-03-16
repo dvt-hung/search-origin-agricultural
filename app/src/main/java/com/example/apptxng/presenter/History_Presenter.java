@@ -11,6 +11,7 @@ import com.example.apptxng.model.History;
 import com.example.apptxng.model.ResponsePOST;
 
 import java.io.File;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -29,10 +30,12 @@ public class History_Presenter {
         this.context = context;
     }
 
+
+    // Thêm nhật ký của sản phẩm
     public void InsertHistory(History history, Uri image)
     {
         // Kiểm tra dữ liệu
-        if (image == null || history.getIdFactory() == 0 || history.getDescriptionHistory().isEmpty())
+        if (image == null || history.getFactory().getIdFactory() == 0 || history.getDescriptionHistory().isEmpty())
         {
             iHistory.emptyValue();
         }
@@ -52,7 +55,7 @@ public class History_Presenter {
             RequestBody idProduct           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getIdProduct()));
 
             // Request: idFactory
-            RequestBody idFactory           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getIdFactory()));
+            RequestBody idFactory           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getFactory().getIdFactory()));
 
             // Request: descriptionHistory
             RequestBody descriptionHistory  = RequestBody.create(MediaType.parse("multipart/form-data"), history.getDescriptionHistory());
@@ -99,4 +102,29 @@ public class History_Presenter {
 
     }
 
+
+    // Tải danh sách sản phẩm
+    public void loadHistory(int idProduct)
+    {
+        //Tạo progress dialog
+        ProgressDialog progress = new ProgressDialog(context);
+        progress.setMessage("Vui lòng đợi...");
+        progress.show();
+
+        // Gọi api
+        Common.api.getHistory(idProduct)
+                .enqueue(new Callback<List<History>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<History>> call, @NonNull Response<List<History>> response) {
+                        iHistory.getHistory(response.body());
+                        progress.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<History>> call, @NonNull Throwable t) {
+                        iHistory.exceptionMessage(t.getMessage());
+                        progress.dismiss();
+                    }
+                });
+    }
 }
