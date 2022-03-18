@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:text="@string/choice_factory_history2"
-            android:background="@drawable/top_dialog"
+            android:background="@color/green"
             android:gravity="center"
             android:fontFamily="@font/coiny"
             android:textSize="16sp"

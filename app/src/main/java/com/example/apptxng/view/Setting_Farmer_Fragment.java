@@ -116,7 +116,7 @@ public class Setting_Farmer_Fragment extends Fragment implements ISettingFarmer 
         layout_Factory_Setting_Farmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(requireActivity(),FactoryActivity.class));
             }
         });
 

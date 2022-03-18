@@ -7,7 +7,6 @@ public class Factory implements Serializable {
     private String nameFactory;
     private String addressFactory;
     private String phoneFactory;
-    private int idTypeFactory;
     private int idUser;
     private TypeFactory type_factory;
 
@@ -52,14 +51,6 @@ public class Factory implements Serializable {
 
     public void setPhoneFactory(String phoneFactory) {
         this.phoneFactory = phoneFactory;
-    }
-
-    public int getIdTypeFactory() {
-        return idTypeFactory;
-    }
-
-    public void setIdTypeFactory(int idTypeFactory) {
-        this.idTypeFactory = idTypeFactory;
     }
 
     public int getIdUser() {

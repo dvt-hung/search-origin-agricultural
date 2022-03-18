@@ -22,10 +22,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.util.List;
 
 public class BottomDialogChoiceFactory extends BottomSheetDialogFragment {
-    private TextView txt_Insert_Factory;
-    private RecyclerView recycler_Choice_Factory;
     private List<Factory> factoryList;
-    private Factory_Adapter.IListenerFactory iListenerFactory;
+    private final Factory_Adapter.IListenerFactory iListenerFactory;
 
     public BottomDialogChoiceFactory(List<Factory> factoryList,Factory_Adapter.IListenerFactory iListenerFactory) {
         this.iListenerFactory = iListenerFactory;
@@ -45,8 +43,8 @@ public class BottomDialogChoiceFactory extends BottomSheetDialogFragment {
         View viewDialog = LayoutInflater.from(getContext()).inflate(R.layout.dialog_choice_factory,null);
         dialog.setContentView(viewDialog);
 
-        txt_Insert_Factory          = viewDialog.findViewById(R.id.txt_Insert_Factory);
-        recycler_Choice_Factory     = viewDialog.findViewById(R.id.recycler_Choice_Factory);
+        TextView txt_Insert_Factory = viewDialog.findViewById(R.id.txt_Insert_Factory);
+        RecyclerView recycler_Choice_Factory = viewDialog.findViewById(R.id.recycler_Choice_Factory);
 
 
         // Layout manager của recycler view
