@@ -13,15 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.apptxng.R;
 import com.example.apptxng.model.Balance;
 import com.example.apptxng.model.Category;
+import com.example.apptxng.model.TypeFactory;
 
 import java.util.List;
 
 public class ChoiceType_Adapter extends RecyclerView.Adapter<ChoiceType_Adapter.ChoiceTypeViewHolder>{
 
     private List<?> list;
-    private  IListenerChoiceType iListenerChoiceType;
-    public interface IListenerChoiceType{
+    private final IListenerChoiceType iListenerChoiceType;
 
+    public interface IListenerChoiceType{
         void onClickChoiceType(Object obj);
     }
 
@@ -68,6 +69,18 @@ public class ChoiceType_Adapter extends RecyclerView.Adapter<ChoiceType_Adapter.
                 @Override
                 public void onClick(View view) {
                     iListenerChoiceType.onClickChoiceType(balance);
+                }
+            });
+        }
+        else if (list.get(position).getClass() == TypeFactory.class)
+        {
+            TypeFactory typeFactory = (TypeFactory) list.get(position);
+            holder.radioChoiceType.setText(typeFactory.getNameTypeFactory());
+
+            holder.radioChoiceType.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    iListenerChoiceType.onClickChoiceType(typeFactory);
                 }
             });
         }

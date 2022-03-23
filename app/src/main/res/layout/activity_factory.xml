@@ -1,80 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.FactoryActivity"
-    android:orientation="vertical"
     >
 
-    <RelativeLayout
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/custom_toolbar">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:fontFamily="@font/coiny"
-            android:text="@string/title_link_factory"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/custom_toolbar">
 
-        <ImageView
-            android:id="@+id/img_Add_Factory"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="15dp"
-            android:background="@null"
-            android:backgroundTint="@null"
-            android:src="@drawable/ic_add" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/coiny"
+                    android:text="@string/title_link_factory"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/img_Close_Factory"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:backgroundTint="@null"
-            android:src="@drawable/ic_close" />
-    </RelativeLayout>
+                <ImageView
+                    android:id="@+id/img_Add_Factory"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:background="@null"
+                    android:backgroundTint="@null"
+                    android:src="@drawable/ic_add" />
+
+                <ImageView
+                    android:id="@+id/img_Close_Factory"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:backgroundTint="@null"
+                    android:src="@drawable/ic_close" />
+            </RelativeLayout>
+            <ImageView
+                android:id="@+id/img_Filter"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/toolbar"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_filter" />
+
+            <ImageView
+                android:id="@+id/img_Clear_Filter"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/toolbar"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_clear_filter"
+                android:visibility="gone"
+                />
 
 
-    <ImageView
-        android:id="@+id/img_Filter"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_below="@id/toolbar"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_filter" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_Factory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_Filter"
+                android:layout_marginTop="10dp" />
 
-    <ImageView
-        android:id="@+id/img_Clear_Filter"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_below="@id/toolbar"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_clear_filter"
-        android:visibility="gone"
-        />
+        </RelativeLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_Factory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/img_Filter"
-        />
-
-</RelativeLayout>
+</androidx.core.widget.NestedScrollView>

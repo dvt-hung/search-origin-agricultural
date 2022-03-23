@@ -13,17 +13,17 @@ import android.widget.Toast;
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.TypeFactory_Admin_Adapter;
 import com.example.apptxng.model.TypeFactory;
-import com.example.apptxng.presenter.ITypeFactoryAdmin;
-import com.example.apptxng.presenter.TypeFactory_Admin_Presenter;
+import com.example.apptxng.presenter.ITypeFactory;
+import com.example.apptxng.presenter.TypeFactory_Presenter;
 
 import java.util.List;
 
-public class TypeFactory_Admin_Activity extends AppCompatActivity implements TypeFactory_Admin_Adapter.IListenerLinked, ITypeFactoryAdmin {
+public class TypeFactory__Activity extends AppCompatActivity implements TypeFactory_Admin_Adapter.IListenerLinked, ITypeFactory {
 
     private ImageView img_Back_Linked_Admin, img_Add_Linked_Admin;
     private RecyclerView recycler_Linked_Admin;
     private TypeFactory_Admin_Adapter typeFactoryAdminAdapter;
-    private TypeFactory_Admin_Presenter typeFactoryPresenter;
+    private TypeFactory_Presenter typeFactoryPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +49,7 @@ public class TypeFactory_Admin_Activity extends AppCompatActivity implements Typ
 
     // Hiển thị danh sách liên kết
     private void loadLinked() {
-        typeFactoryPresenter.loadLinked();
+        typeFactoryPresenter.getTypeFactory();
     }
 
 
@@ -85,7 +85,7 @@ public class TypeFactory_Admin_Activity extends AppCompatActivity implements Typ
         img_Add_Linked_Admin        = findViewById(R.id.img_Add_TypeFactory_Admin);
         recycler_Linked_Admin       = findViewById(R.id.recycler_TypeFactory_Admin);
         typeFactoryAdminAdapter     = new TypeFactory_Admin_Adapter(this);
-        typeFactoryPresenter        = new TypeFactory_Admin_Presenter(this);
+        typeFactoryPresenter        = new TypeFactory_Presenter(this);
     }
 
 
@@ -97,7 +97,7 @@ public class TypeFactory_Admin_Activity extends AppCompatActivity implements Typ
 
     // Override method: viết lại phương thức của ILinkedAdmin
     @Override
-    public void getLinked(List<TypeFactory> list) {
+    public void getTypeFactory(List<TypeFactory> list) {
         typeFactoryAdminAdapter.setLinkList(list);
     }
 

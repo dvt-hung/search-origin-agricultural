@@ -27,6 +27,8 @@ public class Factory_Adapter extends RecyclerView.Adapter<Factory_Adapter.Factor
     public interface IListenerFactory{
         void onClickItemFactory(Factory factory);
     }
+
+
     @SuppressLint("NotifyDataSetChanged")
     public void setFactoryList(List<Factory> list)
     {

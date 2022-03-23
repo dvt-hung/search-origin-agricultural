@@ -191,11 +191,39 @@ public interface API {
         Call<ResponsePOST> deleteProduct(
                 @Field("idProduct") int idProduct,
                 @Field("imgOld_Product") String imgOld_Product);
-    //  *FACTORY
+    //  ******* FACTORY **********
         // Get factory by idUser
         @GET("get_factory.php")
         Call<List<Factory>> getFactory(@Query("idUser") int idUser);
 
+        // Insert factory
+        @FormUrlEncoded
+        @POST("insert_factory.php")
+        Call<ResponsePOST> insertFactory(
+                @Field("idTypeFactory")     int idTypeFactory,
+                @Field("nameFactory")       String nameFactory,
+                @Field("addressFactory")    String addressFactory,
+                @Field("phoneFactory")      String phoneFactory,
+                @Field("idUser")            int idUser
+        );
+
+        // Delete factory
+        @FormUrlEncoded
+        @POST("delete_factory.php")
+        Call<ResponsePOST> deleteFactory(
+                @Field("idFactory")     int idFactory
+        );
+
+    // Update factory
+        @FormUrlEncoded
+        @POST("update_factory.php")
+        Call<ResponsePOST> updateFactory(
+                @Field("idFactory")         int idFactory,
+                @Field("nameFactory")       String nameFactory,
+                @Field("addressFactory")    String addressFactory,
+                @Field("phoneFactory")      String phoneFactory,
+                @Field("idTypeFactory")     int idTypeFactory
+        );
 
     // ******** HISTORY **********
 

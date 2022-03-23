@@ -22,19 +22,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.util.List;
 
 public class BottomDialogChoiceFactory extends BottomSheetDialogFragment {
-    private List<Factory> factoryList;
+    private final List<Factory> factoryList;
     private final Factory_Adapter.IListenerFactory iListenerFactory;
 
     public BottomDialogChoiceFactory(List<Factory> factoryList,Factory_Adapter.IListenerFactory iListenerFactory) {
         this.iListenerFactory = iListenerFactory;
         this.factoryList = factoryList;
-
     }
 
-    public void setFactoryList(List<Factory> factoryList)
-    {
-        this.factoryList = factoryList;
-    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

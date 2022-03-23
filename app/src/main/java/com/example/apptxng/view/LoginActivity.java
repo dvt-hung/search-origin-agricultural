@@ -105,4 +105,10 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         progressLogin.cancel();
     }
+
+    @Override
+    public void exception(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        progressLogin.cancel();
+    }
 }

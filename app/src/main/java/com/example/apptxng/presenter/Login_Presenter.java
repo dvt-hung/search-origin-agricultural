@@ -48,7 +48,7 @@ public class Login_Presenter {
 
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
-
+                            iLogin.exception(t.getMessage());
                         }
                     });
         }

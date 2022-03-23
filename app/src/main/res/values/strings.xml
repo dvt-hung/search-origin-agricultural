@@ -145,6 +145,14 @@
     <string name="empty_factory"> Nhấp vào đây để thêm cơ sở liên kết </string>
     <string name="pick_camera"> Camera </string>
     <string name="pick_gallery"> Thư viện ảnh </string>
+    <string name="filter_type_factory"> Chọn loại cơ sở </string>
 
+    <!--    FACTORY     -->
+    <string name="insert_factory"> Thêm cơ sở liên kết </string>
+    <string name="update_factory"> Cập nhật cơ sở </string>
+    <string name="name_factory"> Tên cơ sở </string>
+    <string name="input_name_factory">Nhập tên cơ sở </string>
 
+    <string name="title_delete_factory"> Xóa cơ sở liên kết </string>
+    <string name="title_question_delete_factory"> Bạn có chắc là xóa cơ sở này không </string>
 </resources>

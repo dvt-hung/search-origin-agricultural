@@ -7,4 +7,5 @@ public interface ILogin {
     void emptyValueLogin();
     void loginSuccess(User user);
     void loginFailed(String message);
+    void exception(String message);
 }

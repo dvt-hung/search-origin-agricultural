@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.apptxng">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -18,6 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".view.UpdateFactoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.InsertFactoryActivity"
+            android:exported="false" />
         <activity
             android:name=".view.FactoryActivity"
             android:exported="false" />
@@ -40,7 +47,7 @@
             android:name=".view.InsertProductFarmerActivity"
             android:exported="false" />
         <activity
-            android:name=".view.TypeFactory_Admin_Activity"
+            android:name=".view.TypeFactory__Activity"
             android:exported="false" />
         <activity
             android:name=".view.Balance_Admin_Activity"
@@ -72,8 +79,6 @@
         <activity
             android:name=".view.AdminActivity"
             android:exported="false" />
-
-
     </application>
 
 </manifest>

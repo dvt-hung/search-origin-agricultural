@@ -4,7 +4,7 @@ import com.example.apptxng.model.TypeFactory;
 
 import java.util.List;
 
-public interface ITypeFactoryAdmin {
-    void getLinked(List<TypeFactory> list);
+public interface ITypeFactory {
+    void getTypeFactory(List<TypeFactory> list);
     void Exception(String message);
 }

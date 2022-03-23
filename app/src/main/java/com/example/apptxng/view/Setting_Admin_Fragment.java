@@ -92,7 +92,7 @@ public class Setting_Admin_Fragment extends Fragment implements ISettingAdmin {
         layout_Linked_Setting_Admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(viewSetting.getContext(), TypeFactory_Admin_Activity.class));
+                startActivity(new Intent(viewSetting.getContext(), TypeFactory__Activity.class));
             }
         });
     }
