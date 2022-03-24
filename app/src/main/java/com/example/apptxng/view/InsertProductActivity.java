@@ -17,7 +17,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -25,7 +24,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +48,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class InsertProductFarmerActivity extends AppCompatActivity implements ChoiceType_Adapter.IListenerChoiceType, IInsertProduct {
+public class InsertProductActivity extends AppCompatActivity implements ChoiceType_Adapter.IListenerChoiceType, IInsertProduct {
 
 
     private ImageView img_Back_InsertProduct, img_InsertProduct;
@@ -168,7 +166,7 @@ public class InsertProductFarmerActivity extends AppCompatActivity implements Ch
                 progressAddProduct.show();
                 if (nameProduct.isEmpty() || priceProduct.isEmpty() || desProduct.isEmpty() || quantityProduct.isEmpty())
                 {
-                    Toast.makeText(InsertProductFarmerActivity.this, R.string.title_error_empty, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(InsertProductActivity.this, R.string.title_error_empty, Toast.LENGTH_SHORT).show();
                     progressAddProduct.cancel();
                 }
                 else

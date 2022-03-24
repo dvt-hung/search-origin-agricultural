@@ -139,7 +139,7 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
     }
 
 
-    // Show dialog option: Hiển thị các lựa chọn
+    // Show dialog option: Hiển thị các lựa chọn của
     private void showDialogOption() {
         Dialog dialogOptions = new Dialog(this);
         dialogOptions.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -167,7 +167,7 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
         btn_InsertHistory_OptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentInsertHistory = new Intent(DetailProductFarmerActivity.this,InsertHistoryProductActivity.class);
+                Intent intentInsertHistory = new Intent(DetailProductFarmerActivity.this, InsertHistoryActivity.class);
                 intentInsertHistory.putExtra("idProduct",product.getIdProduct());
                 startActivity(intentInsertHistory);
                 dialogOptions.dismiss();
@@ -268,10 +268,120 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
     }
 
 
+    // Dialog lựa chọn chỉnh sửa hoặc xóa cái lịch sử sản phẩm
+    private void showDialogOptionHistory(History history) {
+        // Tạo và cài đặt layout cho dialog
+        Dialog dialogOptions = new Dialog(this);
+        dialogOptions.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogOptions.setContentView(R.layout.dialog_bottom_option);
+        dialogOptions.getWindow().setGravity(Gravity.BOTTOM);
+        dialogOptions.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogOptions.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // Khởi tạo và ảnh xạ view trong dialog Option
+        Button btn_Update_DialogOption      = dialogOptions.findViewById(R.id.btn_Update_DialogOption);
+        Button btn_Delete_DialogOption      = dialogOptions.findViewById(R.id.btn_Delete_DialogOption);
+        Button btn_Cancel_DialogOption      = dialogOptions.findViewById(R.id.btn_Cancel_DialogOption);
+
+        /*
+         * 1. Chọn vào option Update: Chuyển sang activity cập nhật
+         * 2. Chọn vào option Delete: Hiện thị dialog yêu cầu xác nhận lần cuối
+         * 3. Chọn vào option Cancel: Đóng dialog
+         * */
+
+        // Hiện dialog
+        dialogOptions.show();
+
+        // 1. Update Button: Chuyển sang activity update
+        btn_Update_DialogOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Chuyển đối tượng lịch sự sang activity cập nhật
+                Bundle bundleUpdate = new Bundle();
+                bundleUpdate.putSerializable("history", history);
+
+                Intent intentUpdate = new Intent(DetailProductFarmerActivity.this, UpdateHistoryActivity.class);
+                intentUpdate.putExtras(bundleUpdate);
+
+                startActivity(intentUpdate);
+
+                dialogOptions.dismiss();
+            }
+        });
+
+        // 2. Delete Button: Mở dialog xác nhận
+        btn_Delete_DialogOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogDelete(history);
+                dialogOptions.dismiss();
+            }
+        });
+
+        // 3. Cancel Button: Đóng dialog
+        btn_Cancel_DialogOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogOptions.dismiss();
+            }
+        });
+    }
+
+
+    // Dialog xác nhận có thật sự muốn xóa không
+    private void showDialogDelete(History history) {
+        // Khởi tạo dialog
+        Dialog dialogDelete = new Dialog(this);
+        dialogDelete.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogDelete.setContentView(R.layout.dialog_delete);
+        dialogDelete.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogDelete.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // Khai báo và ánh xạ view của dialog update
+        Button btn_Cancel_DeleteCategory_Dialog     = dialogDelete.findViewById(R.id.btn_Cancel_Delete_Dialog);
+        Button btn_Confirm_DeleteCategory_Dialog    = dialogDelete.findViewById(R.id.btn_Confirm_Delete_Dialog);
+        TextView txt_Title_Delete_Dialog            = dialogDelete.findViewById(R.id.txt_Title_Delete_Dialog);
+        TextView txt_Message_Delete_Dialog          = dialogDelete.findViewById(R.id.txt_Message_Delete_Dialog);
+
+        // Gán Title, Message cho dialog
+        txt_Title_Delete_Dialog.setText(R.string.title_delete_history);
+        txt_Message_Delete_Dialog.setText(R.string.title_question_delete_history);
+
+        // Hiển thị dialog
+        dialogDelete.show();
+
+        /*
+         * 1. Khi chọn Confirm Button: Sẽ xóa đi đơn vị tính này
+         * 2. Khu chọn Cancel Button: Sẽ tắt đi dialog
+         * */
+
+        //1. Confirm Button
+        btn_Confirm_DeleteCategory_Dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                historyPresenter.DeleteHistory(history, product.getIdProduct());
+                dialogDelete.cancel();
+            }
+        });
+
+        // 2. Cancel Button
+        btn_Cancel_DeleteCategory_Dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogDelete.cancel();
+            }
+        });
+
+
+    }
+
+
+
     // OVERRIDE METHOD: interface IListenerHistory
     @Override
     public void onClickHistoryItem(History history) {
-
+        showDialogOptionHistory(history);
     }
 
     @Override
@@ -279,6 +389,7 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
         showFullImage(history);
     }
 
+    // Hiển thị ảnh khi người dùng click vào ảnh của nhật ký
     private void showFullImage(History history) {
         Dialog dialogDisplay = new Dialog(this);
         dialogDisplay.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -305,17 +416,18 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
     // OVERRIDE METHOD: interface IHistory
     @Override
     public void successMessage(String message) {
-
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void failedMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void exceptionMessage(String message) {
-
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

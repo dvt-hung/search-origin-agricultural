@@ -20,6 +20,9 @@
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.UpdateHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.UpdateFactoryActivity"
             android:exported="false" />
         <activity
@@ -29,7 +32,7 @@
             android:name=".view.FactoryActivity"
             android:exported="false" />
         <activity
-            android:name=".view.InsertHistoryProductActivity"
+            android:name=".view.InsertHistoryActivity"
             android:exported="false" />
         <activity
             android:name=".view.ChangeInfoFarmerActivity"
@@ -44,7 +47,7 @@
             android:name=".view.DetailProductFarmerActivity"
             android:exported="false" />
         <activity
-            android:name=".view.InsertProductFarmerActivity"
+            android:name=".view.InsertProductActivity"
             android:exported="false" />
         <activity
             android:name=".view.TypeFactory__Activity"

@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.InsertHistoryActivity"
-    android:orientation="vertical"
-    >
-
+    tools:context=".view.UpdateHistoryActivity"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/layout_toolbar"
@@ -21,13 +19,13 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/coiny"
-            android:text="@string/insert_history"
+            android:text="@string/update_history"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
         <ImageView
-            android:id="@+id/img_Insert_History"
+            android:id="@+id/img_Update_History"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
@@ -88,7 +86,6 @@
         android:layout_marginEnd="30dp"
         android:padding="10dp"
         android:textColor="@color/black"
-        android:visibility="gone"
         />
     <TextView
         android:layout_width="match_parent"
@@ -115,5 +112,6 @@
         android:gravity="top"
         android:padding="10dp"
         />
+
 
 </LinearLayout>

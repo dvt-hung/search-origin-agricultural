@@ -127,4 +127,115 @@ public class History_Presenter {
                     }
                 });
     }
+
+
+    // Xóa nhật ký
+    public void DeleteHistory(History history, int idProduct)
+    {
+        //Tạo progress dialog
+        ProgressDialog progress = new ProgressDialog(context);
+        progress.setMessage("Vui lòng đợi...");
+        progress.show();
+
+        // Call api
+        Common.api.deleteHistory(history.getIdHistory(), history.getImageHistory())
+                .enqueue(new Callback<ResponsePOST>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
+                        ResponsePOST result = response.body();
+
+                        assert  result != null;
+
+                        if (result.getStatus() == 1)
+                        {
+                            iHistory.successMessage(result.getMessage());
+                            loadHistory(idProduct);
+                        }
+                        else
+                        {
+                            iHistory.failedMessage(result.getMessage());
+                        }
+                        progress.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
+                        iHistory.exceptionMessage(t.getMessage());
+                        progress.dismiss();
+                    }
+                });
+    }
+
+    // Cập nhật nhật ký
+    public void UpdateHistory(History history , Uri imageNew)
+    {
+        // Kiểm tra dữ liệu
+        if (history.getDescriptionHistory().isEmpty())
+        {
+            iHistory.emptyValue();
+        }
+
+        RequestBody imageHistoryOld = null;
+        RequestBody requestBodyImage = null;
+        MultipartBody.Part imageHistoryNew = null;
+        if (imageNew != null)
+        {
+            // Tạo request body + multipart của Ảnh History
+            File file = new File(Common.getRealPathFromURI(imageNew,context));
+
+            String filePath = file.getAbsolutePath();
+            String[] arraySplitPath = filePath.split("\\.");
+
+            // Tạo tên mới cho ảnh
+            String nameImageNew = arraySplitPath[0] + System.currentTimeMillis() + "." + arraySplitPath[1];
+
+            imageHistoryOld  = RequestBody.create(MediaType.parse("multipart/form-data"), history.getImageHistory());
+
+            // MultipartBody: imageHistory
+            requestBodyImage    = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+            imageHistoryNew = MultipartBody.Part.createFormData("imageHistoryNew", nameImageNew,requestBodyImage);
+
+        }
+
+            // Request: idProduct
+            RequestBody idHistory           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getIdHistory()));
+
+            // Request: idFactory
+            RequestBody idFactory           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getFactory().getIdFactory()));
+
+            // Request: descriptionHistory
+            RequestBody descriptionHistory  = RequestBody.create(MediaType.parse("multipart/form-data"), history.getDescriptionHistory());
+
+
+            //Tạo progress dialog
+            ProgressDialog progress = new ProgressDialog(context);
+            progress.setMessage("Vui lòng đợi...");
+            progress.show();
+            // Gọi đến API
+            Common.api.updateHistory(idHistory,idFactory,descriptionHistory,imageHistoryOld,imageHistoryNew)
+                    .enqueue(new Callback<ResponsePOST>() {
+                        @Override
+                        public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
+                            ResponsePOST result = response.body();
+
+                            assert result != null;
+                            if (result.getStatus() == 1)
+                            {
+                                iHistory.successMessage(result.getMessage());
+                            }
+                            else
+                            {
+                                iHistory.failedMessage(result.getMessage());
+                            }
+                            progress.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
+                            iHistory.exceptionMessage(t.getMessage());
+                            progress.dismiss();
+                        }
+                    });
+
+    }
 }

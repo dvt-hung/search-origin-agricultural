@@ -105,6 +105,7 @@ public class UpdateProductFarmerActivity extends AppCompatActivity implements Ch
         // Nhận Product từ Detail chuyển sang
         Bundle bundleUpdate  = getIntent().getBundleExtra("bundle_product");
         product = (Product) bundleUpdate.getSerializable("product_detail");
+
         // Hiển thị dữ liệu ban đầu
         displayValue();
     }

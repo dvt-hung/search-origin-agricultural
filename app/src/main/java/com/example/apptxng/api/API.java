@@ -241,4 +241,24 @@ public interface API {
     // Get history
     @GET("get_history.php")
     Call<List<History>> getHistory(@Query("idProduct") int idProduct);
+
+    // Delete history
+    @FormUrlEncoded
+    @POST("delete_history.php")
+    Call<ResponsePOST> deleteHistory(
+            @Field("idHistory") int idHistory,
+            @Field("imageHistory") String imageHistory
+    );
+
+    // Insert history
+    @Multipart
+    @POST("update_history.php")
+    Call<ResponsePOST> updateHistory (
+            @Part("idHistory")                      RequestBody idHistory,
+            @Part("idFactory")                      RequestBody idFactory,
+            @Part("descriptionHistory")             RequestBody descriptionHistory,
+            @Part("imageHistoryOld")                RequestBody imageHistoryOld,
+            @Part MultipartBody.Part                imageHistoryNew
+    );
+
 }

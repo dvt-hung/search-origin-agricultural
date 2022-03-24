@@ -2,14 +2,12 @@ package com.example.apptxng.presenter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.example.apptxng.model.Common;
 import com.example.apptxng.model.Factory;
 import com.example.apptxng.model.ResponsePOST;
-import com.example.apptxng.view.InsertHistoryProductActivity;
 
 import java.util.List;
 

@@ -6,14 +6,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -49,8 +45,6 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -60,7 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InsertHistoryProductActivity extends AppCompatActivity implements Factory_Adapter.IListenerFactory, IHistory {
+public class InsertHistoryActivity extends AppCompatActivity implements Factory_Adapter.IListenerFactory, IHistory {
 
     private ImageView img_Back_History, img_Insert_History, img_History;
     private TextView txt_ChoiceFactory_History, txt_ResultFactory_History;
@@ -83,8 +77,8 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
                             Bundle bundle = result.getData().getExtras();
                             Bitmap bitmapCamera = (Bitmap) bundle.get("data");
 
-                            uriTemp = Common.getImageUri(InsertHistoryProductActivity.this, bitmapCamera);
-                            Glide.with(InsertHistoryProductActivity.this).load(uriTemp).into(img_History);
+                            uriTemp = Common.getImageUri(InsertHistoryActivity.this, bitmapCamera);
+                            Glide.with(InsertHistoryActivity.this).load(uriTemp).into(img_History);
                         }
                 }
             });
@@ -96,7 +90,7 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
                     if (result.getResultCode() == RESULT_OK && result.getData() != null)
                     {
                         uriTemp = result.getData().getData();
-                        Glide.with(InsertHistoryProductActivity.this).load(uriTemp).into(img_History);
+                        Glide.with(InsertHistoryActivity.this).load(uriTemp).into(img_History);
                     }
                 }
             });
@@ -111,7 +105,6 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
 
         // Get idProduct: nhận idProduct từ Detail Product gửi qua
         idProduct = getIntent().getIntExtra("idProduct",0);
-        Log.e("id", "onCreate: " + idProduct );
     }
 
     // Init view
@@ -272,7 +265,7 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-                        Toast.makeText(InsertHistoryProductActivity.this, "Bạn chưa cho phép truy cập thư viện ảnh", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(InsertHistoryActivity.this, "Bạn chưa cho phép truy cập thư viện ảnh", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -295,7 +288,7 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
                         }
                         else
                         {
-                            Toast.makeText(InsertHistoryProductActivity.this, "Bạn chưa cho phép mở camera", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(InsertHistoryActivity.this, "Bạn chưa cho phép mở camera", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -330,7 +323,7 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
 
     // Load list factory: Tải dữ liệu danh sách các cơ sở liên kết theo idUser
     private void loadListFactory() {
-            ProgressDialog progressDialog = new ProgressDialog(InsertHistoryProductActivity.this);
+            ProgressDialog progressDialog = new ProgressDialog(InsertHistoryActivity.this);
             progressDialog.show();
             progressDialog.setMessage("Đang tải dữ liệu...");
             Common.api.getFactory(Common.currentUser.getIdUser())
@@ -344,7 +337,7 @@ public class InsertHistoryProductActivity extends AppCompatActivity implements F
 
                         @Override
                         public void onFailure(@NonNull Call<List<Factory>> call, @NonNull Throwable t) {
-                            Toast.makeText(InsertHistoryProductActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(InsertHistoryActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     });

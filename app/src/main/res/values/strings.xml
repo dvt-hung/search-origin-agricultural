@@ -123,9 +123,14 @@
     <string name="close">Đóng </string>
 
     <string name="insert_history">Thêm nhật ký </string>
+    <string name="update_history">Chỉnh sửa nhật ký </string>
 
     <string name="delete_product">Xóa sản phẩm </string>
     <string name="question_delete_product">Bạn có chắc xóa sản phẩm này không </string>
+
+    <string name="title_delete_history"> Xóa nhật ký </string>
+    <string name="title_question_delete_history"> Bạn có chắc là xóa nhật ký này không </string>
+
 
     <!--  SETTING FRAGMENT FARMER  -->
     <string name="title_change_info"> Thay đổi thông tin </string>

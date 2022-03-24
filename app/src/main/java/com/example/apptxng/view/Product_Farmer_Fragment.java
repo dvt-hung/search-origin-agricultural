@@ -2,8 +2,6 @@ package com.example.apptxng.view;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,27 +9,19 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.Product_Adapter;
-import com.example.apptxng.model.Common;
 import com.example.apptxng.model.Product;
 import com.example.apptxng.presenter.IProductFarmer;
 import com.example.apptxng.presenter.Product_Farmer_Presenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -72,7 +62,7 @@ public class Product_Farmer_Fragment extends Fragment implements IProductFarmer,
         img_Add_Product_Farmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(requireActivity(),InsertProductFarmerActivity.class));
+                startActivity(new Intent(requireActivity(), InsertProductActivity.class));
             }
         });
 
