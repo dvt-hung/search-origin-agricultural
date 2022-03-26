@@ -33,8 +33,17 @@ public interface API {
                        @Field("email") String email);
 
     // *Sign Up: done
+    @FormUrlEncoded
     @POST("insert_user.php")
-    Call<ResponsePOST> signUpUser (@Body User user);
+    Call<ResponsePOST> signUpUser (
+            @Field("email") String email,
+            @Field("idUser") String idUser,
+            @Field("name") String name,
+            @Field("passWord") String passWord,
+            @Field("accept") int accept,
+            @Field("idRole") int idRole,
+            @Field("idTypeFactory") int idTypeFactory
+    );
 
     // *Login: done
     @FormUrlEncoded
@@ -45,7 +54,7 @@ public interface API {
 
     // * Reload
     @GET("reload_info.php")
-    Call<User> reloadInfo (@Query("idUser") int idUser);
+    Call<User> reloadInfo (@Query("idUser") String idUser);
 
     // *Change Password: done
     @FormUrlEncoded
@@ -53,7 +62,7 @@ public interface API {
     Call<ResponsePOST> change_password (
                     @Field("email") String email,
                     @Field("passNew") String passNew,
-                    @Field("idUser") int idUser);
+                    @Field("idUser") String idUser);
 
 
     // *CATEGORY - ADMIN
@@ -102,7 +111,7 @@ public interface API {
         @FormUrlEncoded
         @POST("update_accept_user.php")
         Call<ResponsePOST> updateAcceptUser(
-                @Field("idUser") int idUser,
+                @Field("idUser") String idUser,
                 @Field("accept") int accept
         );
 
@@ -153,7 +162,7 @@ public interface API {
 
         // Get Product
         @GET("get_products.php")
-        Call<List<Product>> getProducts(@Query("idUser") int idUser);
+        Call<List<Product>> getProducts(@Query("idUser") String idUser);
 
         // Insert Product
         @Multipart
@@ -194,7 +203,7 @@ public interface API {
     //  ******* FACTORY **********
         // Get factory by idUser
         @GET("get_factory.php")
-        Call<List<Factory>> getFactory(@Query("idUser") int idUser);
+        Call<List<Factory>> getFactory(@Query("idUser") String idUser);
 
         // Insert factory
         @FormUrlEncoded
@@ -204,7 +213,7 @@ public interface API {
                 @Field("nameFactory")       String nameFactory,
                 @Field("addressFactory")    String addressFactory,
                 @Field("phoneFactory")      String phoneFactory,
-                @Field("idUser")            int idUser
+                @Field("idUser")            String idUser
         );
 
         // Delete factory

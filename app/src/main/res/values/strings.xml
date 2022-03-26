@@ -31,6 +31,7 @@
     <string name="title_input_verify">Nhập mã xác nhận  </string>
     <string name="title_type_farmer">Nông dân  </string>
     <string name="title_type_customer">Khách hàng  </string>
+    <string name="title_type_manager">Quản lý </string>
     <string name="title_question_type">Chọn loại thành viên  </string>
     <string name="title_error_empty">Vui lòng không bỏ trống dữ liệu  </string>
     <string name="title_error_length_pass">Độ dài mật khẩu phải lớn hơn 6 kí tự  </string>

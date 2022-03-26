@@ -45,6 +45,24 @@
             android:layout_marginBottom="5dp"
             />
         <RadioButton
+            android:id="@+id/radio_manager"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_type_manager"
+            android:layout_marginStart="10dp"
+
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            />
+        <RadioButton
             android:id="@+id/radio_customer"
             android:textSize="16sp"
             android:layout_width="match_parent"

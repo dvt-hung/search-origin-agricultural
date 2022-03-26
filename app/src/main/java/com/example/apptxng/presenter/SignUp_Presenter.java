@@ -1,6 +1,7 @@
 package com.example.apptxng.presenter;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 
 import androidx.annotation.NonNull;
@@ -50,22 +51,21 @@ public class SignUp_Presenter {
     }
 
     // Sign Up
-    public void signUpUser(User user, String codeEmail, String passWordConfirm)
+    public void signUpUser(User user, long codeEmail, String passWordConfirm, int idTypeFactory)
     {
-
         if (!user.checkLengthPassword()) {
             iSignUp.errorLengthPassword();
         }
         else if (!user.checkConfirmPassword(passWordConfirm)) {
             iSignUp.incorrectPassword();
         }
-        else if (rd != Long.parseLong(codeEmail))
+        else if (rd != codeEmail)
         {
             iSignUp.incorrectCode();
         }
-        else
-        {
-            Common.api.signUpUser(user)
+        else {
+
+            Common.api.signUpUser(user.getEmail(), user.getIdUser(), user.getName(),user.getPassWord(),user.isAccept(),user.getIdRole(),idTypeFactory)
                     .enqueue(new Callback<ResponsePOST>() {
                         @Override
                         public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {

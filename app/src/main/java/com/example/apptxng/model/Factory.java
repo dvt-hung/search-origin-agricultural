@@ -7,7 +7,7 @@ public class Factory implements Serializable {
     private String nameFactory;
     private String addressFactory;
     private String phoneFactory;
-    private int idUser;
+    private String idUser;
     private TypeFactory type_factory;
 
     public Factory() {
@@ -53,11 +53,11 @@ public class Factory implements Serializable {
         this.phoneFactory = phoneFactory;
     }
 
-    public int getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 }

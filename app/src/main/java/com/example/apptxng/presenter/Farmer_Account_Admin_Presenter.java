@@ -19,7 +19,7 @@ public class Farmer_Account_Admin_Presenter {
     }
 
     // Update accept user
-    public void updateAcceptUser(int idUser, int accept){
+    public void updateAcceptUser(String idUser, int accept){
         Common.api.updateAcceptUser(idUser,accept)
                 .enqueue(new Callback<ResponsePOST>() {
                     @Override
