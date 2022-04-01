@@ -27,6 +27,7 @@
     <string name="title_email"> Email </string>
     <string name="title_address"> Địa chỉ </string>
     <string name="title_phone"> Số ĐT </string>
+    <string name="title_web"> Website </string>
     <string name="title_input_email"> Email </string>
     <string name="title_input_verify">Nhập mã xác nhận  </string>
     <string name="title_type_farmer">Nông dân  </string>
@@ -144,10 +145,10 @@
     <string name="input_phone_farm">Nhập số điện thoại </string>
     <string name="input_address_farm">Nhập địa chỉ </string>
     <string name="choice_image_user"> Chọn ảnh đại diện mới </string>
-    <string name="choice_factory_history"> Cơ sở đang tiếp nhận sản phẩm </string>
+    <string name="choice_factory_history"> Cơ sở hiện tại của sản phẩm </string>
     <string name="choice_factory_history2"> Chọn cơ sở </string>
     <string name="description"> Mô tả của nhật ký</string>
-    <string name="choice_image_history"> Hình ảnh kiểm định </string>
+    <string name="choice_image_history">Thêm hình ảnh kiểm định </string>
     <string name="empty_factory"> Nhấp vào đây để thêm cơ sở liên kết </string>
     <string name="pick_camera"> Camera </string>
     <string name="pick_gallery"> Thư viện ảnh </string>
@@ -158,7 +159,14 @@
     <string name="update_factory"> Cập nhật cơ sở </string>
     <string name="name_factory"> Tên cơ sở </string>
     <string name="input_name_factory">Nhập tên cơ sở </string>
+    <string name="current_factory">Cơ sở hiện tại </string>
+    <string name="other_factory">Cơ sở khác </string>
+    <string name="info_factory">Thông tin cơ sở </string>
 
     <string name="title_delete_factory"> Xóa cơ sở liên kết </string>
     <string name="title_question_delete_factory"> Bạn có chắc là xóa cơ sở này không </string>
+
+<!--    DETAIL HISTORY      -->
+    <string name="title_detail_history"> Chi tiết nhật ký </string>
+
 </resources>

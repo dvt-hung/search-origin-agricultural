@@ -9,17 +9,15 @@ import java.util.Date;
 import java.util.List;
 
 public class History implements Serializable {
-    private int idHistory;
+    private String idHistory;
     private int idProduct;
     private String descriptionHistory;
     private String dateHistory;
-    private String imageHistory;
     private Factory factory;
     private TypeFactory type_factory;
 
     public History() {
     }
-
 
 
     public Factory getFactory() {
@@ -38,11 +36,11 @@ public class History implements Serializable {
         this.type_factory = type_factory;
     }
 
-    public int getIdHistory() {
+    public String getIdHistory() {
         return idHistory;
     }
 
-    public void setIdHistory(int idHistory) {
+    public void setIdHistory(String idHistory) {
         this.idHistory = idHistory;
     }
 
@@ -70,14 +68,6 @@ public class History implements Serializable {
 
     public void setDateHistory(String dateHistory) {
         this.dateHistory = dateHistory;
-    }
-
-    public String getImageHistory() {
-        return imageHistory;
-    }
-
-    public void setImageHistory(String imageHistory) {
-        this.imageHistory = imageHistory;
     }
 
 }

@@ -31,7 +31,7 @@ public class Factory_Presenter {
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.show();
         progressDialog.setMessage("Đang tải dữ liệu...");
-        Common.api.getFactory(Common.currentUser.getIdUser())
+        Common.api.getFactory()
                 .enqueue(new Callback<List<Factory>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Factory>> call, @NonNull Response<List<Factory>> response) {

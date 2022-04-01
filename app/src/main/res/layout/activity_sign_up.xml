@@ -119,6 +119,7 @@
             android:layout_marginStart="20sp"
             android:layout_marginTop="20dp"
             android:visibility="gone"
+
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -149,6 +150,48 @@
             android:layout_marginEnd="20dp"
             app:drawableEndCompat="@drawable/ic_sort_down"
             android:gravity="center_vertical"
+            android:visibility="gone"
+
+            />
+
+        <LinearLayout
+            android:id="@+id/layout_NameFactory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="20sp"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_symbol"
+                android:textColor="@color/red"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name_factory"
+                android:layout_marginStart="3dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edt_NameFactory_SU"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_name_factory"
+            android:layout_marginTop="5dp"
+            android:textSize="16sp"
+            android:background="@drawable/custom_edittext"
+            android:padding="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:drawablePadding="10dp"
             android:visibility="gone"
             />
 

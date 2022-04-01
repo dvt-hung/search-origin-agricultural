@@ -39,8 +39,8 @@ import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity implements ISignUp, ChoiceType_Adapter.IListenerChoiceType, ITypeFactory {
 
-    private LinearLayout layout_TypeFactory;
-    private EditText edt_Email_SU,edt_Name_SU, edt_Password_SU, edt_Password_Confirm_SU, edt_Code_SU ;
+    private LinearLayout layout_TypeFactory,layout_NameFactory;
+    private EditText edt_Email_SU,edt_Name_SU, edt_Password_SU, edt_Password_Confirm_SU, edt_Code_SU,edt_NameFactory_SU ;
     private TextView txt_Type_SU,txt_Error_SU, txt_TypeFactory_SU;
     private ImageView img_Back_SU;
     private Button btn_SendOTP, btn_SignUp;
@@ -114,12 +114,13 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
                 txt_Error_SU.setVisibility(View.VISIBLE);
 
                 // Lấy dữ liệu từ các EDT
-                name            = edt_Name_SU.getText().toString().trim();
-                email           = edt_Email_SU.getText().toString().trim();
-                passWord        = edt_Password_SU.getText().toString().trim();
-                passWordConfirm = edt_Password_Confirm_SU.getText().toString().trim();
-                codeEmail       = Long.parseLong(edt_Code_SU.getText().toString().trim());
-                String idUser = "U" + Calendar.getInstance().getTime().getTime();
+                name                = edt_Name_SU.getText().toString().trim();
+                email               = edt_Email_SU.getText().toString().trim();
+                passWord            = edt_Password_SU.getText().toString().trim();
+                passWordConfirm     = edt_Password_Confirm_SU.getText().toString().trim();
+                codeEmail           = Long.parseLong(edt_Code_SU.getText().toString().trim());
+                String idUser       = "U" + Calendar.getInstance().getTime().getTime();
+                String nameFactory  = edt_NameFactory_SU.getText().toString().trim();
                 if (name.isEmpty() || email.isEmpty() || passWord.isEmpty() || passWordConfirm.isEmpty() || idRole == 0 || codeEmail == 0)
                 {
                     txt_Error_SU.setText(R.string.title_error_empty);
@@ -133,7 +134,7 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
                     user.setIdRole(idRole);
                     user.setIdUser(idUser);
 
-                    signUpPresenter.signUpUser(user,codeEmail,passWordConfirm,idTypeFactory);
+                    signUpPresenter.signUpUser(user,codeEmail,passWordConfirm,idTypeFactory,nameFactory);
                 }
             }
         });
@@ -201,9 +202,15 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
                     {
                         txt_Type_SU.setText(radio_farmer.getText());
                         idRole = 3;
+
+                        // Hiển thị loại cơ sở và nhập tên cơ sở
                         layout_TypeFactory.setVisibility(View.GONE);
                         txt_TypeFactory_SU.setVisibility(View.GONE);
-                        idTypeFactory = 1;
+
+                        layout_NameFactory.setVisibility(View.VISIBLE);
+                        edt_NameFactory_SU.setVisibility(View.VISIBLE);
+
+                        idTypeFactory = 1; // Loại cơ sở của nông dân là 1
                         user.setAccept(0);
                         break;
                     }
@@ -215,7 +222,6 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
                         txt_TypeFactory_SU.setVisibility(View.GONE);
                         idTypeFactory = 0;
                         user.setAccept(1);
-
                         break;
                     }
                     case  R.id.radio_manager:
@@ -223,9 +229,14 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
                         typeFactoryPresenter.getTypeFactory();
                         txt_Type_SU.setText(radio_manager.getText());
                         idRole = 2;
+
                         user.setAccept(0);
+                        // Hiển thị loại cơ sở và nhập tên cơ sở
                         layout_TypeFactory.setVisibility(View.VISIBLE);
                         txt_TypeFactory_SU.setVisibility(View.VISIBLE);
+
+                        layout_NameFactory.setVisibility(View.VISIBLE);
+                        edt_NameFactory_SU.setVisibility(View.VISIBLE);
                         break;
                     }
                 }
@@ -252,7 +263,12 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
         img_Back_SU                 = findViewById(R.id.img_Back_SU);
         layout_TypeFactory          = findViewById(R.id.layout_TypeFactory);
         txt_TypeFactory_SU          = findViewById(R.id.txt_TypeFactory_SU);
-        signUpPresenter             = new SignUp_Presenter(this);
+        edt_NameFactory_SU          = findViewById(R.id.edt_NameFactory_SU);
+        layout_NameFactory          = findViewById(R.id.layout_NameFactory);
+
+
+
+        signUpPresenter             = new SignUp_Presenter(this,this);
         typeFactoryPresenter        = new TypeFactory_Presenter(this);
         typeFactoryList             = new ArrayList<>();
     }
@@ -265,17 +281,30 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
     }
 
     @Override
+    public void emptyValue() {
+        txt_Error_SU.setVisibility(View.VISIBLE);
+        txt_Error_SU.setText(R.string.title_error_empty);
+        Toast.makeText(this, R.string.title_error_empty, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void errorLengthPassword() {
+        txt_Error_SU.setVisibility(View.VISIBLE);
+
         txt_Error_SU.setText(R.string.title_error_length_pass);
     }
 
     @Override
     public void incorrectPassword() {
+
+        txt_Error_SU.setVisibility(View.VISIBLE);
         txt_Error_SU.setText(R.string.title_error_incorrect_pass);
     }
 
     @Override
     public void incorrectCode() {
+
+        txt_Error_SU.setVisibility(View.VISIBLE);
         txt_Error_SU.setText(R.string.title_error_incorrect_code);
     }
 

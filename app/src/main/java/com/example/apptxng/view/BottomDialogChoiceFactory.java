@@ -42,7 +42,6 @@ public class BottomDialogChoiceFactory extends BottomSheetDialogFragment {
         TextView txt_Insert_Factory = viewDialog.findViewById(R.id.txt_Insert_Factory);
         RecyclerView recycler_Choice_Factory = viewDialog.findViewById(R.id.recycler_Choice_Factory);
 
-
         // Layout manager của recycler view
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         recycler_Choice_Factory.setLayoutManager(layoutManager);

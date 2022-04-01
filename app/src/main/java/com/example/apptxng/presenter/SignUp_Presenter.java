@@ -1,5 +1,7 @@
 package com.example.apptxng.presenter;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -17,12 +19,14 @@ import retrofit2.Response;
 public class SignUp_Presenter {
 
     private final ISignUp iSignUp;
+    private final Context context;
     public  long rd = 1000 + (int)(Math.random() * 9999);
     public String message;
-    public SignUp_Presenter(ISignUp iSignUp) {
-        this.iSignUp = iSignUp;
-    }
 
+    public SignUp_Presenter(ISignUp iSignUp, Context context) {
+        this.iSignUp = iSignUp;
+        this.context = context;
+    }
 
     // Send otp email
     public void sendOTP(String email)
@@ -51,8 +55,9 @@ public class SignUp_Presenter {
     }
 
     // Sign Up
-    public void signUpUser(User user, long codeEmail, String passWordConfirm, int idTypeFactory)
+    public void signUpUser(User user, long codeEmail, String passWordConfirm, int idTypeFactory, String nameFactory)
     {
+
         if (!user.checkLengthPassword()) {
             iSignUp.errorLengthPassword();
         }
@@ -61,9 +66,17 @@ public class SignUp_Presenter {
         }
         else if (rd != codeEmail)
         {
+            Log.e("code", "signUpUser: " + rd );
             iSignUp.incorrectCode();
+        } else if (idTypeFactory != 0 && nameFactory.isEmpty())
+        {
+            iSignUp.emptyValue();
         }
         else {
+            // Tạo progress dialog
+            ProgressDialog progressDialog = new ProgressDialog(context);
+            progressDialog.setMessage("Vui lòng đợi...");
+            progressDialog.show();
 
             Common.api.signUpUser(user.getEmail(), user.getIdUser(), user.getName(),user.getPassWord(),user.isAccept(),user.getIdRole(),idTypeFactory)
                     .enqueue(new Callback<ResponsePOST>() {
@@ -80,11 +93,14 @@ public class SignUp_Presenter {
                             {
                                 iSignUp.isSuccess();
                             }
+                            progressDialog.dismiss();
+
                         }
 
                         @Override
                         public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
-
+                            iSignUp.isFailed(t.getMessage());
+                            progressDialog.dismiss();
                         }
                     });
         }

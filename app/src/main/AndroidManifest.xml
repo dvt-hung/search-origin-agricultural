@@ -19,6 +19,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".view.DetailHistoryActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".view.SplashActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.InsertHistoryActivity"
+            android:exported="false" />
         <activity
             android:name=".view.UpdateHistoryActivity"
             android:exported="false" />
@@ -30,9 +47,6 @@
             android:exported="false" />
         <activity
             android:name=".view.FactoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.InsertHistoryActivity"
             android:exported="false" />
         <activity
             android:name=".view.ChangeInfoFarmerActivity"
@@ -58,15 +72,7 @@
         <activity
             android:name=".view.Products_Admin_Activity"
             android:exported="false" />
-        <activity
-            android:name=".view.SplashActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".view.CustomerActivity"
             android:exported="false" />

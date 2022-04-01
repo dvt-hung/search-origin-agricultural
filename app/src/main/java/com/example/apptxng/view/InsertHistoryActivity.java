@@ -6,8 +6,12 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -25,12 +29,15 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.Factory_Adapter;
+import com.example.apptxng.adapter.Images_Adapter;
 import com.example.apptxng.model.Common;
 import com.example.apptxng.model.Factory;
 import com.example.apptxng.model.History;
@@ -50,6 +57,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import gun0912.tedbottompicker.TedBottomPicker;
+import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,14 +68,16 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
     private ImageView img_Back_History, img_Insert_History, img_History;
     private TextView txt_ChoiceFactory_History, txt_ResultFactory_History;
     private EditText edt_Des_History;
-    private Dialog dialogInsertHistory;
-    private Factory factoryTemp;
+    private RecyclerView recycler_Images_History;
+    private Factory factoryTemp, factoryCurrent;
     private History historyTemp;
     private Uri uriTemp;
     private int idProduct;
     private History_Presenter historyPresenter;
     private List<Factory> listTemp = new ArrayList<>();
+    private List<Uri> listPhoto = new ArrayList<>();
     private BottomDialogChoiceFactory choiceFactory;
+    private Images_Adapter imagesAdapter;
 
     private final ActivityResultLauncher<Intent> launcherCamera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -115,13 +126,18 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
         txt_ChoiceFactory_History   = findViewById(R.id.txt_ChoiceFactory_History);
         txt_ResultFactory_History   = findViewById(R.id.txt_ResultFactory_History);
         edt_Des_History             = findViewById(R.id.edt_Des_History);
+        recycler_Images_History     = findViewById(R.id.recycler_Images_History);
         factoryTemp                 = new Factory();
         historyTemp                 = new History();
-
+        imagesAdapter               = new Images_Adapter(this);
         historyPresenter            = new History_Presenter(this, this);
 
         loadListFactory();
+        recycler_Images_History.setAdapter(imagesAdapter);
 
+        // Layout manager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
+        recycler_Images_History.setLayoutManager(layoutManager);
     }
 
     @Override
@@ -159,21 +175,20 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
                 String des = edt_Des_History.getText().toString().trim();
                 historyTemp.setDescriptionHistory(des);
 
-                // Set idFactory cho history
-                historyTemp.setFactory(factoryTemp);
-
                 // Set idProduct cho history
                 historyTemp.setIdProduct(idProduct);
-
 
                 // Ngày của history
                 Date date = Calendar.getInstance().getTime();
                 String dateHistory = Common.dateFormat.format(date);
                 historyTemp.setDateHistory(dateHistory);
 
-                // Gọi đến Presenter
-                historyPresenter.InsertHistory(historyTemp,uriTemp);
+                // Set id của history
+                String idHistory = "History" + Calendar.getInstance().getTime().getTime();
+                historyTemp.setIdHistory(idHistory);
 
+                // Gọi đến Presenter
+                historyPresenter.InsertHistory(historyTemp,listPhoto);
             }
         });
 
@@ -181,8 +196,8 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
         txt_ChoiceFactory_History.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialogChoiceFactory();
-
+                showDialogChoiceCurrentFactory();
+                //showDialogChoiceFactory();
             }
         });
 
@@ -190,130 +205,94 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
         img_History.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialogPickImage();
+                checkPermissionPickImage();
             }
         });
 
     }
 
-    // Dialog pick image: mở dialog có 3 lựa chọn: Lấy ảnh từ camera, thư viện hoặc hủy
-    private void showDialogPickImage() {
-        dialogInsertHistory  = new Dialog(this);
-        dialogInsertHistory.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogInsertHistory.setContentView(R.layout.dialog_bottom_pick_image);
+    private void checkPermissionPickImage() {
+        Dexter.withContext(this)
+                .withPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ).withListener(new MultiplePermissionsListener() {
+            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
+                /* ... */
+                if (report.areAllPermissionsGranted())
+                {
+                    openPickImages();
+                }
+            }
+            @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                token.continuePermissionRequest();
+                }
+        }).check();
+    }
 
-        Window window = dialogInsertHistory.getWindow();
+    private void openPickImages() {
+        TedBottomPicker.with(InsertHistoryActivity.this)
+                .setPeekHeight(1600)
+                .showTitle(false)
+                .setCompleteButtonText("Done")
+                .setEmptySelectionText("No Select")
+                .showMultiImage(new TedBottomSheetDialogFragment.OnMultiImageSelectedListener() {
+                    @Override
+                    public void onImagesSelected(List<Uri> uriList) {
+                        if (uriList != null)
+                        {
+                            recycler_Images_History.setVisibility(View.VISIBLE);
+                            listPhoto.addAll(uriList);
+                            imagesAdapter.setUriList(listPhoto);
+                        }
+                    }
+                });
+    }
+
+    private void showDialogChoiceCurrentFactory()
+    {
+        Dialog dialogChoice = new Dialog(this);
+        dialogChoice.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogChoice.setContentView(R.layout.dialog_current_factory);
+
+        Window window = dialogChoice.getWindow();
 
         if (window != null)
         {
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             window.setGravity(Gravity.BOTTOM);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         }
 
-        dialogInsertHistory.show();
+        dialogChoice.show();
 
-        // Khai báo ánh xạ view trong dialog
-        Button btn_Pick_Camera      = dialogInsertHistory.findViewById(R.id.btn_Pick_Camera);
-        Button btn_Pick_Gallery     = dialogInsertHistory.findViewById(R.id.btn_Pick_Gallery);
-        Button btn_Pick_Cancel      = dialogInsertHistory.findViewById(R.id.btn_Pick_Cancel);
-
-
+        // Ánh xạ view
+        RadioGroup radio_group      = dialogChoice.findViewById(R.id.radio_group);
         /*
-        * 1. Pick Camera: Kiểm tra quyền camera và ghi vào bộ nhớ. Nếu cho phép thì mở camera lên và nhận kết quả chụp xong
-        * 2. Pick Gallery: Kiểm tra quyền truy cập thư viện. Nếu cho phép thì mở thư viện và nhận kết quả
-        * 3. Pick Cancel: Hủy dialog
+        * 1. Current: Set Factory = cơ sở hiện tại
+        * 2. Other: Mở dialog lựa chọn cơ sở khác
         * */
 
-        // 1. Pick Camera
-        btn_Pick_Camera.setOnClickListener(new View.OnClickListener() {
+        radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-
-                checkPermissionOpenCamera();
-                dialogInsertHistory.dismiss();
-
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if ( i == R.id.radio_other)
+                {
+                    showDialogChoiceFactory();
+                }
+                else 
+                {
+                    historyTemp.setFactory(factoryCurrent);
+                    txt_ResultFactory_History.setVisibility(View.VISIBLE);
+                    txt_ResultFactory_History.setText(factoryCurrent.getNameFactory());
+                }
+                dialogChoice.dismiss();
             }
         });
 
-        // 2. Pick Gallery
-        btn_Pick_Gallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPermissionOpenGallery();
-                dialogInsertHistory.dismiss();
-            }
-        });
-
-        // 3. Pick Cancel
-        btn_Pick_Cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogInsertHistory.dismiss();
-            }
-        });
     }
 
-    // Check permission: Kiểm tra quyền truy cập vào thư viện ảnh
-    private void checkPermissionOpenGallery() {
-        Dexter.withContext(this).withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                        openGallery();
-                    }
-
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-                        Toast.makeText(InsertHistoryActivity.this, "Bạn chưa cho phép truy cập thư viện ảnh", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-                        permissionToken.continuePermissionRequest();
-                    }
-                }).check();
-    }
-
-    // Check permission: Kiểm tra quyền camera và ghi vào bộ nhớ
-    private void checkPermissionOpenCamera()
-    {
-        Dexter.withContext(this).withPermissions(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .withListener(new MultiplePermissionsListener() {
-                    @Override
-                    public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
-                        if (multiplePermissionsReport.areAllPermissionsGranted())
-                        {
-                            openCamera();
-                        }
-                        else
-                        {
-                            Toast.makeText(InsertHistoryActivity.this, "Bạn chưa cho phép mở camera", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
-                        permissionToken.continuePermissionRequest();
-                    }
-                }).check();
-
-    }
-
-    private void openCamera() {
-        Intent intentCamera = new Intent();
-        intentCamera.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-        launcherCamera.launch(intentCamera);
-    }
-
-
-    // Open gallery: nếu đã cho phép thì mở thư viện ảnh
-    private void openGallery() {
-        Intent intentGallery = new Intent();
-        intentGallery.setType("image/*");
-        intentGallery.setAction(Intent.ACTION_PICK);
-        launcherGallery.launch(intentGallery);
-    }
 
     // Dialog Choice Factory: Mở dialog hiển thị các cơ sở đã liên kết
     private void showDialogChoiceFactory() {
@@ -326,12 +305,24 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
             ProgressDialog progressDialog = new ProgressDialog(InsertHistoryActivity.this);
             progressDialog.show();
             progressDialog.setMessage("Đang tải dữ liệu...");
-            Common.api.getFactory(Common.currentUser.getIdUser())
+            Common.api.getFactory()
                     .enqueue(new Callback<List<Factory>>() {
                         @Override
                         public void onResponse(@NonNull Call<List<Factory>> call, @NonNull Response<List<Factory>> response) {
-                            listTemp = response.body();
 
+                            assert response.body() != null;
+                            for (Factory f : response.body())
+                            {
+                                if (f.getIdUser().equals(Common.currentUser.getIdUser()))
+                                {
+                                    factoryCurrent = f;
+                                    listTemp.remove(f);
+                                }
+                                else
+                                {
+                                    listTemp.add(f);
+                                }
+                            }
                             progressDialog.dismiss();
                         }
 
@@ -346,7 +337,7 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
     // Sự kiện khi chọn một cơ sở trong danh sách
     @Override
     public void onClickItemFactory(Factory factory) {
-        factoryTemp = factory;
+        historyTemp.setFactory(factory);
         txt_ResultFactory_History.setVisibility(View.VISIBLE);
         txt_ResultFactory_History.setText(factory.getNameFactory());
         choiceFactory.dismiss();
@@ -373,8 +364,6 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
     @Override
     public void emptyValue() {
         Toast.makeText(this, R.string.title_error_empty, Toast.LENGTH_LONG).show();
-
-
     }
 
     @Override
@@ -388,7 +377,10 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
         idProduct = 0;
         factoryTemp = null;
         historyTemp = null;
-        dialogInsertHistory = null;
         uriTemp = null;
+        listTemp = null;
     }
+
+
+
 }

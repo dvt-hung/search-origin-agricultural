@@ -43,15 +43,41 @@ public class Factory_Adapter extends RecyclerView.Adapter<Factory_Adapter.Factor
         return new FactoryViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull FactoryViewHolder holder, int position) {
         Factory factory = factoryList.get(position);
 
         if (factory != null)
         {
-            holder.txt_Name_Factory.setText(factory.getNameFactory());
-            holder.txt_Address_Factory.setText(factory.getAddressFactory());
-            holder.txt_Phone_Factory.setText(factory.getPhoneFactory());
+            if (factory.getNameFactory() == null)
+            {
+                holder.txt_Name_Factory.setText(R.string.title_error_empty_user);
+            }
+            else
+            {
+                holder.txt_Name_Factory.setText(factory.getNameFactory());
+
+            }
+
+            if (factory.getAddressFactory() == null)
+            {
+                holder.txt_Address_Factory.setText(R.string.title_error_empty_user );
+            }
+            else
+            {
+                holder.txt_Address_Factory.setText(factory.getAddressFactory());
+
+            }
+            if (factory.getPhoneFactory() == null)
+            {
+                holder.txt_Phone_Factory.setText(R.string.title_error_empty_user );
+            }
+            else
+            {
+                holder.txt_Phone_Factory.setText(factory.getPhoneFactory());
+            }
+
             holder.txt_Name_TypeFactory.setText(factory.getType_factory().getNameTypeFactory());
             holder.layout_Factory.setOnClickListener(new View.OnClickListener() {
                 @Override

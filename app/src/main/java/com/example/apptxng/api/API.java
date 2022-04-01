@@ -203,7 +203,7 @@ public interface API {
     //  ******* FACTORY **********
         // Get factory by idUser
         @GET("get_factory.php")
-        Call<List<Factory>> getFactory(@Query("idUser") String idUser);
+        Call<List<Factory>> getFactory();
 
         // Insert factory
         @FormUrlEncoded
@@ -240,26 +240,27 @@ public interface API {
     @Multipart
     @POST("insert_history.php")
     Call<ResponsePOST> insertHistory (
+            @Part("idHistory")                      RequestBody idHistory,
             @Part("idProduct")                      RequestBody idProduct,
             @Part("idFactory")                      RequestBody idFactory,
             @Part("descriptionHistory")             RequestBody descriptionHistory,
             @Part("dateHistory")                    RequestBody dateHistory,
-            @Part MultipartBody.Part                imageHistory
+            @Part List<MultipartBody.Part>          imageHistory
     );
 
     // Get history
     @GET("get_history.php")
     Call<List<History>> getHistory(@Query("idProduct") int idProduct);
 
-    // Delete history
+    // Delete history: Chỉnh sửa lại
     @FormUrlEncoded
     @POST("delete_history.php")
     Call<ResponsePOST> deleteHistory(
-            @Field("idHistory") int idHistory,
+            @Field("idHistory") String idHistory,
             @Field("imageHistory") String imageHistory
     );
 
-    // Insert history
+    // Update history
     @Multipart
     @POST("update_history.php")
     Call<ResponsePOST> updateHistory (

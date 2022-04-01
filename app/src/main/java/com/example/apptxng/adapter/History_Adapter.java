@@ -25,16 +25,13 @@ public class History_Adapter extends RecyclerView.Adapter<History_Adapter.Histor
 
     private List<History> historyList;
     private final IListenerHistory iListenerHistory;
-    private final Context context;
 
     public interface IListenerHistory{
         void onClickHistoryItem(History history);
-        void onClickImageItem(History history);
     }
 
-    public History_Adapter(IListenerHistory iListenerHistory, Context context) {
+    public History_Adapter(IListenerHistory iListenerHistory) {
         this.iListenerHistory = iListenerHistory;
-        this.context = context;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -75,7 +72,6 @@ public class History_Adapter extends RecyclerView.Adapter<History_Adapter.Histor
             holder.txt_Date_History.setText(history.getDateHistory());
 
             // Gán ảnh cho lịch sử
-            Glide.with(context).load(history.getImageHistory()).error(R.drawable.logo).into(holder.img_itemHistory);
 
             // Sự kiện khi click vào item history
             holder.layout_History.setOnClickListener(new View.OnClickListener() {
@@ -85,13 +81,7 @@ public class History_Adapter extends RecyclerView.Adapter<History_Adapter.Histor
                 }
             });
 
-            // Sự kiện khi click vào ảnh
-            holder.img_itemHistory.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    iListenerHistory.onClickImageItem(history);
-                }
-            });
+
         }
     }
 
@@ -106,7 +96,6 @@ public class History_Adapter extends RecyclerView.Adapter<History_Adapter.Histor
 
     public static class  HistoryViewHolder extends RecyclerView.ViewHolder {
         private final RelativeLayout layout_History;
-        private final ImageView img_itemHistory;
         private final TextView txt_Date_History, txt_TypeFactory, txt_NameFactory, txt_AddressFactory, txt_DesProduct;
         public HistoryViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -117,7 +106,6 @@ public class History_Adapter extends RecyclerView.Adapter<History_Adapter.Histor
             txt_NameFactory         = itemView.findViewById(R.id.txt_NameFactory);
             txt_AddressFactory      = itemView.findViewById(R.id.txt_AddressFactory);
             txt_DesProduct          = itemView.findViewById(R.id.txt_DesProduct);
-            img_itemHistory         = itemView.findViewById(R.id.img_itemHistory);
         }
     }
 }

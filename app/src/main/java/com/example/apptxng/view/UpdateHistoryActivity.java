@@ -131,7 +131,6 @@ public class UpdateHistoryActivity extends AppCompatActivity implements Factory_
     private void displayValue() {
 
         // Ảnh của nhật ký
-        Glide.with(this).load(historyTemp.getImageHistory()).error(R.drawable.logo).into(img_History);
 
         // Cơ sở hiện tại
         txt_ResultFactory_History.setText(historyTemp.getFactory().getNameFactory());
@@ -318,7 +317,7 @@ public class UpdateHistoryActivity extends AppCompatActivity implements Factory_
         ProgressDialog progressDialog = new ProgressDialog(UpdateHistoryActivity.this);
         progressDialog.show();
         progressDialog.setMessage("Đang tải dữ liệu...");
-        Common.api.getFactory(Common.currentUser.getIdUser())
+        Common.api.getFactory()
                 .enqueue(new Callback<List<Factory>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Factory>> call, @NonNull Response<List<Factory>> response) {

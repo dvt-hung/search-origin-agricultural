@@ -2,6 +2,7 @@ package com.example.apptxng.presenter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.FileUtils;
 import android.util.Log;
 
 import com.example.apptxng.model.Balance;
@@ -69,9 +70,10 @@ public class Insert_Product_Presenter {
         }
 
         Uri uriImageProduct = Uri.parse(product.getImageProduct());
-        File file = new File(Common.getRealPathFromURI(uriImageProduct,context));
 
+        File file = new File(Common.getRealPathFromURI(uriImageProduct,context));
         String filePath = file.getAbsolutePath();
+
         String[] arraySplitPath = filePath.split("\\.");
 
         String nameProductNew = arraySplitPath[0] + System.currentTimeMillis() + "." + arraySplitPath[1];

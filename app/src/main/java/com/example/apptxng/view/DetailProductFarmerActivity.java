@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -72,7 +73,7 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
         product = (Product) bundleDetailsProduct.getSerializable("product");
 
         // Khởi tạo adapter cho recycler view
-        historyAdapter = new History_Adapter(this,this);
+        historyAdapter = new History_Adapter(this);
 
         // Gán adapter cho recycler view
         recycler_History_Detail_Product.setAdapter(historyAdapter);
@@ -328,7 +329,6 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
         });
     }
 
-
     // Dialog xác nhận có thật sự muốn xóa không
     private void showDialogDelete(History history) {
         // Khởi tạo dialog
@@ -377,39 +377,17 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
     }
 
 
-
     // OVERRIDE METHOD: interface IListenerHistory
     @Override
     public void onClickHistoryItem(History history) {
-        showDialogOptionHistory(history);
-    }
+        //showDialogOptionHistory(history);
 
-    @Override
-    public void onClickImageItem(History history) {
-        showFullImage(history);
-    }
-
-    // Hiển thị ảnh khi người dùng click vào ảnh của nhật ký
-    private void showFullImage(History history) {
-        Dialog dialogDisplay = new Dialog(this);
-        dialogDisplay.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogDisplay.setContentView(R.layout.display_image);
-        dialogDisplay.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
-        dialogDisplay.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        // Ánh xạ view
-        ImageView img_Display = dialogDisplay.findViewById(R.id.img_Display);
-        ImageView img_Close = dialogDisplay.findViewById(R.id.img_Close_Display);
-
-
-        dialogDisplay.show();
-        Glide.with(this).load(history.getImageHistory()).error(R.drawable.logo).into(img_Display);
-
-        img_Close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogDisplay.dismiss();
-            }
-        });
+        // Chuyển đối tượng history sang activity detail
+        Bundle bundleHistory = new Bundle();
+        bundleHistory.putSerializable("history", history);
+        Intent intent = new Intent(DetailProductFarmerActivity.this, DetailHistoryActivity.class);
+        intent.putExtras(bundleHistory);
+        startActivity(intent);
     }
 
 
