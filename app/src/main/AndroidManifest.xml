@@ -21,7 +21,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".view.DetailHistoryActivity"
+            android:name=".view.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +31,7 @@
         </activity>
 
         <activity
-            android:name=".view.SplashActivity"
+            android:name=".view.DetailHistoryActivity"
             android:exported="false" />
         <activity
             android:name=".view.InsertHistoryActivity"

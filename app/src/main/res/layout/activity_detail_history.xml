@@ -46,6 +46,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/txt_Date_History_Detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="30/08/1999"
@@ -57,6 +58,7 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_Images_History"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -76,13 +78,14 @@
         android:textSize="16sp"
         />
     <TextView
+        android:id="@+id/txt_Des_History_Detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_edittext"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="5dp"
-        android:padding="5dp"
+        android:padding="10dp"
         android:text="@string/title_detail_history"
         android:textColor="@color/black"
         />
@@ -100,6 +103,7 @@
         android:textSize="16sp"
         />
     <TextView
+        android:id="@+id/txt_TypeFactory_History_Detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_type_factory"
@@ -126,17 +130,15 @@
             android:padding="5dp"
             android:text="@string/name_factory"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            />
+            android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/txt_NameFactory_Detail"
+            android:id="@+id/txt_NameFactory_History_Detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@id/title_nameFactory"
             android:padding="5dp"
-            android:text="@string/name_factory"
             android:textColor="@color/gray2"
 
             />
@@ -145,17 +147,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/title_nameFactory"
+            android:layout_marginTop="3dp"
             android:padding="5dp"
             android:text="@string/title_address"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/txt_AddressFactory_Detail"
+            android:id="@+id/txt_AddressFactory_History_Detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/title_nameFactory"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="3dp"
             android:layout_toEndOf="@id/title_nameFactory"
             android:padding="5dp"
             android:text="@string/name_factory"
@@ -166,47 +170,50 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txt_AddressFactory_Detail"
+            android:layout_below="@id/txt_AddressFactory_History_Detail"
+            android:padding="5dp"
             android:text="@string/title_phone"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:padding="5dp"
+            android:layout_marginTop="3dp"
 
             />
 
         <TextView
-            android:id="@+id/txt_PhoneFactory_Detail"
+            android:id="@+id/txt_PhoneFactory_History_Detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txt_AddressFactory_Detail"
+            android:layout_below="@id/txt_AddressFactory_History_Detail"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="3dp"
             android:layout_toEndOf="@id/title_nameFactory"
+            android:padding="5dp"
             android:text="@string/name_factory"
             android:textColor="@color/gray2"
-            android:padding="5dp"
 
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txt_PhoneFactory_Detail"
+            android:layout_below="@id/txt_PhoneFactory_History_Detail"
+            android:padding="5dp"
             android:text="@string/title_web"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:padding="5dp"
+            android:layout_marginTop="3dp"
             />
 
         <TextView
-            android:id="@+id/txt_WebFactory_Detail"
+            android:id="@+id/txt_WebFactory_History_Detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txt_PhoneFactory_Detail"
+            android:layout_below="@id/txt_PhoneFactory_History_Detail"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="3dp"
             android:layout_toEndOf="@id/title_nameFactory"
-            android:text="@string/name_factory"
-            android:textColor="@color/gray2"
             android:padding="5dp"
-            />
+            android:text="@string/name_factory"
+            android:textColor="@color/gray2" />
     </RelativeLayout>
 </LinearLayout>

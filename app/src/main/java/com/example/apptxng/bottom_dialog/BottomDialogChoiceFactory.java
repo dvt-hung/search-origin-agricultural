@@ -1,4 +1,4 @@
-package com.example.apptxng.view;
+package com.example.apptxng.bottom_dialog;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.Factory_Adapter;
 import com.example.apptxng.model.Factory;
+import com.example.apptxng.view.FactoryActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -56,7 +57,7 @@ public class BottomDialogChoiceFactory extends BottomSheetDialogFragment {
         txt_Insert_Factory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(),FactoryActivity.class));
+                startActivity(new Intent(getActivity(), FactoryActivity.class));
                 dialog.dismiss();
             }
         });

@@ -4,6 +4,7 @@ import com.example.apptxng.model.Balance;
 import com.example.apptxng.model.Category;
 import com.example.apptxng.model.Factory;
 import com.example.apptxng.model.History;
+import com.example.apptxng.model.ImageHistory;
 import com.example.apptxng.model.Product;
 import com.example.apptxng.model.TypeFactory;
 import com.example.apptxng.model.User;
@@ -271,4 +272,8 @@ public interface API {
             @Part MultipartBody.Part                imageHistoryNew
     );
 
+    // ******** IMAGE HISTORY **********
+    // Get image history
+        @GET("get_image_history.php")
+        Call<List<ImageHistory>> getImageHistory(@Query("idHistory") String idHistory);
 }

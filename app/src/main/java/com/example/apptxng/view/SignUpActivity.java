@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
@@ -26,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.ChoiceType_Adapter;
+import com.example.apptxng.bottom_dialog.BottomDialogTypeFactory;
 import com.example.apptxng.model.TypeFactory;
 import com.example.apptxng.model.User;
 import com.example.apptxng.presenter.ISignUp;
@@ -53,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
     private User user = new User();
     private List<TypeFactory> typeFactoryList;
     private TypeFactory_Presenter typeFactoryPresenter;
-    private  BottomDialogTypeFactory dialogTypeFactory;
+    private BottomDialogTypeFactory dialogTypeFactory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

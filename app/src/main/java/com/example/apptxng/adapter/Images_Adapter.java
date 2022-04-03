@@ -3,6 +3,7 @@ package com.example.apptxng.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.apptxng.R;
+import com.example.apptxng.model.ImageHistory;
 
 import java.util.List;
 
 public class Images_Adapter extends RecyclerView.Adapter<Images_Adapter.ImageViewHolder> {
 
-    private List<Uri> uriList;
+    private List<?> uriList;
     private final Context context;
     public interface IListenerImages{
         void onClickDeleteImage(int position);
@@ -31,7 +33,7 @@ public class Images_Adapter extends RecyclerView.Adapter<Images_Adapter.ImageVie
 
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setUriList(List<Uri> list)
+    public void setUriList(List<?> list)
     {
         this.uriList = list;
         notifyDataSetChanged();
@@ -48,8 +50,17 @@ public class Images_Adapter extends RecyclerView.Adapter<Images_Adapter.ImageVie
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder,int position) {
         int p = holder.getAdapterPosition();
-        Uri u = uriList.get(position);
-        Glide.with(context).load(u).into(holder.imageItem);
+        if (uriList.get(position).getClass().equals(ImageHistory.class))
+        {        Log.e("a", "onBindViewHolder: " + uriList.getClass() );
+            holder.imageDelete.setVisibility(View.GONE);
+            ImageHistory img = (ImageHistory) uriList.get(position);
+            Glide.with(context).load(img.getImageHistory()).error(R.drawable.logo).into(holder.imageItem);
+        }
+        else
+        {
+            Glide.with(context).load(uriList.get(position)).error(R.drawable.logo).into(holder.imageItem);
+
+        }
 
         holder.imageDelete.setOnClickListener(new View.OnClickListener() {
             @Override

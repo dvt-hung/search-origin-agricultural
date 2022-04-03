@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.ChoiceType_Adapter;
+import com.example.apptxng.bottom_dialog.BottomDialogTypeFactory;
 import com.example.apptxng.model.Factory;
 import com.example.apptxng.model.TypeFactory;
 import com.example.apptxng.presenter.Factory_Presenter;

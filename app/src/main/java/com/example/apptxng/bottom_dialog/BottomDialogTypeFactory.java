@@ -1,4 +1,4 @@
-package com.example.apptxng.view;
+package com.example.apptxng.bottom_dialog;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
