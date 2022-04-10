@@ -261,6 +261,12 @@ public interface API {
             @Field("imageHistory") String imageHistory
     );
 
+
+    @POST("delete_history.php")
+    Call<ResponsePOST> deleteHistory(
+            @Body List<ImageHistory>    list);
+
+
     // Update history
     @Multipart
     @POST("update_history.php")
@@ -276,4 +282,19 @@ public interface API {
     // Get image history
         @GET("get_image_history.php")
         Call<List<ImageHistory>> getImageHistory(@Query("idHistory") String idHistory);
+
+    // Delete image history
+    @FormUrlEncoded
+    @POST("delete_image_history.php")
+    Call<ResponsePOST> deleteImageHistory(
+            @Field("idImageHistory")         int idImageHistory,
+            @Field("imageHistory")           String imageHistory);
+
+    // Insert image history
+    @Multipart
+    @POST("insert_image_history.php")
+    Call<ResponsePOST> insertImageHistory (
+            @Part("idHistory")                      RequestBody idHistory,
+            @Part List<MultipartBody.Part>          imageHistory
+    );
 }

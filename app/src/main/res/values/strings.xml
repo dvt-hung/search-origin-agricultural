@@ -166,7 +166,15 @@
     <string name="title_delete_factory"> Xóa cơ sở liên kết </string>
     <string name="title_question_delete_factory"> Bạn có chắc là xóa cơ sở này không </string>
 
-<!--    DETAIL HISTORY      -->
+    <!--    DETAIL HISTORY      -->
     <string name="title_detail_history"> Chi tiết nhật ký </string>
+    <string name="manager_image_history"> Quản lý hình ảnh </string>
+    <string name="image_new"> Hình ảnh mới </string>
+    <string name="input_new_image"> Thêm hình ảnh mới </string>
+    <string name="title_image_detail"> Hình ảnh </string>
+    <string name="delete_image"> Xóa hình ảnh </string>
+    <string name="question_delete_image"> Bạn có chắc là xóa hình này không </string>
+    <string name="title_detail_info"> Thông tin khác </string>
+    <string name="no_images"> Bạn chưa chọn hình ảnh mới </string>
 
 </resources>

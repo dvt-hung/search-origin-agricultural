@@ -21,6 +21,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_detail_product_farmer.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_factory.xml" value="0.2" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_farmer.xml" value="0.24954710144927536" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_image_history.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_info_farmer.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_insert_factory.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_insert_history_product.xml" value="0.264" />
@@ -37,6 +38,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_update_factory.xml" value="0.20471014492753623" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_update_history.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_update_product_farmer.xml" value="0.25" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/bottom_dialog_option.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_add_balance_admin.xml" value="0.23505434782608695" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_add_category_admin.xml" value="0.2" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_bottom_choice_type.xml" value="0.23505434782608695" />
@@ -51,6 +53,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_delete.xml" value="0.1" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_delete_admin.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_delete_category_admin.xml" value="0.21014492753623187" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_detail_history.xml" value="0.12158054711246201" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_details_product.xml" value="0.4" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_factory_farmer.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/dialog_pick_image.xml" value="0.25" />

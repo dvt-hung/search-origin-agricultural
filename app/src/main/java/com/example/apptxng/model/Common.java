@@ -1,6 +1,7 @@
 package com.example.apptxng.model;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -19,6 +20,7 @@ import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -31,8 +33,10 @@ import retrofit2.Response;
 
 public class Common {
     public static User currentUser;
-    public static final String URL = "http://192.168.3.117/txng/";
+    public static final String URL = "http://192.168.31.31/txng/";
     public static final API api = Retrofit_Client.getRetrofit(Common.URL).create(API.class);
+
+    public static Calendar calendar = Calendar.getInstance();
 
     public static final Locale locale = new Locale("vi","VN");
     public static NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
@@ -42,7 +46,6 @@ public class Common {
 
     @SuppressLint("SimpleDateFormat")
     public static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-
 
     public static void closeKeyboard(View view){
         if (view != null)
@@ -65,28 +68,6 @@ public class Common {
         return path;
     }
 
-    @SuppressLint("Range")
-    public static String getFileName(Context context, Uri uri) {
-        String result = null;
-        if (uri.getScheme().equals("content")) {
-            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-            try {
-                if (cursor != null && cursor.moveToFirst()) {
-                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                }
-            } finally {
-                cursor.close();
-            }
-        }
-        if (result == null) {
-            result = uri.getPath();
-            int cut = result.lastIndexOf('/');
-            if (cut != -1) {
-                result = result.substring(cut + 1);
-            }
-        }
-        return result;
-    }
 
     // Cập nhật thông tin currentUser
     public static void reloadCurrentUser()
@@ -134,4 +115,12 @@ public class Common {
             }
         });
     }
+
+    public static ProgressDialog createProgress(Context context)
+    {
+        ProgressDialog dialog = new ProgressDialog(context);
+        dialog.setMessage("Vui lòng đợi ...");
+        return dialog;
+    }
+
 }

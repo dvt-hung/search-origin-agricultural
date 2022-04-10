@@ -80,7 +80,6 @@ public class History_Presenter {
                 listMultipartImage.add(imageHistory);
             }
 
-
             //Tạo progress dialog
             ProgressDialog progress = new ProgressDialog(context);
             progress.setMessage("Vui lòng đợi...");

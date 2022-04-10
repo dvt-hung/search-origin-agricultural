@@ -7,4 +7,6 @@ import java.util.List;
 public interface IImageHistory {
     void getImages(List<ImageHistory> images);
     void exception(String message);
+    void success(String message);
+    void failed(String message);
 }

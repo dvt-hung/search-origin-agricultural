@@ -22,8 +22,9 @@ public class Images_Adapter extends RecyclerView.Adapter<Images_Adapter.ImageVie
 
     private List<?> uriList;
     private final Context context;
+    private IListenerImages listenerImages;
     public interface IListenerImages{
-        void onClickDeleteImage(int position);
+        void onClickImage(ImageHistory imageHistory);
     }
 
 
@@ -31,6 +32,10 @@ public class Images_Adapter extends RecyclerView.Adapter<Images_Adapter.ImageVie
         this.context = context;
     }
 
+    public Images_Adapter(Context context, IListenerImages listenerImages) {
+        this.context = context;
+        this.listenerImages = listenerImages;
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     public void setUriList(List<?> list)
@@ -39,6 +44,10 @@ public class Images_Adapter extends RecyclerView.Adapter<Images_Adapter.ImageVie
         notifyDataSetChanged();
     }
 
+    public void goneView(View view)
+    {
+        view.setVisibility(View.GONE);
+    }
 
     @NonNull
     @Override
@@ -49,24 +58,29 @@ public class Images_Adapter extends RecyclerView.Adapter<Images_Adapter.ImageVie
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder,int position) {
-        int p = holder.getAdapterPosition();
         if (uriList.get(position).getClass().equals(ImageHistory.class))
-        {        Log.e("a", "onBindViewHolder: " + uriList.getClass() );
+        {
             holder.imageDelete.setVisibility(View.GONE);
             ImageHistory img = (ImageHistory) uriList.get(position);
             Glide.with(context).load(img.getImageHistory()).error(R.drawable.logo).into(holder.imageItem);
+            holder.imageItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listenerImages.onClickImage(img);
+                }
+            });
+
         }
         else
         {
             Glide.with(context).load(uriList.get(position)).error(R.drawable.logo).into(holder.imageItem);
-
         }
 
         holder.imageDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uriList.remove(p);
-                notifyItemRemoved(p);
+                uriList.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
             }
         });
 
