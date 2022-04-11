@@ -35,7 +35,7 @@ public class History_Presenter {
 
 
     // Thêm nhật ký của sản phẩm
-    public void InsertHistory(History history, List<Uri> image)
+    public synchronized void InsertHistory(History history, List<Uri> image)
     {
         // Kiểm tra dữ liệu
         if (image == null || history.getFactory() == null || history.getDescriptionHistory().isEmpty())
@@ -116,7 +116,7 @@ public class History_Presenter {
 
 
     // Tải danh sách sản phẩm
-    public void loadHistory(int idProduct)
+    public synchronized void loadHistory(int idProduct)
     {
         //Tạo progress dialog
         ProgressDialog progress = new ProgressDialog(context);
@@ -142,7 +142,7 @@ public class History_Presenter {
 
 
     // Xóa nhật ký
-    public void DeleteHistory(History history, int idProduct)
+    public synchronized void DeleteHistory(History history, int idProduct)
     {
         //Tạo progress dialog
         ProgressDialog progress = new ProgressDialog(context);
@@ -178,7 +178,7 @@ public class History_Presenter {
     }
 
     // Cập nhật nhật ký: Chỉnh sửa lại
-    public void UpdateHistory(History history , Uri imageNew)
+    public synchronized void UpdateHistory(History history , Uri imageNew)
     {
         // Kiểm tra dữ liệu
         if (history.getDescriptionHistory().isEmpty())
@@ -248,5 +248,45 @@ public class History_Presenter {
                         }
                     });
 
+    }
+
+    // Cập nhật mô tả của nhất ký
+    public synchronized void UpdateDesHistory(String idHistory, String descriptionHistory)
+    {
+        if (descriptionHistory.isEmpty())
+        {
+            iHistory.emptyValue();
+        }
+        else
+        {
+            // Tạo progress dialog
+            ProgressDialog dialog = Common.createProgress(context);
+            dialog.show();
+            Common.api.updateDesHistory(idHistory,descriptionHistory)
+                    .enqueue(new Callback<ResponsePOST>() {
+                        @Override
+                        public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
+                            ResponsePOST result = response.body();
+                            assert  result != null;
+
+                            if (result.getStatus() == 1)
+                            {
+                                iHistory.successMessage(result.getMessage());
+                            }
+                            else
+                            {
+                                iHistory.failedMessage(result.getMessage());
+                            }
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
+                                iHistory.exceptionMessage(t.getMessage());
+                                dialog.dismiss();
+
+                        }
+                    });
+        }
     }
 }

@@ -73,6 +73,7 @@ public class Setting_Farmer_Fragment extends Fragment implements ISettingFarmer 
         initEvents();
     }
 
+    // Hiển thị dữ liệu của thông tin cá nhân
     private void displayValue() {
         // Gán giá trị cho Image của Farmer
         Glide.with(this).load(Common.currentUser.getImage()).error(R.drawable.logo).into(img_Farmer_Setting);
@@ -88,6 +89,7 @@ public class Setting_Farmer_Fragment extends Fragment implements ISettingFarmer 
         }
     }
 
+    // Khai báo các sự kiện
     private void initEvents() {
         /*
         * 1. layout_Info_Setting_Farmer: Chuyển sang activity thay đổi thông tin
@@ -112,7 +114,7 @@ public class Setting_Farmer_Fragment extends Fragment implements ISettingFarmer 
             }
         });
 
-        // 3. Factory Setting: Danh sách các liên kết với vườn
+        // 3. Factory Setting: Activity quản lí thông tin cơ sở
         layout_Factory_Setting_Farmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

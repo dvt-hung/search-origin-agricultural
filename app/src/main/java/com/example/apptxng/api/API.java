@@ -202,9 +202,13 @@ public interface API {
                 @Field("idProduct") int idProduct,
                 @Field("imgOld_Product") String imgOld_Product);
     //  ******* FACTORY **********
-        // Get factory by idUser
+        // Get factory
         @GET("get_factory.php")
         Call<List<Factory>> getFactory();
+
+        // Get info factory by idUser
+        @GET("get_info_factory.php")
+        Call<Factory> getFactoryByID(@Query("idUser") String idUser);
 
         // Insert factory
         @FormUrlEncoded
@@ -276,6 +280,14 @@ public interface API {
             @Part("descriptionHistory")             RequestBody descriptionHistory,
             @Part("imageHistoryOld")                RequestBody imageHistoryOld,
             @Part MultipartBody.Part                imageHistoryNew
+    );
+
+    // Update description history
+    @FormUrlEncoded
+    @POST("update_des_history.php")
+    Call<ResponsePOST> updateDesHistory(
+            @Field("idHistory")             String idHistory,
+            @Field("descriptionHistory")    String descriptionHistory
     );
 
     // ******** IMAGE HISTORY **********

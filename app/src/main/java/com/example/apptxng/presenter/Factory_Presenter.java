@@ -2,6 +2,7 @@ package com.example.apptxng.presenter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -19,12 +20,32 @@ public class Factory_Presenter {
 
     private final IFactory iFactory;
     private final Context context;
-
     public Factory_Presenter(IFactory iFactory, Context context) {
         this.iFactory = iFactory;
         this.context = context;
-
     }
+
+    public synchronized void getFactoryByID()
+    {
+        ProgressDialog progressDialog = Common.createProgress(context);
+        progressDialog.show();
+
+        Common.api.getFactoryByID(Common.currentUser.getIdUser())
+                .enqueue(new Callback<Factory>() {
+                    @Override
+                    public void onResponse(@NonNull Call<Factory> call, @NonNull Response<Factory> response) {
+                        iFactory.infoFactory(response.body());
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<Factory> call, @NonNull Throwable t) {
+                            iFactory.Exception(t.getMessage());
+                            progressDialog.dismiss();
+                    }
+                });
+    }
+
 
     public void getFactory()
     {

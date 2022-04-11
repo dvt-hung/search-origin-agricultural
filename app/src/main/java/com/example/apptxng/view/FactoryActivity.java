@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -35,11 +36,10 @@ import java.util.List;
 public class FactoryActivity extends AppCompatActivity implements Factory_Adapter.IListenerFactory, IFactory, ITypeFactory {
 
     private ImageView img_Close_Factory,img_Add_Factory,img_Filter,img_Clear_Filter;
-    private Factory_Adapter factoryAdapter;
     private Factory_Presenter presenter;
+    private Factory factoryTemp;
     private List<Factory> factories;
-    private List<TypeFactory> typeFactories;
-    private BottomDialogTypeFactory dialogTypeFactory;
+    private TextView txt_Name_TypeFactory,txt_Name_Factory, txt_NameOwn_Factory, txt_Address_Factory, txt_Phone_Factory, txt_Web_Factory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,37 +52,35 @@ public class FactoryActivity extends AppCompatActivity implements Factory_Adapte
 
     private void initView() {
         img_Close_Factory               = findViewById(R.id.img_Close_Factory);
-        img_Add_Factory                 = findViewById(R.id.img_Add_Factory);
-        RecyclerView recycler_Factory   = findViewById(R.id.recycler_Factory);
-        img_Filter                      = findViewById(R.id.img_Filter);
-        img_Clear_Filter                = findViewById(R.id.img_Clear_Filter);
-        factories                       = new ArrayList<>();
-        typeFactories                   = new ArrayList<>();
-        // Presenter
+        txt_Name_TypeFactory            = findViewById(R.id.txt_Name_TypeFactory_Farmer);
+        txt_Name_Factory                = findViewById(R.id.txt_Name_Factory_Farmer);
+        txt_NameOwn_Factory             = findViewById(R.id.txt_NameOwn_Factory_Farmer);
+        txt_Address_Factory             = findViewById(R.id.txt_Address_Factory_Farmer);
+        txt_Phone_Factory               = findViewById(R.id.txt_Phone_Factory_Farmer);
+        txt_Web_Factory                 = findViewById(R.id.txt_Web_Factory_Farmer);
         presenter                       = new Factory_Presenter(this,this);
-        TypeFactory_Presenter presenterTypeFactory = new TypeFactory_Presenter(this);
+        factories                       = new ArrayList<>();
 
-        // Adapter của recycler view
-        factoryAdapter                  = new Factory_Adapter(this);
-        recycler_Factory.setAdapter(factoryAdapter);
-
-        // Layout manager của recycler view
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
-        recycler_Factory.setLayoutManager(layoutManager);
-
-        presenterTypeFactory.getTypeFactory();
+        // Tải dữ liệu
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        // Get factory: Lấy ra danh sách factory
-        presenter.getFactory();
+        presenter.getFactoryByID();
 
         // init events: Khai báo các event trong activity
         initEvents();
+    }
+
+    private void displayValue() {
+        txt_Name_TypeFactory.setText(factoryTemp.getType_factory().getNameTypeFactory());
+        txt_Name_Factory.setText(factoryTemp.getNameFactory());
+        txt_Address_Factory.setText(factoryTemp.getAddressFactory());
+        txt_Phone_Factory.setText(factoryTemp.getPhoneFactory());
+        txt_Web_Factory.setText(factoryTemp.getWebFactory());
+        txt_NameOwn_Factory.setText(factoryTemp.getOwnerFactory());
     }
 
     private void initEvents() {
@@ -95,38 +93,7 @@ public class FactoryActivity extends AppCompatActivity implements Factory_Adapte
             }
         });
 
-        // 2. Add Button: Mở dialog thêm liên kết
-        img_Add_Factory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(FactoryActivity.this,InsertFactoryActivity.class));
-            }
-        });
 
-        // 3. Filter Button: Mở dialog lựa chọn các loại cơ sở sau đó lọc
-        img_Filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogTypeFactory = new BottomDialogTypeFactory(typeFactories, new ChoiceType_Adapter.IListenerChoiceType() {
-                    @Override
-                    public void onClickChoiceType(Object obj) {
-                        filterTypeFactory((TypeFactory)obj);
-                        dialogTypeFactory.dismiss();
-                        img_Clear_Filter.setVisibility(View.VISIBLE);
-                    }
-                });
-                dialogTypeFactory.show(getSupportFragmentManager(),dialogTypeFactory.getTag());
-            }
-        });
-
-        // 4. Clear Filter Button: Xóa trạng thái lọc danh sách
-        img_Clear_Filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                factoryAdapter.setFactoryList(factories);
-                img_Clear_Filter.setVisibility(View.GONE);
-            }
-        });
     }
 
     // Lọc danh sách cơ sở theo loại cơ sở đã chọn
@@ -140,7 +107,6 @@ public class FactoryActivity extends AppCompatActivity implements Factory_Adapte
                 factoryTemp.add(f);
             }
         }
-        factoryAdapter.setFactoryList(factoryTemp);
     }
 
 
@@ -155,12 +121,17 @@ public class FactoryActivity extends AppCompatActivity implements Factory_Adapte
     @Override
     public void getFactory(List<Factory> list) {
             factories = list;
-            factoryAdapter.setFactoryList(factories);
+    }
+
+    @Override
+    public void infoFactory(Factory factory) {
+        factoryTemp = factory;
+        displayValue();
+
     }
 
     @Override
     public void getTypeFactory(List<TypeFactory> list) {
-            typeFactories = list;
     }
 
     @Override

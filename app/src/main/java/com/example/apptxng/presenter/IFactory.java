@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface IFactory {
     void getFactory(List<Factory> list);
+    void infoFactory(Factory factory);
     void Exception(String message);
     void emptyValue();
     void success(String message);

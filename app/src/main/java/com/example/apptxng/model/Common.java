@@ -33,7 +33,7 @@ import retrofit2.Response;
 
 public class Common {
     public static User currentUser;
-    public static final String URL = "http://192.168.31.31/txng/";
+    public static final String URL = "http://192.168.1.6/txng/";
     public static final API api = Retrofit_Client.getRetrofit(Common.URL).create(API.class);
 
     public static Calendar calendar = Calendar.getInstance();

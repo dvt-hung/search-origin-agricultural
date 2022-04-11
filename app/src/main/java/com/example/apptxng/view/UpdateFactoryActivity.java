@@ -153,6 +153,11 @@ public class UpdateFactoryActivity extends AppCompatActivity implements ITypeFac
     }
 
     @Override
+    public void infoFactory(Factory factory) {
+
+    }
+
+    @Override
     public void Exception(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }

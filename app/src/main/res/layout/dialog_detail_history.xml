@@ -34,7 +34,7 @@
             android:id="@+id/txt_Info_Detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/title_detail_info"
+            android:text="@string/update_des"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:padding="5dp"

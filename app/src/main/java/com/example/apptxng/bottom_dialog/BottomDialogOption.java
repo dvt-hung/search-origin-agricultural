@@ -25,6 +25,7 @@ public class BottomDialogOption extends BottomSheetDialogFragment {
     public interface IDialogOptionListener{
         void deleteHistory();
         void imageHistory();
+        void desHistory();
     }
 
     public BottomDialogOption(IDialogOptionListener listener) {
@@ -59,7 +60,8 @@ public class BottomDialogOption extends BottomSheetDialogFragment {
         txt_Info_Detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                listener.desHistory();
+                dialog.dismiss();
             }
         });
 

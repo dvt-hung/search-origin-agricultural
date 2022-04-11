@@ -84,14 +84,18 @@ public class Balance_Admin_Activity extends AppCompatActivity implements IBalanc
         // Tạo và cài đặt layout cho dialog
         Dialog dialogAdd = new Dialog(this);
         dialogAdd.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogAdd.setContentView(R.layout.dialog_add_balance_admin);
+        dialogAdd.setContentView(R.layout.dialog_one_edittext);
         dialogAdd.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
         dialogAdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        EditText edt_Name_AddBalance_Dialog     = dialogAdd.findViewById(R.id.edt_Name_AddBalance_Dialog);
-        Button btn_Cancel_AddBalance_Dialog     = dialogAdd.findViewById(R.id.btn_Cancel_AddBalance_Dialog);
-        Button btn_Confirm_AddBalance_Dialog    = dialogAdd.findViewById(R.id.btn_Confirm_AddBalance_Dialog);
+        TextView txt_Title_Dialog               = dialogAdd.findViewById(R.id.txt_Title_Dialog);
+        EditText edt_Content_Dialog     = dialogAdd.findViewById(R.id.edt_Content_Dialog);
+        Button btn_Cancel_AddBalance_Dialog     = dialogAdd.findViewById(R.id.btn_Cancel_Dialog);
+        Button btn_Confirm_AddBalance_Dialog    = dialogAdd.findViewById(R.id.btn_Confirm_Dialog);
 
+        // Set title dialog
+        txt_Title_Dialog.setText(R.string.title_add_balance);
+        edt_Content_Dialog.setHint(R.string.title_input_name_balance);
         // Hiển thị dialog
         dialogAdd.show();
 
@@ -104,7 +108,7 @@ public class Balance_Admin_Activity extends AppCompatActivity implements IBalanc
         btn_Confirm_AddBalance_Dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nameBalance = edt_Name_AddBalance_Dialog.getText().toString();
+                String nameBalance = edt_Content_Dialog.getText().toString();
                 if (nameBalance.isEmpty())
                 {
                     Toast.makeText(Balance_Admin_Activity.this, R.string.title_error_empty, Toast.LENGTH_SHORT).show();

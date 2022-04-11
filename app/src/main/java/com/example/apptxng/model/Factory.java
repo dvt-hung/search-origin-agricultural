@@ -7,10 +7,29 @@ public class Factory implements Serializable {
     private String nameFactory;
     private String addressFactory;
     private String phoneFactory;
+    private String webFactory;
+    private String ownerFactory;
     private String idUser;
     private TypeFactory type_factory;
 
     public Factory() {
+    }
+
+
+    public String getOwnerFactory() {
+        return ownerFactory;
+    }
+
+    public void setOwnerFactory(String ownerFactory) {
+        this.ownerFactory = ownerFactory;
+    }
+
+    public String getWebFactory() {
+        return webFactory;
+    }
+
+    public void setWebFactory(String webFactory) {
+        this.webFactory = webFactory;
     }
 
     public TypeFactory getType_factory() {

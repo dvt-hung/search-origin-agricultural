@@ -136,7 +136,7 @@
 
     <!--  SETTING FRAGMENT FARMER  -->
     <string name="title_change_info"> Thay đổi thông tin </string>
-    <string name="title_link_factory"> Cơ sở liên kết </string>
+    <string name="title_link_factory"> Thông tin cơ sở </string>
     <string name="title_info"> Thông tin cá nhân </string>
 
     <string name="owner_farm"> Người đại diện </string>
@@ -174,7 +174,7 @@
     <string name="title_image_detail"> Hình ảnh </string>
     <string name="delete_image"> Xóa hình ảnh </string>
     <string name="question_delete_image"> Bạn có chắc là xóa hình này không </string>
-    <string name="title_detail_info"> Thông tin khác </string>
+    <string name="update_des"> Cập nhật mô tả </string>
     <string name="no_images"> Bạn chưa chọn hình ảnh mới </string>
 
 </resources>
