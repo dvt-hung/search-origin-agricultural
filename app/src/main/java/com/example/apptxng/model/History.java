@@ -10,7 +10,7 @@ import java.util.List;
 
 public class History implements Serializable {
     private String idHistory;
-    private int idProduct;
+    private String idProduct;
     private String descriptionHistory;
     private String dateHistory;
     private Factory factory;
@@ -44,11 +44,11 @@ public class History implements Serializable {
         this.idHistory = idHistory;
     }
 
-    public int getIdProduct() {
+    public String getIdProduct() {
         return idProduct;
     }
 
-    public void setIdProduct(int idProduct) {
+    public void setIdProduct(String idProduct) {
         this.idProduct = idProduct;
     }
 

@@ -20,6 +20,12 @@
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.ScanFarmerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ChangeInfoFactoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.ImageHistoryActivity"
             android:exported="false" />
         <activity
@@ -36,12 +42,6 @@
             android:exported="false" />
         <activity
             android:name=".view.InsertHistoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.UpdateHistoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.UpdateFactoryActivity"
             android:exported="false" />
         <activity
             android:name=".view.InsertFactoryActivity"

@@ -7,6 +7,8 @@
     <string name="hint_password_confirm">Nhập lại mật khẩu </string>
 
     <!-- TITLE   -->
+    <string name="title_non_value">Chưa cập nhật </string>
+    <string name="error_qr">Sản phẩm không tồn tại </string>
     <string name="title_introduction">By Hưng </string>
     <string name="title_send">Gửi </string>
     <string name="title_verify">Mã xác nhận Email </string>
@@ -159,12 +161,16 @@
     <string name="update_factory"> Cập nhật cơ sở </string>
     <string name="name_factory"> Tên cơ sở </string>
     <string name="input_name_factory">Nhập tên cơ sở </string>
+    <string name="input_web_factory">Nhập tên website </string>
     <string name="current_factory">Cơ sở hiện tại </string>
     <string name="other_factory">Cơ sở khác </string>
     <string name="info_factory">Thông tin cơ sở </string>
+    <string name="change_info_factory">Thay đổi thông tin </string>
+
 
     <string name="title_delete_factory"> Xóa cơ sở liên kết </string>
     <string name="title_question_delete_factory"> Bạn có chắc là xóa cơ sở này không </string>
+
 
     <!--    DETAIL HISTORY      -->
     <string name="title_detail_history"> Chi tiết nhật ký </string>

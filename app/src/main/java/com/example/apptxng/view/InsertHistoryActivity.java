@@ -65,7 +65,7 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
     private Factory factoryTemp, factoryCurrent;
     private History historyTemp;
     private Uri uriTemp;
-    private int idProduct;
+    private String idProduct;
     private History_Presenter historyPresenter;
     private List<Factory> listTemp = new ArrayList<>();
     private List<Uri> listPhoto = new ArrayList<>();
@@ -108,7 +108,7 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
         initView();
 
         // Get idProduct: nhận idProduct từ Detail Product gửi qua
-        idProduct = getIntent().getIntExtra("idProduct",0);
+        idProduct = getIntent().getStringExtra("idProduct");
     }
 
     // Init view
@@ -367,7 +367,6 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        idProduct = 0;
         factoryTemp = null;
         historyTemp = null;
         uriTemp = null;

@@ -15,7 +15,6 @@ public class Factory implements Serializable {
     public Factory() {
     }
 
-
     public String getOwnerFactory() {
         return ownerFactory;
     }

@@ -63,7 +63,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
     private Product product;
     private ProgressDialog progressAddProduct;
 
-    private ActivityResultLauncher<Intent> resultLauncherGallery = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+    private final ActivityResultLauncher<Intent> resultLauncherGallery = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null)
@@ -161,6 +161,10 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
                 desProduct = edt_Des_InsertProduct.getText().toString().trim();
                 quantityProduct = edt_Quantity_InsertProduct.getText().toString().trim();
 
+
+
+
+
                 // Set nội dung cho progress dialog
                 progressAddProduct.setMessage("Vui lòng chờ...");
                 progressAddProduct.show();
@@ -176,6 +180,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
                     product.setDescriptionProduct(desProduct); // Set des cho product
                     product.setQuantityProduct(Integer.parseInt(quantityProduct)); // Set số lượng cho product
                     product.setIdUser(Common.currentUser.getIdUser());
+                    product.setIdProduct("Product" +Common.calendar.getTime().getTime());
                     // Set ngày cho product
                     @SuppressLint("SimpleDateFormat")
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

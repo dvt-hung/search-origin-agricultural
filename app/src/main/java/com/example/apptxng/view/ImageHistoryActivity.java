@@ -44,13 +44,12 @@ import retrofit2.Response;
 
 public class ImageHistoryActivity extends AppCompatActivity implements Images_Adapter.IListenerImages,IImageHistory {
 
-    private RecyclerView recycler_Images_History,recycler_Images_New_History;
     private ImageView img_Back_Image_History, img_Insert_Image_History;
-    private TextView txt_ImageNew;
     private Button btn_Images_New;
     private Images_Adapter imagesAdapter,imagesAdapterNew;
     private ImageHistory_Presenter imageHistoryPresenter;
-    private List<Uri> listPhoto = new ArrayList<>();
+    private final List<Uri> listPhoto = new ArrayList<>();
+    private List<ImageHistory> imageHistories = new ArrayList<>();
     private String idHistory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +64,10 @@ public class ImageHistoryActivity extends AppCompatActivity implements Images_Ad
     }
 
     private void initView() {
-        recycler_Images_History             = findViewById(R.id.recycler_Images_History);
-        recycler_Images_New_History         = findViewById(R.id.recycler_Images_New_History);
+        RecyclerView recycler_Images_History = findViewById(R.id.recycler_Images_History);
+        RecyclerView recycler_Images_New_History = findViewById(R.id.recycler_Images_New_History);
         img_Back_Image_History              = findViewById(R.id.img_Back_Image_History);
         img_Insert_Image_History            = findViewById(R.id.img_Insert_Image_History);
-        txt_ImageNew                        = findViewById(R.id.txt_ImageNew);
         btn_Images_New                      = findViewById(R.id.btn_Images_New);
         imagesAdapter                       = new Images_Adapter(this,this);
         imagesAdapterNew                    = new Images_Adapter(this);
@@ -163,11 +161,7 @@ public class ImageHistoryActivity extends AppCompatActivity implements Images_Ad
                     @Override
                     public void onImagesSelected(List<Uri> uriList) {
                         listPhoto.addAll(uriList);
-                        if (listPhoto != null)
-                        {
-                            imagesAdapterNew.setUriList(listPhoto);
-                        }
-
+                        imagesAdapterNew.setUriList(listPhoto);
                     }
                 });
     }
@@ -175,7 +169,8 @@ public class ImageHistoryActivity extends AppCompatActivity implements Images_Ad
 
     @Override
     public void getImages(List<ImageHistory> images) {
-        imagesAdapter.setUriList(images);
+        imageHistories = images;
+        imagesAdapter.setUriList(imageHistories);
     }
 
     @Override
@@ -228,7 +223,6 @@ public class ImageHistoryActivity extends AppCompatActivity implements Images_Ad
             @Override
             public void onClick(View view) {
                 dialogDelete.dismiss();
-
             }
         });
 
@@ -237,7 +231,14 @@ public class ImageHistoryActivity extends AppCompatActivity implements Images_Ad
         btn_Confirm_Delete_Dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imageHistoryPresenter.deleteImageHistory(imageHistory);
+                if (imageHistories.size() == 1)
+                {
+                    Toast.makeText(ImageHistoryActivity.this, "Nhật ký phải có ít nhất 1 ảnh", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    imageHistoryPresenter.deleteImageHistory(imageHistory);
+                }
                 dialogDelete.dismiss();
             }
         });

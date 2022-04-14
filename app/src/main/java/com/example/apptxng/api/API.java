@@ -169,6 +169,7 @@ public interface API {
         @Multipart
         @POST("add_product.php")
         Call<ResponsePOST> addProduct (
+                @Part("idProduct")          RequestBody idProduct,
                 @Part("nameProduct")        RequestBody nameProduct,
                 @Part("priceProduct")       RequestBody priceProduct,
                 @Part("descriptionProduct") RequestBody descriptionProduct,
@@ -199,7 +200,7 @@ public interface API {
         @FormUrlEncoded
         @POST("delete_product.php")
         Call<ResponsePOST> deleteProduct(
-                @Field("idProduct") int idProduct,
+                @Field("idProduct") String idProduct,
                 @Field("imgOld_Product") String imgOld_Product);
     //  ******* FACTORY **********
         // Get factory
@@ -239,6 +240,18 @@ public interface API {
                 @Field("idTypeFactory")     int idTypeFactory
         );
 
+        // Update info factory
+        @FormUrlEncoded
+        @POST("update_info_factory.php")
+        Call<ResponsePOST> updateInfoFactory(
+                @Field("idFactory")         int idFactory,
+                @Field("nameFactory")       String nameFactory,
+                @Field("addressFactory")    String addressFactory,
+                @Field("phoneFactory")      String phoneFactory,
+                @Field("ownerFactory")      String ownerFactory,
+                @Field("webFactory")        String webFactory
+        );
+
     // ******** HISTORY **********
 
     // Insert history
@@ -255,7 +268,7 @@ public interface API {
 
     // Get history
     @GET("get_history.php")
-    Call<List<History>> getHistory(@Query("idProduct") int idProduct);
+    Call<List<History>> getHistory(@Query("idProduct") String idProduct);
 
     // Delete history: Chỉnh sửa lại
     @FormUrlEncoded
@@ -309,4 +322,10 @@ public interface API {
             @Part("idHistory")                      RequestBody idHistory,
             @Part List<MultipartBody.Part>          imageHistory
     );
+
+
+    // Test
+    @GET("get_product.php")
+    Call<Product> getProductByIdProduct(@Query("idProduct") String idProduct);
+
 }

@@ -10,6 +10,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <RelativeLayout
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -170,6 +171,7 @@
                 android:textSize="16sp" />
 
             <Button
+                android:id="@+id/btn_Change_Info_Factory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_Web_Factory_Farmer"

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.example.apptxng.R;
+import com.example.apptxng.model.Common;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -25,6 +26,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationBarVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
+   
         // Init view
         initView();
 

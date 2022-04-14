@@ -79,6 +79,7 @@ public class Insert_Product_Presenter {
         String nameProductNew = arraySplitPath[0] + System.currentTimeMillis() + "." + arraySplitPath[1];
 
 
+        RequestBody idProduct               = RequestBody.create(MediaType.parse("multipart/form-data"),product.getIdProduct());
         RequestBody nameProduct             = RequestBody.create(MediaType.parse("multipart/form-data"),product.getNameProduct());
         RequestBody priceProduct            = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getPriceProduct()));
         RequestBody descriptionProduct      = RequestBody.create(MediaType.parse("multipart/form-data"),product.getDescriptionProduct());
@@ -93,7 +94,7 @@ public class Insert_Product_Presenter {
 
 
 
-        Common.api.addProduct(nameProduct,priceProduct,descriptionProduct,quantityProduct, idUser, idCategory, idBalance, dateProduct, requestPartImage)
+        Common.api.addProduct(idProduct,nameProduct,priceProduct,descriptionProduct,quantityProduct, idUser, idCategory, idBalance, dateProduct, requestPartImage)
                 .enqueue(new Callback<ResponsePOST>() {
                     @Override
                     public void onResponse(Call<ResponsePOST> call, Response<ResponsePOST> response) {

@@ -57,7 +57,6 @@ public class Factory_Adapter extends RecyclerView.Adapter<Factory_Adapter.Factor
             else
             {
                 holder.txt_Name_Factory.setText(factory.getNameFactory());
-
             }
 
             if (factory.getAddressFactory() == null)

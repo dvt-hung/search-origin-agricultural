@@ -33,14 +33,14 @@ import com.example.apptxng.presenter.TypeFactory_Presenter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FactoryActivity extends AppCompatActivity implements Factory_Adapter.IListenerFactory, IFactory, ITypeFactory {
+public class FactoryActivity extends AppCompatActivity implements  IFactory, ITypeFactory {
 
-    private ImageView img_Close_Factory,img_Add_Factory,img_Filter,img_Clear_Filter;
+    private ImageView img_Close_Factory;
     private Factory_Presenter presenter;
     private Factory factoryTemp;
     private List<Factory> factories;
     private TextView txt_Name_TypeFactory,txt_Name_Factory, txt_NameOwn_Factory, txt_Address_Factory, txt_Phone_Factory, txt_Web_Factory;
-
+    private Button btn_Change_Info_Factory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +58,7 @@ public class FactoryActivity extends AppCompatActivity implements Factory_Adapte
         txt_Address_Factory             = findViewById(R.id.txt_Address_Factory_Farmer);
         txt_Phone_Factory               = findViewById(R.id.txt_Phone_Factory_Farmer);
         txt_Web_Factory                 = findViewById(R.id.txt_Web_Factory_Farmer);
+        btn_Change_Info_Factory         = findViewById(R.id.btn_Change_Info_Factory);
         presenter                       = new Factory_Presenter(this,this);
         factories                       = new ArrayList<>();
 
@@ -93,28 +94,24 @@ public class FactoryActivity extends AppCompatActivity implements Factory_Adapte
             }
         });
 
+        // 2. Change info button: Chuyển sang activity thay đổi info
+        btn_Change_Info_Factory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Chuyển đối tượng Factory sang activity
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("factory", factoryTemp);
+                Intent intent = new Intent(FactoryActivity.this,ChangeInfoFactoryActivity.class);
+                intent.putExtras(bundle);
 
-    }
-
-    // Lọc danh sách cơ sở theo loại cơ sở đã chọn
-    private void filterTypeFactory(TypeFactory type) {
-        int idTypeTemp = type.getIdTypeFactory();
-        List<Factory> factoryTemp = new ArrayList<>();
-        for(Factory f : factories)
-        {
-            if (f.getType_factory().getIdTypeFactory() == idTypeTemp)
-            {
-                factoryTemp.add(f);
+                startActivity(intent);
             }
-        }
+        });
+
     }
 
 
-    // OVERRIDE METHOD: interface IListenerFactory
-    @Override
-    public void onClickItemFactory(Factory factory) {
-        showDialogOptionFactory(factory);
-    }
+
 
 
 
@@ -127,7 +124,6 @@ public class FactoryActivity extends AppCompatActivity implements Factory_Adapte
     public void infoFactory(Factory factory) {
         factoryTemp = factory;
         displayValue();
-
     }
 
     @Override
@@ -156,63 +152,6 @@ public class FactoryActivity extends AppCompatActivity implements Factory_Adapte
 
 
     // Show dialog: Lựa chọn chỉnh sửa hoặc xóa cơ sở liên kết
-    private void showDialogOptionFactory(Factory factory) {
-        // Tạo và cài đặt layout cho dialog
-        Dialog dialogOptions = new Dialog(this);
-        dialogOptions.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogOptions.setContentView(R.layout.dialog_bottom_option);
-        dialogOptions.getWindow().setGravity(Gravity.BOTTOM);
-        dialogOptions.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
-        dialogOptions.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        // Khởi tạo và ảnh xạ view trong dialog Option
-        Button btn_Update_DialogOption      = dialogOptions.findViewById(R.id.btn_Update_DialogOption);
-        Button btn_Delete_DialogOption      = dialogOptions.findViewById(R.id.btn_Delete_DialogOption);
-        Button btn_Cancel_DialogOption      = dialogOptions.findViewById(R.id.btn_Cancel_DialogOption);
-
-        /*
-         * 1. Chọn vào option Update: Chuyển sang activity cập nhật
-         * 2. Chọn vào option Delete: Hiện thị dialog yêu cầu xác nhận lần cuối
-         * 3. Chọn vào option Cancel: Đóng dialog
-         * */
-
-        // Hiện dialog
-        dialogOptions.show();
-
-        // 1. Update Button: Chuyển sang activity update
-        btn_Update_DialogOption.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // Chuyển đối tượng factory đã chọn sang activity update
-                Bundle bundleUpdate = new Bundle();
-                bundleUpdate.putSerializable("factory", factory);
-                Intent intent = new Intent(new Intent(FactoryActivity.this, UpdateFactoryActivity.class));
-                intent.putExtras(bundleUpdate);
-                startActivity(intent);
-
-                dialogOptions.dismiss();
-            }
-        });
-
-        // 2. Delete Button: Mở dialog xác nhận
-        btn_Delete_DialogOption.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogDelete(factory);
-                dialogOptions.dismiss();
-            }
-        });
-
-        // 3. Cancel Button: Đóng dialog
-        btn_Cancel_DialogOption.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogOptions.dismiss();
-            }
-        });
-    }
-
 
     // Dialog xác nhận là có xóa hay không
     private void showDialogDelete(Factory factory) {

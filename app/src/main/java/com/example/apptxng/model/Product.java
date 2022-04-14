@@ -3,7 +3,7 @@ package com.example.apptxng.model;
 import java.io.Serializable;
 
 public class Product implements Serializable {
-    private int idProduct;
+    private String idProduct;
     private String nameProduct;
     private int priceProduct;
     private String imageProduct;
@@ -18,7 +18,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(int idProduct, String nameProduct, int priceProduct, String imageProduct, String descriptionProduct, int quantityProduct, int quantitySold, String idUser, Category category, Balance balance, String dateProduct) {
+    public Product(String idProduct, String nameProduct, int priceProduct, String imageProduct, String descriptionProduct, int quantityProduct, int quantitySold, String idUser, Category category, Balance balance, String dateProduct) {
         this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.priceProduct = priceProduct;
@@ -32,11 +32,11 @@ public class Product implements Serializable {
         this.dateProduct = dateProduct;
     }
 
-    public int getIdProduct() {
+    public String getIdProduct() {
         return idProduct;
     }
 
-    public void setIdProduct(int idProduct) {
+    public void setIdProduct(String idProduct) {
         this.idProduct = idProduct;
     }
 

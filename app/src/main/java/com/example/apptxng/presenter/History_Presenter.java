@@ -116,7 +116,7 @@ public class History_Presenter {
 
 
     // Tải danh sách sản phẩm
-    public synchronized void loadHistory(int idProduct)
+    public synchronized void loadHistory(String idProduct)
     {
         //Tạo progress dialog
         ProgressDialog progress = new ProgressDialog(context);
@@ -142,7 +142,7 @@ public class History_Presenter {
 
 
     // Xóa nhật ký
-    public synchronized void DeleteHistory(History history, int idProduct)
+    public synchronized void DeleteHistory(History history, String idProduct)
     {
         //Tạo progress dialog
         ProgressDialog progress = new ProgressDialog(context);

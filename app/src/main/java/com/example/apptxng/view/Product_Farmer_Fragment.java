@@ -30,8 +30,7 @@ public class Product_Farmer_Fragment extends Fragment implements IProductFarmer,
     private View viewProduct;
 
     private TextView txt_Empty_Product_Farmer;
-    private RecyclerView recycler_Product_Farmer;
-    private ImageView img_Add_Product_Farmer;
+    private ImageView img_Add_Product_Farmer,img_Scan_Product_Farmer;
     private Product_Farmer_Presenter productFarmerPresenter;
     private Product_Adapter productAdapter;
     private Dialog dialogProduct;
@@ -68,14 +67,24 @@ public class Product_Farmer_Fragment extends Fragment implements IProductFarmer,
 
         // 2. Hiển thị danh sách sản phẩm
         productFarmerPresenter.getProducts();
+
+
+        // 3. Scan: Chuyển sang activity scan
+        img_Scan_Product_Farmer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(requireActivity(), ScanFarmerActivity.class));
+            }
+        });
     }
 
 
     //  INIT VIEW: ánh xạ view
     private void initView() {
         txt_Empty_Product_Farmer    = viewProduct.findViewById(R.id.txt_Empty_Product_Farmer);
-        recycler_Product_Farmer     = viewProduct.findViewById(R.id.recycler_Product_Farmer);
+        RecyclerView recycler_Product_Farmer = viewProduct.findViewById(R.id.recycler_Product_Farmer);
         img_Add_Product_Farmer      = viewProduct.findViewById(R.id.img_Add_Product_Farmer);
+        img_Scan_Product_Farmer     = viewProduct.findViewById(R.id.img_Scan_Product_Farmer);
         productFarmerPresenter      = new Product_Farmer_Presenter(this);
         productAdapter              = new Product_Adapter(viewProduct.getContext(),this);
 
@@ -112,7 +121,7 @@ public class Product_Farmer_Fragment extends Fragment implements IProductFarmer,
         bundleProduct.putSerializable("product",product);
 
         Intent intentDetailProduct = new Intent(requireActivity(),DetailProductFarmerActivity.class);
-        intentDetailProduct.putExtra("b_product",bundleProduct);
+        intentDetailProduct.putExtras(bundleProduct);
         startActivity(intentDetailProduct);
     }
 

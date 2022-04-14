@@ -214,4 +214,45 @@ public class Factory_Presenter {
             }
         }).start();
     }
+
+
+    public synchronized void updateInfoFactory(Factory factory)
+    {
+        // Check value
+        if (factory.getNameFactory().isEmpty() || factory.getAddressFactory().isEmpty() || factory.getPhoneFactory().isEmpty()
+        || factory.getOwnerFactory().isEmpty())
+        {
+            iFactory.emptyValue();
+        }
+        else
+        {
+            ProgressDialog dialog = Common.createProgress(context);
+            dialog.show();
+            Common.api.updateInfoFactory(factory.getIdFactory(),
+                    factory.getNameFactory(), factory.getAddressFactory(), factory.getPhoneFactory(), factory.getOwnerFactory(), factory.getWebFactory())
+                    .enqueue(new Callback<ResponsePOST>() {
+                        @Override
+                        public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
+                            ResponsePOST result = response.body();
+                            assert result != null;
+
+                            if (result.getStatus() == 1)
+                            {
+                                iFactory.success(result.getMessage());
+                            }
+                            else
+                            {
+                                iFactory.failed(result.getMessage());
+                            }
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
+                            iFactory.Exception(t.getMessage());
+                            dialog.dismiss();
+                        }
+                    });
+        }
+    }
 }
