@@ -14,6 +14,7 @@ public class Product implements Serializable {
     private Category category;
     private Balance balance;
     private String dateProduct;
+    private String qrProduct;
 
     public Product() {
     }
@@ -30,6 +31,14 @@ public class Product implements Serializable {
         this.category = category;
         this.balance = balance;
         this.dateProduct = dateProduct;
+    }
+
+    public String getQrProduct() {
+        return qrProduct;
+    }
+
+    public void setQrProduct(String qrProduct) {
+        this.qrProduct = qrProduct;
     }
 
     public String getIdProduct() {

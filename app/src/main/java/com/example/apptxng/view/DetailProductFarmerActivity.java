@@ -38,17 +38,15 @@ import retrofit2.Response;
 
 public class DetailProductFarmerActivity extends AppCompatActivity implements History_Adapter.IListenerHistory, IHistory {
 
-    private ImageView img_Option_Detail_Product,img_Close_Detail_Product,img_Detail_Product;
+    private ImageView img_Option_Detail_Product,img_Close_Detail_Product,img_Detail_Product, img_QR_Product;
     private TextView txt_Balance_Detail_Product,txt_Name_Detail_Product,txt_Des_Detail_Product,txt_Price_Detail_Product,txt_Quantity_Detail_Product,txt_QuantitySold_Detail_Product;
     private Product product;
     private History_Adapter historyAdapter;
     private History_Presenter historyPresenter;
-    private String idProduct;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_product_farmer);
-
 
         // Init view: Ánh xạ view
         initView();
@@ -65,6 +63,7 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
         txt_QuantitySold_Detail_Product         = findViewById(R.id.txt_QuantitySold_Detail_Product);
         txt_Balance_Detail_Product              = findViewById(R.id.txt_Balance_Detail_Product);
         img_Close_Detail_Product                = findViewById(R.id.img_Close_Detail_Product);
+        img_QR_Product                          = findViewById(R.id.img_QR_Product);
         RecyclerView recycler_History_Detail_Product = findViewById(R.id.recycler_History_Detail_Product);
         historyPresenter                        = new History_Presenter(this,this);
 
@@ -86,14 +85,14 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
     @Override
     protected void onResume() {
         super.onResume();
-
+        Log.e("a", "onResume: " );
         // 1. Hiển thị giá trị của sản phẩm lên text view
         displayValueProduct();
 
         // 2. Tải danh sách nhật ký của sản phẩm
         loadHistory();
 
-        // 2. Close Button: Khi ấn thì sẽ đóng activity lại
+        // 3. Close Button: Khi ấn thì sẽ đóng activity lại
         img_Close_Detail_Product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,13 +100,38 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
             }
         });
 
-        // 3. Option Button: Mở dialog bottom có 3 chức năng: Thêm nhật ký, Chỉnh sửa sản phẩm, Xóa sản phẩm
+        // 4. Option Button: Mở dialog bottom có 3 chức năng: Thêm nhật ký, Chỉnh sửa sản phẩm, Xóa sản phẩm
         img_Option_Detail_Product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialogOption();
             }
         });
+
+        // 5. Display Image: Hiển thị QR Code
+        img_QR_Product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayQRCode();
+            }
+        });
+    }
+
+    private void displayQRCode() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.display_image);
+        dialog.getWindow().setGravity(Gravity.CENTER);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+        // Image view
+        ImageView imgQR = dialog.findViewById(R.id.img_Display);
+
+        // Load image
+        Glide.with(DetailProductFarmerActivity.this).load(product.getQrProduct()).into(imgQR);
+
+        dialog.show();
+
     }
 
     private void loadHistory() {
@@ -136,6 +160,9 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
 
         // Ảnh sản phẩm
         Glide.with(this).load(product.getImageProduct()).error(R.drawable.logo).into(img_Detail_Product);
+
+        // Ảnh  QR sản phẩm
+        Glide.with(this).load(product.getQrProduct()).error(R.drawable.ic_photo).into(img_QR_Product);
     }
 
 
@@ -264,9 +291,6 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
             }
         });
     }
-
-
-
 
 
 

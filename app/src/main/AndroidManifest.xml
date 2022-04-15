@@ -20,6 +20,9 @@
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.CreateQRCodeActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.ScanFarmerActivity"
             android:exported="false" />
         <activity

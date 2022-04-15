@@ -167,7 +167,6 @@ public class ScanFarmerActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(@NonNull Call<Product> call, @NonNull Throwable t) {
-                        Log.e("abc", "onResponse: " + t.getMessage());
                         dialog.dismiss();
                     }
                 });

@@ -14,11 +14,13 @@
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/custom_button_delete.xml" value="0.176" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/custom_radius_item.xml" value="0.176" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/custom_view_scan.xml" value="0.1715" />
+        <entry key="..\:/App_TXNG/app/src/main/res/drawable/retangle_qr.xml" value="0.1" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/top_dialog.xml" value="0.26205128205128203" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/top_signup.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_admin.xml" value="0.2" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_change_info_factory.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_change_info_farmer.xml" value="0.264" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_create_qrcode.xml" value="0.2" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_customer.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_detail_history.xml" value="0.3097165991902834" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_detail_product_farmer.xml" value="0.264" />

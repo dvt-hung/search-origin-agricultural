@@ -9,6 +9,7 @@
     <!-- TITLE   -->
     <string name="title_non_value">Chưa cập nhật </string>
     <string name="error_qr">Sản phẩm không tồn tại </string>
+    <string name="title_qr">QR Code của sản phẩm </string>
     <string name="title_introduction">By Hưng </string>
     <string name="title_send">Gửi </string>
     <string name="title_verify">Mã xác nhận Email </string>

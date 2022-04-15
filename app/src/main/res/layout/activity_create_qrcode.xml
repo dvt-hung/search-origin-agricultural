@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.CreateQRCodeActivity">
+
+    <TextView
+        android:id="@+id/title_QR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/coiny"
+        android:gravity="center"
+        android:text="@string/title_qr"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/img_QRCode"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:layout_below="@id/title_QR"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rectangle_qr"
+        android:padding="5dp"
+        android:src="@drawable/logo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/img_Save_QRCode"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/ic_download2" />
+
+        <ImageView
+            android:id="@+id/img_Finish_QRCode"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="30dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_confirm" />
+    </LinearLayout>
+
+</RelativeLayout>

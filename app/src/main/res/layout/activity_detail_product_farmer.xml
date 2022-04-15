@@ -36,17 +36,25 @@
 
         </RelativeLayout>
 
-
-
+        
         <ImageView
             android:id="@+id/img_Detail_Product"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_below="@id/toolbar"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:src="@drawable/logo" />
 
+        <ImageView
+            android:id="@+id/img_QR_Product"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_above="@id/txt_Name_Detail_Product"
+            android:layout_toEndOf="@id/img_Detail_Product"
+            android:src="@drawable/ic_photo"
+            android:layout_marginStart="5dp"
+            />
         <TextView
             android:id="@+id/txt_Name_Detail_Product"
             android:layout_width="wrap_content"

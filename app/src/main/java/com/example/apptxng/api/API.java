@@ -159,13 +159,16 @@ public interface API {
                 @Part("imageOld")           RequestBody imageOld,
                 @Part MultipartBody.Part    imageNew
         );
-    // *Product
 
+    // ******** Product ***********
         // Get Product
         @GET("get_products.php")
         Call<List<Product>> getProducts(@Query("idUser") String idUser);
 
-        // Insert Product
+        @GET("get_product.php")
+        Call<Product> getProductByIdProduct(@Query("idProduct") String idProduct);
+
+    // Insert Product
         @Multipart
         @POST("add_product.php")
         Call<ResponsePOST> addProduct (
@@ -202,6 +205,14 @@ public interface API {
         Call<ResponsePOST> deleteProduct(
                 @Field("idProduct") String idProduct,
                 @Field("imgOld_Product") String imgOld_Product);
+
+        // Insert QR Code
+        @Multipart
+        @POST("add_qr_product.php")
+        Call<ResponsePOST> addQRCode(
+                @Part("idProduct")          RequestBody idProduct,
+                @Part MultipartBody.Part    qrCode
+        );
     //  ******* FACTORY **********
         // Get factory
         @GET("get_factory.php")
@@ -324,8 +335,5 @@ public interface API {
     );
 
 
-    // Test
-    @GET("get_product.php")
-    Call<Product> getProductByIdProduct(@Query("idProduct") String idProduct);
 
 }

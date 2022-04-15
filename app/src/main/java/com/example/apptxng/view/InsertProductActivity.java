@@ -62,7 +62,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
     private List<Balance> typeBalanceList = new ArrayList<>() ;
     private Product product;
     private ProgressDialog progressAddProduct;
-
+    private String idProduct;
     private final ActivityResultLauncher<Intent> resultLauncherGallery = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
@@ -162,9 +162,6 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
                 quantityProduct = edt_Quantity_InsertProduct.getText().toString().trim();
 
 
-
-
-
                 // Set nội dung cho progress dialog
                 progressAddProduct.setMessage("Vui lòng chờ...");
                 progressAddProduct.show();
@@ -180,7 +177,8 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
                     product.setDescriptionProduct(desProduct); // Set des cho product
                     product.setQuantityProduct(Integer.parseInt(quantityProduct)); // Set số lượng cho product
                     product.setIdUser(Common.currentUser.getIdUser());
-                    product.setIdProduct("Product" +Common.calendar.getTime().getTime());
+                    idProduct = "Product" +Common.calendar.getTime().getTime();
+                    product.setIdProduct(idProduct);
                     // Set ngày cho product
                     @SuppressLint("SimpleDateFormat")
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -353,9 +351,14 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
 
     @Override
     public void addProductSuccess(String message) {
+        // Chuyển String idProduct sang activity QR Code
+        Intent intentQR = new Intent(InsertProductActivity.this,CreateQRCodeActivity.class);
+        intentQR.putExtra("idProduct",idProduct);
+        startActivity(intentQR);
+
+        // Sau khi chuyển sang activity QR Code thì đóng activity lại
         finish();
         progressAddProduct.cancel();
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @Override
