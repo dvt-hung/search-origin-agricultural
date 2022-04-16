@@ -73,8 +73,8 @@ public class CreateQRCodeActivity extends AppCompatActivity {
         try {
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             String keyQR = "idProduct?";
-            Bitmap bitmap = barcodeEncoder.encodeBitmap(keyQR + valueQR, BarcodeFormat.QR_CODE, 560, 560);
-            uriQR = getImageUri(CreateQRCodeActivity.this,bitmap);
+            Bitmap bitmapQR = barcodeEncoder.encodeBitmap(keyQR + valueQR, BarcodeFormat.QR_CODE, 560, 560);
+            uriQR = Common.getImageUri(CreateQRCodeActivity.this,bitmapQR);
             img_QRCode.setImageURI(uriQR);
         } catch(Exception e) {
             Toast.makeText(CreateQRCodeActivity.this, "Đã xảy ra lỗi", Toast.LENGTH_SHORT).show();

@@ -33,7 +33,7 @@ public class Setting_Farmer_Fragment extends Fragment implements ISettingFarmer 
 
     private View viewSetting;
     private ImageView img_Farmer_Setting;
-    private TextView txt_NameFarm_Setting, txt_Error_ChangePassword_Dialog;
+    private TextView  txt_Error_ChangePassword_Dialog;
     private LinearLayout layout_Info_Setting_Farmer,layout_Password_Setting_Farmer, layout_Factory_Setting_Farmer, layout_LogOut_Setting_Farmer;
     private Dialog dialogSettingFarmer;
     private Setting_Farmer_Presenter settingFarmerPresenter;
@@ -52,7 +52,6 @@ public class Setting_Farmer_Fragment extends Fragment implements ISettingFarmer 
 
     private void initView() {
         img_Farmer_Setting                  = viewSetting.findViewById(R.id.img_Farmer_Setting);
-        txt_NameFarm_Setting                = viewSetting.findViewById(R.id.txt_NameFarm_Setting);
         layout_Info_Setting_Farmer          = viewSetting.findViewById(R.id.layout_Info_Setting_Farmer);
         layout_Password_Setting_Farmer      = viewSetting.findViewById(R.id.layout_Password_Setting_Farmer);
         layout_Factory_Setting_Farmer       = viewSetting.findViewById(R.id.layout_Factory_Setting_Farmer);
@@ -78,15 +77,6 @@ public class Setting_Farmer_Fragment extends Fragment implements ISettingFarmer 
         // Gán giá trị cho Image của Farmer
         Glide.with(this).load(Common.currentUser.getImage()).error(R.drawable.logo).into(img_Farmer_Setting);
 
-        // Gán giá trị cho tên của vườn
-        if (Common.currentUser.getNameFarm() == null)
-        {
-            txt_NameFarm_Setting.setText(R.string.title_error_empty_user);
-        }
-        else
-        {
-            txt_NameFarm_Setting.setText(Common.currentUser.getNameFarm());
-        }
     }
 
     // Khai báo các sự kiện

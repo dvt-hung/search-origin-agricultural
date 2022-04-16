@@ -241,7 +241,6 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
                     }
                 }
                 dialogTypeUser.dismiss();
-
             }
         });
         dialogTypeUser.show();

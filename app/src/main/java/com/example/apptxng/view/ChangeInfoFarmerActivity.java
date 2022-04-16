@@ -34,7 +34,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 public class ChangeInfoFarmerActivity extends AppCompatActivity implements IChangeInfo_Farmer {
 
     private ImageView img_ChangeInfo_Farmer,img_Back_ChangeInfo_Farmer;
-    private EditText edt_NameFarm_ChangeInfo_Farmer,edt_Owner_ChangeInfo_Farmer,edt_Phone_ChangeInfo_Farmer,edt_Address_ChangeInfo_Farmer;
+    private EditText edt_Owner_ChangeInfo_Farmer,edt_Phone_ChangeInfo_Farmer,edt_Address_ChangeInfo_Farmer;
     private Button btn_Confirm_ChangeInfo_Farmer;
     private User userTemp;
     private Uri uriChangeInfo;
@@ -64,7 +64,6 @@ public class ChangeInfoFarmerActivity extends AppCompatActivity implements IChan
     private void initView() {
         img_ChangeInfo_Farmer               = findViewById(R.id.img_ChangeInfo_Farmer);
         img_Back_ChangeInfo_Farmer          = findViewById(R.id.img_Back_ChangeInfo_Farmer);
-        edt_NameFarm_ChangeInfo_Farmer      = findViewById(R.id.edt_NameFarm_ChangeInfo_Farmer);
         edt_Owner_ChangeInfo_Farmer         = findViewById(R.id.edt_Owner_ChangeInfo_Farmer);
         edt_Phone_ChangeInfo_Farmer         = findViewById(R.id.edt_Phone_ChangeInfo_Farmer);
         edt_Address_ChangeInfo_Farmer       = findViewById(R.id.edt_Address_ChangeInfo_Farmer);
@@ -92,8 +91,6 @@ public class ChangeInfoFarmerActivity extends AppCompatActivity implements IChan
     private void displayValueInfo() {
         Glide.with(this).load(userTemp.getImage()).error(R.drawable.logo).into(img_ChangeInfo_Farmer);
 
-        // Edit text: Tên vườn
-        edt_NameFarm_ChangeInfo_Farmer.setText(displayValueToEditText(userTemp.getNameFarm()));
 
         //Edit text: Tên chủ vườn
         edt_Owner_ChangeInfo_Farmer.setText(displayValueToEditText(userTemp.getName()));
@@ -139,15 +136,12 @@ public class ChangeInfoFarmerActivity extends AppCompatActivity implements IChan
             @Override
             public void onClick(View view) {
                 String owner        = edt_Owner_ChangeInfo_Farmer.getText().toString().trim();
-                String nameFarm     = edt_NameFarm_ChangeInfo_Farmer.getText().toString().trim();
                 String phone        = edt_Phone_ChangeInfo_Farmer.getText().toString().trim();
                 String address      = edt_Address_ChangeInfo_Farmer.getText().toString().trim();
 
                 userTemp.setName(owner);
-                userTemp.setNameFarm(nameFarm);
                 userTemp.setPhone(phone);
                 userTemp.setAddress(address);
-
 
                 ChangeInfoPresenter.changeInfo_Farmer(userTemp,uriChangeInfo);
                 progressChangeInfo.show();

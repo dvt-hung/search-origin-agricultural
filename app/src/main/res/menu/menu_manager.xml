@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/products_manager"
+        android:title="@string/products_manager"
+        android:icon="@drawable/ic_products"
+        />
+
+    <item android:id="@+id/setting_manager"
+        android:title="@string/setting_manager"
+        android:icon="@drawable/ic_setting"
+        />
+</menu>

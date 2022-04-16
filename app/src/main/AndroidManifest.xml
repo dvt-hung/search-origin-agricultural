@@ -20,6 +20,9 @@
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.SplashActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.CreateQRCodeActivity"
             android:exported="false" />
         <activity
@@ -32,11 +35,10 @@
             android:name=".view.ImageHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".view.SplashActivity"
+            android:name=".view.ManagerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

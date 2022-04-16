@@ -8,7 +8,6 @@ public class User {
     private String image;
     private String phone;
     private String passWord;
-    private String nameFarm;
     private String address;
     private int accept;
     private int idRole;
@@ -117,13 +116,6 @@ public class User {
         this.passWord = passWord;
     }
 
-    public String getNameFarm() {
-        return nameFarm;
-    }
-
-    public void setNameFarm(String nameFarm) {
-        this.nameFarm = nameFarm;
-    }
 
     public String getAddress() {
         return address;

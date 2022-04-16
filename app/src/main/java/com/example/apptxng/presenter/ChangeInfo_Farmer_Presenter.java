@@ -35,7 +35,7 @@ public class ChangeInfo_Farmer_Presenter {
         RequestBody requestBodyImage = null; // request body của ảnh mới user
         MultipartBody.Part requestPartImage = null; // multipart của ảnh mới user
 
-        if (user.checkValueString(user.getName()) || user.checkValueString(user.getNameFarm()) ||
+        if (user.checkValueString(user.getName()) ||
                 user.checkValueString(user.getPhone()) || user.checkValueString(user.getAddress()))
         {
             iChangeInfo_farmer.emptyValue();
@@ -58,12 +58,11 @@ public class ChangeInfo_Farmer_Presenter {
             }
         }
             RequestBody name                = RequestBody.create(MediaType.parse("multipart/form-data"),user.getName());
-            RequestBody nameFarm            = RequestBody.create(MediaType.parse("multipart/form-data"),user.getNameFarm());
             RequestBody phone               = RequestBody.create(MediaType.parse("multipart/form-data"),user.getPhone());
             RequestBody address             = RequestBody.create(MediaType.parse("multipart/form-data"),user.getAddress());
             RequestBody idUser              = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(user.getIdUser()));
 
-            Common.api.changeInfo(idUser,name,phone,nameFarm,address,imgOld,requestPartImage)
+            Common.api.changeInfo(idUser,name,phone,address,imgOld,requestPartImage)
                     .enqueue(new Callback<ResponsePOST>() {
                         @Override
                         public void onResponse(Call<ResponsePOST> call, Response<ResponsePOST> response) {

@@ -34,23 +34,13 @@
         android:layout_marginTop="15dp"
         android:src="@drawable/logo" />
 
-    <TextView
-        android:id="@+id/txt_NameFarm_Setting"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/img_Farmer_Setting"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/coiny"
-        android:gravity="center"
-        android:text="@string/title_balance"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
+
 
     <LinearLayout
         android:id="@+id/layout_Info_Setting_Farmer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_NameFarm_Setting"
+        android:layout_below="@id/img_Farmer_Setting"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"

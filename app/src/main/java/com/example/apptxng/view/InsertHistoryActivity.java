@@ -72,32 +72,6 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
     private BottomDialogChoiceFactory choiceFactory;
     private Images_Adapter imagesAdapter;
 
-    private final ActivityResultLauncher<Intent> launcherCamera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == RESULT_OK && result.getData() != null)
-                        {
-                            Bundle bundle = result.getData().getExtras();
-                            Bitmap bitmapCamera = (Bitmap) bundle.get("data");
-
-                            uriTemp = Common.getImageUri(InsertHistoryActivity.this, bitmapCamera);
-                            Glide.with(InsertHistoryActivity.this).load(uriTemp).into(img_History);
-                        }
-                }
-            });
-
-    private final ActivityResultLauncher<Intent> launcherGallery = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == RESULT_OK && result.getData() != null)
-                    {
-                        uriTemp = result.getData().getData();
-                        Glide.with(InsertHistoryActivity.this).load(uriTemp).into(img_History);
-                    }
-                }
-            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -85,6 +85,9 @@
     <string name="menu_order_farmer"> Đơn hàng </string>
     <string name="menu_setting_farmer"> Cá nhân </string>
 
+    <string name="products_manager"> Sản phẩm </string>
+    <string name="setting_manager"> Cài đặt </string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -23,9 +23,8 @@ import retrofit2.Response;
 public class InfoFarmerActivity extends AppCompatActivity {
 
     private ImageView img_Farmer_Info,img_Back_Info_Farmer;
-    private TextView txt_NameFarm_Info,txt_Email_Info_Farmer, txt_Name_Info_Farmer, txt_Phone_Info_Farmer,txt_Address_Info_Farmer;
+    private TextView txt_Email_Info_Farmer, txt_Name_Info_Farmer, txt_Phone_Info_Farmer,txt_Address_Info_Farmer;
     private Button btn_Change_Info_Farmer;
-    private User userTemp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,17 +43,13 @@ public class InfoFarmerActivity extends AppCompatActivity {
     private void initView() {
         img_Farmer_Info             = findViewById(R.id.img_Farmer_Info);
         img_Back_Info_Farmer        = findViewById(R.id.img_Back_Info_Farmer);
-        txt_NameFarm_Info           = findViewById(R.id.txt_NameFarm_Info);
         txt_Email_Info_Farmer       = findViewById(R.id.txt_Email_Info_Farmer);
         txt_Name_Info_Farmer        = findViewById(R.id.txt_Name_Info_Farmer);
         txt_Phone_Info_Farmer       = findViewById(R.id.txt_Phone_Info_Farmer);
         txt_Address_Info_Farmer     = findViewById(R.id.txt_Address_Info_Farmer);
         btn_Change_Info_Farmer      = findViewById(R.id.btn_Change_Info_Farmer);
-        userTemp                    = Common.currentUser;
-        Log.e("aa", "initView1: " + userTemp.getImage() );
         // Hiển thị dữ liệu của user
         displayValue();
-
     }
 
 
@@ -71,11 +66,7 @@ public class InfoFarmerActivity extends AppCompatActivity {
 
     private void displayValue() {
 
-        Log.e("aa", "initView2: " + userTemp.getImage() );
-
         Glide.with(this).load(Common.currentUser.getImage()).error(R.drawable.logo).into(img_Farmer_Info);
-
-        txt_NameFarm_Info.setText(Common.currentUser.displayInfoValueString(Common.currentUser.getNameFarm()));
 
         txt_Email_Info_Farmer.setText(Common.currentUser.displayInfoValueString(Common.currentUser.getEmail()));
 //

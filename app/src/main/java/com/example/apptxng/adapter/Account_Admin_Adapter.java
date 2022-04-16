@@ -7,6 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.apptxng.view.CustomerAccount_Admin_Fragment;
 import com.example.apptxng.view.FarmerAccount_Admin_Fragment;
+import com.example.apptxng.view.ManagerAccount_Admin_Fragment;
 
 public class Account_Admin_Adapter extends FragmentStateAdapter {
 
@@ -17,14 +18,20 @@ public class Account_Admin_Adapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        if (position == 1) {
+        if (position == 0) {
+            return new FarmerAccount_Admin_Fragment();
+        } else if (position == 1)
+        {
+            return new ManagerAccount_Admin_Fragment();
+        }
+        else
+        {
             return new CustomerAccount_Admin_Fragment();
         }
-        return new FarmerAccount_Admin_Fragment();
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 3;
     }
 }

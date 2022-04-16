@@ -43,6 +43,10 @@ public class Account_Admin_Fragment extends Fragment {
                         tab.setText("Nông dân");
 
                     }
+                    else if (position == 1)
+                    {
+                        tab.setText("Quản lý");
+                    }
                     else
                     {
                         tab.setText("Khách hàng");

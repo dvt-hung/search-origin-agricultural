@@ -40,7 +40,6 @@ public class BottomDialogChoiceFactory extends BottomSheetDialogFragment {
         View viewDialog = LayoutInflater.from(getContext()).inflate(R.layout.dialog_choice_factory,null);
         dialog.setContentView(viewDialog);
 
-        TextView txt_Insert_Factory = viewDialog.findViewById(R.id.txt_Insert_Factory);
         RecyclerView recycler_Choice_Factory = viewDialog.findViewById(R.id.recycler_Choice_Factory);
 
         // Layout manager của recycler view
@@ -53,14 +52,6 @@ public class BottomDialogChoiceFactory extends BottomSheetDialogFragment {
 
         adapter.setFactoryList(factoryList);
 
-        // Sự kiện khi click vào Text view
-        txt_Insert_Factory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), FactoryActivity.class));
-                dialog.dismiss();
-            }
-        });
 
         return dialog;
     }

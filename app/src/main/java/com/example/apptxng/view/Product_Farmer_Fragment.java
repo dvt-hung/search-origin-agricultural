@@ -1,5 +1,6 @@
 package com.example.apptxng.view;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,12 @@ import com.example.apptxng.adapter.Product_Adapter;
 import com.example.apptxng.model.Product;
 import com.example.apptxng.presenter.IProductFarmer;
 import com.example.apptxng.presenter.Product_Farmer_Presenter;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.util.List;
 
@@ -39,7 +46,7 @@ public class Product_Farmer_Fragment extends Fragment implements IProductFarmer,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         viewProduct =  inflater.inflate(R.layout.fragment_product__farmer_, container, false);
-        
+
         // Init view: Khởi tạo view + ánh xạ 
         initView();
 
@@ -73,9 +80,25 @@ public class Product_Farmer_Fragment extends Fragment implements IProductFarmer,
         img_Scan_Product_Farmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(requireActivity(), ScanFarmerActivity.class));
+                checkPermissionCamera();
             }
         });
+    }
+
+    private void checkPermissionCamera()
+    {
+            Dexter.withContext(requireContext())
+                    .withPermission(Manifest.permission.CAMERA)
+                    .withListener(new PermissionListener() {
+            @Override public void onPermissionGranted(PermissionGrantedResponse response) {
+                startActivity(new Intent(requireActivity(), ScanFarmerActivity.class));
+            }
+            @Override public void onPermissionDenied(PermissionDeniedResponse response) {
+                /* ... */}
+            @Override public void onPermissionRationaleShouldBeShown(PermissionRequest
+            permission, PermissionToken token) {
+                token.continuePermissionRequest();/* ... */}
+        }).check();
     }
 
 

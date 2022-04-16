@@ -108,7 +108,11 @@ public interface API {
         @GET("get_list_farmer.php")
         Call<List<User>> getListFarmer();
 
-        // Update accept user: Done
+        // Get list manager: Done
+        @GET("get_list_manager.php")
+        Call<List<User>> getListManager();
+
+    // Update accept user: Done
         @FormUrlEncoded
         @POST("update_accept_user.php")
         Call<ResponsePOST> updateAcceptUser(
@@ -154,7 +158,6 @@ public interface API {
                 @Part("idUser")             RequestBody idUser,
                 @Part("name")               RequestBody name,
                 @Part("phone")              RequestBody phone,
-                @Part("nameFarm")           RequestBody nameFarm,
                 @Part("address")            RequestBody address,
                 @Part("imageOld")           RequestBody imageOld,
                 @Part MultipartBody.Part    imageNew

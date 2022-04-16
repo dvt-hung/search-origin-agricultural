@@ -53,15 +53,13 @@ public class Farmer_Account_Admin_Adapter extends RecyclerView.Adapter<Farmer_Ac
             holder.txt_Email_Farmer_Account.setText(userFarmer.getEmail());
             boolean checked = userFarmer.isAccept() != 0;
             holder.switch_Farmer_Account.setChecked(checked);
-            if (userFarmer.getPhone() == null || userFarmer.getNameFarm() == null)
+            if (userFarmer.getPhone() == null )
             {
                 holder.txt_Phone_Farmer_Account.setText(R.string.title_error_empty_user);
-                holder.txt_NameGarden_Farmer_Account.setText(R.string.title_error_empty_user);
             }
             else
             {
                 holder.txt_Phone_Farmer_Account.setText(userFarmer.getPhone());
-                holder.txt_NameGarden_Farmer_Account.setText(userFarmer.getNameFarm());
             }
 
             // Click item
@@ -99,7 +97,6 @@ public class Farmer_Account_Admin_Adapter extends RecyclerView.Adapter<Farmer_Ac
 
     public static class AccountCustomerViewHolder extends RecyclerView.ViewHolder {
         private final TextView txt_Name_Farmer_Account;
-        private final TextView txt_NameGarden_Farmer_Account;
         private final TextView txt_Email_Farmer_Account;
         private final TextView txt_Phone_Farmer_Account;
         private final LinearLayout layout_Farmer_Account_Admin;
@@ -109,7 +106,6 @@ public class Farmer_Account_Admin_Adapter extends RecyclerView.Adapter<Farmer_Ac
         public AccountCustomerViewHolder(@NonNull View itemView) {
             super(itemView);
             txt_Name_Farmer_Account                 = itemView.findViewById(R.id.txt_Name_Farmer_Account);
-            txt_NameGarden_Farmer_Account           = itemView.findViewById(R.id.txt_NameGarden_Farmer_Account);
             txt_Email_Farmer_Account                = itemView.findViewById(R.id.txt_Email_Farmer_Account);
             txt_Phone_Farmer_Account                = itemView.findViewById(R.id.txt_Phone_Farmer_Account);
             layout_Farmer_Account_Admin             = itemView.findViewById(R.id.layout_Farmer_Account_Admin);
