@@ -1,13 +1,11 @@
 package com.example.apptxng.view;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -25,19 +23,21 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.apptxng.R;
 import com.example.apptxng.model.Common;
-import com.example.apptxng.presenter.ISettingFarmer;
-import com.example.apptxng.presenter.Setting_Farmer_Presenter;
+import com.example.apptxng.model.User;
+import com.example.apptxng.presenter.Account_Presenter;
+import com.example.apptxng.presenter.IAccount;
+
+import java.util.List;
 
 
-public class Setting_Farmer_Fragment extends Fragment implements ISettingFarmer {
+public class Setting_Farmer_Fragment extends Fragment implements IAccount {
 
+    private Account_Presenter accountPresenter;
     private View viewSetting;
     private ImageView img_Farmer_Setting;
     private TextView  txt_Error_ChangePassword_Dialog;
     private LinearLayout layout_Info_Setting_Farmer,layout_Password_Setting_Farmer, layout_Factory_Setting_Farmer, layout_LogOut_Setting_Farmer;
     private Dialog dialogSettingFarmer;
-    private Setting_Farmer_Presenter settingFarmerPresenter;
-    private ProgressDialog progressSettingFarmer;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,9 +56,7 @@ public class Setting_Farmer_Fragment extends Fragment implements ISettingFarmer 
         layout_Password_Setting_Farmer      = viewSetting.findViewById(R.id.layout_Password_Setting_Farmer);
         layout_Factory_Setting_Farmer       = viewSetting.findViewById(R.id.layout_Factory_Setting_Farmer);
         layout_LogOut_Setting_Farmer        = viewSetting.findViewById(R.id.layout_LogOut_Setting_Farmer);
-        settingFarmerPresenter              = new Setting_Farmer_Presenter(this);
-        progressSettingFarmer               = new ProgressDialog(viewSetting.getContext());
-        progressSettingFarmer.setMessage("Vui lòng chờ...");
+        accountPresenter                    = new Account_Presenter(this, requireActivity());
     }
 
     @Override
@@ -218,47 +216,51 @@ public class Setting_Farmer_Fragment extends Fragment implements ISettingFarmer 
                 }
                 else
                 {
-                    dialogSettingFarmer.show();
-                    settingFarmerPresenter.change_Password(passWordOld,passWordNew,passWordNewConfirm);
+                    accountPresenter.change_Password(passWordOld,passWordNew,passWordNewConfirm);
                 }
             }
         });
     }
 
     @Override
+    public void listManagerAccount(List<User> managerAccounts) {
+
+    }
+
+    @Override
+    public void exception(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void successMessage(String message) {
+        dialogSettingFarmer.cancel();
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void failedMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void inCorrectPassOld() {
         txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
-        progressSettingFarmer.cancel();
         txt_Error_ChangePassword_Dialog.setText(R.string.inCorrectPassOld);
     }
 
     @Override
     public void inCorrectPassConfirm() {
         txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
-
-        progressSettingFarmer.cancel();
         txt_Error_ChangePassword_Dialog.setText(R.string.inCorrectPassConfirm);
     }
 
     @Override
     public void inCorrectPassLength() {
         txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
-        progressSettingFarmer.cancel();
         txt_Error_ChangePassword_Dialog.setText(R.string.inCorrectPassLength);
     }
 
-    @Override
-    public void resultChangePass(String message) {
-        progressSettingFarmer.cancel();
-        dialogSettingFarmer.cancel();
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void Exception(String message) {
-        progressSettingFarmer.cancel();
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
 
 
 }

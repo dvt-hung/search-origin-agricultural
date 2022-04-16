@@ -33,8 +33,6 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
         // Init view
         initView();
 
-
-
     }
 
     @Override
@@ -84,13 +82,18 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
             if (user.getIdRole() == 1)
             {
                 startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+            } else if (user.getIdRole() == 2)
+            {
+                startActivity(new Intent(LoginActivity.this, ManagerActivity.class));
             } else if (user.getIdRole() == 3)
             {
                 startActivity(new Intent(LoginActivity.this, FarmerActivity.class));
-            } else if (user.getIdRole() == 4)
+            }
+            else
             {
                 startActivity(new Intent(LoginActivity.this, CustomerActivity.class));
             }
+
             finishAffinity();
         }
         else

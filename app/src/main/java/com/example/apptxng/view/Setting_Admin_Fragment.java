@@ -1,7 +1,6 @@
 package com.example.apptxng.view;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -21,16 +20,18 @@ import androidx.fragment.app.Fragment;
 
 import com.example.apptxng.R;
 import com.example.apptxng.model.Common;
-import com.example.apptxng.presenter.ISettingAdmin;
-import com.example.apptxng.presenter.Setting_Admin_Presenter;
+import com.example.apptxng.model.User;
+import com.example.apptxng.presenter.Account_Presenter;
+import com.example.apptxng.presenter.IAccount;
+
+import java.util.List;
 
 
-public class Setting_Admin_Fragment extends Fragment implements ISettingAdmin {
+public class Setting_Admin_Fragment extends Fragment implements  IAccount {
 
     private Dialog dialogSettingAdmin;
-    private Setting_Admin_Presenter settingAdminPresenter;
+    private Account_Presenter accountPresenter;
     private View viewSetting;
-    private ProgressDialog progressSettingAdmin;
     private TextView txt_Error_ChangePassword_Dialog;
     private LinearLayout layout_Scale_Setting_Admin,layout_Linked_Setting_Admin ,layout_Banner_Setting_Admin, layout_ChangePassword_Setting_Admin, layout_LogOut_Setting_Admin;
     @Override
@@ -52,9 +53,7 @@ public class Setting_Admin_Fragment extends Fragment implements ISettingAdmin {
         layout_ChangePassword_Setting_Admin = viewSetting.findViewById(R.id.layout_changePassword_Setting_Admin);
         layout_LogOut_Setting_Admin         = viewSetting.findViewById(R.id.layout_LogOut_Setting_Admin);
         layout_Linked_Setting_Admin         = viewSetting.findViewById(R.id.layout_Linked_Setting_Admin);
-        settingAdminPresenter               = new Setting_Admin_Presenter(this);
-        progressSettingAdmin                = new ProgressDialog(viewSetting.getContext());
-        progressSettingAdmin.setMessage("Vui lòng chờ...");
+        accountPresenter                    = new Account_Presenter(this,requireActivity());
     }
 
 
@@ -193,27 +192,45 @@ public class Setting_Admin_Fragment extends Fragment implements ISettingAdmin {
                 }
                 else
                 {
-                    progressSettingAdmin.show();
-                    settingAdminPresenter.change_Password(passWordOld,passWordNew,passWordNewConfirm);
+                    accountPresenter.change_Password(passWordOld,passWordNew,passWordNewConfirm);
                 }
             }
         });
     }
 
 
+    @Override
+    public void listManagerAccount(List<User> managerAccounts) {
+
+    }
+
+    @Override
+    public void exception(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void successMessage(String message) {
+        dialogSettingAdmin.dismiss();
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void failedMessage(String message) {
+        dialogSettingAdmin.dismiss();
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
     // Override Method: interface ISettingAdmin
     @Override
     public void inCorrectPassOld() {
         txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
-        progressSettingAdmin.cancel();
         txt_Error_ChangePassword_Dialog.setText(R.string.inCorrectPassOld);
     }
 
     @Override
     public void inCorrectPassConfirm() {
         txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
-
-        progressSettingAdmin.cancel();
         txt_Error_ChangePassword_Dialog.setText(R.string.inCorrectPassConfirm);
 
     }
@@ -221,20 +238,7 @@ public class Setting_Admin_Fragment extends Fragment implements ISettingAdmin {
     @Override
     public void inCorrectPassLength() {
         txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
-        progressSettingAdmin.cancel();
         txt_Error_ChangePassword_Dialog.setText(R.string.inCorrectPassLength);
     }
 
-    @Override
-    public void resultChangePass(String message) {
-        progressSettingAdmin.cancel();
-        dialogSettingAdmin.cancel();
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void Exception(String message) {
-        progressSettingAdmin.cancel();
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
 }

@@ -75,4 +75,44 @@ public class Account_Presenter {
                     }
                 });
     }
+
+    public synchronized void change_Password(String passOld, String passNew,String passNewConfirm) {
+        /*
+         * 1. Kiểm tra password cũ có đúng hay chưa
+         * 2. Kiểm tra 2 mật khậu có trùng nhau không
+         * 3. Kiểm tra độ dài mật khẩu
+         * */
+
+        if (!Common.currentUser.checkPasswordOld(passOld)) {
+            iAccount.inCorrectPassOld();
+        } else if (passNew.length() < 6) {
+            iAccount.inCorrectPassLength();
+        } else if (!passNew.equals(passNewConfirm)) {
+            iAccount.inCorrectPassConfirm();
+        } else {
+            ProgressDialog dialog = Common.createProgress(context);
+            dialog.show();
+            Common.api.change_password(Common.currentUser.getEmail(), passNew, Common.currentUser.getIdUser())
+                    .enqueue(new Callback<ResponsePOST>() {
+                        @Override
+                        public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
+                            ResponsePOST responsePOST = response.body();
+                            assert responsePOST != null;
+                            if (responsePOST.getStatus() == 1) {
+                                iAccount.successMessage(responsePOST.getMessage());
+                                Common.currentUser.setPassWord(passNew);
+                            } else {
+                                iAccount.failedMessage(responsePOST.getMessage());
+                            }
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
+                            iAccount.exception(t.getMessage());
+                            dialog.dismiss();
+                        }
+                    });
+        }
+    }
 }

@@ -140,4 +140,19 @@ public class ManagerAccount_Admin_Fragment extends Fragment implements Manager_A
     public void failedMessage(String message) {
         Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void inCorrectPassOld() {
+
+    }
+
+    @Override
+    public void inCorrectPassLength() {
+
+    }
+
+    @Override
+    public void inCorrectPassConfirm() {
+
+    }
 }

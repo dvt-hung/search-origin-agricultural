@@ -9,4 +9,7 @@ public interface IAccount {
     void exception(String message);
     void successMessage(String message);
     void failedMessage(String message);
+    void inCorrectPassOld();
+    void inCorrectPassLength();
+    void inCorrectPassConfirm();
 }
