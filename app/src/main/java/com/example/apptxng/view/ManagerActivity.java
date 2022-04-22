@@ -74,7 +74,7 @@ public class ManagerActivity extends AppCompatActivity {
         }
         else
         {
-            navigation_Manager.setSelectedItemId(R.id.manager_category_admin);
+            navigation_Manager.setSelectedItemId(R.id.products_manager);
         }
     }
 }

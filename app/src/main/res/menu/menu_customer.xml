@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:id="@+id/menu_home_customer"
+            android:icon="@drawable/ic_home"
+            android:title="@string/menu_home_customer"/>
+
+        <item android:id="@+id/menu_place_customer"
+            android:title=""/>
+
+        <item android:id="@+id/menu_setting_customer"
+            android:icon="@drawable/ic_setting"
+            android:title="@string/menu_setting_customer"/>
+</menu>

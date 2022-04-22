@@ -15,6 +15,11 @@ public class Product implements Serializable {
     private Balance balance;
     private String dateProduct;
     private String qrProduct;
+    private String idCurrent;
+    private String ingredientProduct;
+    private String useProduct;
+    private String guideProduct;
+    private String conditionProduct;
 
     public Product() {
     }
@@ -31,6 +36,46 @@ public class Product implements Serializable {
         this.category = category;
         this.balance = balance;
         this.dateProduct = dateProduct;
+    }
+
+    public String getIngredientProduct() {
+        return ingredientProduct;
+    }
+
+    public void setIngredientProduct(String ingredientProduct) {
+        this.ingredientProduct = ingredientProduct;
+    }
+
+    public String getUseProduct() {
+        return useProduct;
+    }
+
+    public void setUseProduct(String useProduct) {
+        this.useProduct = useProduct;
+    }
+
+    public String getGuideProduct() {
+        return guideProduct;
+    }
+
+    public void setGuideProduct(String guideProduct) {
+        this.guideProduct = guideProduct;
+    }
+
+    public String getConditionProduct() {
+        return conditionProduct;
+    }
+
+    public void setConditionProduct(String conditionProduct) {
+        this.conditionProduct = conditionProduct;
+    }
+
+    public String getIdCurrent() {
+        return idCurrent;
+    }
+
+    public void setIdCurrent(String idCurrent) {
+        this.idCurrent = idCurrent;
     }
 
     public String getQrProduct() {

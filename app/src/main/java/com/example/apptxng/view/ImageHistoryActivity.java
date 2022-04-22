@@ -1,17 +1,16 @@
 package com.example.apptxng.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,9 +21,7 @@ import android.widget.Toast;
 
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.Images_Adapter;
-import com.example.apptxng.model.Common;
 import com.example.apptxng.model.ImageHistory;
-import com.example.apptxng.model.ResponsePOST;
 import com.example.apptxng.presenter.IImageHistory;
 import com.example.apptxng.presenter.ImageHistory_Presenter;
 import com.karumi.dexter.Dexter;
@@ -38,9 +35,6 @@ import java.util.List;
 
 import gun0912.tedbottompicker.TedBottomPicker;
 import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ImageHistoryActivity extends AppCompatActivity implements Images_Adapter.IListenerImages,IImageHistory {
 
@@ -180,6 +174,9 @@ public class ImageHistoryActivity extends AppCompatActivity implements Images_Ad
 
     @Override
     public void success(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(ImageHistoryActivity.this, Detail_Product_Customer_Activity.class);
+        setResult(RESULT_OK,intent);
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         finish();
     }

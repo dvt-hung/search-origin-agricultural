@@ -1,9 +1,5 @@
 package com.example.apptxng.view;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -12,9 +8,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -29,7 +23,6 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -37,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ScanFarmerActivity extends AppCompatActivity {
+public class ScanActivity extends AppCompatActivity {
 
 
     private SurfaceView surface_Scan;
@@ -88,7 +81,7 @@ public class ScanFarmerActivity extends AppCompatActivity {
             @Override
             public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
                 try {
-                    if (ActivityCompat.checkSelfPermission(ScanFarmerActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(ScanActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         cameraSource.start(surface_Scan.getHolder());
                     }
 
@@ -157,12 +150,20 @@ public class ScanFarmerActivity extends AppCompatActivity {
                         Bundle bundleProduct = new Bundle();
                         bundleProduct.putSerializable("product",product);
 
-                        // Intent
-                        Intent intentProduct = new Intent(ScanFarmerActivity.this, DetailProductFarmerActivity.class);
-                        intentProduct.putExtras(bundleProduct);
-                        startActivity(intentProduct);
+                        //Check type user
+                        Intent intent;
+                        if(Common.currentUser.getIdRole() == 4)
+                        {
+                            intent = new Intent(ScanActivity.this, Detail_Product_Customer_Activity.class);
+                        }
+                        else
+                        {
+                            intent = new Intent(ScanActivity.this, Detail_Product_Activity.class);
+                        }
+                        intent.putExtras(bundleProduct);
+                        startActivity(intent);
                         finish();
-                        dialog.dismiss();
+                            dialog.dismiss();
                     }
 
                     @Override

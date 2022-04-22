@@ -88,6 +88,11 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
         recycler_Images_History.setLayoutManager(layoutManager);
 
+        // Kiểm tra loại user
+        if (Common.currentUser.getIdRole() == 4)
+        {
+            img_Option_Detail_History.setVisibility(View.GONE);
+        }
     }
 
 
@@ -247,9 +252,10 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
         txt_NameFactory_History_Detail.setText(historyTemp.getFactory().getNameFactory());
         txt_AddressFactory_History_Detail.setText(historyTemp.getFactory().getAddressFactory());
         txt_PhoneFactory_History_Detail.setText(historyTemp.getFactory().getPhoneFactory());
+        txt_WebFactory_History_Detail.setText(historyTemp.getFactory().getWebFactory());
 
         // Nếu người dùng hiện tại là người đã viết nhật ký thì có thể update
-        if (!historyTemp.getFactory().getIdUser().equals(Common.currentUser.getIdUser()))
+        if (!historyTemp.getIdAuthor().equals(Common.currentUser.getIdUser()))
         {
             img_Option_Detail_History.setVisibility(View.GONE);
         }
@@ -270,6 +276,7 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
     @Override
     public void success(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        History_Product_Customer_Fragment.reload = true;
         finish();
     }
 
@@ -284,11 +291,11 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
 
     }
 
-
     // ********* HISTORY PRESENTER **********
     @Override
     public void successMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        History_Product_Customer_Fragment.reload = true;
         finish();
     }
 

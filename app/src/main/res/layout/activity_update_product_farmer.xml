@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.UpdateProductFarmerActivity">
+    tools:context=".view.UpdateProductActivity">
 
     <RelativeLayout
         android:id="@+id/toolbar_Product_Farmer"
@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -127,16 +127,15 @@
                 android:background="@drawable/custom_edittext"
                 android:drawablePadding="10dp"
                 android:hint="@string/input_price_product"
-                android:padding="10dp"
-                android:textSize="16sp"
                 android:inputType="number"
-                />
+                android:padding="10dp"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -159,8 +158,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/custom_edittext"
                 android:drawablePadding="10dp"
                 android:hint="@string/input_description_product"
@@ -171,7 +170,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -199,23 +198,22 @@
                 android:background="@drawable/custom_edittext"
                 android:drawablePadding="10dp"
                 android:hint="@string/input_quantity_product"
-                android:padding="10dp"
-                android:textSize="16sp"
                 android:inputType="number"
-                />
+                android:padding="10dp"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txt_ChoiceCategory_UpdateProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20sp"
                 android:gravity="center_vertical"
+                android:padding="8dp"
                 android:text="@string/choice_category_product"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:padding="8dp"
                 app:drawableEndCompat="@drawable/ic_right" />
 
             <TextView
@@ -227,33 +225,139 @@
                 android:layout_marginEnd="20sp"
                 android:padding="8dp"
                 android:text="@string/choice_category_product"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                />
 
             <TextView
                 android:id="@+id/txt_ChoiceBalance_UpdateProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20sp"
                 android:gravity="center_vertical"
+                android:padding="8dp"
                 android:text="@string/choice_balance_product"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:padding="8dp"
                 app:drawableEndCompat="@drawable/ic_right" />
 
             <TextView
                 android:id="@+id/txt_ResultBalance_UpdateProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/choice_category_product"
                 android:layout_marginStart="20sp"
                 android:layout_marginEnd="20sp"
-                android:layout_marginBottom="20dp"
-                android:textSize="15sp"
                 android:padding="8dp"
+                android:text="@string/choice_category_product"
+                android:textSize="15sp"
                 />
+            <!--            1 -->
+            <TextView
+                android:id="@+id/txt_IngredientProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20sp"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="@string/ingredient_product"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:drawableEndCompat="@drawable/ic_right" />
+
+            <TextView
+                android:id="@+id/txt_Result_IngredientProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20sp"
+                android:padding="8dp"
+                android:textSize="15sp"
+                android:visibility="gone"
+
+                />
+            <!--            2-->
+            <TextView
+                android:id="@+id/txt_UseProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20sp"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="@string/use_product"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:drawableEndCompat="@drawable/ic_right" />
+
+            <TextView
+                android:id="@+id/txt_Result_UseProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20sp"
+                android:padding="8dp"
+                android:textSize="15sp"
+                android:visibility="gone"
+
+                />
+            <!--            3-->
+            <TextView
+                android:id="@+id/txt_GuideProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20sp"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="@string/guide_product"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:drawableEndCompat="@drawable/ic_right" />
+
+            <TextView
+                android:id="@+id/txt_Result_GuideProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20sp"
+                android:padding="8dp"
+                android:textSize="15sp"
+                android:visibility="gone"
+
+                />
+            <!--            4-->
+            <TextView
+                android:id="@+id/txt_ConditionProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20sp"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="@string/condition_product"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:drawableEndCompat="@drawable/ic_right" />
+
+            <TextView
+                android:id="@+id/txt_Result_ConditionProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20sp"
+                android:padding="8dp"
+                android:textSize="15sp"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_UpdateProduct"
@@ -262,6 +366,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/custom_button_confirm"
                 android:backgroundTint="@null"
                 android:text="@string/title_confirm"

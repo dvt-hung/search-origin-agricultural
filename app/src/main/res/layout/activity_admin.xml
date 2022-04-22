@@ -21,9 +21,8 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
         android:background="@color/green"
-        app:itemTextColor="@color/white"
         app:itemIconTint="@color/white"
-        app:menu="@menu/menu_admin"
-        />
+        app:itemTextColor="@color/white"
+        app:menu="@menu/menu_admin" />
 
 </RelativeLayout>

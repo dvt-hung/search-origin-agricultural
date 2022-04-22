@@ -41,7 +41,6 @@ public class Account_Admin_Fragment extends Fragment {
                     if (position == 0)
                     {
                         tab.setText("Nông dân");
-
                     }
                     else if (position == 1)
                     {

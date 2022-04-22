@@ -171,6 +171,8 @@ public interface API {
         @GET("get_product.php")
         Call<Product> getProductByIdProduct(@Query("idProduct") String idProduct);
 
+        @GET("get_products_manager.php")
+        Call<List<Product>> getProductManager(@Query("idUser") String idUser);
     // Insert Product
         @Multipart
         @POST("add_product.php")
@@ -184,6 +186,10 @@ public interface API {
                 @Part("idCategory")         RequestBody idCategory,
                 @Part("idBalance")          RequestBody idBalance,
                 @Part("dateProduct")        RequestBody dateProduct,
+                @Part("ingredientProduct")  RequestBody ingredientProduct,
+                @Part("useProduct")         RequestBody useProduct,
+                @Part("guideProduct")       RequestBody guideProduct,
+                @Part("conditionProduct")   RequestBody conditionProduct,
                 @Part MultipartBody.Part                imageProduct
         );
 
@@ -199,6 +205,10 @@ public interface API {
                 @Part("imgOld_Product")     RequestBody imgOld_Product,
                 @Part("idCategory")         RequestBody idCategory,
                 @Part("idBalance")          RequestBody idBalance,
+                @Part("ingredientProduct")  RequestBody ingredientProduct,
+                @Part("useProduct")         RequestBody useProduct,
+                @Part("guideProduct")       RequestBody guideProduct,
+                @Part("conditionProduct")   RequestBody conditionProduct,
                 @Part MultipartBody.Part                imageProduct
         );
 
@@ -275,6 +285,8 @@ public interface API {
             @Part("idHistory")                      RequestBody idHistory,
             @Part("idProduct")                      RequestBody idProduct,
             @Part("idFactory")                      RequestBody idFactory,
+            @Part("idCurrent")                      RequestBody idCurrent,
+            @Part("idAuthor")                      RequestBody  idAuthor,
             @Part("descriptionHistory")             RequestBody descriptionHistory,
             @Part("dateHistory")                    RequestBody dateHistory,
             @Part List<MultipartBody.Part>          imageHistory

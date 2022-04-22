@@ -64,7 +64,7 @@ public class Setting_Manager_Fragment extends Fragment implements IAccount {
         layout_Info_Setting_Manager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(requireActivity(),FactoryActivity.class));
             }
         });
 

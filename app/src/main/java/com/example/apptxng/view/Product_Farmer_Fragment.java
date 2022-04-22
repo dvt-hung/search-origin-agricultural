@@ -1,7 +1,6 @@
 package com.example.apptxng.view;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -20,8 +19,8 @@ import android.widget.Toast;
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.Product_Adapter;
 import com.example.apptxng.model.Product;
-import com.example.apptxng.presenter.IProductFarmer;
-import com.example.apptxng.presenter.Product_Farmer_Presenter;
+import com.example.apptxng.presenter.IProduct;
+import com.example.apptxng.presenter.Product_Presenter;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -32,15 +31,14 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import java.util.List;
 
 
-public class Product_Farmer_Fragment extends Fragment implements IProductFarmer, Product_Adapter.IProductAdapterListener {
+public class Product_Farmer_Fragment extends Fragment implements IProduct, Product_Adapter.IProductAdapterListener {
 
     private View viewProduct;
 
     private TextView txt_Empty_Product_Farmer;
     private ImageView img_Add_Product_Farmer,img_Scan_Product_Farmer;
-    private Product_Farmer_Presenter productFarmerPresenter;
+    private Product_Presenter productPresenter;
     private Product_Adapter productAdapter;
-    private Dialog dialogProduct;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,7 +71,7 @@ public class Product_Farmer_Fragment extends Fragment implements IProductFarmer,
         });
 
         // 2. Hiển thị danh sách sản phẩm
-        productFarmerPresenter.getProducts();
+        productPresenter.getProductFarmer();
 
 
         // 3. Scan: Chuyển sang activity scan
@@ -85,13 +83,14 @@ public class Product_Farmer_Fragment extends Fragment implements IProductFarmer,
         });
     }
 
+    // Kiểm tra quyền Camera
     private void checkPermissionCamera()
     {
             Dexter.withContext(requireContext())
                     .withPermission(Manifest.permission.CAMERA)
                     .withListener(new PermissionListener() {
             @Override public void onPermissionGranted(PermissionGrantedResponse response) {
-                startActivity(new Intent(requireActivity(), ScanFarmerActivity.class));
+                startActivity(new Intent(requireActivity(), ScanActivity.class));
             }
             @Override public void onPermissionDenied(PermissionDeniedResponse response) {
                 /* ... */}
@@ -108,7 +107,7 @@ public class Product_Farmer_Fragment extends Fragment implements IProductFarmer,
         RecyclerView recycler_Product_Farmer = viewProduct.findViewById(R.id.recycler_Product_Farmer);
         img_Add_Product_Farmer      = viewProduct.findViewById(R.id.img_Add_Product_Farmer);
         img_Scan_Product_Farmer     = viewProduct.findViewById(R.id.img_Scan_Product_Farmer);
-        productFarmerPresenter      = new Product_Farmer_Presenter(this);
+        productPresenter            = new Product_Presenter(this,requireActivity());
         productAdapter              = new Product_Adapter(viewProduct.getContext(),this);
 
 
@@ -121,9 +120,10 @@ public class Product_Farmer_Fragment extends Fragment implements IProductFarmer,
 
     }
 
-    // OVERRIDE METHOD: interface IProductFarmer
+    // OVERRIDE METHOD: interface IProduct
+
     @Override
-    public void getProduct(List<Product> list) {
+    public void getProducts(List<Product> list) {
         if (list.size() > 0)
         {
             txt_Empty_Product_Farmer.setVisibility(View.GONE); // Nếu có sản phẩm thì sẽ ẩn text view đi
@@ -142,8 +142,7 @@ public class Product_Farmer_Fragment extends Fragment implements IProductFarmer,
         // Khi click vào sản phẩm sẽ chuyển sang activity chi tiết sản phẩm
         Bundle bundleProduct = new Bundle();
         bundleProduct.putSerializable("product",product);
-
-        Intent intentDetailProduct = new Intent(requireActivity(),DetailProductFarmerActivity.class);
+        Intent intentDetailProduct = new Intent(requireActivity(), Detail_Product_Activity.class);
         intentDetailProduct.putExtras(bundleProduct);
         startActivity(intentDetailProduct);
     }

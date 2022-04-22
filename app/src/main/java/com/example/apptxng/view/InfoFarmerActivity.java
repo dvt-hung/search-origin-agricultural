@@ -31,10 +31,8 @@ public class InfoFarmerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info_farmer);
 
 
-
         // init view: Ánh xạ view
         initView();
-
 
     }
 

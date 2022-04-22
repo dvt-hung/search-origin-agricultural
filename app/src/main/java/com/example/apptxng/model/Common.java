@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.example.apptxng.api.API;
 import com.example.apptxng.api.Retrofit_Client;
 
@@ -33,7 +35,7 @@ import retrofit2.Response;
 
 public class Common {
     public static User currentUser;
-    public static final String URL = "http://192.168.31.33/txng/";
+    public static final String URL = "http://192.168.31.32/txng/";
     public static final API api = Retrofit_Client.getRetrofit(Common.URL).create(API.class);
 
     public static Calendar calendar = Calendar.getInstance();
@@ -75,12 +77,12 @@ public class Common {
         Common.api.reloadInfo(currentUser.getIdUser())
                 .enqueue(new Callback<User>() {
                     @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
+                    public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
                         currentUser = response.body();
                     }
 
                     @Override
-                    public void onFailure(Call<User> call, Throwable t) {
+                    public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
                         Log.e("reload", "onFailure: " + t.getMessage() );
                     }
                 });

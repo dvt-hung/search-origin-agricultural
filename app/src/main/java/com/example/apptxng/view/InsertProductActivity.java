@@ -53,7 +53,12 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
 
     private ImageView img_Back_InsertProduct, img_InsertProduct;
     private EditText edt_Name_InsertProduct,edt_Price_InsertProduct,edt_Des_InsertProduct,edt_Quantity_InsertProduct;
-    private TextView txt_ChoiceCategory_InsertProduct,txt_ResultCategory_InsertProduct, txt_ChoiceBalance_InsertProduct,txt_ResultBalance_InsertProduct;
+
+    private TextView txt_ChoiceCategory_InsertProduct,txt_ResultCategory_InsertProduct, txt_ChoiceBalance_InsertProduct,txt_ResultBalance_InsertProduct
+    ,txt_IngredientProduct, txt_UseProduct,  txt_GuideProduct, txt_ConditionProduct;
+
+    @SuppressLint("StaticFieldLeak")
+    public static TextView txt_Result_IngredientProduct,txt_Result_UseProduct,txt_Result_GuideProduct,txt_Result_ConditionProduct;
     private Button btn_InsertProduct;
     private ChoiceType_Adapter choiceTypeAdapter;
     private Dialog dialogChoiceCategory;
@@ -63,6 +68,11 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
     private Product product;
     private ProgressDialog progressAddProduct;
     private String idProduct;
+    private final String TITLE_INGREDIENT_I   = "TITLE_INGREDIENT_I";
+    private final String TITLE_USE_I          = "TITLE_USE_I";
+    private final String TITLE_GUIDE_I        = "TITLE_GUIDE_I";
+    private final String TITLE_CONDITION_I    = "TITLE_CONDITION_I";
+
     private final ActivityResultLauncher<Intent> resultLauncherGallery = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
@@ -82,6 +92,35 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
 
         // initView: Ánh xạ view
         initView();
+
+    }
+    // INIT VIEW
+    private void initView() {
+        img_Back_InsertProduct              = findViewById(R.id.img_Back_InsertProduct);
+        img_InsertProduct                   = findViewById(R.id.img_InsertProduct);
+        edt_Name_InsertProduct              = findViewById(R.id.edt_Name_InsertProduct);
+        edt_Price_InsertProduct             = findViewById(R.id.edt_Price_InsertProduct);
+        edt_Des_InsertProduct               = findViewById(R.id.edt_Des_InsertProduct);
+        edt_Quantity_InsertProduct          = findViewById(R.id.edt_Quantity_InsertProduct);
+        txt_ChoiceCategory_InsertProduct    = findViewById(R.id.txt_ChoiceCategory_InsertProduct);
+        txt_ResultCategory_InsertProduct    = findViewById(R.id.txt_ResultCategory_InsertProduct);
+        txt_ChoiceBalance_InsertProduct     = findViewById(R.id.txt_ChoiceBalance_InsertProduct);
+        txt_ResultBalance_InsertProduct     = findViewById(R.id.txt_ResultBalance_InsertProduct);
+        btn_InsertProduct                   = findViewById(R.id.btn_InsertProduct);
+        txt_IngredientProduct               = findViewById(R.id.txt_IngredientProduct);
+        txt_Result_IngredientProduct        = findViewById(R.id.txt_Result_IngredientProduct);
+        txt_UseProduct                      = findViewById(R.id.txt_UseProduct);
+        txt_Result_UseProduct               = findViewById(R.id.txt_Result_UseProduct);
+        txt_GuideProduct                    = findViewById(R.id.txt_GuideProduct);
+        txt_Result_GuideProduct             = findViewById(R.id.txt_Result_GuideProduct);
+        txt_ConditionProduct                = findViewById(R.id.txt_ConditionProduct);
+        txt_Result_ConditionProduct         = findViewById(R.id.txt_Result_ConditionProduct);
+
+        // Adapter + Presenter
+        product                             = new Product();
+        choiceTypeAdapter                   = new ChoiceType_Adapter(this);
+        insertProductPresenter              = new Insert_Product_Presenter(this, this);
+        progressAddProduct                  = new ProgressDialog(this);
 
     }
 
@@ -160,6 +199,11 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
                 priceProduct = edt_Price_InsertProduct.getText().toString().trim();
                 desProduct = edt_Des_InsertProduct.getText().toString().trim();
                 quantityProduct = edt_Quantity_InsertProduct.getText().toString().trim();
+                String ingredient   = txt_Result_IngredientProduct.getText().toString().trim();
+                String use          = txt_Result_UseProduct.getText().toString().trim();
+                String guide        = txt_Result_GuideProduct.getText().toString().trim();
+                String condition    = txt_ConditionProduct.getText().toString().trim();
+
 
 
                 // Set nội dung cho progress dialog
@@ -177,6 +221,11 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
                     product.setDescriptionProduct(desProduct); // Set des cho product
                     product.setQuantityProduct(Integer.parseInt(quantityProduct)); // Set số lượng cho product
                     product.setIdUser(Common.currentUser.getIdUser());
+                    product.setIngredientProduct(ingredient);
+                    product.setUseProduct(use);
+                    product.setGuideProduct(guide);
+                    product.setConditionProduct(condition);
+
                     idProduct = "Product" +Common.calendar.getTime().getTime();
                     product.setIdProduct(idProduct);
                     // Set ngày cho product
@@ -188,6 +237,63 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
                     insertProductPresenter.insertProduct(product);
                 }
 
+            }
+        });
+
+
+        /*
+        6. txt_IngredientProduct: Chuyển sang activiy nhập thành phần
+         */
+        txt_IngredientProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String value = txt_Result_IngredientProduct.getText().toString().trim();
+                Intent intentIngredient = new Intent(InsertProductActivity.this, InputValueProductActivity.class);
+                intentIngredient.putExtra("code", TITLE_INGREDIENT_I);
+                intentIngredient.putExtra("value", value);
+                startActivity(intentIngredient);
+            }
+        });
+
+         /*
+        7. txt_IngredientProduct: Chuyển sang activiy nhập thành phần
+         */
+        txt_UseProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String value = txt_Result_UseProduct.getText().toString().trim();
+                Intent intentUse = new Intent(InsertProductActivity.this, InputValueProductActivity.class);
+                intentUse.putExtra("code", TITLE_USE_I);
+                intentUse.putExtra("value", value);
+                startActivity(intentUse);
+            }
+        });
+
+         /*
+        8. txt_IngredientProduct: Chuyển sang activiy nhập thành phần
+         */
+        txt_GuideProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String value = txt_Result_GuideProduct.getText().toString().trim();
+                Intent intentGuide = new Intent(InsertProductActivity.this, InputValueProductActivity.class);
+                intentGuide.putExtra("code", TITLE_GUIDE_I);
+                intentGuide.putExtra("value", value);
+                startActivity(intentGuide);
+            }
+        });
+
+         /*
+        9. txt_IngredientProduct: Chuyển sang activiy nhập thành phần
+         */
+        txt_ConditionProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String value = txt_Result_ConditionProduct.getText().toString().trim();
+                Intent intentCondition = new Intent(InsertProductActivity.this, InputValueProductActivity.class);
+                intentCondition.putExtra("code", TITLE_CONDITION_I);
+                intentCondition.putExtra("value", value);
+                startActivity(intentCondition);
             }
         });
     }
@@ -290,25 +396,6 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         resultLauncherGallery.launch(intent);
     }
 
-    // INIT VIEW
-    private void initView() {
-        img_Back_InsertProduct              = findViewById(R.id.img_Back_InsertProduct);
-        img_InsertProduct                   = findViewById(R.id.img_InsertProduct);
-        edt_Name_InsertProduct              = findViewById(R.id.edt_Name_InsertProduct);
-        edt_Price_InsertProduct             = findViewById(R.id.edt_Price_InsertProduct);
-        edt_Des_InsertProduct               = findViewById(R.id.edt_Des_InsertProduct);
-        edt_Quantity_InsertProduct          = findViewById(R.id.edt_Quantity_InsertProduct);
-        txt_ChoiceCategory_InsertProduct    = findViewById(R.id.txt_ChoiceCategory_InsertProduct);
-        txt_ResultCategory_InsertProduct    = findViewById(R.id.txt_ResultCategory_InsertProduct);
-        txt_ChoiceBalance_InsertProduct     = findViewById(R.id.txt_ChoiceBalance_InsertProduct);
-        txt_ResultBalance_InsertProduct     = findViewById(R.id.txt_ResultBalance_InsertProduct);
-        btn_InsertProduct                   = findViewById(R.id.btn_InsertProduct);
-        choiceTypeAdapter                   = new ChoiceType_Adapter(this);
-        insertProductPresenter              = new Insert_Product_Presenter(this, this);
-        product                             = new Product();
-        progressAddProduct                  = new ProgressDialog(this);
-
-    }
 
     // OVERRIDE METHOD CHOICE TYPE ADAPTER
     @Override
@@ -316,12 +403,14 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         if (obj.getClass() == Category.class)
         {
             product.setCategory((Category) obj);
+            txt_ResultCategory_InsertProduct.setVisibility(View.VISIBLE);
             txt_ResultCategory_InsertProduct.setText(product.getCategory().getNameCategory());
 
         }
         else if (obj.getClass() == Balance.class)
         {
             product.setBalance((Balance) obj);
+            txt_ResultBalance_InsertProduct.setVisibility(View.VISIBLE);
             txt_ResultBalance_InsertProduct.setText(product.getBalance().getNameBalance());
         }
 

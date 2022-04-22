@@ -38,7 +38,6 @@ public class FactoryActivity extends AppCompatActivity implements  IFactory, ITy
     private ImageView img_Close_Factory;
     private Factory_Presenter presenter;
     private Factory factoryTemp;
-    private List<Factory> factories;
     private TextView txt_Name_TypeFactory,txt_Name_Factory, txt_NameOwn_Factory, txt_Address_Factory, txt_Phone_Factory, txt_Web_Factory;
     private Button btn_Change_Info_Factory;
     @Override
@@ -60,9 +59,7 @@ public class FactoryActivity extends AppCompatActivity implements  IFactory, ITy
         txt_Web_Factory                 = findViewById(R.id.txt_Web_Factory_Farmer);
         btn_Change_Info_Factory         = findViewById(R.id.btn_Change_Info_Factory);
         presenter                       = new Factory_Presenter(this,this);
-        factories                       = new ArrayList<>();
 
-        // Tải dữ liệu
     }
 
 
@@ -111,13 +108,8 @@ public class FactoryActivity extends AppCompatActivity implements  IFactory, ITy
     }
 
 
-
-
-
-
     @Override
     public void getFactory(List<Factory> list) {
-            factories = list;
     }
 
     @Override

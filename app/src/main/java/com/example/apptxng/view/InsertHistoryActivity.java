@@ -1,9 +1,5 @@
 package com.example.apptxng.view;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,12 +9,10 @@ import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -29,7 +23,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.Factory_Adapter;
 import com.example.apptxng.adapter.Images_Adapter;
@@ -154,6 +147,8 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
                 String idHistory = "History" + Calendar.getInstance().getTime().getTime();
                 historyTemp.setIdHistory(idHistory);
 
+                // Set idAuthor của history
+                historyTemp.setIdAuthor(Common.currentUser.getIdUser());
                 // Gọi đến Presenter
                 historyPresenter.InsertHistory(historyTemp,listPhoto);
             }
@@ -164,7 +159,6 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
             @Override
             public void onClick(View view) {
                 showDialogChoiceCurrentFactory();
-                //showDialogChoiceFactory();
             }
         });
 
@@ -313,6 +307,9 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
     // OVERRIED METHOD: interface: IHistory
     @Override
     public void successMessage(String message) {
+        Intent intent = new Intent(InsertHistoryActivity.this, Detail_Product_Customer_Activity.class);
+        intent.putExtra("result",true);
+        setResult(RESULT_OK,intent);
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         finish();
     }

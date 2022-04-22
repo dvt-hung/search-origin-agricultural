@@ -13,12 +13,21 @@ public class History implements Serializable {
     private String idProduct;
     private String descriptionHistory;
     private String dateHistory;
+    private String idAuthor;
     private Factory factory;
     private TypeFactory type_factory;
 
     public History() {
     }
 
+
+    public String getIdAuthor() {
+        return idAuthor;
+    }
+
+    public void setIdAuthor(String idAuthor) {
+        this.idAuthor = idAuthor;
+    }
 
     public Factory getFactory() {
         return factory;

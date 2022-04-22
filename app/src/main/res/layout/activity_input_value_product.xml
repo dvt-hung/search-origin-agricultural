@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.InputValueProductActivity"
+    android:orientation="vertical"
+    >
+
+
+    <RelativeLayout
+        android:id="@+id/toolbar_Product_Farmer"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/custom_toolbar">
+
+
+
+        <ImageView
+            android:id="@+id/img_Back_Input"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:background="@null"
+            android:backgroundTint="@null"
+            android:src="@drawable/ic_back" />
+
+        <ImageView
+            android:id="@+id/img_Confirm_Input"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:background="@null"
+            android:backgroundTint="@null"
+            android:src="@drawable/ic_check" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/edt_Input"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/custom_edittext"
+        android:layout_margin="15dp"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:gravity="top"
+        android:inputType="text" />
+</LinearLayout>

@@ -20,13 +20,22 @@
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".view.SplashActivity"
+            android:name=".view.Detail_Product_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".view.InputValueProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.CustomerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ManagerActivity"
             android:exported="false" />
         <activity
             android:name=".view.CreateQRCodeActivity"
             android:exported="false" />
         <activity
-            android:name=".view.ScanFarmerActivity"
+            android:name=".view.ScanActivity"
             android:exported="false" />
         <activity
             android:name=".view.ChangeInfoFactoryActivity"
@@ -35,10 +44,11 @@
             android:name=".view.ImageHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".view.ManagerActivity"
+            android:name=".view.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -61,10 +71,7 @@
             android:name=".view.InfoFarmerActivity"
             android:exported="false" />
         <activity
-            android:name=".view.UpdateProductFarmerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.DetailProductFarmerActivity"
+            android:name=".view.UpdateProductActivity"
             android:exported="false" />
         <activity
             android:name=".view.InsertProductActivity"
@@ -79,7 +86,7 @@
             android:name=".view.Products_Admin_Activity"
             android:exported="false" />
         <activity
-            android:name=".view.CustomerActivity"
+            android:name=".view.Detail_Product_Customer_Activity"
             android:exported="false" />
         <activity
             android:name=".view.SignUpActivity"

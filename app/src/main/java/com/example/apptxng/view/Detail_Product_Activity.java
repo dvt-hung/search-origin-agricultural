@@ -36,8 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailProductFarmerActivity extends AppCompatActivity implements History_Adapter.IListenerHistory, IHistory {
-
+public class Detail_Product_Activity extends AppCompatActivity implements History_Adapter.IListenerHistory, IHistory {
     private ImageView img_Option_Detail_Product,img_Close_Detail_Product,img_Detail_Product, img_QR_Product;
     private TextView txt_Balance_Detail_Product,txt_Name_Detail_Product,txt_Des_Detail_Product,txt_Price_Detail_Product,txt_Quantity_Detail_Product,txt_QuantitySold_Detail_Product;
     private Product product;
@@ -46,9 +45,9 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_product_farmer);
-
-        // Init view: Ánh xạ view
+        setContentView(R.layout.activity_detail_product);
+        // Get Bundle: Nhận đối tượng product đã truyền qua
+        product = (Product) getIntent().getExtras().getSerializable("product");
         initView();
     }
 
@@ -67,9 +66,6 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
         RecyclerView recycler_History_Detail_Product = findViewById(R.id.recycler_History_Detail_Product);
         historyPresenter                        = new History_Presenter(this,this);
 
-            // Get Bundle: Nhận đối tượng product đã truyền qua
-        product = (Product) getIntent().getExtras().getSerializable("product");
-
         // Khởi tạo adapter cho recycler view
         historyAdapter = new History_Adapter(this);
 
@@ -85,7 +81,6 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("a", "onResume: " );
         // 1. Hiển thị giá trị của sản phẩm lên text view
         displayValueProduct();
 
@@ -128,7 +123,7 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
         ImageView imgQR = dialog.findViewById(R.id.img_Display);
 
         // Load image
-        Glide.with(DetailProductFarmerActivity.this).load(product.getQrProduct()).into(imgQR);
+        Glide.with(Detail_Product_Activity.this).load(product.getQrProduct()).into(imgQR);
 
         dialog.show();
 
@@ -194,7 +189,7 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
         btn_InsertHistory_OptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentInsertHistory = new Intent(DetailProductFarmerActivity.this, InsertHistoryActivity.class);
+                Intent intentInsertHistory = new Intent(Detail_Product_Activity.this, InsertHistoryActivity.class);
                 intentInsertHistory.putExtra("idProduct",product.getIdProduct());
                 startActivity(intentInsertHistory);
                 dialogOptions.dismiss();
@@ -207,10 +202,9 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
             public void onClick(View view) {
 
                 Bundle bundleUpdate = new Bundle();
-                bundleUpdate.putSerializable("product_detail",product); // Đẩy product vào bundle
-
-                Intent intentUpdate = new Intent(DetailProductFarmerActivity.this,UpdateProductFarmerActivity.class);
-                intentUpdate.putExtra("bundle_product",bundleUpdate);
+                bundleUpdate.putSerializable("product",product); // Đẩy product vào bundle
+                Intent intentUpdate = new Intent(Detail_Product_Activity.this,UpdateProductActivity.class);
+                intentUpdate.putExtras(bundleUpdate);
                 startActivity(intentUpdate);
                 dialogOptions.dismiss();
             }
@@ -246,9 +240,9 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
         dialogDelete.show();
 
         /*
-        * 1. Cancel Button: Tắt dialog xóa đi
-        * 2. Confirm Button: Tiển hành xóa sản phẩm. Nếu thành công thì Toast lên và đóng activity
-        * */
+         * 1. Cancel Button: Tắt dialog xóa đi
+         * 2. Confirm Button: Tiển hành xóa sản phẩm. Nếu thành công thì Toast lên và đóng activity
+         * */
 
         // 1. Cancel Button
         btn_Cancel_Delete_Dialog.setOnClickListener(new View.OnClickListener() {
@@ -273,19 +267,19 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
                                 assert responsePOST != null;
                                 if (responsePOST.getStatus() == 1)
                                 {
-                                    Toast.makeText(DetailProductFarmerActivity.this, responsePOST.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Detail_Product_Activity.this, responsePOST.getMessage(), Toast.LENGTH_SHORT).show();
                                     dialogDelete.cancel();
                                     finish();
                                 }
                                 else
                                 {
-                                    Toast.makeText(DetailProductFarmerActivity.this, responsePOST.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Detail_Product_Activity.this, responsePOST.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
 
                             @Override
                             public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
-                                Toast.makeText(DetailProductFarmerActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Detail_Product_Activity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
             }
@@ -302,7 +296,7 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
         // Chuyển đối tượng history sang activity detail
         Bundle bundleHistory = new Bundle();
         bundleHistory.putSerializable("history", history);
-        Intent intent = new Intent(DetailProductFarmerActivity.this, DetailHistoryActivity.class);
+        Intent intent = new Intent(Detail_Product_Activity.this, DetailHistoryActivity.class);
         intent.putExtras(bundleHistory);
         startActivity(intent);
     }
@@ -334,4 +328,5 @@ public class DetailProductFarmerActivity extends AppCompatActivity implements Hi
     public void getHistory(List<History> histories) {
         historyAdapter.setHistoryList(histories);
     }
+
 }

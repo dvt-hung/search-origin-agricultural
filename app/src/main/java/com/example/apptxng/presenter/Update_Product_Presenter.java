@@ -3,6 +3,8 @@ package com.example.apptxng.presenter;
 import android.content.Context;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+
 import com.example.apptxng.model.Balance;
 import com.example.apptxng.model.Category;
 import com.example.apptxng.model.Common;
@@ -60,7 +62,7 @@ public class Update_Product_Presenter {
                     });
     }
 
-    public void updateProduct(Product product, Uri imageNew){
+    public synchronized void updateProduct(Product product, Uri imageNew){
         //Kiểm tra dữ liệu
         if ( product.getBalance().getIdBalance() == 0 || product.getCategory().getIdCategory() == 0||product.getNameProduct() == null || product.getDescriptionProduct() == null || product.getPriceProduct() == 0 || product.getQuantityProduct() == 0)
         {
@@ -92,12 +94,17 @@ public class Update_Product_Presenter {
         RequestBody idCategory              = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getCategory().getIdCategory()));
         RequestBody idBalance               = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getBalance().getIdBalance()));
         RequestBody idProduct               = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getIdProduct()));
+        RequestBody ingredientProduct       = RequestBody.create(MediaType.parse("multipart/form-data"),valueEmpty(product.getIngredientProduct()));
+        RequestBody useProduct              = RequestBody.create(MediaType.parse("multipart/form-data"),valueEmpty(product.getUseProduct()));
+        RequestBody guideProduct            = RequestBody.create(MediaType.parse("multipart/form-data"),valueEmpty(product.getGuideProduct()));
+        RequestBody conditionProduct        = RequestBody.create(MediaType.parse("multipart/form-data"),valueEmpty(product.getConditionProduct()));
 
 
-        Common.api.updateProduct(idProduct,nameProduct,priceProduct,descriptionProduct,quantityProduct,imgOld_Product,idCategory,idBalance,requestPartImage)
+        Common.api.updateProduct(idProduct,nameProduct,priceProduct,descriptionProduct,quantityProduct,imgOld_Product,idCategory,idBalance,
+                ingredientProduct,useProduct,guideProduct,conditionProduct,requestPartImage)
                 .enqueue(new Callback<ResponsePOST>() {
                     @Override
-                    public void onResponse(Call<ResponsePOST> call, Response<ResponsePOST> response) {
+                    public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
                         ResponsePOST responsePOST = response.body();
 
                         assert responsePOST != null;
@@ -112,10 +119,19 @@ public class Update_Product_Presenter {
                     }
 
                     @Override
-                    public void onFailure(Call<ResponsePOST> call, Throwable t) {
+                    public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
                         iUpdateProduct.Exception(t.getMessage());
                     }
                 });
 
+    }
+
+    private String valueEmpty(String val)
+    {
+        if (val == null || val.equals(" ") || val.isEmpty())
+        {
+            return "";
+        }
+        return val;
     }
 }
