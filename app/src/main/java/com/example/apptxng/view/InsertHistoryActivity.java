@@ -55,13 +55,12 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
     private TextView txt_ChoiceFactory_History, txt_ResultFactory_History;
     private EditText edt_Des_History;
     private RecyclerView recycler_Images_History;
-    private Factory factoryTemp, factoryCurrent;
+    private Factory  factoryCurrent;
     private History historyTemp;
-    private Uri uriTemp;
     private String idProduct;
     private History_Presenter historyPresenter;
     private List<Factory> listTemp = new ArrayList<>();
-    private List<Uri> listPhoto = new ArrayList<>();
+    private final List<Uri> listPhoto = new ArrayList<>();
     private BottomDialogChoiceFactory choiceFactory;
     private Images_Adapter imagesAdapter;
 
@@ -87,7 +86,6 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
         txt_ResultFactory_History   = findViewById(R.id.txt_ResultFactory_History);
         edt_Des_History             = findViewById(R.id.edt_Des_History);
         recycler_Images_History     = findViewById(R.id.recycler_Images_History);
-        factoryTemp                 = new Factory();
         historyTemp                 = new History();
         imagesAdapter               = new Images_Adapter(this);
         historyPresenter            = new History_Presenter(this, this);
@@ -338,9 +336,7 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        factoryTemp = null;
         historyTemp = null;
-        uriTemp = null;
         listTemp = null;
     }
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -36,9 +37,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Detail_Product_Activity extends AppCompatActivity implements History_Adapter.IListenerHistory, IHistory {
+public class Detail_Product_Activity extends AppCompatActivity  {
     private ImageView img_Option_Detail_Product,img_Close_Detail_Product,img_Detail_Product, img_QR_Product;
-    private TextView txt_Balance_Detail_Product,txt_Name_Detail_Product,txt_Des_Detail_Product,txt_Price_Detail_Product,txt_Quantity_Detail_Product,txt_QuantitySold_Detail_Product;
+    private TextView txt_Balance_Detail_Product,txt_Name_Detail_Product,txt_Des_Detail_Product,txt_Price_Detail_Product
+            ,txt_Ingredient_Detail_Product,txt_Use_Detail_Product, txt_Guide_Detail_Product, txt_Condition_Detail_Product,txt_Seen_History;
     private Product product;
     private History_Adapter historyAdapter;
     private History_Presenter historyPresenter;
@@ -58,23 +60,14 @@ public class Detail_Product_Activity extends AppCompatActivity implements Histor
         txt_Name_Detail_Product                 = findViewById(R.id.txt_Name_Detail_Product);
         txt_Des_Detail_Product                  = findViewById(R.id.txt_Des_Detail_Product);
         txt_Price_Detail_Product                = findViewById(R.id.txt_Price_Detail_Product);
-        txt_Quantity_Detail_Product             = findViewById(R.id.txt_Quantity_Detail_Product);
-        txt_QuantitySold_Detail_Product         = findViewById(R.id.txt_QuantitySold_Detail_Product);
+        txt_Ingredient_Detail_Product           = findViewById(R.id.txt_Ingredient_Detail_Product);
+        txt_Use_Detail_Product                  = findViewById(R.id.txt_Use_Detail_Product);
         txt_Balance_Detail_Product              = findViewById(R.id.txt_Balance_Detail_Product);
         img_Close_Detail_Product                = findViewById(R.id.img_Close_Detail_Product);
         img_QR_Product                          = findViewById(R.id.img_QR_Product);
-        RecyclerView recycler_History_Detail_Product = findViewById(R.id.recycler_History_Detail_Product);
-        historyPresenter                        = new History_Presenter(this,this);
-
-        // Khởi tạo adapter cho recycler view
-        historyAdapter = new History_Adapter(this);
-
-        // Gán adapter cho recycler view
-        recycler_History_Detail_Product.setAdapter(historyAdapter);
-
-        // Tạo layout manager cho recycler view
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
-        recycler_History_Detail_Product.setLayoutManager(layoutManager);
+        txt_Guide_Detail_Product                = findViewById(R.id.txt_Guide_Detail_Product);
+        txt_Condition_Detail_Product            = findViewById(R.id.txt_Condition_Detail_Product);
+        txt_Seen_History                        = findViewById(R.id.txt_Seen_History);
     }
 
 
@@ -84,8 +77,15 @@ public class Detail_Product_Activity extends AppCompatActivity implements Histor
         // 1. Hiển thị giá trị của sản phẩm lên text view
         displayValueProduct();
 
-        // 2. Tải danh sách nhật ký của sản phẩm
-        loadHistory();
+        // 2. Xem danh sách lịch sử
+        txt_Seen_History.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentHistory = new Intent(Detail_Product_Activity.this, HistoriesActivity.class);
+                intentHistory.putExtra("idProduct",product.getIdProduct());
+                startActivity(intentHistory);
+            }
+        });
 
         // 3. Close Button: Khi ấn thì sẽ đóng activity lại
         img_Close_Detail_Product.setOnClickListener(new View.OnClickListener() {
@@ -129,23 +129,21 @@ public class Detail_Product_Activity extends AppCompatActivity implements Histor
 
     }
 
-    private void loadHistory() {
-        historyPresenter.loadHistory(product.getIdProduct());
-    }
 
     // Gán giá trị của product, hiển thị lên text view
+    @SuppressLint("SetTextI18n")
     private void displayValueProduct() {
         // Tên sản phẩm
         txt_Name_Detail_Product.setText(product.getNameProduct());
 
         // Giá sản phẩm
-        txt_Price_Detail_Product.setText(Common.numberFormat.format(product.getPriceProduct()));
+        txt_Price_Detail_Product.setText(Common.numberFormat.format(product.getPriceProduct()) + " VNĐ");
 
-        // Số lượng sản phẩm
-        txt_Quantity_Detail_Product.setText(String.valueOf(product.getQuantityProduct()));
+        // Thành phần sản phẩm
+        checkValue(txt_Ingredient_Detail_Product,product.getIngredientProduct());
 
-        // Số lượng đã bán của sản phẩm
-        txt_QuantitySold_Detail_Product.setText(String.valueOf(product.getQuantitySold()));
+        // Công dụng bán của sản phẩm
+        checkValue(txt_Use_Detail_Product,product.getUseProduct());
 
         // Mô tả của sản phẩm
         txt_Des_Detail_Product.setText(product.getDescriptionProduct());
@@ -153,11 +151,29 @@ public class Detail_Product_Activity extends AppCompatActivity implements Histor
         // Đơn vị tính
         txt_Balance_Detail_Product.setText(product.getBalance().getNameBalance());
 
+        // Cách sử dụng
+        checkValue(txt_Guide_Detail_Product, product.getGuideProduct());
+
+        // Bảo quản
+        checkValue(txt_Condition_Detail_Product,product.getConditionProduct());
+
         // Ảnh sản phẩm
         Glide.with(this).load(product.getImageProduct()).error(R.drawable.logo).into(img_Detail_Product);
 
         // Ảnh  QR sản phẩm
         Glide.with(this).load(product.getQrProduct()).error(R.drawable.ic_photo).into(img_QR_Product);
+    }
+    // Kiểm tra dữ liệu có null không
+    private void checkValue(TextView view, String val)
+    {
+        if (val == null || val.equals(" ") || val.isEmpty())
+        {
+            view.setText(R.string.title_error_empty_user);
+        }
+        else
+        {
+            view.setText(val);
+        }
     }
 
 
@@ -185,22 +201,13 @@ public class Detail_Product_Activity extends AppCompatActivity implements Histor
          * */
 
 
-        // 1. Insert History Button
-        btn_InsertHistory_OptionProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentInsertHistory = new Intent(Detail_Product_Activity.this, InsertHistoryActivity.class);
-                intentInsertHistory.putExtra("idProduct",product.getIdProduct());
-                startActivity(intentInsertHistory);
-                dialogOptions.dismiss();
-            }
-        });
+        // 1. Insert Ẩn
+        btn_InsertHistory_OptionProduct.setVisibility(View.GONE);
 
         // 2. Update Button
         btn_Update_OptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Bundle bundleUpdate = new Bundle();
                 bundleUpdate.putSerializable("product",product); // Đẩy product vào bundle
                 Intent intentUpdate = new Intent(Detail_Product_Activity.this,UpdateProductActivity.class);
@@ -249,7 +256,6 @@ public class Detail_Product_Activity extends AppCompatActivity implements Histor
             @Override
             public void onClick(View view) {
                 dialogDelete.cancel();
-
             }
         });
 
@@ -284,49 +290,6 @@ public class Detail_Product_Activity extends AppCompatActivity implements Histor
                         });
             }
         });
-    }
-
-
-
-    // OVERRIDE METHOD: interface IListenerHistory
-    @Override
-    public void onClickHistoryItem(History history) {
-        //showDialogOptionHistory(history);
-
-        // Chuyển đối tượng history sang activity detail
-        Bundle bundleHistory = new Bundle();
-        bundleHistory.putSerializable("history", history);
-        Intent intent = new Intent(Detail_Product_Activity.this, DetailHistoryActivity.class);
-        intent.putExtras(bundleHistory);
-        startActivity(intent);
-    }
-
-
-    // OVERRIDE METHOD: interface IHistory
-    @Override
-    public void successMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void failedMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
-    public void exceptionMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void emptyValue() {
-
-    }
-
-    @Override
-    public void getHistory(List<History> histories) {
-        historyAdapter.setHistoryList(histories);
     }
 
 }

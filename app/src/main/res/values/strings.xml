@@ -108,6 +108,7 @@
     <string name="empty_product"> Hiện tại chưa có sản phẩm nào </string>
     <string name="detail_product">Chi tiết sản phẩm </string>
     <string name="history_product">Nhật ký sản phẩm </string>
+    <string name="seen_history_product">Xem nhật ký sản phẩm </string>
 
     <string name="choice_image_product"> Hãy chọn ảnh cho sản phẩm </string>
 

@@ -1,0 +1,121 @@
+package com.example.apptxng.view;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.example.apptxng.R;
+import com.example.apptxng.adapter.History_Adapter;
+import com.example.apptxng.model.History;
+import com.example.apptxng.model.Product;
+import com.example.apptxng.presenter.History_Presenter;
+import com.example.apptxng.presenter.IHistory;
+
+import java.util.List;
+
+public class HistoriesActivity extends AppCompatActivity implements History_Adapter.IListenerHistory, IHistory {
+
+    private ImageView img_Close_History_Product,img_Insert_History_Product;
+    private History_Adapter historyAdapter;
+    private History_Presenter historyPresenter;
+    private String idProduct;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_histories);
+
+        // Nhận idProduct
+        idProduct = getIntent().getStringExtra("idProduct");
+
+        // init view: Ánh xạ view
+        initView();
+    }
+
+    private void initView() {
+        img_Close_History_Product           = findViewById(R.id.img_Close_History_Product);
+        img_Insert_History_Product          = findViewById(R.id.img_Insert_History_Product);
+        RecyclerView recycler_History       = findViewById(R.id.recycler_History_Product);
+        historyPresenter                    = new History_Presenter(this,this);
+
+        // Adapter
+        historyAdapter                      = new History_Adapter(this);
+        recycler_History.setAdapter(historyAdapter);
+
+        // Layout manager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
+        recycler_History.setLayoutManager(layoutManager);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 0. Tải danh sách history
+        historyPresenter.loadHistory(idProduct);
+
+        // 1. Close button: Trở về activity trước
+        img_Close_History_Product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        // 2. Insert button: Chuyển sang activity insert history
+        img_Insert_History_Product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HistoriesActivity.this, InsertHistoryActivity.class);
+                intent.putExtra("idProduct",idProduct);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onClickHistoryItem(History history) {
+        Bundle bundleHis = new Bundle();
+        bundleHis.putSerializable("history",history);
+        Intent intent = new Intent(HistoriesActivity.this, DetailHistoryActivity.class);
+        intent.putExtras(bundleHis);
+        startActivity(intent);
+    }
+
+    @Override
+    public void successMessage(String message) {
+
+    }
+
+    @Override
+    public void failedMessage(String message) {
+
+    }
+
+    @Override
+    public void exceptionMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void emptyValue() {
+
+    }
+
+    @Override
+    public void getHistory(List<History> histories) {
+        historyAdapter.setHistoryList(histories);
+    }
+}

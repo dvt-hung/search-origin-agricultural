@@ -20,6 +20,9 @@
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.HistoriesActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.Detail_Product_Activity"
             android:exported="false" />
         <activity
