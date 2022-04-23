@@ -52,7 +52,6 @@ public class BottomDialogChoiceFactory extends BottomSheetDialogFragment {
 
         adapter.setFactoryList(factoryList);
 
-
         return dialog;
     }
 }

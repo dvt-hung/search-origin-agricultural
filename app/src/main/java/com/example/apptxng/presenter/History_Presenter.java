@@ -101,6 +101,7 @@ public class History_Presenter {
                             if (result.getStatus() == 1)
                             {
                                 iHistory.successMessage(result.getMessage());
+
                             }
                             else
                             {

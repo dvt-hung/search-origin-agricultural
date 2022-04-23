@@ -1,6 +1,7 @@
 package com.example.apptxng.api;
 
 import com.example.apptxng.model.Balance;
+import com.example.apptxng.model.Banner;
 import com.example.apptxng.model.Category;
 import com.example.apptxng.model.Factory;
 import com.example.apptxng.model.History;
@@ -65,6 +66,24 @@ public interface API {
                     @Field("passNew") String passNew,
                     @Field("idUser") String idUser);
 
+    // ************** BANNER ****************
+    // *Get list banner
+    @GET("get_banner.php")
+    Call<List<Banner>> getBanner();
+
+    // *Insert banner
+    @Multipart
+    @POST("insert_banner.php")
+    Call<ResponsePOST> insertBanner (
+            @Part List<MultipartBody.Part>          imageHistory
+    );
+
+    // *Delete banner
+    @FormUrlEncoded
+    @POST("delete_banner.php")
+    Call<ResponsePOST> deleteBanner (
+            @Field("idBanner") int idBanner,
+            @Field("image_Banner") String image_Banner);
 
     // *CATEGORY - ADMIN
         // Add category: Done
@@ -173,6 +192,9 @@ public interface API {
 
         @GET("get_products_manager.php")
         Call<List<Product>> getProductManager(@Query("idUser") String idUser);
+
+        @GET("get_products_admin.php")
+        Call<List<Product>> getProductAdmin();
     // Insert Product
         @Multipart
         @POST("add_product.php")

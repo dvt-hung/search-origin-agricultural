@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.Category_Admin_Fragment"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/custom_toolbar">
@@ -17,16 +18,29 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/coiny"
-            android:text="@string/title_message"
+            android:text="@string/product_farm"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_Message_Admin"
+        android:id="@+id/recycler_Product_Admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="20dp" />
+
+    <ImageView
+        android:id="@+id/img_Filter_Product_Admin"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/circle"
+        android:padding="10dp"
+        android:src="@drawable/ic_filter"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         />
-</LinearLayout>
+</RelativeLayout>

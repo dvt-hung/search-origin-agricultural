@@ -20,6 +20,12 @@
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.InsertBannerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.BannerActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.HistoriesActivity"
             android:exported="false" />
         <activity
@@ -84,9 +90,6 @@
             android:exported="false" />
         <activity
             android:name=".view.Balance_Admin_Activity"
-            android:exported="false" />
-        <activity
-            android:name=".view.Products_Admin_Activity"
             android:exported="false" />
         <activity
             android:name=".view.Detail_Product_Customer_Activity"

@@ -10,11 +10,8 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.example.apptxng.R;
-import com.example.apptxng.model.Common;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-
-import gun0912.tedbottompicker.TedBottomPicker;
 
 public class AdminActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener{
 
@@ -71,8 +68,8 @@ public class AdminActivity extends AppCompatActivity implements NavigationBarVie
             case R.id.manager_category_admin:
                 fm = new Category_Admin_Fragment();
                 break;
-            case R.id.manager_message_admin:
-                 fm = new Chat_Admin_Fragment();
+            case R.id.manager_products_admin:
+                 fm = new Products_Admin_Fragment();
                 break;
             case R.id.manager_account_admin:
                 fm = new Account_Admin_Fragment();

@@ -27,7 +27,6 @@ public class CustomerActivity extends AppCompatActivity implements NavigationBar
 
     private FloatingActionButton btn_Scan;
     private BottomNavigationView navigation_Customer;
-    private FrameLayout frame_Customer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +41,6 @@ public class CustomerActivity extends AppCompatActivity implements NavigationBar
     private void initView() {
         btn_Scan                = findViewById(R.id.btn_Scan);
         navigation_Customer     = findViewById(R.id.navigation_Customer);
-        frame_Customer          = findViewById(R.id.frame_Customer);
-
     }
 
 
@@ -80,7 +77,6 @@ public class CustomerActivity extends AppCompatActivity implements NavigationBar
                         token.continuePermissionRequest();/* ... */}
                 }).check();
     }
-
 
     // Thay đổi Fragment
     private boolean loadFragment (Fragment fragment)

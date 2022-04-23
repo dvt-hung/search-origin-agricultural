@@ -70,7 +70,6 @@ public class Setting_Admin_Fragment extends Fragment implements  IAccount {
             }
         });
 
-
         //2. Chang Password: Mở dialog: 1 EditText nhập mật khẩu cũ, 2 EditText nhập và nhập lại mật khẩu.
         layout_ChangePassword_Setting_Admin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +91,14 @@ public class Setting_Admin_Fragment extends Fragment implements  IAccount {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(viewSetting.getContext(), TypeFactory__Activity.class));
+            }
+        });
+
+        //5 Banner: Mở activity quản lý banner
+        layout_Banner_Setting_Admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(requireActivity(),BannerActivity.class));
             }
         });
     }

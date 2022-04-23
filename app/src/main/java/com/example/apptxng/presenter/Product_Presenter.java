@@ -71,4 +71,21 @@ public class Product_Presenter {
                 });
 
     }
+
+    public synchronized void getProductAdmin()
+    {
+        Common.api.getProductAdmin()
+                .enqueue(new Callback<List<Product>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
+                        iProduct.getProducts(response.body());
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<Product>> call, @NonNull Throwable t) {
+                        iProduct.Exception(t.getMessage());
+                    }
+                });
+    }
+
 }

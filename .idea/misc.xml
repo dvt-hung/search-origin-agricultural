@@ -18,6 +18,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/top_dialog.xml" value="0.26205128205128203" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/top_signup.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_admin.xml" value="0.2" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_banner.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_change_info_factory.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_change_info_farmer.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_create_qrcode.xml" value="0.2" />
@@ -32,6 +33,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_image_history.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_info_farmer.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_input_value_product.xml" value="0.24320652173913043" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_insert_banner.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_insert_factory.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_insert_history_product.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_insert_prodcut_farmer.xml" value="0.2" />
@@ -96,6 +98,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_order__farmer_.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_product__admin_.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_product__farmer_.xml" value="0.2647058823529412" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_products__admin_.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_products__manager_.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_setting__admin_.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_setting__farmer_.xml" value="0.1903114186851211" />
@@ -105,6 +108,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_sign_up_enterprise.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_account_customer.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_balance_admin.xml" value="0.4" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/item_banner.xml" value="0.45904173106646057" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_category_admin.xml" value="0.176" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_customer_account.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_dialog_choice_type.xml" value="0.25" />

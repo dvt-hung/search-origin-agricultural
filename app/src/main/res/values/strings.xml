@@ -56,6 +56,7 @@
     <string name="title_question_delete_category"> Bạn có chắc là xóa danh mục này không </string>
     <string name="title_scale"> Đơn vị tính </string>
     <string name="title_banner"> Banner </string>
+    <string name="title_insert_banner">Thêm Banner </string>
     <string name="title_change_password"> Đổi mật khẩu </string>
     <string name="title_type_factory"> Loại cơ sở </string>
     <string name="title_log_out"> Đăng xuất </string>
