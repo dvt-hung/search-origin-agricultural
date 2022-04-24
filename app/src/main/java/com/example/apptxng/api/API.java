@@ -193,8 +193,11 @@ public interface API {
         @GET("get_products_manager.php")
         Call<List<Product>> getProductManager(@Query("idUser") String idUser);
 
-        @GET("get_products_admin.php")
-        Call<List<Product>> getProductAdmin();
+        @GET("get_products_all.php")
+        Call<List<Product>> getProductAll();
+
+        @GET("get_products_hot.php")
+        Call<List<Product>> getProductHot();
     // Insert Product
         @Multipart
         @POST("add_product.php")

@@ -74,7 +74,7 @@ public class Product_Presenter {
 
     public synchronized void getProductAdmin()
     {
-        Common.api.getProductAdmin()
+        Common.api.getProductAll()
                 .enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {

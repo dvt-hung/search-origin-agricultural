@@ -3,12 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/App_TXNG/app/src/main/res/drawable-v24/circle_banner.xml" value="0.1715" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable-v24/custom_actionbar.xml" value="0.14322916666666666" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable-v24/custom_background_item.xml" value="0.111" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable-v24/custom_edittext.xml" value="0.26614583333333336" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable-v24/custom_toolbar.xml" value="0.111" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/bottom_dialog.xml" value="0.2" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/circle.xml" value="0.1" />
+        <entry key="..\:/App_TXNG/app/src/main/res/drawable/circle_bann.xml" value="0.1715" />
+        <entry key="..\:/App_TXNG/app/src/main/res/drawable/circle_banner.xml" value="0.1715" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/custom_button_cancel.xml" value="0.176" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/custom_button_confirm.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/custom_button_delete.xml" value="0.176" />
@@ -88,7 +91,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_enterprise_1.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_enterprise_2.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_history__product__customer_.xml" value="0.12760416666666666" />
-        <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_home__customer_.xml" value="0.24320652173913043" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_home__customer_.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_home__farmer_.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_info__product__customer_.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_login.xml" value="0.2318840579710145" />
@@ -108,13 +111,15 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_sign_up_enterprise.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_account_customer.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_balance_admin.xml" value="0.4" />
-        <entry key="..\:/App_TXNG/app/src/main/res/layout/item_banner.xml" value="0.45904173106646057" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/item_banner.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_category_admin.xml" value="0.176" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/item_category_customer.xml" value="0.5256637168141592" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_customer_account.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_dialog_choice_type.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_factory.xml" value="0.2669902912621359" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_farmer_account.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_history.xml" value="0.4" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/item_image.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_linked_admin.xml" value="0.23505434782608695" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_manager_account.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_product.xml" value="0.35185185185185186" />

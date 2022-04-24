@@ -18,9 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apptxng.R;
-import com.example.apptxng.adapter.Banner_Adapter;
+import com.example.apptxng.adapter.Banner_Admin_Adapter;
 import com.example.apptxng.model.Banner;
-import com.example.apptxng.model.ImageHistory;
 import com.example.apptxng.presenter.Banner_Presenter;
 import com.example.apptxng.presenter.IBanner;
 import com.karumi.dexter.Dexter;
@@ -31,10 +30,10 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.util.List;
 
-public class BannerActivity extends AppCompatActivity implements Banner_Adapter.IBannerListener, IBanner {
+public class BannerActivity extends AppCompatActivity implements Banner_Admin_Adapter.IBannerListener, IBanner {
 
     private ImageView img_Add_Banner, img_Close_Banner;
-    private Banner_Adapter bannerAdapter;
+    private Banner_Admin_Adapter bannerAdapter;
     private Banner_Presenter bannerPresenter;
     private List<Banner> banners;
     @Override
@@ -54,7 +53,7 @@ public class BannerActivity extends AppCompatActivity implements Banner_Adapter.
         bannerPresenter                 = new Banner_Presenter(this,this);
 
         // Adapter
-        bannerAdapter                   = new Banner_Adapter(this,this);
+        bannerAdapter                   = new Banner_Admin_Adapter(this,this);
         recycler_Banner.setAdapter(bannerAdapter);
 
 

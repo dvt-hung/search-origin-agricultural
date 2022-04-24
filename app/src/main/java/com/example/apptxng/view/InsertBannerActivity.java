@@ -3,7 +3,6 @@ package com.example.apptxng.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -11,15 +10,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.apptxng.R;
-import com.example.apptxng.adapter.Banner_Adapter;
+import com.example.apptxng.adapter.Banner_Admin_Adapter;
 import com.example.apptxng.model.Banner;
 import com.example.apptxng.presenter.Banner_Presenter;
 import com.example.apptxng.presenter.IBanner;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +21,10 @@ import java.util.List;
 import gun0912.tedbottompicker.TedBottomPicker;
 import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
 
-public class InsertBannerActivity extends AppCompatActivity implements Banner_Adapter.IBannerListener, IBanner {
+public class InsertBannerActivity extends AppCompatActivity implements Banner_Admin_Adapter.IBannerListener, IBanner {
 
     private ImageView img_Insert_Banner, img_Close_Banner,img_Open_InsertBanner;
-    private Banner_Adapter bannerAdapter;
+    private Banner_Admin_Adapter bannerAdapter;
     private final List<Uri> uriListBanner = new ArrayList<>();
     private Banner_Presenter bannerPresenter;
     @Override
@@ -54,7 +48,7 @@ public class InsertBannerActivity extends AppCompatActivity implements Banner_Ad
         bannerPresenter                     = new Banner_Presenter(this,this);
 
         // Adapter
-        bannerAdapter                       = new Banner_Adapter(this,this);
+        bannerAdapter                       = new Banner_Admin_Adapter(this,this);
         recycler_InsertBanner.setAdapter(bannerAdapter);
     }
 

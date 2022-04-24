@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,83 +16,53 @@ import com.example.apptxng.model.Banner;
 
 import java.util.List;
 
-public class Banner_Adapter extends RecyclerView.Adapter<Banner_Adapter.BannerViewHolder> {
+public class Banner_Adapter extends RecyclerView.Adapter<Banner_Adapter.BannerCustomerViewHolder>{
 
+    private List<Banner> list;
     private final Context context;
-    private final IBannerListener iBannerListener;
-    List<?> bannerList;
 
-    public interface IBannerListener{
-        void onClickDelete(Banner banner);
-        void onClickDeleteUri(int position);
-    }
 
-    public Banner_Adapter(Context context, IBannerListener iBannerListener) {
+    @SuppressLint("NotifyDataSetChanged")
+    public Banner_Adapter( Context context) {
         this.context = context;
-        this.iBannerListener = iBannerListener;
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setBannerList(List<?> list)
+    public void setList(List<Banner> list)
     {
-        this.bannerList = list;
+        this.list = list;
         notifyDataSetChanged();
     }
 
 
     @NonNull
     @Override
-    public BannerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BannerCustomerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_banner,parent,false);
-        return new BannerViewHolder(view);
+        return new BannerCustomerViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BannerViewHolder holder, int position) {
-        if(bannerList.get(position).getClass() == Banner.class)
-        {
-            Banner banner = (Banner) bannerList.get(position);
-            // Gán giá trị
-            Glide.with(context).load(banner.getImage_Banner()).error(R.drawable.logo).into(holder.img_Banner);
+    public void onBindViewHolder(@NonNull BannerCustomerViewHolder holder, int position) {
+        Banner banner = list.get(position);
 
-            // Sự kiện xóa ảnh
-            holder.txt_Delete_Banner.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    iBannerListener.onClickDelete(banner);
-                }
-            });
-        }
-        else
-        {
-            Glide.with(context).load(bannerList.get(position)).error(R.drawable.logo).into(holder.img_Banner);
-            holder.txt_Delete_Banner.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    iBannerListener.onClickDeleteUri(holder.getAdapterPosition());
-                }
-            });
-        }
-
-
+        Glide.with(context).load(banner.getImage_Banner()).error(R.drawable.logo).into(holder.img_Banner);
     }
 
     @Override
     public int getItemCount() {
-        if (bannerList != null)
+        if(list != null)
         {
-            return bannerList.size();
+            return list.size();
         }
         return 0;
     }
 
-    public static class BannerViewHolder extends RecyclerView.ViewHolder {
+    public static class BannerCustomerViewHolder extends RecyclerView.ViewHolder {
         private final ImageView img_Banner;
-        private final TextView txt_Delete_Banner;
-        public BannerViewHolder(@NonNull View itemView) {
+        public BannerCustomerViewHolder(@NonNull View itemView) {
             super(itemView);
-            txt_Delete_Banner       = itemView.findViewById(R.id.txt_Delete_Banner);
-            img_Banner              = itemView.findViewById(R.id.img_Banner);
+            img_Banner = itemView.findViewById(R.id.img_Banner);
         }
     }
 }

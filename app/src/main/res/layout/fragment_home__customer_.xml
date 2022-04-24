@@ -1,14 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.Home_Customer_Fragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="AAAAAAAAAaa" />
+        >
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/custom_toolbar">
 
-</FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/menu_home_customer"
+                android:fontFamily="@font/coiny"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                />
+        </RelativeLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager_Banner"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@id/toolbar"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
+
+        <me.relex.circleindicator.CircleIndicator3
+            android:id="@+id/circle_Banner"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@id/viewPager_Banner"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:translationZ="4dp"
+            android:visibility="visible"
+            app:ci_drawable="@drawable/circle_banner"
+            app:ci_drawable_unselected="@drawable/circle_banner" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_category_Customer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/circle_Banner"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            />
+
+        <TextView
+            android:id="@+id/title_product_hot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recycler_category_Customer"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/coiny"
+            android:text="@string/product_hot"
+            android:textSize="20sp"
+            android:textColor="@color/green2" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_Product_Hot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_product_hot"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2" />
+    </RelativeLayout>
+
+
+</androidx.core.widget.NestedScrollView>
