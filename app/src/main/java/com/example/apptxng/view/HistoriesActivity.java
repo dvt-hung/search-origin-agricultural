@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.History_Adapter;
+import com.example.apptxng.model.Common;
 import com.example.apptxng.model.History;
 import com.example.apptxng.model.Product;
 import com.example.apptxng.presenter.History_Presenter;
@@ -31,15 +32,14 @@ public class HistoriesActivity extends AppCompatActivity implements History_Adap
     private ImageView img_Close_History_Product,img_Insert_History_Product;
     private History_Adapter historyAdapter;
     private History_Presenter historyPresenter;
-    private String idProduct;
+    private Product productTemp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_histories);
 
         // Nhận idProduct
-        idProduct = getIntent().getStringExtra("idProduct");
-
+        productTemp = (Product) getIntent().getExtras().getSerializable("product");
         // init view: Ánh xạ view
         initView();
     }
@@ -57,6 +57,12 @@ public class HistoriesActivity extends AppCompatActivity implements History_Adap
         // Layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         recycler_History.setLayoutManager(layoutManager);
+
+        // Kiểm tra quyền thêm lịch sử: Nếu idCurrent bằng với Current User thì được thêm
+        if (!productTemp.getIdCurrent().equals(Common.currentUser.getIdUser()))
+        {
+            img_Insert_History_Product.setVisibility(View.GONE);
+        }
     }
 
 
@@ -64,7 +70,7 @@ public class HistoriesActivity extends AppCompatActivity implements History_Adap
     protected void onResume() {
         super.onResume();
         // 0. Tải danh sách history
-        historyPresenter.loadHistory(idProduct);
+        historyPresenter.loadHistory(productTemp.getIdProduct());
 
         // 1. Close button: Trở về activity trước
         img_Close_History_Product.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +85,7 @@ public class HistoriesActivity extends AppCompatActivity implements History_Adap
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HistoriesActivity.this, InsertHistoryActivity.class);
-                intent.putExtra("idProduct",idProduct);
+                intent.putExtra("idProduct",productTemp.getIdProduct());
                 startActivity(intent);
             }
         });

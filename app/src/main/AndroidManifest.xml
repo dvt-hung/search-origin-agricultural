@@ -20,6 +20,9 @@
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.Product_By_Category_Activity"
+            android:exported="false" />
+        <activity
             android:name=".view.InsertBannerActivity"
             android:exported="false" />
         <activity
@@ -74,10 +77,10 @@
             android:name=".view.FactoryActivity"
             android:exported="false" />
         <activity
-            android:name=".view.ChangeInfoFarmerActivity"
+            android:name=".view.ChangeInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".view.InfoFarmerActivity"
+            android:name=".view.InformationActivity"
             android:exported="false" />
         <activity
             android:name=".view.UpdateProductActivity"

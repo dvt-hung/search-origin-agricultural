@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.Images_Adapter;
 import com.example.apptxng.bottom_dialog.BottomDialogOption;
@@ -89,7 +91,7 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
         recycler_Images_History.setLayoutManager(layoutManager);
 
         // Kiểm tra loại user
-        if (Common.currentUser.getIdRole() == 4)
+        if (Common.currentUser.getIdRole() == 4 || !historyTemp.getIdAuthor().equals(Common.currentUser.getIdUser()))
         {
             img_Option_Detail_History.setVisibility(View.GONE);
         }
@@ -288,9 +290,25 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
     // ********* IMAGE ADAPTER  **********
     @Override
     public void onClickImage(ImageHistory imageHistory) {
-
+        displayImageHistory(imageHistory);
     }
 
+    private void displayImageHistory(ImageHistory image) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.display_image);
+        dialog.getWindow().setGravity(Gravity.CENTER);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+        // Image view
+        ImageView img = dialog.findViewById(R.id.img_Display);
+
+        // Load image
+        Glide.with(DetailHistoryActivity.this).load(image.getImageHistory()).into(img);
+
+        dialog.show();
+
+    }
     // ********* HISTORY PRESENTER **********
     @Override
     public void successMessage(String message) {

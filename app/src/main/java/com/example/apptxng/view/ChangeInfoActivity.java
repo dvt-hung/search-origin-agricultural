@@ -11,7 +11,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +30,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-public class ChangeInfoFarmerActivity extends AppCompatActivity implements IChangeInfo_Farmer {
+public class ChangeInfoActivity extends AppCompatActivity implements IChangeInfo_Farmer {
 
     private ImageView img_ChangeInfo_Farmer,img_Back_ChangeInfo_Farmer;
     private EditText edt_Owner_ChangeInfo_Farmer,edt_Phone_ChangeInfo_Farmer,edt_Address_ChangeInfo_Farmer;
@@ -55,7 +54,7 @@ public class ChangeInfoFarmerActivity extends AppCompatActivity implements IChan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_info_farmer);
+        setContentView(R.layout.activity_change_info);
         
         // init view: Ánh xạ view
         initView();

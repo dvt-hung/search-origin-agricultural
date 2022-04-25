@@ -1,5 +1,6 @@
 package com.example.apptxng.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -160,12 +161,24 @@ public class Home_Customer_Fragment extends Fragment implements  Category_Adapte
     // ************* CATEGORY ADAPTER ***************
     @Override
     public void onClickCategory(Category category) {
+        // Chuyển sang activity chi tiết sản phẩm
+        Bundle bundleCategory = new Bundle();
+        bundleCategory.putSerializable("category",category);
 
+        Intent intent = new Intent(requireActivity(),Product_By_Category_Activity.class);
+        intent.putExtras(bundleCategory);
+        startActivity(intent);
     }
 
     // ************* PRODUCT ADAPTER ***************
     @Override
     public void onClickProduct(Product product) {
+        // Chuyển sang activity chi tiết sản phẩm
+        Bundle bundleProduct = new Bundle();
+        bundleProduct.putSerializable("product",product);
 
+        Intent intent = new Intent(requireActivity(),Detail_Product_Customer_Activity.class);
+        intent.putExtras(bundleProduct);
+        startActivity(intent);
     }
 }

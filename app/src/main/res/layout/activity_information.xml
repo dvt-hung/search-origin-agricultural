@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.InfoFarmerActivity"
+    tools:context=".view.InformationActivity"
 
     >
 
@@ -97,7 +97,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:layout_toStartOf="@id/img_Farmer_Info"
-        android:text="@string/owner_farm"
+        android:text="@string/title_name"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"

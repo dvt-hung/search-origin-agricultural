@@ -25,22 +25,12 @@
     </RelativeLayout>
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_Farmer_Setting"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_below="@id/layout_toolbar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/logo" />
-
-
 
     <LinearLayout
         android:id="@+id/layout_Info_Setting_Farmer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/img_Farmer_Setting"
+        android:layout_below="@id/layout_toolbar"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"

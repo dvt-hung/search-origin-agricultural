@@ -198,6 +198,9 @@ public interface API {
 
         @GET("get_products_hot.php")
         Call<List<Product>> getProductHot();
+
+        @GET("get_products_by_category.php")
+        Call<List<Product>> getProductByCategory(@Query("idCategory") int idCategory);
     // Insert Product
         @Multipart
         @POST("add_product.php")

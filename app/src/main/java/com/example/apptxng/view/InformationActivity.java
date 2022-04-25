@@ -4,23 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.apptxng.R;
 import com.example.apptxng.model.Common;
-import com.example.apptxng.model.User;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class InfoFarmerActivity extends AppCompatActivity {
+public class InformationActivity extends AppCompatActivity {
 
     private ImageView img_Farmer_Info,img_Back_Info_Farmer;
     private TextView txt_Email_Info_Farmer, txt_Name_Info_Farmer, txt_Phone_Info_Farmer,txt_Address_Info_Farmer;
@@ -28,8 +21,7 @@ public class InfoFarmerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info_farmer);
-
+        setContentView(R.layout.activity_information);
 
         // init view: Ánh xạ view
         initView();
@@ -63,7 +55,6 @@ public class InfoFarmerActivity extends AppCompatActivity {
 
 
     private void displayValue() {
-
         Glide.with(this).load(Common.currentUser.getImage()).error(R.drawable.logo).into(img_Farmer_Info);
 
         txt_Email_Info_Farmer.setText(Common.currentUser.displayInfoValueString(Common.currentUser.getEmail()));
@@ -94,7 +85,7 @@ public class InfoFarmerActivity extends AppCompatActivity {
         btn_Change_Info_Farmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(InfoFarmerActivity.this, ChangeInfoFarmerActivity.class));
+                startActivity(new Intent(InformationActivity.this, ChangeInfoActivity.class));
                 finish();
             }
         });

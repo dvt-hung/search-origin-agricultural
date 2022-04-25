@@ -42,8 +42,6 @@ public class Detail_Product_Activity extends AppCompatActivity  {
     private TextView txt_Balance_Detail_Product,txt_Name_Detail_Product,txt_Des_Detail_Product,txt_Price_Detail_Product
             ,txt_Ingredient_Detail_Product,txt_Use_Detail_Product, txt_Guide_Detail_Product, txt_Condition_Detail_Product,txt_Seen_History;
     private Product product;
-    private History_Adapter historyAdapter;
-    private History_Presenter historyPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,8 +79,10 @@ public class Detail_Product_Activity extends AppCompatActivity  {
         txt_Seen_History.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundleProduct = new Bundle();
+                bundleProduct.putSerializable("product",product);
                 Intent intentHistory = new Intent(Detail_Product_Activity.this, HistoriesActivity.class);
-                intentHistory.putExtra("idProduct",product.getIdProduct());
+                intentHistory.putExtras(bundleProduct);
                 startActivity(intentHistory);
             }
         });
@@ -133,6 +133,12 @@ public class Detail_Product_Activity extends AppCompatActivity  {
     // Gán giá trị của product, hiển thị lên text view
     @SuppressLint("SetTextI18n")
     private void displayValueProduct() {
+        // Kiểm tra quyền chỉnh sửa product
+        if (!product.getIdUser().equals(Common.currentUser.getIdUser()))
+        {
+            img_Option_Detail_Product.setVisibility(View.GONE);
+        }
+
         // Tên sản phẩm
         txt_Name_Detail_Product.setText(product.getNameProduct());
 

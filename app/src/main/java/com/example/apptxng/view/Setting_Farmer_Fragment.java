@@ -34,7 +34,6 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
 
     private Account_Presenter accountPresenter;
     private View viewSetting;
-    private ImageView img_Farmer_Setting;
     private TextView  txt_Error_ChangePassword_Dialog;
     private LinearLayout layout_Info_Setting_Farmer,layout_Password_Setting_Farmer, layout_Factory_Setting_Farmer, layout_LogOut_Setting_Farmer;
     private Dialog dialogSettingFarmer;
@@ -51,7 +50,6 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
     }
 
     private void initView() {
-        img_Farmer_Setting                  = viewSetting.findViewById(R.id.img_Farmer_Setting);
         layout_Info_Setting_Farmer          = viewSetting.findViewById(R.id.layout_Info_Setting_Farmer);
         layout_Password_Setting_Farmer      = viewSetting.findViewById(R.id.layout_Password_Setting_Farmer);
         layout_Factory_Setting_Farmer       = viewSetting.findViewById(R.id.layout_Factory_Setting_Farmer);
@@ -63,19 +61,10 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
     public void onResume() {
         super.onResume();
 
-        // Gán giá trị ban đầu cho ảnh và tên vườn
-        displayValue();
-
         // initEvent: Các sự kiện trong Setting Fragment
         initEvents();
     }
 
-    // Hiển thị dữ liệu của thông tin cá nhân
-    private void displayValue() {
-        // Gán giá trị cho Image của Farmer
-        Glide.with(this).load(Common.currentUser.getImage()).error(R.drawable.logo).into(img_Farmer_Setting);
-
-    }
 
     // Khai báo các sự kiện
     private void initEvents() {
@@ -90,7 +79,7 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
         layout_Info_Setting_Farmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(viewSetting.getContext(), InfoFarmerActivity.class));
+                startActivity(new Intent(viewSetting.getContext(), InformationActivity.class));
             }
         });
 
