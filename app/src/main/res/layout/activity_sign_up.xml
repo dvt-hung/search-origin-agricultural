@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.SignUpActivity"
-    android:orientation="vertical"
     >
+
+
+
     <LinearLayout
+        android:id="@+id/layout_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -211,7 +214,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_email"
+                android:text="@string/title_phone"
                 android:layout_marginStart="3dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -221,74 +224,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-
             >
 
-            <Button
-                android:id="@+id/btn_SendOTP"
-                android:layout_width="60dp"
-                android:layout_height="43dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="20sp"
-                android:background="@drawable/custom_button_confirm"
-                android:backgroundTint="@null"
-                android:text="@string/title_send"
-                android:enabled="false"
-                app:backgroundTint="@null" />
-
             <EditText
-                android:id="@+id/edt_Email_SU"
+                android:id="@+id/edt_Phone_SU"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="10dp"
-                android:layout_toStartOf="@id/btn_SendOTP"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/custom_edittext"
                 android:drawablePadding="10dp"
-                android:hint="@string/title_input_email"
+                android:hint="@string/input_phone_farm"
+                android:inputType="number"
+                android:maxLength="10"
                 android:padding="10dp"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="TextFields" />
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="20sp"
-            android:layout_marginTop="20dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_symbol"
-                android:textColor="@color/red"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_verify"
-                android:layout_marginStart="3dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                />
-        </LinearLayout>
-        <EditText
-            android:id="@+id/edt_Code_SU"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/title_input_verify"
-            android:layout_marginTop="5dp"
-            android:textSize="16sp"
-            android:background="@drawable/custom_edittext"
-            android:padding="10dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:drawablePadding="10dp"
-            android:inputType="number"
-
-            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -374,21 +328,18 @@
             android:gravity="center"
             android:visibility="gone"
             />
-
         <Button
             android:id="@+id/btn_SignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/title_signup"
-            android:backgroundTint="@null"
-            app:backgroundTint="@null"
-            android:background="@drawable/custom_button_confirm"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="40dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
-            />
-
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/custom_button_confirm"
+            android:backgroundTint="@null"
+            android:text="@string/title_signup"
+            app:backgroundTint="@null" />
     </LinearLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

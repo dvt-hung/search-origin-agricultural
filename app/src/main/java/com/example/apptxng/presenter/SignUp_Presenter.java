@@ -66,7 +66,6 @@ public class SignUp_Presenter {
         }
         else if (rd != codeEmail)
         {
-            Log.e("code", "signUpUser: " + rd );
             iSignUp.incorrectCode();
         } else if (idTypeFactory != 0 && nameFactory.isEmpty())
         {

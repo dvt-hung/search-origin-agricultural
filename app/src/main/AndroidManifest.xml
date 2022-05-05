@@ -20,6 +20,9 @@
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.EnterVerifyActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.Product_By_Category_Activity"
             android:exported="false" />
         <activity

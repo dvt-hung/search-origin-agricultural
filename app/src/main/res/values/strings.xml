@@ -12,7 +12,8 @@
     <string name="error_qr">Sản phẩm không tồn tại </string>
     <string name="title_qr">QR Code của sản phẩm </string>
     <string name="title_introduction">By Hưng </string>
-    <string name="title_send">Gửi </string>
+    <string name="title_send">Gửi lại </string>
+    <string name="title_resend">Bạn chưa nhận được mã? </string>
     <string name="title_verify">Mã xác nhận Email </string>
     <string name="title_login">Đăng nhập </string>
     <string name="title_signup">Đăng ký </string>
@@ -33,7 +34,7 @@
     <string name="title_phone"> Số ĐT </string>
     <string name="title_web"> Website </string>
     <string name="title_input_email"> Email </string>
-    <string name="title_input_verify">Nhập mã xác nhận  </string>
+    <string name="title_input_verify">Nhập mã xác thực tài khoản</string>
     <string name="title_type_farmer">Nông dân  </string>
     <string name="title_type_customer">Khách hàng  </string>
     <string name="title_type_manager">Quản lý </string>

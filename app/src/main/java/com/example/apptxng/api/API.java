@@ -38,7 +38,7 @@ public interface API {
     @FormUrlEncoded
     @POST("insert_user.php")
     Call<ResponsePOST> signUpUser (
-            @Field("email") String email,
+            @Field("phone") String phone,
             @Field("idUser") String idUser,
             @Field("name") String name,
             @Field("passWord") String passWord,
@@ -53,10 +53,6 @@ public interface API {
     Call<User> login (@Field("email") String email,
                       @Field("passWord") String passWord);
 
-
-    // * Reload
-    @GET("reload_info.php")
-    Call<User> reloadInfo (@Query("idUser") String idUser);
 
     // *Change Password: done
     @FormUrlEncoded

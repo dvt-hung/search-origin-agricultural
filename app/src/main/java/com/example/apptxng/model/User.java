@@ -2,7 +2,9 @@ package com.example.apptxng.model;
 
 import com.example.apptxng.R;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String idUser;
     private String email;
     private String image;

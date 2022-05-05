@@ -404,7 +404,7 @@ public class UpdateProductActivity extends AppCompatActivity implements ChoiceTy
     @Override
     public void Exception(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        progressUpdate.cancel();
+        progressUpdate.dismiss();
     }
 
     @Override

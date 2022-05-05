@@ -2,7 +2,6 @@ package com.example.apptxng.presenter;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 
 import com.example.apptxng.model.Common;
 import com.example.apptxng.model.ResponsePOST;
@@ -72,7 +71,6 @@ public class ChangeInfo_Farmer_Presenter {
                             if (result.getStatus() == 1)
                             {
                                 iChangeInfo_farmer.success(result.getMessage());
-                                Common.reloadCurrentUser();
                             }
                             else
                             {

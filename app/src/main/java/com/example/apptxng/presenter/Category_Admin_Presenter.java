@@ -70,7 +70,6 @@ public class Category_Admin_Presenter {
                     @Override
                     public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
                         iCategoryAdmin.Exception(t.getMessage());
-                        Log.e("a", "onFailure: " + t.getMessage() );
                     }
                 });
     }
@@ -80,7 +79,7 @@ public class Category_Admin_Presenter {
         Common.api.deleteCategory(idCategory,imageCategory)
                 .enqueue(new Callback<ResponsePOST>() {
                     @Override
-                    public void onResponse(Call<ResponsePOST> call, Response<ResponsePOST> response) {
+                    public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
                         ResponsePOST responsePOST = response.body();
                         assert responsePOST != null;
                         if (responsePOST.getStatus() == 1)
@@ -95,7 +94,7 @@ public class Category_Admin_Presenter {
                     }
 
                     @Override
-                    public void onFailure(Call<ResponsePOST> call, Throwable t) {
+                    public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
                         iCategoryAdmin.Exception(t.getMessage());
                     }
                 });
@@ -157,10 +156,7 @@ public class Category_Admin_Presenter {
                     public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
                         categoryList = response.body();
                         iCategoryAdmin.getAllCategorySuccess(categoryList);
-                        for (Category c : categoryList)
-                        {
-                            Log.e("img", "onResponse: " + c.getImageCategory() + "--" + c.getNameCategory() );
-                        }
+
                     }
 
                     @Override

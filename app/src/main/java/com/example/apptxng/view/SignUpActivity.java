@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
@@ -37,20 +39,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class SignUpActivity extends AppCompatActivity implements ISignUp, ChoiceType_Adapter.IListenerChoiceType, ITypeFactory {
+public class SignUpActivity extends AppCompatActivity implements ChoiceType_Adapter.IListenerChoiceType, ITypeFactory {
 
     private LinearLayout layout_TypeFactory,layout_NameFactory;
-    private EditText edt_Email_SU,edt_Name_SU, edt_Password_SU, edt_Password_Confirm_SU, edt_Code_SU,edt_NameFactory_SU ;
+    private EditText edt_Phone_SU,edt_Name_SU, edt_Password_SU, edt_Password_Confirm_SU,edt_NameFactory_SU ;
     private TextView txt_Type_SU,txt_Error_SU, txt_TypeFactory_SU;
     private ImageView img_Back_SU;
-    private Button btn_SendOTP, btn_SignUp;
-    private SignUp_Presenter signUpPresenter;
-    private String name, passWord, passWordConfirm, email;
-    private long  codeEmail;
-    private boolean accept;
+    private Button  btn_SignUp;
+    private String name, passWord, passWordConfirm, phone;
     private int idTypeFactory;
     private int idRole;
-    private User user = new User();
+    private final User user = new User();
     private List<TypeFactory> typeFactoryList;
     private TypeFactory_Presenter typeFactoryPresenter;
     private BottomDialogTypeFactory dialogTypeFactory;
@@ -62,79 +61,66 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
         // Init view
         initView();
 
-        // Check Email
-        edt_Email_SU.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                StringBuffer stringBuffer = new StringBuffer();
-                stringBuffer.append(editable.toString());
-                if (Patterns.EMAIL_ADDRESS.matcher(stringBuffer).matches())
-                {
-                    btn_SendOTP.setEnabled(true);
-                }
-            }
-        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        // Send OTP
-        btn_SendOTP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = edt_Email_SU.getText().toString().trim();
-                if (email.isEmpty())
-                {
-                    txt_Error_SU.setText(R.string.title_error_empty);
-                    txt_Error_SU.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    signUpPresenter.sendOTP(email);
-                }
-            }
-        });
-
         // Click Sign Up
         btn_SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 txt_Error_SU.setVisibility(View.VISIBLE);
-
                 // Lấy dữ liệu từ các EDT
                 name                = edt_Name_SU.getText().toString().trim();
-                email               = edt_Email_SU.getText().toString().trim();
+                phone               = edt_Phone_SU.getText().toString().trim();
                 passWord            = edt_Password_SU.getText().toString().trim();
                 passWordConfirm     = edt_Password_Confirm_SU.getText().toString().trim();
-                codeEmail           = Long.parseLong(edt_Code_SU.getText().toString().trim());
                 String idUser       = "U" + Calendar.getInstance().getTime().getTime();
                 String nameFactory  = edt_NameFactory_SU.getText().toString().trim();
-                if (name.isEmpty() || email.isEmpty() || passWord.isEmpty() || passWordConfirm.isEmpty() || idRole == 0 || codeEmail == 0)
+                // Chuyển dữ liệu qua signUpPresenter
+                user.setName(name);
+                user.setPhone(phone);
+                user.setPassWord(passWord);
+                user.setIdRole(idRole);
+                user.setIdUser(idUser);
+
+                if (name.isEmpty() || phone.isEmpty() || passWord.isEmpty() || passWordConfirm.isEmpty() || idRole == 0 )
                 {
+                    txt_Error_SU.setVisibility(View.VISIBLE);
                     txt_Error_SU.setText(R.string.title_error_empty);
+                }
+                else if (user.getIdRole() == 3 && nameFactory.isEmpty())
+                {
+                    txt_Error_SU.setVisibility(View.VISIBLE);
+                    txt_Error_SU.setText(R.string.title_error_empty);
+                }
+                else if (user.getIdRole() == 2 && idTypeFactory == 0 && nameFactory.isEmpty() )
+                {
+                    txt_Error_SU.setVisibility(View.VISIBLE);
+                    txt_Error_SU.setText(R.string.title_error_empty);
+                }
+                else if (!passWord.equals(passWordConfirm))
+                {
+                    txt_Error_SU.setVisibility(View.VISIBLE);
+                    txt_Error_SU.setText(R.string.title_error_incorrect_pass);
+                }
+                else if (passWord.length() < 6)
+                {
+                    txt_Error_SU.setVisibility(View.VISIBLE);
+                    txt_Error_SU.setText(R.string.title_error_length_pass);
                 }
                 else
                 {
-                    // Chuyển dữ liệu qua signUpPresenter
-                    user.setName(name);
-                    user.setEmail(email);
-                    user.setPassWord(passWord);
-                    user.setIdRole(idRole);
-                    user.setIdUser(idUser);
-
-                    signUpPresenter.signUpUser(user,codeEmail,passWordConfirm,idTypeFactory,nameFactory);
+                    // Chuyển đối tượng User sang activity Verify Code
+                    Bundle bundleUser = new Bundle();
+                    bundleUser.putSerializable("user",user);
+                    // Chuyển idTypeFactory sang Verify Code
+                    Intent intentUser = new Intent(SignUpActivity.this, EnterVerifyActivity.class);
+                    intentUser.putExtra("idTypeFactory", idTypeFactory);
+                    intentUser.putExtra("nameFactory", nameFactory);
+                    startActivity(intentUser);
                 }
             }
         });
@@ -202,7 +188,6 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
                     {
                         txt_Type_SU.setText(radio_farmer.getText());
                         idRole = 3;
-
                         // Hiển thị loại cơ sở và nhập tên cơ sở
                         layout_TypeFactory.setVisibility(View.GONE);
                         txt_TypeFactory_SU.setVisibility(View.GONE);
@@ -220,6 +205,8 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
                         idRole = 4;
                         layout_TypeFactory.setVisibility(View.GONE);
                         txt_TypeFactory_SU.setVisibility(View.GONE);
+                        layout_NameFactory.setVisibility(View.GONE);
+                        edt_NameFactory_SU.setVisibility(View.GONE);
                         idTypeFactory = 0;
                         user.setAccept(1);
                         break;
@@ -234,7 +221,6 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
                         // Hiển thị loại cơ sở và nhập tên cơ sở
                         layout_TypeFactory.setVisibility(View.VISIBLE);
                         txt_TypeFactory_SU.setVisibility(View.VISIBLE);
-
                         layout_NameFactory.setVisibility(View.VISIBLE);
                         edt_NameFactory_SU.setVisibility(View.VISIBLE);
                         break;
@@ -250,12 +236,10 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
 
     // Init view
     private void initView() {
-        edt_Email_SU                = findViewById(R.id.edt_Email_SU);
+        edt_Phone_SU                = findViewById(R.id.edt_Phone_SU);
         edt_Name_SU                 = findViewById(R.id.edt_Name_SU);
         edt_Password_SU             = findViewById(R.id.edt_Password_SU);
         edt_Password_Confirm_SU     = findViewById(R.id.edt_Password_Confirm_SU);
-        edt_Code_SU                 = findViewById(R.id.edt_Code_SU);
-        btn_SendOTP                 = findViewById(R.id.btn_SendOTP);
         btn_SignUp                  = findViewById(R.id.btn_SignUp);
         txt_Type_SU                 = findViewById(R.id.txt_Type_SU);
         txt_Error_SU                = findViewById(R.id.txt_Error_SU);
@@ -266,71 +250,9 @@ public class SignUpActivity extends AppCompatActivity implements ISignUp, Choice
         layout_NameFactory          = findViewById(R.id.layout_NameFactory);
 
 
-
-        signUpPresenter             = new SignUp_Presenter(this,this);
         typeFactoryPresenter        = new TypeFactory_Presenter(this);
         typeFactoryList             = new ArrayList<>();
     }
-
-    // OVERRIDE INTERFACE
-    @Override
-    public void emailError() {
-        txt_Error_SU.setText(R.string.title_error_email);
-
-    }
-
-    @Override
-    public void emptyValue() {
-        txt_Error_SU.setVisibility(View.VISIBLE);
-        txt_Error_SU.setText(R.string.title_error_empty);
-        Toast.makeText(this, R.string.title_error_empty, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void errorLengthPassword() {
-        txt_Error_SU.setVisibility(View.VISIBLE);
-
-        txt_Error_SU.setText(R.string.title_error_length_pass);
-    }
-
-    @Override
-    public void incorrectPassword() {
-
-        txt_Error_SU.setVisibility(View.VISIBLE);
-        txt_Error_SU.setText(R.string.title_error_incorrect_pass);
-    }
-
-    @Override
-    public void incorrectCode() {
-
-        txt_Error_SU.setVisibility(View.VISIBLE);
-        txt_Error_SU.setText(R.string.title_error_incorrect_code);
-    }
-
-    @Override
-    public void isSuccess() {
-        this.finish();
-        Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void isFailed(String message) {
-        txt_Error_SU.setVisibility(View.VISIBLE);
-        txt_Error_SU.setText(message);
-    }
-
-    @Override
-    public void sendOTPSuccess() {
-        txt_Error_SU.setVisibility(View.VISIBLE);
-        txt_Error_SU.setText(R.string.title_success_sendOTP);
-    }
-
-    @Override
-    public void sendOTPFailed() {
-        txt_Error_SU.setVisibility(View.VISIBLE);
-        txt_Error_SU.setText(R.string.title_error_sendOTP);
-    }
-
 
     @Override
     public void onClickChoiceType(Object obj) {

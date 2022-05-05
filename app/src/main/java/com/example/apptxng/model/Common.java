@@ -34,8 +34,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Common {
+//
     public static User currentUser;
-    public static final String URL = "http://192.168.31.32/txng/";
+    public static final String URL = "https://txngnongsan.000webhostapp.com/api/";
     public static final API api = Retrofit_Client.getRetrofit(Common.URL).create(API.class);
 
     public static Calendar calendar = Calendar.getInstance();
@@ -71,22 +72,6 @@ public class Common {
     }
 
 
-    // Cập nhật thông tin currentUser
-    public static void reloadCurrentUser()
-    {
-        Common.api.reloadInfo(currentUser.getIdUser())
-                .enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
-                        currentUser = response.body();
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
-                        Log.e("reload", "onFailure: " + t.getMessage() );
-                    }
-                });
-    }
 
     // Chuyển ảnh từ bitmap sang uri: Khi sử dụng camero chụp và hiền thị
     public static Uri getImageUri(Context inContext, Bitmap inImage) {
