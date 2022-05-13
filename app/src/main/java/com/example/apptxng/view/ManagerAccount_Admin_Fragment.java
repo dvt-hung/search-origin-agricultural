@@ -6,10 +6,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +25,16 @@ import android.widget.Toast;
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.Manager_Account_Admin_Adapter;
 import com.example.apptxng.model.Common;
+import com.example.apptxng.model.Factory;
 import com.example.apptxng.model.User;
 import com.example.apptxng.presenter.Account_Presenter;
 import com.example.apptxng.presenter.IAccount;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ManagerAccount_Admin_Fragment extends Fragment implements Manager_Account_Admin_Adapter.IManagerListener, IAccount {
 
@@ -73,10 +80,37 @@ public class ManagerAccount_Admin_Fragment extends Fragment implements Manager_A
         showDialogAccept(manager,messageDialog,status);
     }
 
+    @Override
+    public void onClickManger(User manager) {
+        getInfoFactory(manager);
+    }
+
+    private synchronized void getInfoFactory(User manager) {
+
+            ProgressDialog progressDialog = Common.createProgress(requireActivity());
+            progressDialog.show();
+
+            Common.api.getFactoryByID(manager.getIdUser())
+                    .enqueue(new Callback<Factory>() {
+                        @Override
+                        public void onResponse(@NonNull Call<Factory> call, @NonNull Response<Factory> response) {
+                            Factory factory = response.body();
+                            assert factory != null;
+
+                            showDetail(manager,factory);
+                            progressDialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<Factory> call, @NonNull Throwable t) {
+                            progressDialog.dismiss();
+                        }
+                    });
+    }
+
+
     private void showDialogAccept(User user, String messageDialog, int status)
     {
-
-
         // Create dialog
         Dialog dialogAccept = new Dialog(requireActivity());
         dialogAccept.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -154,5 +188,59 @@ public class ManagerAccount_Admin_Fragment extends Fragment implements Manager_A
     @Override
     public void inCorrectPassConfirm() {
 
+    }
+
+
+    private void showDetail(User manager, Factory factory) {
+        // Config dialog
+        Dialog dialogInfo = new Dialog(requireActivity());
+        dialogInfo.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogInfo.setContentView(R.layout.dialog_info);
+        dialogInfo.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogInfo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // Init view dialog: Ánh xạ view dialog
+        TextView txt_Email                  = dialogInfo.findViewById(R.id.txt_Email);
+        TextView txt_Name                   = dialogInfo.findViewById(R.id.txt_Name);
+        TextView txt_Phone                  = dialogInfo.findViewById(R.id.txt_Phone);
+        TextView txt_Address                = dialogInfo.findViewById(R.id.txt_Address);
+        TextView txt_Name_Factory           = dialogInfo.findViewById(R.id.txt_Name_Factory);
+        TextView txt_Name_TypeFactory       = dialogInfo.findViewById(R.id.txt_Name_TypeFactory);
+        TextView txt_Phone_Factory          = dialogInfo.findViewById(R.id.txt_Phone_Factory);
+        TextView txt_Owner_Factory          = dialogInfo.findViewById(R.id.txt_Owner_Factory);
+        TextView txt_Web_Factory            = dialogInfo.findViewById(R.id.txt_Web_Factory);
+        TextView txt_Address_Factory        = dialogInfo.findViewById(R.id.txt_Address_Factory);
+
+        // Set value: Gán giá trị cho text view
+
+        // Email
+        Common.displayValueTextView(txt_Email,manager.getEmail());
+        // Name
+        Common.displayValueTextView(txt_Name,manager.getName());
+        // Email
+        Common.displayValueTextView(txt_Phone,manager.getPhone());
+        // Email
+        Common.displayValueTextView(txt_Address,manager.getAddress());
+
+        // Name TypeFactory
+        Common.displayValueTextView(txt_Name_TypeFactory,factory.getType_factory().getNameTypeFactory());
+
+        // Name Factory
+        Common.displayValueTextView(txt_Name_Factory,factory.getNameFactory());
+
+        // Phone Factory
+        Common.displayValueTextView(txt_Phone_Factory,factory.getPhoneFactory());
+
+        // Owner Factory
+        Common.displayValueTextView(txt_Owner_Factory,factory.getOwnerFactory());
+
+        // txt_Web_Factory Factory
+        Common.displayValueTextView(txt_Web_Factory,factory.getWebFactory());
+
+        // txt_Address_Factory Factory
+        Common.displayValueTextView(txt_Address_Factory,factory.getAddressFactory());
+
+        // Show dialog
+        dialogInfo.show();
     }
 }

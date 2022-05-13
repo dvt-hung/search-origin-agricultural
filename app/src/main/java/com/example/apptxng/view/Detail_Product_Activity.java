@@ -219,6 +219,7 @@ public class Detail_Product_Activity extends AppCompatActivity  {
                 Intent intentUpdate = new Intent(Detail_Product_Activity.this,UpdateProductActivity.class);
                 intentUpdate.putExtras(bundleUpdate);
                 startActivity(intentUpdate);
+                finish();
                 dialogOptions.dismiss();
             }
         });

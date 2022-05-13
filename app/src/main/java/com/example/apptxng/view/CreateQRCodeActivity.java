@@ -94,6 +94,8 @@ public class CreateQRCodeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        addQRCodeProduct();
+
         // 1. Save image: Save hình ảnh về máy
         img_Save_QRCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +108,7 @@ public class CreateQRCodeActivity extends AppCompatActivity {
         img_Finish_QRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addQRCodeProduct();
+                finish();
             }
         });
     }
@@ -133,18 +135,11 @@ public class CreateQRCodeActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 // Call API
                 Common.api.addQRCode(idProduct, requestPartImage)
                         .enqueue(new Callback<ResponsePOST>() {
                             @Override
                             public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
-                                    ResponsePOST result = response.body();
-                                    assert result != null;
-                                    if (result.getStatus() == 1)
-                                    {
-                                        finish();
-                                    }
                                     dialog.dismiss();
                             }
 

@@ -62,9 +62,6 @@ public class History_Adapter extends RecyclerView.Adapter<History_Adapter.Histor
             // Gán tên cơ sở
             holder.txt_NameFactory.setText( history.getFactory().getNameFactory());
 
-            // Gán địa chỉ cơ sở
-            holder.txt_AddressFactory.setText( history.getFactory().getAddressFactory());
-
             // Gán mô tả của lịch sử
             holder.txt_DesProduct.setText( history.getDescriptionHistory());
 
@@ -96,7 +93,7 @@ public class History_Adapter extends RecyclerView.Adapter<History_Adapter.Histor
 
     public static class  HistoryViewHolder extends RecyclerView.ViewHolder {
         private final RelativeLayout layout_History;
-        private final TextView txt_Date_History, txt_TypeFactory, txt_NameFactory, txt_AddressFactory, txt_DesProduct;
+        private final TextView txt_Date_History, txt_TypeFactory, txt_NameFactory, txt_DesProduct;
         public HistoryViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -104,7 +101,6 @@ public class History_Adapter extends RecyclerView.Adapter<History_Adapter.Histor
             txt_Date_History        = itemView.findViewById(R.id.txt_Date_History);
             txt_TypeFactory         = itemView.findViewById(R.id.txt_TypeFactory);
             txt_NameFactory         = itemView.findViewById(R.id.txt_NameFactory);
-            txt_AddressFactory      = itemView.findViewById(R.id.txt_AddressFactory);
             txt_DesProduct          = itemView.findViewById(R.id.txt_DesProduct);
         }
     }

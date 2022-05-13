@@ -50,7 +50,8 @@
     <string name="title_administrator"> Administrator </string>
     <string name="title_choice_image_category"> Hãy chọn ảnh cho danh mục </string>
     <string name="title_input_name_category"> Nhập tên cho danh mục </string>
-    <string name="title_input_name_balance"> Nhập tên cho danh mục </string>
+    <string name="title_input_name_balance"> Nhập đơn vị </string>
+    <string name="title_input_name_type_factory"> Nhập tên loại cơ sở </string>
     <string name="title_add_category"> Thêm danh mục </string>
     <string name="title_update_category"> Chỉnh sửa danh mục </string>
     <string name="title_delete_category"> Xóa danh mục </string>
@@ -68,9 +69,13 @@
     <string name="title_balance">Đơn vị </string>
     <string name="title_error_empty_user">Đang cập nhật </string>
     <string name="title_add_balance">Thêm đơn vị tính </string>
+    <string name="title_add_type_factory">Thêm loại cơ sở </string>
+    <string name="title_update_type_factory">Cập nhật loại cơ sở </string>
     <string name="title_update_balance">Chỉnh sửa đơn vị tính </string>
     <string name="title_delete_balance"> Xóa đơn vị tính </string>
+    <string name="title_delete_type_factory"> Xóa loại cơ sở </string>
     <string name="title_question_delete_balance"> Bạn có chắc là xóa đơn vị này không </string>
+    <string name="title_question_delete_tFactory"> Bạn có chắc là xóa loại cơ sở này không </string>
     <string name="title_password_old"> Mật khẩu cũ </string>
     <string name="title_input_password_old"> Nhập mật khẩu cũ </string>
     <string name="title_password_new"> Mật khẩu mới </string>
@@ -198,6 +203,7 @@
 
     <!--    DETAIL HISTORY      -->
     <string name="title_detail_history"> Chi tiết nhật ký </string>
+    <string name="title_detail"> Thông tin chi tiết  </string>
     <string name="manager_image_history"> Quản lý hình ảnh </string>
     <string name="image_new"> Hình ảnh mới </string>
     <string name="input_new_image"> Thêm hình ảnh mới </string>

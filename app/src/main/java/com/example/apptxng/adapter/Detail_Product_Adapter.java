@@ -13,10 +13,10 @@ import com.example.apptxng.view.Info_Product_Customer_Fragment;
 
 public class Detail_Product_Adapter extends FragmentStateAdapter {
 
-    private final Product product;
-    public Detail_Product_Adapter(@NonNull FragmentActivity fragmentActivity, Product product) {
+    public static Product mProduct;
+//    private final Product product;
+    public Detail_Product_Adapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
-        this.product = product;
     }
 
     @NonNull
@@ -24,11 +24,11 @@ public class Detail_Product_Adapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         if (position == 0)
         {
-            return new Info_Product_Customer_Fragment(product);
+            return new Info_Product_Customer_Fragment(mProduct);
         }
         else
         {
-            return new History_Product_Customer_Fragment(product);
+            return new History_Product_Customer_Fragment(mProduct);
         }
     }
 

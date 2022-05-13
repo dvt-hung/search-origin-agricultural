@@ -1,6 +1,7 @@
 package com.example.apptxng.view;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -26,6 +27,7 @@ import com.example.apptxng.model.Common;
 import com.example.apptxng.model.History;
 import com.example.apptxng.model.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -35,12 +37,10 @@ import retrofit2.Response;
 
 public class History_Product_Customer_Fragment extends Fragment implements History_Adapter.IListenerHistory {
 
-    private static final String KEY = "product";
     private final Product productTemp;
     private History_Adapter historyAdapter;
-    private List<History> historyList;
     public static boolean reload;
-
+    private List<History> histories = new ArrayList<>();
 
     public History_Product_Customer_Fragment(Product product) {
         this.productTemp = product;
@@ -48,13 +48,17 @@ public class History_Product_Customer_Fragment extends Fragment implements Histo
 
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        getListHistory();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment\
         View view =  inflater.inflate(R.layout.fragment_history__product__customer_, container, false);
         initView(view);
-
-        getListHistory();
         return view;
     }
 
@@ -73,24 +77,25 @@ public class History_Product_Customer_Fragment extends Fragment implements Histo
     }
 
     private void getListHistory() {
-        // Progress dialog
-        ProgressDialog dialog = Common.createProgress(requireActivity());
-        dialog.show();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Common.api.getHistory(productTemp.getIdProduct())
+                        .enqueue(new Callback<List<History>>() {
+                            @Override
+                            public void onResponse(@NonNull Call<List<History>> call, @NonNull Response<List<History>> response) {
+                                histories = response.body();
+                                historyAdapter.setHistoryList(histories);
+                            }
 
-        Common.api.getHistory(productTemp.getIdProduct())
-                .enqueue(new Callback<List<History>>() {
-                    @Override
-                    public void onResponse(@NonNull Call<List<History>> call, @NonNull Response<List<History>> response) {
-                        historyList = response.body();
-                        historyAdapter.setHistoryList(historyList);
-                        dialog.dismiss();
-                    }
+                            @Override
+                            public void onFailure(@NonNull Call<List<History>> call, @NonNull Throwable t) {
+                            }
+                        });
+            }
+        }).start();
 
-                    @Override
-                    public void onFailure(@NonNull Call<List<History>> call, @NonNull Throwable t) {
-                        dialog.dismiss();
-                    }
-                });
+
     }
 
 
@@ -107,6 +112,7 @@ public class History_Product_Customer_Fragment extends Fragment implements Histo
     @Override
     public void onResume() {
         super.onResume();
+        //getListHistory();
         if (reload)
         {
             requireActivity().finish();

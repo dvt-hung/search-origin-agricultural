@@ -160,6 +160,16 @@ public class InsertFactoryActivity extends AppCompatActivity implements ITypeFac
     }
 
     @Override
+    public void successMessage(String message) {
+
+    }
+
+    @Override
+    public void failedMessage(String message) {
+
+    }
+
+    @Override
     public void emptyValue() {
         Toast.makeText(this, R.string.title_error_empty + "Insert", Toast.LENGTH_SHORT).show();
     }

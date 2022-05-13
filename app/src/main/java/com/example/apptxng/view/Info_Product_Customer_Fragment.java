@@ -12,19 +12,13 @@ import android.widget.TextView;
 import com.example.apptxng.R;
 import com.example.apptxng.model.Product;
 
-import java.util.Objects;
-
 public class Info_Product_Customer_Fragment extends Fragment {
 
-    private  Product productTemp;
+    private final Product productTemp;
     private TextView txt_DesProduct, txt_IngredientProduct,txt_UseProduct, txt_GuideProduct, txt_ConditionProduct;
 
-
-    public Info_Product_Customer_Fragment(Product product) {
-        this.productTemp = product;
-    }
-
-    public Info_Product_Customer_Fragment() {
+    public Info_Product_Customer_Fragment(Product productTemp) {
+        this.productTemp = productTemp;
     }
 
     @Override
@@ -32,7 +26,6 @@ public class Info_Product_Customer_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_info__product__customer_, container, false);
-        
         initView(view);
         return view;
     }
@@ -44,7 +37,6 @@ public class Info_Product_Customer_Fragment extends Fragment {
         txt_GuideProduct            = view.findViewById(R.id.txt_GuideProduct);
         txt_ConditionProduct        = view.findViewById(R.id.txt_ConditionProduct);
 
-
     }
 
     @Override
@@ -53,12 +45,6 @@ public class Info_Product_Customer_Fragment extends Fragment {
         if (productTemp != null)
         {
             displayValue();
-            Log.e("aa", "onResume: No NULL" );
-
-        }
-        else
-        {
-            Log.e("aa", "onResume: NULL" );
         }
     }
 

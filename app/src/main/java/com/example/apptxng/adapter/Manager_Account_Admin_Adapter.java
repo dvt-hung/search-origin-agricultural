@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class Manager_Account_Admin_Adapter extends RecyclerView.Adapter<Manager_
     private final IManagerListener iManagerListener;
     public interface IManagerListener{
         void onClickSwitch(User manager, int status);
+        void onClickManger(User manager);
     }
 
     public Manager_Account_Admin_Adapter(IManagerListener iManagerListener) {
@@ -49,16 +51,16 @@ public class Manager_Account_Admin_Adapter extends RecyclerView.Adapter<Manager_
         if (manager != null)
         {
             holder.txt_Name_Manager_Account.setText(manager.getName());
-            holder.txt_Email_Manager_Account.setText(manager.getEmail());
+            holder.txt_Phone_Manager_Account.setText(manager.getPhone());
             boolean checked = manager.isAccept() != 0;
             holder.switch_Manager_Account.setChecked(checked);
-            if (manager.getPhone() == null)
+            if (manager.getEmail() == null)
             {
-                holder.txt_Phone_Manager_Account.setText(R.string.title_error_empty_user);
+                holder.txt_Email_Manager_Account.setText(R.string.title_error_empty_user);
             }
             else
             {
-                holder.txt_Phone_Manager_Account.setText(manager.getPhone());
+                holder.txt_Email_Manager_Account.setText(manager.getPhone());
             }
 
             // Change accept
@@ -74,6 +76,14 @@ public class Manager_Account_Admin_Adapter extends RecyclerView.Adapter<Manager_
                         status = 1;
                     }
                     iManagerListener.onClickSwitch(manager, status);
+                }
+            });
+
+            // onClick Manager
+            holder.layout_Manger_Account_Admin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    iManagerListener.onClickManger(manager);
                 }
             });
         }
@@ -95,12 +105,14 @@ public class Manager_Account_Admin_Adapter extends RecyclerView.Adapter<Manager_
         private final TextView txt_Phone_Manager_Account;
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         private final Switch switch_Manager_Account;
+        private final LinearLayout layout_Manger_Account_Admin;
         public ManagerViewHolder(@NonNull View itemView) {
             super(itemView);
             txt_Name_Manager_Account        = itemView.findViewById(R.id.txt_Name_Manager_Account);
             txt_Email_Manager_Account       = itemView.findViewById(R.id.txt_Email_Manager_Account);
             txt_Phone_Manager_Account       = itemView.findViewById(R.id.txt_Phone_Manager_Account);
             switch_Manager_Account          = itemView.findViewById(R.id.switch_Manager_Account);
+            layout_Manger_Account_Admin     = itemView.findViewById(R.id.layout_Manger_Account_Admin);
         }
     }
 }

@@ -203,7 +203,7 @@ public class UpdateProductActivity extends AppCompatActivity implements ChoiceTy
             }
         });
 
-        // 5. Confirm button: Tiến hành thêm sản phẩm
+        // 5. Confirm button: Tiến hành cập nhật sản phẩm
         btn_UpdateProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -132,8 +132,7 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
         btn_Cancel_SignOut_Dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogSettingFarmer.cancel();
-                dialogSettingFarmer = null;
+                dialogSettingFarmer.dismiss();
             }
         });
 
@@ -144,7 +143,7 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
                 startActivity(new Intent(requireActivity(),LoginActivity.class));
                 requireActivity().finishAffinity();
                 Common.currentUser = null;
-                dialogSettingFarmer = null;
+                dialogSettingFarmer.dismiss();
             }
         });
     }
@@ -184,8 +183,7 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
         btn_Cancel_ChangePassword_Dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogSettingFarmer.cancel();
-                dialogSettingFarmer = null;
+                dialogSettingFarmer.dismiss();
             }
         });
 
@@ -207,6 +205,7 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
                 {
                     accountPresenter.change_Password(passWordOld,passWordNew,passWordNewConfirm);
                 }
+                dialogSettingFarmer.dismiss();
             }
         });
     }

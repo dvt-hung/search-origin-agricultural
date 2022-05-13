@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.FactoryActivity"
     >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <RelativeLayout
                 android:id="@+id/toolbar"
@@ -170,19 +166,18 @@
                 android:text="@string/name_factory"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/btn_Change_Info_Factory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_Web_Factory_Farmer"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/custom_button_confirm"
-                android:backgroundTint="@null"
-                android:text="@string/title_change_info"
-                app:backgroundTint="@null" />
+    <Button
+        android:id="@+id/btn_Change_Info_Factory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/custom_button_confirm"
+        android:backgroundTint="@null"
+        android:text="@string/title_change_info"
+        app:backgroundTint="@null"
+        android:layout_alignParentBottom="true"
+        />
 
-        </RelativeLayout>
 
-
-</androidx.core.widget.NestedScrollView>
+</RelativeLayout>

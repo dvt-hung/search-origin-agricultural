@@ -58,9 +58,10 @@ public class Detail_Product_Customer_Activity extends AppCompatActivity {
         txt_Price_Product           = findViewById(R.id.txt_Price_Product);
         txt_Name_Detail_Product     = findViewById(R.id.txt_Name_Detail_Product);
         ViewPager2 viewPager_Detail_Product = findViewById(R.id.viewPager_Detail_Product);
-        TabLayout tabLayout_Detail_Product = findViewById(R.id.tabLayout_Detail_Product);
+        TabLayout tabLayout_Detail_Product  = findViewById(R.id.tabLayout_Detail_Product);
 
-        Detail_Product_Adapter detailProductAdapter = new Detail_Product_Adapter(this, product);
+        Detail_Product_Adapter.mProduct = product;
+        Detail_Product_Adapter detailProductAdapter = new Detail_Product_Adapter(Detail_Product_Customer_Activity.this);
 
 
         // Set adapter viewPager

@@ -63,12 +63,12 @@ public class FarmerActivity extends AppCompatActivity implements NavigationBarVi
             case R.id.home_farmer:
                 fm = new Product_Farmer_Fragment();
                 break;
-            case R.id.message_farmer:
-                fm = new Message_Farmer_Fragment();
-                break;
-            case R.id.order_farmer:
-                fm = new Order_Farmer_Fragment();
-                break;
+//            case R.id.message_farmer:
+//                fm = new Message_Farmer_Fragment();
+//                break;
+//            case R.id.order_farmer:
+//                fm = new Order_Farmer_Fragment();
+//                break;
             case R.id.setting_farmer:
                 fm = new Setting_Farmer_Fragment();
                 break;

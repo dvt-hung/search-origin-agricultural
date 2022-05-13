@@ -92,7 +92,7 @@ public class Account_Presenter {
         } else {
             ProgressDialog dialog = Common.createProgress(context);
             dialog.show();
-            Common.api.change_password(Common.currentUser.getEmail(), passNew, Common.currentUser.getIdUser())
+            Common.api.change_password(passNew, Common.currentUser.getIdUser())
                     .enqueue(new Callback<ResponsePOST>() {
                         @Override
                         public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {

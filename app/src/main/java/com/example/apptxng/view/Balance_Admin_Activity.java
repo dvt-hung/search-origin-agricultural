@@ -195,7 +195,6 @@ public class Balance_Admin_Activity extends AppCompatActivity implements IBalanc
         showDialogOption(balance);
     }
 
-
     // Show dialog Option
     private void showDialogOption(Balance balance) {
         // Tạo và cài đặt layout cho dialog

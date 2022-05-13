@@ -1,5 +1,6 @@
 package com.example.apptxng.presenter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.FileUtils;
@@ -97,6 +98,10 @@ public class Insert_Product_Presenter {
         RequestBody requestBodyImage        = RequestBody.create(MediaType.parse("multipart/form-data"),file);
         MultipartBody.Part requestPartImage = MultipartBody.Part.createFormData("imageProduct", nameProductNew,requestBodyImage);
 
+        // Create Progress
+        ProgressDialog progressDialog = Common.createProgress(context);
+        progressDialog.show();
+
         // Call API
         Common.api.addProduct(idProduct,nameProduct,priceProduct,descriptionProduct,quantityProduct, idUser,
                 idCategory, idBalance, dateProduct,ingredientProduct, useProduct, guideProduct, conditionProduct, requestPartImage)
@@ -114,11 +119,13 @@ public class Insert_Product_Presenter {
                         {
                             iInsertProduct.addProductFailed(responsePOST.getMessage());
                         }
+                        progressDialog.dismiss();
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
                         iInsertProduct.Exception(t.getMessage());
+                        progressDialog.dismiss();
                     }
                 });
 

@@ -21,7 +21,7 @@ public class Farmer_Account_Admin_Adapter extends RecyclerView.Adapter<Farmer_Ac
     private List<User> listAccountFarmer;
     private IFarmerAccountListener IFarmerListener;
     public interface IFarmerAccountListener{
-        void onClickItem(User user);
+        void onClickFarmer(User user);
         void onClickSwitch(User user, int status);
     }
 
@@ -50,23 +50,23 @@ public class Farmer_Account_Admin_Adapter extends RecyclerView.Adapter<Farmer_Ac
         if (userFarmer != null)
         {
             holder.txt_Name_Farmer_Account.setText(userFarmer.getName());
-            holder.txt_Email_Farmer_Account.setText(userFarmer.getEmail());
+            holder.txt_Phone_Farmer_Account.setText(userFarmer.getPhone());
             boolean checked = userFarmer.isAccept() != 0;
             holder.switch_Farmer_Account.setChecked(checked);
-            if (userFarmer.getPhone() == null )
+            if (userFarmer.getEmail() == null )
             {
-                holder.txt_Phone_Farmer_Account.setText(R.string.title_error_empty_user);
+                holder.txt_Email_Farmer_Account.setText(R.string.title_error_empty_user);
             }
             else
             {
-                holder.txt_Phone_Farmer_Account.setText(userFarmer.getPhone());
+                holder.txt_Email_Farmer_Account.setText(userFarmer.getPhone());
             }
 
             // Click item
             holder.layout_Farmer_Account_Admin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    IFarmerListener.onClickItem(userFarmer);
+                    IFarmerListener.onClickFarmer(userFarmer);
                 }
             });
 

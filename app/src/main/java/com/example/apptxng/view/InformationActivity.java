@@ -53,7 +53,6 @@ public class InformationActivity extends AppCompatActivity {
     }
 
 
-
     private void displayValue() {
         Glide.with(this).load(Common.currentUser.getImage()).error(R.drawable.logo).into(img_Farmer_Info);
 

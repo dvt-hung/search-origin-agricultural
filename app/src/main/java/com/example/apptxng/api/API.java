@@ -44,13 +44,14 @@ public interface API {
             @Field("passWord") String passWord,
             @Field("accept") int accept,
             @Field("idRole") int idRole,
-            @Field("idTypeFactory") int idTypeFactory
-    );
+            @Field("idTypeFactory") int idTypeFactory,
+            @Field("nameFactory") String nameFactory
+            );
 
     // *Login: done
     @FormUrlEncoded
     @POST("login.php")
-    Call<User> login (@Field("email") String email,
+    Call<User> login (@Field("phone") String phone,
                       @Field("passWord") String passWord);
 
 
@@ -58,7 +59,6 @@ public interface API {
     @FormUrlEncoded
     @POST("change_password.php")
     Call<ResponsePOST> change_password (
-                    @Field("email") String email,
                     @Field("passNew") String passNew,
                     @Field("idUser") String idUser);
 
@@ -162,6 +162,24 @@ public interface API {
         // Load linked
         @GET("get_type_factory.php")
         Call<List<TypeFactory>> getTypeFactory();
+
+        // Add Type Factory
+        @FormUrlEncoded
+        @POST("add_type_factory.php")
+        Call<ResponsePOST> addTypeFactory(@Field("nameTypeFactory") String nameTypeFactory);
+
+        // Update Type Factory
+        @FormUrlEncoded
+        @POST("update_type_factory.php")
+        Call<ResponsePOST> updateTypeFactory(
+                @Field("idTypeFactory")   int idTypeFactory,
+                @Field("nameTypeFactory") String nameTypeFactory);
+
+        // Delete type factory
+        @FormUrlEncoded
+        @POST("delete_type_factory.php")
+        Call<ResponsePOST> deleteTypeFactory(@Field("idTypeFactory") int idTypeFactory);
+
 
     // ========= FARMER =============
 

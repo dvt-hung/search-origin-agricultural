@@ -194,48 +194,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
             @Override
             public void onClick(View view) {
 
-                String nameProduct, priceProduct, desProduct, quantityProduct;
-                nameProduct = edt_Name_InsertProduct.getText().toString().trim();
-                priceProduct = edt_Price_InsertProduct.getText().toString().trim();
-                desProduct = edt_Des_InsertProduct.getText().toString().trim();
-                quantityProduct = edt_Quantity_InsertProduct.getText().toString().trim();
-                String ingredient   = txt_Result_IngredientProduct.getText().toString().trim();
-                String use          = txt_Result_UseProduct.getText().toString().trim();
-                String guide        = txt_Result_GuideProduct.getText().toString().trim();
-                String condition    = txt_ConditionProduct.getText().toString().trim();
-
-
-
-                // Set nội dung cho progress dialog
-                progressAddProduct.setMessage("Vui lòng chờ...");
-                progressAddProduct.show();
-                if (nameProduct.isEmpty() || priceProduct.isEmpty() || desProduct.isEmpty() || quantityProduct.isEmpty())
-                {
-                    Toast.makeText(InsertProductActivity.this, R.string.title_error_empty, Toast.LENGTH_SHORT).show();
-                    progressAddProduct.cancel();
-                }
-                else
-                {
-                    product.setNameProduct(nameProduct); // Set tên cho product
-                    product.setPriceProduct(Integer.parseInt(priceProduct)); // Set giá cho product
-                    product.setDescriptionProduct(desProduct); // Set des cho product
-                    product.setQuantityProduct(Integer.parseInt(quantityProduct)); // Set số lượng cho product
-                    product.setIdUser(Common.currentUser.getIdUser());
-                    product.setIngredientProduct(ingredient);
-                    product.setUseProduct(use);
-                    product.setGuideProduct(guide);
-                    product.setConditionProduct(condition);
-
-                    idProduct = "Product" +Common.calendar.getTime().getTime();
-                    product.setIdProduct(idProduct);
-                    // Set ngày cho product
-                    @SuppressLint("SimpleDateFormat")
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                    Date date = Calendar.getInstance().getTime();
-                    String dateProduct = formatter.format(date);
-                    product.setDateProduct(dateProduct); // Set ngày cho Product
-                    insertProductPresenter.insertProduct(product);
-                }
+                insertProduct();
 
             }
         });
@@ -296,6 +255,55 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
                 startActivity(intentCondition);
             }
         });
+    }
+
+    // FUN THÊM SẢN PHẨM
+    private void insertProduct() {
+        String nameProduct, priceProduct, desProduct, quantityProduct;
+
+        // Nhận các giá trị được người dùng nhập vào
+        nameProduct = edt_Name_InsertProduct.getText().toString().trim();
+        priceProduct = edt_Price_InsertProduct.getText().toString().trim();
+        desProduct = edt_Des_InsertProduct.getText().toString().trim();
+        quantityProduct = edt_Quantity_InsertProduct.getText().toString().trim();
+        String ingredient   = txt_Result_IngredientProduct.getText().toString().trim();
+        String use          = txt_Result_UseProduct.getText().toString().trim();
+        String guide        = txt_Result_GuideProduct.getText().toString().trim();
+        String condition    = txt_Result_ConditionProduct.getText().toString().trim();
+
+
+
+        // Kiểm tra dữ liễu quan trọng có rỗng hay không
+        if (nameProduct.isEmpty() || priceProduct.isEmpty() || desProduct.isEmpty() || quantityProduct.isEmpty())
+        {
+            Toast.makeText(InsertProductActivity.this, R.string.title_error_empty, Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            product.setNameProduct(nameProduct); // Set tên cho product
+            product.setPriceProduct(Integer.parseInt(priceProduct)); // Set giá cho product
+            product.setDescriptionProduct(desProduct); // Set des cho product
+            product.setQuantityProduct(Integer.parseInt(quantityProduct)); // Set số lượng cho product
+            product.setIdUser(Common.currentUser.getIdUser());
+            product.setIngredientProduct(ingredient);
+            product.setUseProduct(use);
+            product.setGuideProduct(guide);
+            product.setConditionProduct(condition);
+
+            idProduct = "Product" +Common.calendar.getTime().getTime(); // ID Product
+            product.setIdProduct(idProduct);
+
+            // Set ngày cho product
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = Calendar.getInstance().getTime();
+            String dateProduct = formatter.format(date);
+            product.setDateProduct(dateProduct); // Set ngày cho Product
+
+            // Gọi đến presenter
+            insertProductPresenter.insertProduct(product);
+        }
+
     }
 
 
@@ -396,7 +404,6 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         resultLauncherGallery.launch(intent);
     }
 
-
     // OVERRIDE METHOD CHOICE TYPE ADAPTER
     @Override
     public void onClickChoiceType(Object obj) {
@@ -447,12 +454,10 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
 
         // Sau khi chuyển sang activity QR Code thì đóng activity lại
         finish();
-        progressAddProduct.cancel();
     }
 
     @Override
     public void addProductFailed(String message) {
-        progressAddProduct.cancel();
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

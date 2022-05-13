@@ -48,8 +48,7 @@
             android:id="@+id/edt_UserName_Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/title_email"
-            android:text="admin@gmail.com"
+            android:hint="@string/title_phone"
             android:layout_marginTop="30dp"
             android:textSize="16sp"
             android:background="@drawable/custom_edittext"
@@ -58,6 +57,7 @@
             android:layout_marginEnd="20dp"
             android:drawableStart="@drawable/ic_user"
             android:drawablePadding="10dp"
+            android:inputType="number"
             />
 
         <EditText
@@ -69,7 +69,6 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="16sp"
-            android:text="123456"
             android:background="@drawable/custom_edittext"
             android:padding="13dp"
             android:drawableStart="@drawable/ic_password"

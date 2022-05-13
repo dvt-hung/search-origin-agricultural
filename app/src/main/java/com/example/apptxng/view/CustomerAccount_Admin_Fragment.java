@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.Customer_Account_Admin_Adapter;
+import com.example.apptxng.model.Common;
 import com.example.apptxng.model.User;
 import com.example.apptxng.presenter.ICustomerAccountAdmin;
 import com.example.apptxng.presenter.Customer_Account_Admin_Presenter;
@@ -68,7 +69,7 @@ public class CustomerAccount_Admin_Fragment extends Fragment implements ICustome
         accountCustomerAdminAdapter = new Customer_Account_Admin_Adapter(new Customer_Account_Admin_Adapter.ICustomerAccountListener() {
             @Override
             public void onClickItem(User user) {
-
+                showDetailCustomer(user);
             }
 
             @Override
@@ -82,6 +83,7 @@ public class CustomerAccount_Admin_Fragment extends Fragment implements ICustome
             }
         });
     }
+
 
     // * Dialog Accept
     private void showDialogAccept(User user, String messageDialog, int status) {
@@ -158,5 +160,34 @@ public class CustomerAccount_Admin_Fragment extends Fragment implements ICustome
     @Override
     public void Exception(String message) {
         Toast.makeText(viewAccountCustomer.getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showDetailCustomer(User user) {
+            // Config dialog
+            Dialog dialogInfo = new Dialog(requireActivity());
+            dialogInfo.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialogInfo.setContentView(R.layout.dialog_info_customer);
+            dialogInfo.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+            dialogInfo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            // Init view dialog: Ánh xạ view dialog
+            TextView txt_Email          = dialogInfo.findViewById(R.id.txt_Email);
+            TextView txt_Name           = dialogInfo.findViewById(R.id.txt_Name);
+            TextView txt_Phone          = dialogInfo.findViewById(R.id.txt_Phone);
+            TextView txt_Address        = dialogInfo.findViewById(R.id.txt_Address);
+
+            // Set value: Gán giá trị cho text view
+
+            // Email
+            Common.displayValueTextView(txt_Email,user.getEmail());
+            // Name
+            Common.displayValueTextView(txt_Name,user.getName());
+            // Email
+            Common.displayValueTextView(txt_Phone,user.getPhone());
+            // Email
+            Common.displayValueTextView(txt_Address,user.getAddress());
+
+            // Show dialog
+            dialogInfo.show();
     }
 }

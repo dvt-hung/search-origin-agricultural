@@ -23,6 +23,7 @@ import com.example.apptxng.R;
 import com.example.apptxng.adapter.ChoiceType_Adapter;
 import com.example.apptxng.adapter.Factory_Adapter;
 import com.example.apptxng.bottom_dialog.BottomDialogTypeFactory;
+import com.example.apptxng.model.Common;
 import com.example.apptxng.model.Factory;
 import com.example.apptxng.model.TypeFactory;
 import com.example.apptxng.presenter.Factory_Presenter;
@@ -33,7 +34,7 @@ import com.example.apptxng.presenter.TypeFactory_Presenter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FactoryActivity extends AppCompatActivity implements  IFactory, ITypeFactory {
+public class FactoryActivity extends AppCompatActivity implements  IFactory {
 
     private ImageView img_Close_Factory;
     private Factory_Presenter presenter;
@@ -75,10 +76,22 @@ public class FactoryActivity extends AppCompatActivity implements  IFactory, ITy
     private void displayValue() {
         txt_Name_TypeFactory.setText(factoryTemp.getType_factory().getNameTypeFactory());
         txt_Name_Factory.setText(factoryTemp.getNameFactory());
-        txt_Address_Factory.setText(factoryTemp.getAddressFactory());
-        txt_Phone_Factory.setText(factoryTemp.getPhoneFactory());
-        txt_Web_Factory.setText(factoryTemp.getWebFactory());
-        txt_NameOwn_Factory.setText(factoryTemp.getOwnerFactory());
+
+        // Address
+        txt_Address_Factory.setText(displayInfoValueString(factoryTemp.getAddressFactory()));
+        txt_Phone_Factory.setText(displayInfoValueString(factoryTemp.getPhoneFactory()));
+        txt_Web_Factory.setText(displayInfoValueString(factoryTemp.getWebFactory()));
+        txt_NameOwn_Factory.setText(displayInfoValueString(factoryTemp.getOwnerFactory()));
+    }
+
+    // Check check and display value
+    public String displayInfoValueString(String value)
+    {
+        if (value == null || value.equals(" ") || value.isEmpty())
+        {
+            return "Đang cập nhật";
+        }
+        return value;
     }
 
     private void initEvents() {
@@ -118,14 +131,12 @@ public class FactoryActivity extends AppCompatActivity implements  IFactory, ITy
         displayValue();
     }
 
-    @Override
-    public void getTypeFactory(List<TypeFactory> list) {
-    }
 
     @Override
     public void Exception(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     public void emptyValue() {

@@ -43,9 +43,9 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
             @Override
             public void onClick(View view) {
                 progressLogin.show();
-                String email = edt_UserName_Login.getText().toString().trim();
+                String phone = edt_UserName_Login.getText().toString().trim();
                 String passWord = edt_Password_Login.getText().toString().trim();
-                loginPresenter.Login(email,passWord);
+                loginPresenter.Login(phone,passWord);
             }
         });
 

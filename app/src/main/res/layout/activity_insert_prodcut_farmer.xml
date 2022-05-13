@@ -352,7 +352,6 @@
                 android:layout_marginStart="20sp"
                 android:layout_marginEnd="20sp"
                 android:layout_marginTop="10dp"
-
                 android:gravity="center_vertical"
                 android:text="@string/condition_product"
                 android:textColor="@color/black"

@@ -268,7 +268,6 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
                     .enqueue(new Callback<List<Factory>>() {
                         @Override
                         public void onResponse(@NonNull Call<List<Factory>> call, @NonNull Response<List<Factory>> response) {
-
                             assert response.body() != null;
                             for (Factory f : response.body())
                             {

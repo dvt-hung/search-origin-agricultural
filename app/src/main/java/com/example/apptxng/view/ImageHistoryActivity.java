@@ -105,9 +105,7 @@ public class ImageHistoryActivity extends AppCompatActivity implements Images_Ad
         img_Insert_Image_History.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 insertImageHistory();
-
             }
         });
     }

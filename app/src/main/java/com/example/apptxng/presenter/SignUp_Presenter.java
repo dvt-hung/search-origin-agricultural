@@ -57,7 +57,6 @@ public class SignUp_Presenter {
     // Sign Up
     public void signUpUser(User user, long codeEmail, String passWordConfirm, int idTypeFactory, String nameFactory)
     {
-
         if (!user.checkLengthPassword()) {
             iSignUp.errorLengthPassword();
         }
@@ -77,12 +76,11 @@ public class SignUp_Presenter {
             progressDialog.setMessage("Vui lòng đợi...");
             progressDialog.show();
 
-            Common.api.signUpUser(user.getEmail(), user.getIdUser(), user.getName(),user.getPassWord(),user.isAccept(),user.getIdRole(),idTypeFactory)
+            Common.api.signUpUser(user.getEmail(), user.getIdUser(), user.getName(),user.getPassWord(),user.isAccept(),user.getIdRole(),idTypeFactory,nameFactory)
                     .enqueue(new Callback<ResponsePOST>() {
                         @Override
                         public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
                             ResponsePOST responsePOST = response.body();
-
                             assert responsePOST != null;
                             if (responsePOST.getStatus() == 0)
                             {

@@ -61,8 +61,10 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
         initView();
 
         // Nhận history
-        Bundle receiveHistory = getIntent().getExtras();
-        historyTemp = (History) receiveHistory.getSerializable("history");
+        historyTemp = (History) getIntent().getExtras().getSerializable("history");
+
+        Log.e("a", "initView: " +  historyTemp.getIdAuthor());
+        Log.e("a", "initView: " +  Common.currentUser.getIdUser());
 
     }
 
@@ -80,7 +82,7 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
         imageHistories                                      = new ArrayList<>();
         historyPresenter                                    = new History_Presenter(this,this);
         // Presenter
-        imageHistoryPresenter = new ImageHistory_Presenter(this, this);
+        imageHistoryPresenter                               = new ImageHistory_Presenter(this, this);
 
         // Gán adapter cho recycler view
         adapter   = new Images_Adapter(this,this);
@@ -90,11 +92,6 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
         recycler_Images_History.setLayoutManager(layoutManager);
 
-        // Kiểm tra loại user
-        if (Common.currentUser.getIdRole() == 4 || !historyTemp.getIdAuthor().equals(Common.currentUser.getIdUser()))
-        {
-            img_Option_Detail_History.setVisibility(View.GONE);
-        }
     }
 
 
@@ -102,6 +99,12 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
     @Override
     protected void onResume() {
         super.onResume();
+
+        // Kiểm tra loại user
+        if (Common.currentUser.getIdRole() == 4 || !historyTemp.getIdAuthor().equals(Common.currentUser.getIdUser()))
+        {
+            img_Option_Detail_History.setVisibility(View.GONE);
+        }
         // Hiển thị dữ liệu
         displayValue();
         // Load images: Tải hình ảnh của history
@@ -252,9 +255,10 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
         txt_Des_History_Detail.setText(historyTemp.getDescriptionHistory());
         txt_TypeFactory_History_Detail.setText(historyTemp.getType_factory().getNameTypeFactory());
         txt_NameFactory_History_Detail.setText(historyTemp.getFactory().getNameFactory());
-        txt_AddressFactory_History_Detail.setText(historyTemp.getFactory().getAddressFactory());
-        txt_PhoneFactory_History_Detail.setText(historyTemp.getFactory().getPhoneFactory());
-        txt_WebFactory_History_Detail.setText(historyTemp.getFactory().getWebFactory());
+
+        checkValueNullForTextView(txt_AddressFactory_History_Detail,historyTemp.getFactory().getAddressFactory());
+        checkValueNullForTextView(txt_PhoneFactory_History_Detail,historyTemp.getFactory().getPhoneFactory());
+        checkValueNullForTextView(txt_WebFactory_History_Detail,historyTemp.getFactory().getWebFactory());
 
         // Nếu người dùng hiện tại là người đã viết nhật ký thì có thể update
         if (!historyTemp.getIdAuthor().equals(Common.currentUser.getIdUser()))
@@ -262,6 +266,22 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
             img_Option_Detail_History.setVisibility(View.GONE);
         }
     }
+
+    // Check value null text view
+    private void checkValueNullForTextView(TextView view, String value)
+    {
+        if (value == null || value.isEmpty() || value.equals(" "))
+        {
+            view.setText(R.string.title_error_empty_user);
+        }
+        else
+        {
+            view.setText(value);
+        }
+    }
+
+
+
 
     // ********* IMAGE HISTORY PRESENTER **********
     @Override

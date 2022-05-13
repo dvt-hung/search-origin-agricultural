@@ -51,16 +51,16 @@ public class Customer_Account_Admin_Adapter extends RecyclerView.Adapter<Custome
         if (userCustomer != null)
         {
             holder.txt_Name_Customer_Account.setText(userCustomer.getName());
-            holder.txt_Email_Customer_Account.setText(userCustomer.getEmail());
+            holder.txt_Phone_Customer_Account.setText(userCustomer.getPhone());
             boolean checked = userCustomer.isAccept() != 0;
             holder.switch_Customer_Account.setChecked(checked);
-            if (userCustomer.getPhone() == null || userCustomer.getAddress() == null)
+            if (userCustomer.getEmail() == null)
             {
-                holder.txt_Phone_Customer_Account.setText(R.string.title_error_empty_user);
+                holder.txt_Email_Customer_Account.setText(R.string.title_error_empty_user);
             }
             else
             {
-                holder.txt_Phone_Customer_Account.setText(userCustomer.getPhone());
+                holder.txt_Email_Customer_Account.setText(userCustomer.getEmail());
             }
 
             // Change accept
@@ -75,6 +75,13 @@ public class Customer_Account_Admin_Adapter extends RecyclerView.Adapter<Custome
                         status = 1;
                     }
                     ICustomerListener.onClickSwitch(userCustomer, status);
+                }
+            });
+
+            holder.layout_Customer_Account_Admin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ICustomerListener.onClickItem(userCustomer);
                 }
             });
         }

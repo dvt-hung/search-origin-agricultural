@@ -8,7 +8,7 @@
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:background="@drawable/custom_radius_item"
-    android:id="@+id/layout_Customer_Account_Admin"
+    android:id="@+id/layout_Manger_Account_Admin"
     >
 
     <RelativeLayout

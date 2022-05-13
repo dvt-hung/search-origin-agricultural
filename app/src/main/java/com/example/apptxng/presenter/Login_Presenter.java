@@ -28,7 +28,6 @@ public class Login_Presenter {
         }
         else
         {
-
             Common.api.login(email,passWord)
                     .enqueue(new Callback<User>() {
                         @Override

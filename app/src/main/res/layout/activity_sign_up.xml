@@ -236,8 +236,6 @@
                 android:background="@drawable/custom_edittext"
                 android:drawablePadding="10dp"
                 android:hint="@string/input_phone_farm"
-                android:inputType="number"
-                android:maxLength="10"
                 android:padding="10dp"
                 android:textSize="16sp"
                 tools:ignore="TextFields" />

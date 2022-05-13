@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,11 +23,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.Farmer_Account_Admin_Adapter;
+import com.example.apptxng.model.Common;
+import com.example.apptxng.model.Factory;
 import com.example.apptxng.model.User;
 import com.example.apptxng.presenter.IFarmerAccountAdmin;
 import com.example.apptxng.presenter.Farmer_Account_Admin_Presenter;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class FarmerAccount_Admin_Fragment extends Fragment implements IFarmerAccountAdmin {
@@ -67,8 +74,8 @@ public class FarmerAccount_Admin_Fragment extends Fragment implements IFarmerAcc
         // Khởi tạo Adapter
         farmerAdapter = new Farmer_Account_Admin_Adapter(new Farmer_Account_Admin_Adapter.IFarmerAccountListener() {
             @Override
-            public void onClickItem(User user) {
-
+            public void onClickFarmer(User user) {
+                getInfoFactory(user);
             }
 
             @Override
@@ -81,6 +88,81 @@ public class FarmerAccount_Admin_Fragment extends Fragment implements IFarmerAcc
                 showDialogAccept(user,messageDialog,status);
             }
         });
+    }
+
+    private synchronized void getInfoFactory(User user) {
+        ProgressDialog progressDialog = Common.createProgress(requireActivity());
+        progressDialog.show();
+
+        Common.api.getFactoryByID(user.getIdUser())
+                .enqueue(new Callback<Factory>() {
+                    @Override
+                    public void onResponse(@NonNull Call<Factory> call, @NonNull Response<Factory> response) {
+                        Factory factory = response.body();
+                        assert factory != null;
+
+                        showDetail(user,factory);
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<Factory> call, @NonNull Throwable t) {
+                        progressDialog.dismiss();
+                    }
+                });
+    }
+
+    private void showDetail(User user, Factory factory) {
+        // Config dialog
+        Dialog dialogInfo = new Dialog(requireActivity());
+        dialogInfo.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogInfo.setContentView(R.layout.dialog_info);
+        dialogInfo.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogInfo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // Init view dialog: Ánh xạ view dialog
+        TextView txt_Email                  = dialogInfo.findViewById(R.id.txt_Email);
+        TextView txt_Name                   = dialogInfo.findViewById(R.id.txt_Name);
+        TextView txt_Phone                  = dialogInfo.findViewById(R.id.txt_Phone);
+        TextView txt_Address                = dialogInfo.findViewById(R.id.txt_Address);
+        TextView txt_Name_Factory           = dialogInfo.findViewById(R.id.txt_Name_Factory);
+        TextView txt_Name_TypeFactory       = dialogInfo.findViewById(R.id.txt_Name_TypeFactory);
+        TextView txt_Phone_Factory          = dialogInfo.findViewById(R.id.txt_Phone_Factory);
+        TextView txt_Owner_Factory          = dialogInfo.findViewById(R.id.txt_Owner_Factory);
+        TextView txt_Web_Factory            = dialogInfo.findViewById(R.id.txt_Web_Factory);
+        TextView txt_Address_Factory        = dialogInfo.findViewById(R.id.txt_Address_Factory);
+
+        // Set value: Gán giá trị cho text view
+
+        // Email
+        Common.displayValueTextView(txt_Email,user.getEmail());
+        // Name
+        Common.displayValueTextView(txt_Name,user.getName());
+        // Email
+        Common.displayValueTextView(txt_Phone,user.getPhone());
+        // Email
+        Common.displayValueTextView(txt_Address,user.getAddress());
+
+        // Name TypeFactory
+        Common.displayValueTextView(txt_Name_TypeFactory,factory.getType_factory().getNameTypeFactory());
+
+        // Name Factory
+        Common.displayValueTextView(txt_Name_Factory,factory.getNameFactory());
+
+        // Phone Factory
+        Common.displayValueTextView(txt_Phone_Factory,factory.getPhoneFactory());
+
+        // Owner Factory
+        Common.displayValueTextView(txt_Owner_Factory,factory.getOwnerFactory());
+
+        // txt_Web_Factory Factory
+        Common.displayValueTextView(txt_Web_Factory,factory.getWebFactory());
+
+        // txt_Address_Factory Factory
+        Common.displayValueTextView(txt_Address_Factory,factory.getAddressFactory());
+
+        // Show dialog
+        dialogInfo.show();
     }
 
     // Show dialog change accept for user

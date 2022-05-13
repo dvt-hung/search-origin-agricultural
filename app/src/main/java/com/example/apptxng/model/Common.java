@@ -11,10 +11,12 @@ import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.apptxng.R;
 import com.example.apptxng.api.API;
 import com.example.apptxng.api.Retrofit_Client;
 
@@ -34,9 +36,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Common {
-//
+
+    /*
+    * Admin: 0123456 - 123456
+    * ND: 0123123 - 123456
+    * KH: 092308 - 123456
+    * QL: 0923089 - 123456
+    * */
+
+
     public static User currentUser;
-    public static final String URL = "https://txngnongsan.000webhostapp.com/api/";
+
+    public static final String codeCounty = "+84";
+
+    public static final String URL = "https://truyxuatnongsan.000webhostapp.com/api/";
     public static final API api = Retrofit_Client.getRetrofit(Common.URL).create(API.class);
 
     public static Calendar calendar = Calendar.getInstance();
@@ -110,4 +123,17 @@ public class Common {
         return dialog;
     }
 
+
+    // Check và hiển thị giá trị của text view: Null or No Null
+    public static void displayValueTextView(TextView textView, String value)
+    {
+        if (value == null || value.equals(" ") || value.isEmpty())
+        {
+            textView.setText(R.string.title_error_empty_user);
+        }
+        else
+        {
+            textView.setText(value);
+        }
+    }
 }

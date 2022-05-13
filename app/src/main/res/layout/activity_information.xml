@@ -44,18 +44,6 @@
         android:layout_marginTop="20dp"
         android:src="@drawable/logo" />
 
-    <TextView
-        android:id="@+id/txt_NameFarm_Info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/img_Farmer_Info"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/coiny"
-        android:gravity="center"
-        android:text="@string/title_balance"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
 
 
         <!--        1 -->
@@ -64,27 +52,26 @@
         android:id="@+id/title_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_NameFarm_Info"
-        android:layout_marginTop="10dp"
+        android:layout_below="@id/img_Farmer_Info"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="5dp"
         android:layout_toStartOf="@id/img_Farmer_Info"
         android:text="@string/title_email"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txt_Email_Info_Farmer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_NameFarm_Info"
+        android:layout_below="@id/img_Farmer_Info"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_toEndOf="@id/title_email"
-        android:text="@string/owner_farm"
         android:textColor="@color/black"
         android:textSize="16sp"
-
+        android:text="abc"
         />
 
             <!--     2   -->
@@ -112,17 +99,16 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/title_email"
-        android:text="@string/title_name"
-        android:textSize="16sp"
         android:textColor="@color/black"
-
+        android:textSize="16sp"
+android:text="abc"
         />
             <!--        3 -->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_Name_Info_Farmer"
+        android:layout_below="@+id/title_owner"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:layout_toStartOf="@id/img_Farmer_Info"
@@ -141,11 +127,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/title_email"
-        android:text="@string/title_name"
-        android:textSize="16sp"
+        android:text="ad"
         android:textColor="@color/black"
-
-        />
+        android:textSize="16sp" />
         <!--        4 -->
 
 
@@ -171,10 +155,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/title_email"
-        android:text="@string/title_name"
         android:textColor="@color/black"
         android:textSize="16sp" />
-
 
 
     <Button
