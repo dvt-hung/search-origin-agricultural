@@ -45,7 +45,8 @@ public interface API {
             @Field("accept") int accept,
             @Field("idRole") int idRole,
             @Field("idTypeFactory") int idTypeFactory,
-            @Field("nameFactory") String nameFactory
+            @Field("nameFactory") String nameFactory,
+            @Field("idOwner") String idOwner
             );
 
     // *Login: done
@@ -126,6 +127,10 @@ public interface API {
         // Get list manager: Done
         @GET("get_list_manager.php")
         Call<List<User>> getListManager();
+
+        // Get list employee: Done
+        @GET("get_list_employee.php")
+        Call<List<User>> getListEmployee(@Query("idOwner") String idOwner);
 
     // Update accept user: Done
         @FormUrlEncoded
@@ -227,6 +232,7 @@ public interface API {
                 @Part("idUser")             RequestBody idUser,
                 @Part("idCategory")         RequestBody idCategory,
                 @Part("idBalance")          RequestBody idBalance,
+                @Part("idEmployee")         RequestBody idEmployee,
                 @Part("dateProduct")        RequestBody dateProduct,
                 @Part("ingredientProduct")  RequestBody ingredientProduct,
                 @Part("useProduct")         RequestBody useProduct,

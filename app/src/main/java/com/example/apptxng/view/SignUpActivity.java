@@ -9,10 +9,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -28,15 +24,12 @@ import android.widget.Toast;
 
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.ChoiceType_Adapter;
-import com.example.apptxng.api.API;
 import com.example.apptxng.bottom_dialog.BottomDialogTypeFactory;
 import com.example.apptxng.model.Common;
 import com.example.apptxng.model.ResponsePOST;
 import com.example.apptxng.model.TypeFactory;
 import com.example.apptxng.model.User;
-import com.example.apptxng.presenter.ISignUp;
 import com.example.apptxng.presenter.ITypeFactory;
-import com.example.apptxng.presenter.SignUp_Presenter;
 import com.example.apptxng.presenter.TypeFactory_Presenter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -68,7 +61,6 @@ public class SignUpActivity extends AppCompatActivity implements ChoiceType_Adap
     private String name;
     private String passWord;
     private String phone;
-    private String idUser;
     private String nameFactory;
     private int idTypeFactory;
     private int idRole;
@@ -132,7 +124,7 @@ public class SignUpActivity extends AppCompatActivity implements ChoiceType_Adap
         phone               = edt_Phone_SU.getText().toString().trim();
         passWord            = edt_Password_SU.getText().toString().trim();
         String passWordConfirm = edt_Password_Confirm_SU.getText().toString().trim();
-        idUser              = "U" + Calendar.getInstance().getTime().getTime();
+        String idUser = "U" + Calendar.getInstance().getTime().getTime();
         nameFactory  = edt_NameFactory_SU.getText().toString().trim();
         // Chuyển dữ liệu qua signUpPresenter
         user.setName(name);
@@ -140,6 +132,7 @@ public class SignUpActivity extends AppCompatActivity implements ChoiceType_Adap
         user.setPassWord(passWord);
         user.setIdRole(idRole);
         user.setIdUser(idUser);
+        user.setIdOwner(idUser);
 
         if (name.isEmpty() || phone.isEmpty() || passWord.isEmpty() || passWordConfirm.isEmpty() || idRole == 0 )
         {
@@ -227,7 +220,7 @@ public class SignUpActivity extends AppCompatActivity implements ChoiceType_Adap
 
     private void signUpUser() {
         // Call API - Insert User
-        Common.api.signUpUser(phone, user.getIdUser(), name, passWord, user.isAccept(),idRole,idTypeFactory,nameFactory)
+        Common.api.signUpUser(phone, user.getIdUser(), name, passWord, user.isAccept(),idRole,idTypeFactory,nameFactory, user.getIdOwner())
                 .enqueue(new Callback<ResponsePOST>() {
                     @Override
                     public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {

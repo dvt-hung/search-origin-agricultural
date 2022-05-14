@@ -2,9 +2,11 @@ package com.example.apptxng.presenter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.apptxng.R;
 import com.example.apptxng.model.Common;
 import com.example.apptxng.model.ResponsePOST;
 import com.example.apptxng.model.User;
@@ -33,7 +35,7 @@ public class Account_Presenter {
                 .enqueue(new Callback<List<User>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<User>> call, @NonNull Response<List<User>> response) {
-                            iAccount.listManagerAccount(response.body());
+                            iAccount.listAccount(response.body());
                             dialog.dismiss();
                     }
 
@@ -46,7 +48,6 @@ public class Account_Presenter {
     }
 
     public synchronized void updateAcceptUser(String idUser, int accept){
-
         // Create progress dialog
         ProgressDialog progressDialog = Common.createProgress(context);
         progressDialog.show();
@@ -64,7 +65,6 @@ public class Account_Presenter {
                         {
                             iAccount.failedMessage(responsePOST.getMessage());
                         }
-                        getListManagerAccount();
                         progressDialog.dismiss();
                     }
 
@@ -114,5 +114,85 @@ public class Account_Presenter {
                         }
                     });
         }
+    }
+
+    public synchronized void getListEmployeeAccount(String idOwner)
+    {
+        ProgressDialog dialog = Common.createProgress(context);
+        dialog.show();
+        Common.api.getListEmployee(idOwner)
+                .enqueue(new Callback<List<User>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<User>> call, @NonNull Response<List<User>> response) {
+                        iAccount.listAccount(response.body());
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<User>> call, @NonNull Throwable t) {
+                        iAccount.exception(t.getMessage());
+                        dialog.dismiss();
+                    }
+                });
+    }
+
+    // Sign Up
+    public synchronized void signUpUser(User user, String passWordConfirm, int idTypeFactory, String nameFactory)
+    {
+        if (user.getName().isEmpty() || user.getPhone().isEmpty() || user.getPassWord().isEmpty()
+                || user.getIdRole() == 0 || user.getIdUser().isEmpty() || passWordConfirm.isEmpty())
+        {
+            iAccount.emptyValue();
+        }
+        else if (user.checkLengthPassword()) {
+            iAccount.inCorrectPassLength();
+
+        }
+        else if (!user.checkConfirmPassword(passWordConfirm)) {
+            iAccount.inCorrectPassConfirm();
+
+        }
+        else if (user.getIdRole() == 3 && nameFactory.isEmpty())
+        {
+            iAccount.emptyValue();
+        }
+        else if (user.getIdRole() == 2 && idTypeFactory == 0 && nameFactory.isEmpty() )
+        {
+            iAccount.emptyValue();
+
+        }
+        else {
+            // Tạo progress dialog
+            ProgressDialog progressDialog = new ProgressDialog(context);
+            progressDialog.setMessage("Vui lòng đợi...");
+            progressDialog.show();
+
+            Common.api.signUpUser(user.getPhone(), user.getIdUser(), user.getName(),user.getPassWord(),user.isAccept(),user.getIdRole(),idTypeFactory,nameFactory, user.getIdOwner())
+                    .enqueue(new Callback<ResponsePOST>() {
+                        @Override
+                        public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
+                            ResponsePOST responsePOST = response.body();
+                            assert responsePOST != null;
+                            if (responsePOST.getStatus() == 0)
+                            {
+                                iAccount.failedMessage(responsePOST.getMessage());
+                            }
+                            else
+                            {
+                                iAccount.successMessage(responsePOST.getMessage());
+                            }
+                            progressDialog.dismiss();
+
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
+                            iAccount.exception(t.getMessage());
+                            progressDialog.dismiss();
+                        }
+                    });
+        }
+
+
     }
 }

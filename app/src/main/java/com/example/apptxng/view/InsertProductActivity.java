@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -33,6 +35,7 @@ import com.example.apptxng.model.Balance;
 import com.example.apptxng.model.Category;
 import com.example.apptxng.model.Common;
 import com.example.apptxng.model.Product;
+import com.example.apptxng.model.User;
 import com.example.apptxng.presenter.IInsertProduct;
 import com.example.apptxng.presenter.Insert_Product_Presenter;
 import com.karumi.dexter.Dexter;
@@ -48,6 +51,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class InsertProductActivity extends AppCompatActivity implements ChoiceType_Adapter.IListenerChoiceType, IInsertProduct {
 
 
@@ -55,7 +62,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
     private EditText edt_Name_InsertProduct,edt_Price_InsertProduct,edt_Des_InsertProduct,edt_Quantity_InsertProduct;
 
     private TextView txt_ChoiceCategory_InsertProduct,txt_ResultCategory_InsertProduct, txt_ChoiceBalance_InsertProduct,txt_ResultBalance_InsertProduct
-    ,txt_IngredientProduct, txt_UseProduct,  txt_GuideProduct, txt_ConditionProduct;
+    ,txt_IngredientProduct, txt_UseProduct,  txt_GuideProduct, txt_ConditionProduct, txt_ChoiceEmployee_InsertProduct, txt_ResultEmployee_InsertProduct;
 
     @SuppressLint("StaticFieldLeak")
     public static TextView txt_Result_IngredientProduct,txt_Result_UseProduct,txt_Result_GuideProduct,txt_Result_ConditionProduct;
@@ -65,8 +72,8 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
     private Insert_Product_Presenter insertProductPresenter;
     private List<Category> typeCategoryList = new ArrayList<>() ;
     private List<Balance> typeBalanceList = new ArrayList<>() ;
+    private List<User> listEmployee = new ArrayList<>() ;
     private Product product;
-    private ProgressDialog progressAddProduct;
     private String idProduct;
     private final String TITLE_INGREDIENT_I   = "TITLE_INGREDIENT_I";
     private final String TITLE_USE_I          = "TITLE_USE_I";
@@ -115,12 +122,14 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         txt_Result_GuideProduct             = findViewById(R.id.txt_Result_GuideProduct);
         txt_ConditionProduct                = findViewById(R.id.txt_ConditionProduct);
         txt_Result_ConditionProduct         = findViewById(R.id.txt_Result_ConditionProduct);
+        txt_ChoiceEmployee_InsertProduct    = findViewById(R.id.txt_ChoiceEmployee_InsertProduct);
+        txt_ResultEmployee_InsertProduct    = findViewById(R.id.txt_ResultEmployee_InsertProduct);
 
         // Adapter + Presenter
         product                             = new Product();
         choiceTypeAdapter                   = new ChoiceType_Adapter(this);
         insertProductPresenter              = new Insert_Product_Presenter(this, this);
-        progressAddProduct                  = new ProgressDialog(this);
+
 
     }
 
@@ -255,6 +264,17 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
                 startActivity(intentCondition);
             }
         });
+
+        /*
+        * 10. txt_ChoiceEmployee_InsertProduct: Mở dialog lựa chọn nhân viên phụ trách
+        *
+        * */
+        txt_ChoiceEmployee_InsertProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogChoiceEmployee();
+            }
+        });
     }
 
     // FUN THÊM SẢN PHẨM
@@ -270,7 +290,6 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         String use          = txt_Result_UseProduct.getText().toString().trim();
         String guide        = txt_Result_GuideProduct.getText().toString().trim();
         String condition    = txt_Result_ConditionProduct.getText().toString().trim();
-
 
 
         // Kiểm tra dữ liễu quan trọng có rỗng hay không
@@ -301,6 +320,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
             product.setDateProduct(dateProduct); // Set ngày cho Product
 
             // Gọi đến presenter
+            Log.e("a", "insertProduct: " + product.getIdEmployee() );
             insertProductPresenter.insertProduct(product);
         }
 
@@ -311,6 +331,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
     private void loadListChoiceType() {
         insertProductPresenter.getCategory();
         insertProductPresenter.getBalance();
+        getListEmployeeAccount(Common.currentUser.getIdUser());
     }
 
     // Dialog: Chọn danh mục cho sản phẩm
@@ -375,6 +396,39 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         choiceTypeAdapter.setList(typeBalanceList);
     }
 
+    // Dialog: Chọn nhân viên phụ trách
+    private void showDialogChoiceEmployee() {
+        dialogChoiceCategory = new Dialog(this);
+        dialogChoiceCategory.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogChoiceCategory.setContentView(R.layout.dialog_bottom_choice_type);
+        Window window = dialogChoiceCategory.getWindow();
+
+        if (window != null)
+        {
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            window.setGravity(Gravity.BOTTOM);
+        }
+
+        // Khởi tạo ảnh xạ view cho dialog + Khởi tạo adapter
+        RecyclerView recycler_Choice_Type = dialogChoiceCategory.findViewById(R.id.recycler_Choice_Type);
+        TextView txt_Title_Choice_Type      = dialogChoiceCategory.findViewById(R.id.txt_Title_Choice_Type);
+
+        txt_Title_Choice_Type.setText(R.string.choice_balance_product);
+
+        // gán adapter cho recycler view
+        recycler_Choice_Type.setAdapter(choiceTypeAdapter);
+
+        // tạo layout manager cho recycler view
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
+        recycler_Choice_Type.setLayoutManager(layoutManager);
+
+        dialogChoiceCategory.show();
+
+        choiceTypeAdapter.setList(listEmployee);
+    }
+
+
     // Check permission: Kiểm tra quyền truy cập vào thư viện ảnh
     private void checkPermissionOpenGallery() {
         Dexter.withContext(this).withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -420,8 +474,15 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
             txt_ResultBalance_InsertProduct.setVisibility(View.VISIBLE);
             txt_ResultBalance_InsertProduct.setText(product.getBalance().getNameBalance());
         }
+        else if (obj.getClass() == User.class)
+        {
+            User employee = (User) obj;
+            product.setIdEmployee(employee.getIdUser());
+            txt_ResultEmployee_InsertProduct.setVisibility(View.VISIBLE);
+            txt_ResultEmployee_InsertProduct.setText(employee.getName());
+        }
 
-        dialogChoiceCategory.cancel();
+        dialogChoiceCategory.dismiss();
     }
 
     // OVERRIDE METHOD INTERFACE: INSERT PRODUCT
@@ -459,5 +520,25 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
     @Override
     public void addProductFailed(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public synchronized void getListEmployeeAccount(String idOwner)
+    {
+        ProgressDialog dialog = Common.createProgress(InsertProductActivity.this);
+        dialog.show();
+        Common.api.getListEmployee(idOwner)
+                .enqueue(new Callback<List<User>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<User>> call, @NonNull Response<List<User>> response) {
+                        listEmployee = response.body();
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<User>> call, @NonNull Throwable t) {
+                        Toast.makeText(InsertProductActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
     }
 }

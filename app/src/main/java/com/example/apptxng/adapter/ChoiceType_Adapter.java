@@ -14,6 +14,7 @@ import com.example.apptxng.R;
 import com.example.apptxng.model.Balance;
 import com.example.apptxng.model.Category;
 import com.example.apptxng.model.TypeFactory;
+import com.example.apptxng.model.User;
 
 import java.util.List;
 
@@ -81,6 +82,18 @@ public class ChoiceType_Adapter extends RecyclerView.Adapter<ChoiceType_Adapter.
                 @Override
                 public void onClick(View view) {
                     iListenerChoiceType.onClickChoiceType(typeFactory);
+                }
+            });
+        }
+        else if (list.get(position).getClass() == User.class)
+        {
+            User user = (User) list.get(position);
+            holder.radioChoiceType.setText(user.getName());
+
+            holder.radioChoiceType.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    iListenerChoiceType.onClickChoiceType(user);
                 }
             });
         }

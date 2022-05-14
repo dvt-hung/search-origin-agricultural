@@ -47,7 +47,6 @@ public class Customer_Account_Admin_Adapter extends RecyclerView.Adapter<Custome
     @Override
     public void onBindViewHolder(@NonNull AccountCustomerViewHolder holder, int position) {
         User userCustomer = listAccountCustomer.get(position);
-
         if (userCustomer != null)
         {
             holder.txt_Name_Customer_Account.setText(userCustomer.getName());

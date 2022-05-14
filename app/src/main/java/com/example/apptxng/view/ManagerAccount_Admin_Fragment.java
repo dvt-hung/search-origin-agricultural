@@ -156,7 +156,7 @@ public class ManagerAccount_Admin_Fragment extends Fragment implements Manager_A
     }
 
     @Override
-    public void listManagerAccount(List<User> managerAccounts) {
+    public void listAccount(List<User> managerAccounts) {
             managerAdapter.setListManager(managerAccounts);
     }
 
@@ -187,6 +187,11 @@ public class ManagerAccount_Admin_Fragment extends Fragment implements Manager_A
 
     @Override
     public void inCorrectPassConfirm() {
+
+    }
+
+    @Override
+    public void emptyValue() {
 
     }
 

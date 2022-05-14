@@ -11,6 +11,7 @@ public class Product implements Serializable {
     private int quantityProduct;
     private int quantitySold;
     private String idUser;
+    private String idEmployee;
     private Category category;
     private Balance balance;
     private String dateProduct;
@@ -36,6 +37,15 @@ public class Product implements Serializable {
         this.category = category;
         this.balance = balance;
         this.dateProduct = dateProduct;
+    }
+
+
+    public String getIdEmployee() {
+        return idEmployee;
+    }
+
+    public void setIdEmployee(String idEmployee) {
+        this.idEmployee = idEmployee;
     }
 
     public String getIngredientProduct() {

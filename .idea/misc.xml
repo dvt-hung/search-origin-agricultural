@@ -20,10 +20,12 @@
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/retangle_qr.xml" value="0.1" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/top_dialog.xml" value="0.26205128205128203" />
         <entry key="..\:/App_TXNG/app/src/main/res/drawable/top_signup.xml" value="0.264" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_account_employee.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_admin.xml" value="0.2" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_banner.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_change_info_factory.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_change_info_farmer.xml" value="0.264" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_create_employee.xml" value="0.2359375" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_create_qrcode.xml" value="0.2" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_customer.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_detail_history.xml" value="0.264" />
@@ -118,6 +120,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_sign_up.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_sign_up_customer.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_sign_up_enterprise.xml" value="0.264" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/item_account.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_account_customer.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_balance_admin.xml" value="0.4" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/item_banner.xml" value="0.264" />

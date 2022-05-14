@@ -52,6 +52,7 @@ public class EnterVerifyActivity extends AppCompatActivity {
     
         // Nhận User
         userTemp = (User) getIntent().getExtras().getSerializable("user");
+
         // Nhận idTypeFactory
         idTypeFactory = getIntent().getIntExtra("idTypeFactory", 0);
 
@@ -201,7 +202,7 @@ public class EnterVerifyActivity extends AppCompatActivity {
 
     private void signUpUser() {
         // Call API - Insert User
-        Common.api.signUpUser(phone, userTemp.getIdUser(), userTemp.getName(), userTemp.getPassWord(), userTemp.isAccept(), userTemp.getIdRole(), idTypeFactory,nameFactory)
+        Common.api.signUpUser(phone, userTemp.getIdUser(), userTemp.getName(), userTemp.getPassWord(), userTemp.isAccept(), userTemp.getIdRole(), idTypeFactory,nameFactory, userTemp.getIdOwner())
                 .enqueue(new Callback<ResponsePOST>() {
                     @Override
                     public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {

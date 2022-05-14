@@ -7,7 +7,6 @@
     android:layout_margin="15dp"
     >
 
-
     <RelativeLayout
         android:id="@+id/toolbar_Setting_Admin"
         android:layout_width="match_parent"
@@ -55,7 +54,7 @@
             android:layout_marginTop="30dp"
             android:layout_toEndOf="@id/title_email"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <!--     2   -->
 
@@ -83,7 +82,7 @@
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/title_name"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
         <!--        3 -->
 
         <TextView
@@ -109,7 +108,7 @@
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/title_email"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
         <!--        4 -->
 
 
@@ -139,7 +138,7 @@
             android:layout_marginBottom="30dp"
             android:layout_toEndOf="@id/title_address"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
 

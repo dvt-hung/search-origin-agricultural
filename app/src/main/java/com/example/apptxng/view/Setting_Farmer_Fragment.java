@@ -35,7 +35,7 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
     private Account_Presenter accountPresenter;
     private View viewSetting;
     private TextView  txt_Error_ChangePassword_Dialog;
-    private LinearLayout layout_Info_Setting_Farmer,layout_Password_Setting_Farmer, layout_Factory_Setting_Farmer, layout_LogOut_Setting_Farmer;
+    private LinearLayout layout_Info_Setting_Farmer,layout_Password_Setting_Farmer, layout_Factory_Setting_Farmer, layout_LogOut_Setting_Farmer, layout_Employee_Setting_Farmer;
     private Dialog dialogSettingFarmer;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +54,7 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
         layout_Password_Setting_Farmer      = viewSetting.findViewById(R.id.layout_Password_Setting_Farmer);
         layout_Factory_Setting_Farmer       = viewSetting.findViewById(R.id.layout_Factory_Setting_Farmer);
         layout_LogOut_Setting_Farmer        = viewSetting.findViewById(R.id.layout_LogOut_Setting_Farmer);
+        layout_Employee_Setting_Farmer      = viewSetting.findViewById(R.id.layout_Employee_Setting_Farmer);
         accountPresenter                    = new Account_Presenter(this, requireActivity());
     }
 
@@ -104,6 +105,14 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
             @Override
             public void onClick(View view) {
                 showDialogSignOut();
+            }
+        });
+
+        // 5. Employees: Quản lí danh sách nhân viên
+        layout_Employee_Setting_Farmer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(requireActivity(), AccountEmployeeActivity.class));
             }
         });
     }
@@ -211,7 +220,7 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
     }
 
     @Override
-    public void listManagerAccount(List<User> managerAccounts) {
+    public void listAccount(List<User> managerAccounts) {
 
     }
 
@@ -241,6 +250,11 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
     public void inCorrectPassConfirm() {
         txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
         txt_Error_ChangePassword_Dialog.setText(R.string.inCorrectPassConfirm);
+    }
+
+    @Override
+    public void emptyValue() {
+
     }
 
     @Override

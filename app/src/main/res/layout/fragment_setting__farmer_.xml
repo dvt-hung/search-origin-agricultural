@@ -98,6 +98,31 @@
             android:textSize="16sp" />
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/layout_Employee_Setting_Farmer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_Password_Setting_Farmer"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_employees" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/title_employee"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/layout_LogOut_Setting_Farmer"
         android:layout_width="match_parent"
@@ -120,5 +145,8 @@
             android:text="@string/title_log_out"
             android:textColor="@color/black"
             android:textSize="16sp" />
+
+
+
     </LinearLayout>
 </RelativeLayout>

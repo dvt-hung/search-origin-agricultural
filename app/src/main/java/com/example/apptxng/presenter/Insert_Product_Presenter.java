@@ -94,6 +94,7 @@ public class Insert_Product_Presenter {
         RequestBody useProduct              = RequestBody.create(MediaType.parse("multipart/form-data"),valueEmpty(product.getUseProduct()));
         RequestBody guideProduct            = RequestBody.create(MediaType.parse("multipart/form-data"),valueEmpty(product.getGuideProduct()));
         RequestBody conditionProduct        = RequestBody.create(MediaType.parse("multipart/form-data"),valueEmpty(product.getConditionProduct()));
+        RequestBody idEmployee              = RequestBody.create(MediaType.parse("multipart/form-data"),valueEmpty(product.getIdEmployee()));
 
         RequestBody requestBodyImage        = RequestBody.create(MediaType.parse("multipart/form-data"),file);
         MultipartBody.Part requestPartImage = MultipartBody.Part.createFormData("imageProduct", nameProductNew,requestBodyImage);
@@ -104,7 +105,7 @@ public class Insert_Product_Presenter {
 
         // Call API
         Common.api.addProduct(idProduct,nameProduct,priceProduct,descriptionProduct,quantityProduct, idUser,
-                idCategory, idBalance, dateProduct,ingredientProduct, useProduct, guideProduct, conditionProduct, requestPartImage)
+                idCategory, idBalance, idEmployee,dateProduct,ingredientProduct, useProduct, guideProduct, conditionProduct, requestPartImage)
                 .enqueue(new Callback<ResponsePOST>() {
                     @Override
                     public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {

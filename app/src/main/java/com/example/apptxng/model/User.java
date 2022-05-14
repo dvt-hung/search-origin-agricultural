@@ -13,6 +13,7 @@ public class User implements Serializable {
     private String address;
     private int accept;
     private int idRole;
+    private String idOwner;
     private String name;
     private ResponsePOST response;
     public User() {
@@ -35,7 +36,7 @@ public class User implements Serializable {
     // Check length password
     public boolean checkLengthPassword()
     {
-        return this.passWord.length() > 6;
+        return this.passWord.length() < 6;
     }
 
     // Check confirm password
@@ -61,6 +62,15 @@ public class User implements Serializable {
     }
 
     // Getter, Setter
+
+
+    public String getIdOwner() {
+        return idOwner;
+    }
+
+    public void setIdOwner(String idOwner) {
+        this.idOwner = idOwner;
+    }
 
     public ResponsePOST getResponse() {
         return response;

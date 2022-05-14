@@ -231,7 +231,6 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="20sp"
                 android:padding="8dp"
-                android:text="@string/choice_category_product"
                 android:textSize="15sp"
                 android:visibility="gone"
                 />
@@ -254,7 +253,6 @@
                 android:id="@+id/txt_ResultBalance_InsertProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/choice_category_product"
                 android:layout_marginStart="20sp"
                 android:layout_marginEnd="20sp"
                 android:layout_marginTop="5dp"
@@ -263,7 +261,33 @@
                 android:visibility="gone"
 
                 />
-<!--            1 -->
+
+            <TextView
+                android:id="@+id/txt_ChoiceEmployee_InsertProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20sp"
+                android:gravity="center_vertical"
+                android:text="@string/choice_employee_product"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:padding="8dp"
+                app:drawableEndCompat="@drawable/ic_right" />
+
+            <TextView
+                android:id="@+id/txt_ResultEmployee_InsertProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginEnd="20sp"
+                android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:padding="8dp"
+                android:visibility="gone"
+                />
+<!--            1   -->
             <TextView
                 android:id="@+id/txt_IngredientProduct"
                 android:layout_width="match_parent"

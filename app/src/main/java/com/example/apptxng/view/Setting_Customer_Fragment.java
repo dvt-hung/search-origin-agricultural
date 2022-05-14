@@ -194,7 +194,7 @@ public class Setting_Customer_Fragment extends Fragment implements IAccount {
     }
 
     @Override
-    public void listManagerAccount(List<User> managerAccounts) {
+    public void listAccount(List<User> managerAccounts) {
 
     }
 
@@ -224,6 +224,11 @@ public class Setting_Customer_Fragment extends Fragment implements IAccount {
     public void inCorrectPassConfirm() {
         txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
         txt_Error_ChangePassword_Dialog.setText(R.string.inCorrectPassConfirm);
+    }
+
+    @Override
+    public void emptyValue() {
+
     }
 
     @Override
