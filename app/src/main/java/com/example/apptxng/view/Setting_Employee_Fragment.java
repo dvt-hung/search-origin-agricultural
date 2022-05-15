@@ -27,90 +27,81 @@ import com.example.apptxng.presenter.IAccount;
 
 import java.util.List;
 
-public class Setting_Manager_Fragment extends Fragment implements IAccount {
 
-    private LinearLayout layout_Info_Setting_Manager, layout_Password_Setting_Manager, layout_LogOut_Setting_Manager,layout_Employee_Setting_Manager;
-    private TextView txt_Error_ChangePassword_Dialog;
+public class Setting_Employee_Fragment extends Fragment implements IAccount {
+
+    private LinearLayout layout_Info_Setting_Employee,layout_Password_Setting_Employee, layout_LogOut_Setting_Employee;
     private Account_Presenter accountPresenter;
-
+    private Dialog dialogSettingEmployee;
+    private TextView txt_Error_ChangePassword_Dialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_setting__manager_, container, false);
-        initView(view);
-        return view;
+        View viewSetting =  inflater.inflate(R.layout.fragment_setting__employee_, container, false);
+
+        initView(viewSetting);
+
+        return viewSetting;
     }
 
-    private void initView(View view) {
-        layout_Info_Setting_Manager         = view.findViewById(R.id.layout_Info_Setting_Manager);
-        layout_Password_Setting_Manager     = view.findViewById(R.id.layout_Password_Setting_Manager);
-        layout_LogOut_Setting_Manager       = view.findViewById(R.id.layout_LogOut_Setting_Manager);
-        layout_Employee_Setting_Manager     = view.findViewById(R.id.layout_Employee_Setting_Manager);
-        accountPresenter                    = new Account_Presenter(this,requireActivity());
+    private void initView(View viewSetting) {
+        layout_Info_Setting_Employee            = viewSetting.findViewById(R.id.layout_Info_Setting_Employee);
+        layout_Password_Setting_Employee        = viewSetting.findViewById(R.id.layout_Password_Setting_Employee);
+        layout_LogOut_Setting_Employee          = viewSetting.findViewById(R.id.layout_LogOut_Setting_Employee);
+        accountPresenter                        = new Account_Presenter(this,requireActivity());
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
+        
+        initEvents();
+    }
 
-        /*
-        * 1. Info: Chuyển sáng activity quản lý thông tin của cơ sở
-        * 2. Password: Mở dialog thay đổi mật khẩu
-        * 3. LogOut: Mở dialog xác nhận
-        *
-        * */
+    private void initEvents() {
 
-        // 1. Info Layout
-        layout_Info_Setting_Manager.setOnClickListener(new View.OnClickListener() {
+        // 1. Info Setting: Chuyển sang activity quản lý thông tin cá nhân
+        layout_Info_Setting_Employee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(requireActivity(),FactoryActivity.class));
+                startActivity(new Intent(requireActivity(), InformationActivity.class));
+
             }
         });
 
-        // 2. Change password layout
-        layout_Password_Setting_Manager.setOnClickListener(new View.OnClickListener() {
+        // 2. Change password: Mở dialog thay đổi mật khẩu
+        layout_Password_Setting_Employee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialogChangePassword();
             }
         });
 
-        // 3. Log out layout
-        layout_LogOut_Setting_Manager.setOnClickListener(new View.OnClickListener() {
+        // 3. Log out: Mở dialog xác nhận đăng xuất tài khoản
+        layout_LogOut_Setting_Employee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialogSignOut();
             }
         });
-
-
-        // 4. Employee
-        layout_Employee_Setting_Manager.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(requireActivity(),AccountEmployeeActivity.class));
-            }
-        });
-
     }
 
     // Dialog đăng xuất
     private void showDialogSignOut() {
-
-        Dialog dialogLogOut = new Dialog(requireActivity());
-        dialogLogOut.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogLogOut.setContentView(R.layout.dialog_sign_out);
-        dialogLogOut.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
-        dialogLogOut.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogSettingEmployee = new Dialog(requireActivity());
+        dialogSettingEmployee.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogSettingEmployee.setContentView(R.layout.dialog_sign_out);
+        dialogSettingEmployee.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogSettingEmployee.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
         // Khai báo, ánh xạ view trong dialog sign out
-        Button btn_Cancel_SignOut_Dialog    = dialogLogOut.findViewById(R.id.btn_Cancel_SignOut_Dialog);
-        Button btn_Confirm_SignOut_Dialog   = dialogLogOut.findViewById(R.id.btn_Confirm_SignOut_Dialog);
+        Button btn_Cancel_SignOut_Dialog    = dialogSettingEmployee.findViewById(R.id.btn_Cancel_SignOut_Dialog);
+        Button btn_Confirm_SignOut_Dialog   = dialogSettingEmployee.findViewById(R.id.btn_Confirm_SignOut_Dialog);
 
-        dialogLogOut.show();
+        dialogSettingEmployee.show();
 
         /*
          * 1. Khi chọn vào Cancel Button: đóng dialog
@@ -121,7 +112,8 @@ public class Setting_Manager_Fragment extends Fragment implements IAccount {
         btn_Cancel_SignOut_Dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogLogOut.dismiss();
+                dialogSettingEmployee.dismiss();
+
             }
         });
 
@@ -130,33 +122,36 @@ public class Setting_Manager_Fragment extends Fragment implements IAccount {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(requireActivity(),LoginActivity.class));
-                Common.currentUser = null;
                 requireActivity().finishAffinity();
+                Common.currentUser = null;
+                dialogSettingEmployee.dismiss();
+
             }
         });
     }
+
 
     // Dialog đổi mật khẩu
     private void showDialogChangePassword() {
 
         // Khởi tạo dialog
-        Dialog dialogPassword = new Dialog(requireActivity());
-        dialogPassword.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogPassword.setContentView(R.layout.dialog_change_password);
-        dialogPassword.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
-        dialogPassword.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogSettingEmployee = new Dialog(requireActivity());
+        dialogSettingEmployee.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogSettingEmployee.setContentView(R.layout.dialog_change_password);
+        dialogSettingEmployee.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogSettingEmployee.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         // Khai báo, ánh xạ view trong dialog
 
-        EditText edt_Password_Old_Dialog            = dialogPassword.findViewById(R.id.edt_Password_Old_Dialog);
-        EditText edt_Password_New_Dialog            = dialogPassword.findViewById(R.id.edt_Password_New_Dialog);
-        EditText edt_Password_NewConfirm_Dialog     = dialogPassword.findViewById(R.id.edt_Password_NewConfirm_Dialog);
-        txt_Error_ChangePassword_Dialog             = dialogPassword.findViewById(R.id.txt_Error_ChangePassword_Dialog);
-        Button btn_Cancel_ChangePassword_Dialog     = dialogPassword.findViewById(R.id.btn_Cancel_ChangePassword_Dialog);
-        Button btn_Confirm_ChangePassword_Dialog    = dialogPassword.findViewById(R.id.btn_Confirm_ChangePassword_Dialog);
+        EditText edt_Password_Old_Dialog            = dialogSettingEmployee.findViewById(R.id.edt_Password_Old_Dialog);
+        EditText edt_Password_New_Dialog            = dialogSettingEmployee.findViewById(R.id.edt_Password_New_Dialog);
+        EditText edt_Password_NewConfirm_Dialog     = dialogSettingEmployee.findViewById(R.id.edt_Password_NewConfirm_Dialog);
+        txt_Error_ChangePassword_Dialog             = dialogSettingEmployee.findViewById(R.id.txt_Error_ChangePassword_Dialog);
+        Button btn_Cancel_ChangePassword_Dialog     = dialogSettingEmployee.findViewById(R.id.btn_Cancel_ChangePassword_Dialog);
+        Button btn_Confirm_ChangePassword_Dialog    = dialogSettingEmployee.findViewById(R.id.btn_Confirm_ChangePassword_Dialog);
 
         // Hiển thị dialog
-        dialogPassword.show();
+        dialogSettingEmployee.show();
 
         /*
          * 1. Khi người dùng click Cancel Button: Tắt dialog
@@ -171,7 +166,7 @@ public class Setting_Manager_Fragment extends Fragment implements IAccount {
         btn_Cancel_ChangePassword_Dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogPassword.dismiss();
+                dialogSettingEmployee.dismiss();
             }
         });
 
@@ -192,13 +187,12 @@ public class Setting_Manager_Fragment extends Fragment implements IAccount {
                 else
                 {
                     accountPresenter.change_Password(passWordOld,passWordNew,passWordNewConfirm);
-                    dialogPassword.dismiss();
                 }
-
             }
         });
     }
 
+    // *********** OVERRIDE METHOD - I.ACCOUNT ***************
     @Override
     public void listAccount(List<User> managerAccounts) {
 
@@ -206,25 +200,26 @@ public class Setting_Manager_Fragment extends Fragment implements IAccount {
 
     @Override
     public void exception(String message) {
-        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void successMessage(String message) {
-        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        dialogSettingEmployee.dismiss();
     }
 
     @Override
     public void failedMessage(String message) {
-        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
+        txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
+        txt_Error_ChangePassword_Dialog.setText(message);
     }
 
     @Override
     public void inCorrectPassOld() {
         txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
         txt_Error_ChangePassword_Dialog.setText(R.string.inCorrectPassOld);
-
-
     }
 
     @Override

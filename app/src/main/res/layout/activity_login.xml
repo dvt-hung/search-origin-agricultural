@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/title_phone"
-            android:text="0123123"
+            android:text="0456456"
             android:layout_marginTop="30dp"
             android:textSize="16sp"
             android:background="@drawable/custom_edittext"

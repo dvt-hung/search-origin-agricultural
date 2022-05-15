@@ -89,9 +89,13 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
             {
                 startActivity(new Intent(LoginActivity.this, FarmerActivity.class));
             }
-            else
+            else if (user.getIdRole() == 4)
             {
                 startActivity(new Intent(LoginActivity.this, CustomerActivity.class));
+            }
+            else
+            {
+                startActivity(new Intent(LoginActivity.this, EmployeeActivity.class));
             }
 
             finishAffinity();

@@ -33,7 +33,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 public class ChangeInfoActivity extends AppCompatActivity implements IChangeInfo_Farmer {
 
     private ImageView img_ChangeInfo_Farmer,img_Back_ChangeInfo_Farmer;
-    private EditText edt_Owner_ChangeInfo_Farmer,edt_Phone_ChangeInfo_Farmer,edt_Address_ChangeInfo_Farmer;
+    private EditText edt_Owner_ChangeInfo_Farmer,edt_Address_ChangeInfo_Farmer, edt_Email_ChangeInfo_Farmer;
     private Button btn_Confirm_ChangeInfo_Farmer;
     private User userTemp;
     private Uri uriChangeInfo;
@@ -64,9 +64,9 @@ public class ChangeInfoActivity extends AppCompatActivity implements IChangeInfo
         img_ChangeInfo_Farmer               = findViewById(R.id.img_ChangeInfo_Farmer);
         img_Back_ChangeInfo_Farmer          = findViewById(R.id.img_Back_ChangeInfo_Farmer);
         edt_Owner_ChangeInfo_Farmer         = findViewById(R.id.edt_Owner_ChangeInfo_Farmer);
-        edt_Phone_ChangeInfo_Farmer         = findViewById(R.id.edt_Phone_ChangeInfo_Farmer);
         edt_Address_ChangeInfo_Farmer       = findViewById(R.id.edt_Address_ChangeInfo_Farmer);
         btn_Confirm_ChangeInfo_Farmer       = findViewById(R.id.btn_Confirm_ChangeInfo_Farmer);
+        edt_Email_ChangeInfo_Farmer         = findViewById(R.id.edt_Email_ChangeInfo_Farmer);
         ChangeInfoPresenter                 = new ChangeInfo_Farmer_Presenter(this,this);
         progressChangeInfo                  = new ProgressDialog(this);
         progressChangeInfo.setMessage("Vui lòng chờ...");
@@ -91,20 +91,20 @@ public class ChangeInfoActivity extends AppCompatActivity implements IChangeInfo
         Glide.with(this).load(userTemp.getImage()).error(R.drawable.logo).into(img_ChangeInfo_Farmer);
 
 
-        //Edit text: Tên chủ vườn
+        //Edit text: Tên
         edt_Owner_ChangeInfo_Farmer.setText(displayValueToEditText(userTemp.getName()));
 
-        //Edit text: điện thoại
-        edt_Phone_ChangeInfo_Farmer.setText(displayValueToEditText(userTemp.getPhone()));
-
-        //Edit text: địa chỉ vườn
+        //Edit text: địa chỉ
         edt_Address_ChangeInfo_Farmer.setText(displayValueToEditText(userTemp.getAddress()));
+
+        //Edit text: email
+        edt_Email_ChangeInfo_Farmer.setText(displayValueToEditText(userTemp.getEmail()));
     }
 
     // Kiểm tra dữ liệu có null hay không. Nếu null thì hiển thị khoảng trắng
     private String displayValueToEditText(String val)
     {
-        if (val == null)
+        if (val == null || val.equals(" "))
         {
             return "";
         }
@@ -135,12 +135,12 @@ public class ChangeInfoActivity extends AppCompatActivity implements IChangeInfo
             @Override
             public void onClick(View view) {
                 String owner        = edt_Owner_ChangeInfo_Farmer.getText().toString().trim();
-                String phone        = edt_Phone_ChangeInfo_Farmer.getText().toString().trim();
                 String address      = edt_Address_ChangeInfo_Farmer.getText().toString().trim();
+                String email        = edt_Email_ChangeInfo_Farmer.getText().toString().trim();
 
                 userTemp.setName(owner);
-                userTemp.setPhone(phone);
                 userTemp.setAddress(address);
+                userTemp.setEmail(email);
 
                 ChangeInfoPresenter.changeInfo_Farmer(userTemp,uriChangeInfo);
                 progressChangeInfo.show();

@@ -195,8 +195,8 @@ public interface API {
         Call<ResponsePOST> changeInfo (
                 @Part("idUser")             RequestBody idUser,
                 @Part("name")               RequestBody name,
-                @Part("phone")              RequestBody phone,
                 @Part("address")            RequestBody address,
+                @Part("email")              RequestBody email,
                 @Part("imageOld")           RequestBody imageOld,
                 @Part MultipartBody.Part    imageNew
         );
@@ -220,6 +220,9 @@ public interface API {
 
         @GET("get_products_by_category.php")
         Call<List<Product>> getProductByCategory(@Query("idCategory") int idCategory);
+
+        @GET("get_product_by_employee.php")
+        Call<List<Product>> getProductByEmployee(@Query("idEmployee") String idEmployee);
     // Insert Product
         @Multipart
         @POST("add_product.php")

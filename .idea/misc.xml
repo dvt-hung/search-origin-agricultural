@@ -23,6 +23,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_account_employee.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_admin.xml" value="0.2" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_banner.xml" value="0.24320652173913043" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_change_info.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_change_info_factory.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_change_info_farmer.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_create_employee.xml" value="0.2359375" />
@@ -32,6 +33,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_detail_product.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_detail_product_customer.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_detail_product_farmer.xml" value="0.264" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_employee.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_enter_verifi.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_enter_verify.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/activity_factory.xml" value="0.264" />
@@ -102,6 +104,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_enterprise_2.xml" value="0.24954710144927536" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_history__product__customer_.xml" value="0.12760416666666666" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_home__customer_.xml" value="0.264" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_home__employee_.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_home__farmer_.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_info__product__customer_.xml" value="0.264" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_login.xml" value="0.2318840579710145" />
@@ -112,9 +115,11 @@
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_product__admin_.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_product__farmer_.xml" value="0.2647058823529412" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_products__admin_.xml" value="0.24320652173913043" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_products__manager.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_products__manager_.xml" value="0.24320652173913043" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_setting__admin_.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_setting__customer_.xml" value="0.24320652173913043" />
+        <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_setting__employee_.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_setting__farmer_.xml" value="0.1903114186851211" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_setting__manager_.xml" value="0.176" />
         <entry key="..\:/App_TXNG/app/src/main/res/layout/fragment_sign_up.xml" value="0.264" />
@@ -144,6 +149,7 @@
         <entry key="..\:/App_TXNG/app/src/main/res/menu/mene_manager.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/menu/menu_admin.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/menu/menu_customer.xml" value="0.25" />
+        <entry key="..\:/App_TXNG/app/src/main/res/menu/menu_employee.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/menu/menu_farmer.xml" value="0.25" />
         <entry key="..\:/App_TXNG/app/src/main/res/menu/menu_manager.xml" value="0.25" />
       </map>

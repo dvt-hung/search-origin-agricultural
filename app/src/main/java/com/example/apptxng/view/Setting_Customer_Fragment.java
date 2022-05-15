@@ -114,8 +114,7 @@ public class Setting_Customer_Fragment extends Fragment implements IAccount {
         btn_Cancel_SignOut_Dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogSettingCustomer.cancel();
-                dialogSettingCustomer = null;
+                dialogSettingCustomer.dismiss();
             }
         });
 
@@ -126,7 +125,7 @@ public class Setting_Customer_Fragment extends Fragment implements IAccount {
                 startActivity(new Intent(requireActivity(),LoginActivity.class));
                 requireActivity().finishAffinity();
                 Common.currentUser = null;
-                dialogSettingCustomer = null;
+                dialogSettingCustomer.dismiss();
             }
         });
     }
@@ -211,7 +210,8 @@ public class Setting_Customer_Fragment extends Fragment implements IAccount {
 
     @Override
     public void failedMessage(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        txt_Error_ChangePassword_Dialog.setVisibility(View.VISIBLE);
+        txt_Error_ChangePassword_Dialog.setText(message);
     }
 
     @Override

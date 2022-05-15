@@ -23,6 +23,9 @@
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.EmployeeActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.CreateEmployeeActivity"
             android:exported="false" />
         <activity

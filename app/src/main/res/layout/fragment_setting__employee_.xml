@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Setting_Manager_Fragment">
+    tools:context=".view.Setting_Employee_Fragment">
+
 
     <RelativeLayout
-        android:id="@+id/toolbar_Setting_Manager"
+        android:id="@+id/layout_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/custom_toolbar">
@@ -16,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/coiny"
-            android:text="@string/setting_manager"
+            android:text="@string/menu_setting_farmer"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -24,36 +25,36 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/layout_Info_Setting_Manager"
+        android:id="@+id/layout_Info_Setting_Employee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_Setting_Manager"
+        android:layout_below="@id/layout_toolbar"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:gravity="center_vertical">
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_factory" />
+            android:src="@drawable/ic_info" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="@string/info_factory"
+            android:text="@string/title_info"
             android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layout_Password_Setting_Manager"
+        android:id="@+id/layout_Password_Setting_Employee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layout_Info_Setting_Manager"
+        android:layout_below="@id/layout_Info_Setting_Employee"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
         android:gravity="center_vertical">
 
@@ -72,40 +73,14 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layout_Employee_Setting_Manager"
+        android:id="@+id/layout_LogOut_Setting_Employee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layout_Password_Setting_Manager"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_employees" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:text="@string/title_employee"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/layout_LogOut_Setting_Manager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginEnd="30dp"
-        android:gravity="center_vertical"
         android:layout_alignParentBottom="true"
-        >
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_vertical">
 
         <ImageView
             android:layout_width="40dp"

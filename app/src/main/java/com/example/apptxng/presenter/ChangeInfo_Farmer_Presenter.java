@@ -1,7 +1,10 @@
 package com.example.apptxng.presenter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
+
+import androidx.annotation.NonNull;
 
 import com.example.apptxng.model.Common;
 import com.example.apptxng.model.ResponsePOST;
@@ -56,15 +59,19 @@ public class ChangeInfo_Farmer_Presenter {
                 imgOld = RequestBody.create(MediaType.parse("multipart/form-data"),user.getImage());
             }
         }
-            RequestBody name                = RequestBody.create(MediaType.parse("multipart/form-data"),user.getName());
-            RequestBody phone               = RequestBody.create(MediaType.parse("multipart/form-data"),user.getPhone());
-            RequestBody address             = RequestBody.create(MediaType.parse("multipart/form-data"),user.getAddress());
+            RequestBody name                = RequestBody.create(MediaType.parse("multipart/form-data"),Common.checkStringValue(user.getName()));
+            RequestBody address             = RequestBody.create(MediaType.parse("multipart/form-data"),Common.checkStringValue(user.getAddress()));
+            RequestBody email             = RequestBody.create(MediaType.parse("multipart/form-data"),Common.checkStringValue(user.getEmail()));
             RequestBody idUser              = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(user.getIdUser()));
 
-            Common.api.changeInfo(idUser,name,phone,address,imgOld,requestPartImage)
+            // Progress dialog
+            ProgressDialog progressDialog = Common.createProgress(context);
+            progressDialog.show();
+
+            Common.api.changeInfo(idUser,name,address,email,imgOld,requestPartImage)
                     .enqueue(new Callback<ResponsePOST>() {
                         @Override
-                        public void onResponse(Call<ResponsePOST> call, Response<ResponsePOST> response) {
+                        public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
                             ResponsePOST result = response.body();
 
                             assert result != null;
@@ -76,11 +83,14 @@ public class ChangeInfo_Farmer_Presenter {
                             {
                                 iChangeInfo_farmer.failed(result.getMessage());
                             }
+                            progressDialog.dismiss();
                         }
 
                         @Override
-                        public void onFailure(Call<ResponsePOST> call, Throwable t) {
+                        public void onFailure(@NonNull Call<ResponsePOST> call, @NonNull Throwable t) {
                             iChangeInfo_farmer.Exception(t.getMessage());
+                            progressDialog.dismiss();
+
                         }
                     });
     }

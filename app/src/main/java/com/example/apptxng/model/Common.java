@@ -136,4 +136,17 @@ public class Common {
             textView.setText(value);
         }
     }
+
+    // Kiểm tra dữ liệu STRING vào để truyền lên API có null hay không
+    public static String checkStringValue(String value)
+    {
+        if (value == null || value.isEmpty() || value.equals(" ") )
+        {
+            return " ";
+        }
+        else
+        {
+            return value;
+        }
+    }
 }

@@ -80,7 +80,6 @@ public class AccountEmployeeActivity extends AppCompatActivity implements Employ
     @Override
     public void onClickAccount(User user) {
         showDetailEmployee(user);
-        Toast.makeText(this, "Show detail user", Toast.LENGTH_SHORT).show();
     }
 
     @Override

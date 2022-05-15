@@ -90,8 +90,7 @@
         android:layout_marginBottom="10dp"
         />
 
-<!--    3 -->
-
+<!--    4   -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -108,28 +107,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_phone"
+            android:text="@string/title_email"
             android:layout_marginStart="3dp"
             android:textColor="@color/black"
             android:textStyle="bold"
             />
     </LinearLayout>
     <EditText
-        android:id="@+id/edt_Phone_ChangeInfo_Farmer"
+        android:id="@+id/edt_Email_ChangeInfo_Farmer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/input_phone_farm"
+        android:hint="@string/title_input_email"
         android:layout_marginTop="10dp"
         android:textSize="16sp"
         android:background="@drawable/custom_edittext"
         android:padding="10dp"
-        android:inputType="number"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="10dp"
         />
 
-<!--    -->
+<!--    5-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

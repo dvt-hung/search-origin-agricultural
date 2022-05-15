@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -54,6 +55,7 @@ public class InformationActivity extends AppCompatActivity {
 
 
     private void displayValue() {
+        Log.e("a", "displayValue: " + Common.currentUser.getImage() );
         Glide.with(this).load(Common.currentUser.getImage()).error(R.drawable.logo).into(img_Farmer_Info);
 
         txt_Email_Info_Farmer.setText(Common.currentUser.displayInfoValueString(Common.currentUser.getEmail()));
