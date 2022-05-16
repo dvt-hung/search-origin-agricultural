@@ -35,12 +35,12 @@ public class Update_Product_Presenter {
         Common.api.getAllCategory()
                 .enqueue(new Callback<List<Category>>() {
                     @Override
-                    public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                    public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
                         iUpdateProduct.getCategory(response.body());
                     }
 
                     @Override
-                    public void onFailure(Call<List<Category>> call, Throwable t) {
+                    public void onFailure(@NonNull Call<List<Category>> call, @NonNull Throwable t) {
                         iUpdateProduct.Exception(t.getMessage());
                     }
                 });
@@ -51,12 +51,12 @@ public class Update_Product_Presenter {
         Common.api.getBalance()
                 .enqueue(new Callback<List<Balance>>() {
                         @Override
-                        public void onResponse(Call<List<Balance>> call, Response<List<Balance>> response) {
+                        public void onResponse(@NonNull Call<List<Balance>> call, @NonNull Response<List<Balance>> response) {
                             iUpdateProduct.getBalance(response.body());
                         }
 
                         @Override
-                        public void onFailure(Call<List<Balance>> call, Throwable t) {
+                        public void onFailure(@NonNull Call<List<Balance>> call, @NonNull Throwable t) {
                             iUpdateProduct.Exception(t.getMessage());
                         }
                     });
@@ -93,6 +93,7 @@ public class Update_Product_Presenter {
         RequestBody quantityProduct         = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getQuantityProduct()));
         RequestBody idCategory              = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getCategory().getIdCategory()));
         RequestBody idBalance               = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getBalance().getIdBalance()));
+        RequestBody idEmployee               = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getIdEmployee()));
         RequestBody idProduct               = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(product.getIdProduct()));
         RequestBody ingredientProduct       = RequestBody.create(MediaType.parse("multipart/form-data"),valueEmpty(product.getIngredientProduct()));
         RequestBody useProduct              = RequestBody.create(MediaType.parse("multipart/form-data"),valueEmpty(product.getUseProduct()));
@@ -100,7 +101,7 @@ public class Update_Product_Presenter {
         RequestBody conditionProduct        = RequestBody.create(MediaType.parse("multipart/form-data"),valueEmpty(product.getConditionProduct()));
 
 
-        Common.api.updateProduct(idProduct,nameProduct,priceProduct,descriptionProduct,quantityProduct,imgOld_Product,idCategory,idBalance,
+        Common.api.updateProduct(idProduct,nameProduct,priceProduct,descriptionProduct,quantityProduct,imgOld_Product,idCategory,idBalance,idEmployee,
                 ingredientProduct,useProduct,guideProduct,conditionProduct,requestPartImage)
                 .enqueue(new Callback<ResponsePOST>() {
                     @Override

@@ -40,6 +40,8 @@ public class Product implements Serializable {
     }
 
 
+
+
     public String getIdEmployee() {
         return idEmployee;
     }

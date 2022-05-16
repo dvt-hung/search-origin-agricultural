@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +33,9 @@ import com.example.apptxng.R;
 import com.example.apptxng.adapter.ChoiceType_Adapter;
 import com.example.apptxng.model.Balance;
 import com.example.apptxng.model.Category;
+import com.example.apptxng.model.Common;
 import com.example.apptxng.model.Product;
+import com.example.apptxng.model.User;
 import com.example.apptxng.presenter.IUpdateProduct;
 import com.example.apptxng.presenter.Update_Product_Presenter;
 import com.karumi.dexter.Dexter;
@@ -45,21 +48,26 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class UpdateProductActivity extends AppCompatActivity implements ChoiceType_Adapter.IListenerChoiceType, IUpdateProduct {
 
     private ImageView img_UpdateProduct,img_Back_UpdateProduct;
     private EditText edt_Name_UpdateProduct, edt_Price_UpdateProduct,edt_Des_UpdateProduct,edt_Quantity_UpdateProduct;
     private TextView txt_ChoiceCategory_UpdateProduct, txt_ResultCategory_UpdateProduct, txt_ChoiceBalance_UpdateProduct, txt_ResultBalance_UpdateProduct,
-            txt_IngredientProduct, txt_UseProduct,  txt_GuideProduct, txt_ConditionProduct;
+            txt_IngredientProduct, txt_UseProduct,  txt_GuideProduct, txt_ConditionProduct,txt_ChoiceEmployee_UpdateProduct,txt_ResultEmployee_UpdateProduct;
 
     @SuppressLint("StaticFieldLeak")
     public static TextView txt_Result_IngredientProduct,txt_Result_UseProduct,txt_Result_GuideProduct,txt_Result_ConditionProduct;
     private Button btn_UpdateProduct;
     private Product product;
-    private Dialog dialogChoiceCategory;
+    private Dialog dialogUpdateProduct;
     private ChoiceType_Adapter choiceTypeAdapter;
     private List<Category> typeCategoryList = new ArrayList<>() ;
     private List<Balance> typeBalanceList = new ArrayList<>() ;
+    private List<User> listEmployee = new ArrayList<>() ;
     private Uri uri_ImageProductTemp;
     private Update_Product_Presenter updateProductPresenter;
     private ProgressDialog progressUpdate;
@@ -68,7 +76,7 @@ public class UpdateProductActivity extends AppCompatActivity implements ChoiceTy
     private final String TITLE_USE_U          = "TITLE_USE_U";
     private final String TITLE_GUIDE_U        = "TITLE_GUIDE_U";
     private final String TITLE_CONDITION_U    = "TITLE_CONDITION_U";
-
+    private final String NON_EMPLOYEE    = "Chưa chỉ định nhân viên quản lý sản phẩm";
 
     private final ActivityResultLauncher<Intent> resultLauncherGallery = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -114,6 +122,8 @@ public class UpdateProductActivity extends AppCompatActivity implements ChoiceTy
         txt_Result_GuideProduct             = findViewById(R.id.txt_Result_GuideProduct);
         txt_ConditionProduct                = findViewById(R.id.txt_ConditionProduct);
         txt_Result_ConditionProduct         = findViewById(R.id.txt_Result_ConditionProduct);
+        txt_ChoiceEmployee_UpdateProduct    = findViewById(R.id.txt_ChoiceEmployee_UpdateProduct);
+        txt_ResultEmployee_UpdateProduct    = findViewById(R.id.txt_ResultEmployee_UpdateProduct);
 
         choiceTypeAdapter                   = new ChoiceType_Adapter(this);
         updateProductPresenter              = new Update_Product_Presenter(this,this);
@@ -121,9 +131,14 @@ public class UpdateProductActivity extends AppCompatActivity implements ChoiceTy
         progressUpdate.setMessage("Vui lòng chờ...");
         // Nhận Product từ Detail chuyển sang
         product = (Product) getIntent().getExtras().getSerializable("product");
+
+        // Lấy thông tin của employee
+
+
         // Hiển thị dữ liệu ban đầu
         displayValue();
     }
+
 
 
     // Hiển thị dữ liệu ban đầu của Product
@@ -150,6 +165,37 @@ public class UpdateProductActivity extends AppCompatActivity implements ChoiceTy
 
         checkValueTextView(txt_Result_ConditionProduct,product.getConditionProduct());
 
+        // Nếu chưa chỉ định nhân viên quản lý sản phẩm thì sẽ ẩn đi
+        if (product.getIdEmployee() == null || product.getIdEmployee().isEmpty() || product.getIdEmployee().equals(" "))
+        {
+            txt_ResultEmployee_UpdateProduct.setText(R.string.title_non_employee);
+        }
+        else
+        {
+            getInfoEmployee();
+        }
+
+    }
+
+    // Lấy thông tin nhân viên quản lí sản phẩm
+    private synchronized void getInfoEmployee() {
+        // Gọi đến API - lấy info user
+        Common.api.getInfoUser(product.getIdEmployee())
+                .enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                        User employee = response.body();
+                        assert employee != null;
+                        txt_ResultEmployee_UpdateProduct.setText(employee.getName());
+
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
+                        Toast.makeText(UpdateProductActivity.this, "Đã có lỗi. Vui lòng thử lại! " , Toast.LENGTH_SHORT).show();
+
+                    }
+                });
     }
 
     // Check value text view
@@ -287,18 +333,31 @@ public class UpdateProductActivity extends AppCompatActivity implements ChoiceTy
                 startActivity(intentCondition);
             }
         });
+
+        /*
+        * 10. Hiển thị dialog lựa chọn nhân viên quản lý
+        *
+        * */
+
+        txt_ChoiceEmployee_UpdateProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogChoiceEmployee();
+            }
+        });
     }
     // LOAD LIST CHOICE TYPE: Tải dữ liệu danh sách các đơn vị tính và danh mục
     private void loadListChoiceType() {
         updateProductPresenter.getCategory();
         updateProductPresenter.getBalance();
+        getListEmployeeAccount(Common.currentUser.getIdUser());
     }
     // Dialog: Chọn danh mục cho sản phẩm
     private void showDialogChoiceCategory() {
-        dialogChoiceCategory = new Dialog(this);
-        dialogChoiceCategory.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogChoiceCategory.setContentView(R.layout.dialog_bottom_choice_type);
-        Window window = dialogChoiceCategory.getWindow();
+        dialogUpdateProduct = new Dialog(this);
+        dialogUpdateProduct.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogUpdateProduct.setContentView(R.layout.dialog_bottom_choice_type);
+        Window window = dialogUpdateProduct.getWindow();
 
         if (window != null)
         {
@@ -308,8 +367,8 @@ public class UpdateProductActivity extends AppCompatActivity implements ChoiceTy
         }
 
         // Khởi tạo ảnh xạ view cho dialog + Khởi tạo adapter
-        RecyclerView recycler_Choice_Type   = dialogChoiceCategory.findViewById(R.id.recycler_Choice_Type);
-        TextView txt_Title_Choice_Type      = dialogChoiceCategory.findViewById(R.id.txt_Title_Choice_Type);
+        RecyclerView recycler_Choice_Type   = dialogUpdateProduct.findViewById(R.id.recycler_Choice_Type);
+        TextView txt_Title_Choice_Type      = dialogUpdateProduct.findViewById(R.id.txt_Title_Choice_Type);
 
         txt_Title_Choice_Type.setText(R.string.choice_category_product);
         // gán adapter cho recycler view
@@ -320,15 +379,15 @@ public class UpdateProductActivity extends AppCompatActivity implements ChoiceTy
         recycler_Choice_Type.setLayoutManager(layoutManager);
 
         choiceTypeAdapter.setList(typeCategoryList);
-        dialogChoiceCategory.show();
+        dialogUpdateProduct.show();
     }
 
     // Dialog: Chọn đơn vị tính cho sản phẩm
     private void showDialogChoiceBalance() {
-        dialogChoiceCategory = new Dialog(this);
-        dialogChoiceCategory.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogChoiceCategory.setContentView(R.layout.dialog_bottom_choice_type);
-        Window window = dialogChoiceCategory.getWindow();
+        dialogUpdateProduct = new Dialog(this);
+        dialogUpdateProduct.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogUpdateProduct.setContentView(R.layout.dialog_bottom_choice_type);
+        Window window = dialogUpdateProduct.getWindow();
 
         if (window != null)
         {
@@ -338,8 +397,8 @@ public class UpdateProductActivity extends AppCompatActivity implements ChoiceTy
         }
 
         // Khởi tạo ảnh xạ view cho dialog + Khởi tạo adapter
-        RecyclerView recycler_Choice_Type = dialogChoiceCategory.findViewById(R.id.recycler_Choice_Type);
-        TextView txt_Title_Choice_Type      = dialogChoiceCategory.findViewById(R.id.txt_Title_Choice_Type);
+        RecyclerView recycler_Choice_Type   = dialogUpdateProduct.findViewById(R.id.recycler_Choice_Type);
+        TextView txt_Title_Choice_Type      = dialogUpdateProduct.findViewById(R.id.txt_Title_Choice_Type);
 
         txt_Title_Choice_Type.setText(R.string.choice_balance_product);
 
@@ -350,7 +409,7 @@ public class UpdateProductActivity extends AppCompatActivity implements ChoiceTy
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         recycler_Choice_Type.setLayoutManager(layoutManager);
 
-        dialogChoiceCategory.show();
+        dialogUpdateProduct.show();
 
         choiceTypeAdapter.setList(typeBalanceList);
     }
@@ -385,6 +444,58 @@ public class UpdateProductActivity extends AppCompatActivity implements ChoiceTy
     }
 
 
+    // Dialog: Chọn nhân viên phụ trách
+    private void showDialogChoiceEmployee() {
+        dialogUpdateProduct = new Dialog(this);
+        dialogUpdateProduct.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogUpdateProduct.setContentView(R.layout.dialog_bottom_choice_type);
+        Window window = dialogUpdateProduct.getWindow();
+
+        if (window != null)
+        {
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            window.setGravity(Gravity.BOTTOM);
+        }
+
+        // Khởi tạo ảnh xạ view cho dialog + Khởi tạo adapter
+        RecyclerView recycler_Choice_Type   = dialogUpdateProduct.findViewById(R.id.recycler_Choice_Type);
+        TextView txt_Title_Choice_Type      = dialogUpdateProduct.findViewById(R.id.txt_Title_Choice_Type);
+
+        txt_Title_Choice_Type.setText(R.string.choice_balance_product);
+
+        // gán adapter cho recycler view
+        recycler_Choice_Type.setAdapter(choiceTypeAdapter);
+
+        // tạo layout manager cho recycler view
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
+        recycler_Choice_Type.setLayoutManager(layoutManager);
+
+        dialogUpdateProduct.show();
+
+        choiceTypeAdapter.setList(listEmployee);
+    }
+    public synchronized void getListEmployeeAccount(String idOwner)
+    {
+        ProgressDialog dialog = Common.createProgress(UpdateProductActivity.this);
+        dialog.show();
+        Common.api.getListEmployee(idOwner)
+                .enqueue(new Callback<List<User>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<User>> call, @NonNull Response<List<User>> response) {
+                        listEmployee = response.body();
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<User>> call, @NonNull Throwable t) {
+                        Toast.makeText(UpdateProductActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+    }
+
+    // ************* OVERRIDE METHOD ******************
     @Override
     public void onClickChoiceType(Object obj) {
         if (obj.getClass() == Category.class)
@@ -396,10 +507,16 @@ public class UpdateProductActivity extends AppCompatActivity implements ChoiceTy
         {
             product.setBalance((Balance) obj);
             txt_ResultBalance_UpdateProduct.setText(product.getBalance().getNameBalance());
-
         }
-        dialogChoiceCategory.cancel();
+        else if (obj.getClass() == User.class)
+        {
+            User employee = (User) obj;
+            product.setIdEmployee(employee.getIdUser());
+            txt_ResultEmployee_UpdateProduct.setText(employee.getName());
+        }
+        dialogUpdateProduct.cancel();
     }
+
 
     @Override
     public void Exception(String message) {

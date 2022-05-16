@@ -68,7 +68,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
     public static TextView txt_Result_IngredientProduct,txt_Result_UseProduct,txt_Result_GuideProduct,txt_Result_ConditionProduct;
     private Button btn_InsertProduct;
     private ChoiceType_Adapter choiceTypeAdapter;
-    private Dialog dialogChoiceCategory;
+    private Dialog dialogInsertProduct;
     private Insert_Product_Presenter insertProductPresenter;
     private List<Category> typeCategoryList = new ArrayList<>() ;
     private List<Balance> typeBalanceList = new ArrayList<>() ;
@@ -336,10 +336,10 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
 
     // Dialog: Chọn danh mục cho sản phẩm
     private void showDialogChoiceCategory() {
-        dialogChoiceCategory = new Dialog(this);
-        dialogChoiceCategory.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogChoiceCategory.setContentView(R.layout.dialog_bottom_choice_type);
-        Window window = dialogChoiceCategory.getWindow();
+        dialogInsertProduct = new Dialog(this);
+        dialogInsertProduct.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogInsertProduct.setContentView(R.layout.dialog_bottom_choice_type);
+        Window window = dialogInsertProduct.getWindow();
 
         if (window != null)
         {
@@ -349,8 +349,8 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         }
 
         // Khởi tạo ảnh xạ view cho dialog + Khởi tạo adapter
-        RecyclerView recycler_Choice_Type   = dialogChoiceCategory.findViewById(R.id.recycler_Choice_Type);
-        TextView txt_Title_Choice_Type      = dialogChoiceCategory.findViewById(R.id.txt_Title_Choice_Type);
+        RecyclerView recycler_Choice_Type   = dialogInsertProduct.findViewById(R.id.recycler_Choice_Type);
+        TextView txt_Title_Choice_Type      = dialogInsertProduct.findViewById(R.id.txt_Title_Choice_Type);
 
         txt_Title_Choice_Type.setText(R.string.choice_category_product);
         // gán adapter cho recycler view
@@ -361,15 +361,15 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         recycler_Choice_Type.setLayoutManager(layoutManager);
 
         choiceTypeAdapter.setList(typeCategoryList);
-        dialogChoiceCategory.show();
+        dialogInsertProduct.show();
     }
 
     // Dialog: Chọn đơn vị tính cho sản phẩm
     private void showDialogChoiceBalance() {
-        dialogChoiceCategory = new Dialog(this);
-        dialogChoiceCategory.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogChoiceCategory.setContentView(R.layout.dialog_bottom_choice_type);
-        Window window = dialogChoiceCategory.getWindow();
+        dialogInsertProduct = new Dialog(this);
+        dialogInsertProduct.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogInsertProduct.setContentView(R.layout.dialog_bottom_choice_type);
+        Window window = dialogInsertProduct.getWindow();
 
         if (window != null)
         {
@@ -379,8 +379,8 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         }
 
         // Khởi tạo ảnh xạ view cho dialog + Khởi tạo adapter
-        RecyclerView recycler_Choice_Type = dialogChoiceCategory.findViewById(R.id.recycler_Choice_Type);
-        TextView txt_Title_Choice_Type      = dialogChoiceCategory.findViewById(R.id.txt_Title_Choice_Type);
+        RecyclerView recycler_Choice_Type   = dialogInsertProduct.findViewById(R.id.recycler_Choice_Type);
+        TextView txt_Title_Choice_Type      = dialogInsertProduct.findViewById(R.id.txt_Title_Choice_Type);
 
         txt_Title_Choice_Type.setText(R.string.choice_balance_product);
 
@@ -391,17 +391,17 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         recycler_Choice_Type.setLayoutManager(layoutManager);
 
-        dialogChoiceCategory.show();
+        dialogInsertProduct.show();
 
         choiceTypeAdapter.setList(typeBalanceList);
     }
 
     // Dialog: Chọn nhân viên phụ trách
     private void showDialogChoiceEmployee() {
-        dialogChoiceCategory = new Dialog(this);
-        dialogChoiceCategory.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogChoiceCategory.setContentView(R.layout.dialog_bottom_choice_type);
-        Window window = dialogChoiceCategory.getWindow();
+        dialogInsertProduct = new Dialog(this);
+        dialogInsertProduct.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogInsertProduct.setContentView(R.layout.dialog_bottom_choice_type);
+        Window window = dialogInsertProduct.getWindow();
 
         if (window != null)
         {
@@ -411,8 +411,8 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         }
 
         // Khởi tạo ảnh xạ view cho dialog + Khởi tạo adapter
-        RecyclerView recycler_Choice_Type = dialogChoiceCategory.findViewById(R.id.recycler_Choice_Type);
-        TextView txt_Title_Choice_Type      = dialogChoiceCategory.findViewById(R.id.txt_Title_Choice_Type);
+        RecyclerView recycler_Choice_Type   = dialogInsertProduct.findViewById(R.id.recycler_Choice_Type);
+        TextView txt_Title_Choice_Type      = dialogInsertProduct.findViewById(R.id.txt_Title_Choice_Type);
 
         txt_Title_Choice_Type.setText(R.string.choice_balance_product);
 
@@ -423,7 +423,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         recycler_Choice_Type.setLayoutManager(layoutManager);
 
-        dialogChoiceCategory.show();
+        dialogInsertProduct.show();
 
         choiceTypeAdapter.setList(listEmployee);
     }
@@ -482,7 +482,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
             txt_ResultEmployee_InsertProduct.setText(employee.getName());
         }
 
-        dialogChoiceCategory.dismiss();
+        dialogInsertProduct.dismiss();
     }
 
     // OVERRIDE METHOD INTERFACE: INSERT PRODUCT

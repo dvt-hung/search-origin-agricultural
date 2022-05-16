@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -23,15 +24,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.apptxng.R;
-import com.example.apptxng.adapter.History_Adapter;
 import com.example.apptxng.model.Common;
-import com.example.apptxng.model.History;
 import com.example.apptxng.model.Product;
 import com.example.apptxng.model.ResponsePOST;
-import com.example.apptxng.presenter.History_Presenter;
-import com.example.apptxng.presenter.IHistory;
-
-import java.util.List;
+import com.example.apptxng.model.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +36,7 @@ import retrofit2.Response;
 public class Detail_Product_Activity extends AppCompatActivity  {
     private ImageView img_Option_Detail_Product,img_Close_Detail_Product,img_Detail_Product, img_QR_Product;
     private TextView txt_Balance_Detail_Product,txt_Name_Detail_Product,txt_Des_Detail_Product,txt_Price_Detail_Product
-            ,txt_Ingredient_Detail_Product,txt_Use_Detail_Product, txt_Guide_Detail_Product, txt_Condition_Detail_Product,txt_Seen_History;
+            ,txt_Ingredient_Detail_Product,txt_Use_Detail_Product, txt_Info_Employee,txt_Guide_Detail_Product, txt_Condition_Detail_Product,txt_Seen_History;
     private Product product;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +62,7 @@ public class Detail_Product_Activity extends AppCompatActivity  {
         txt_Guide_Detail_Product                = findViewById(R.id.txt_Guide_Detail_Product);
         txt_Condition_Detail_Product            = findViewById(R.id.txt_Condition_Detail_Product);
         txt_Seen_History                        = findViewById(R.id.txt_Seen_History);
+        txt_Info_Employee                       = findViewById(R.id.txt_Info_Employee);
     }
 
 
@@ -110,7 +107,18 @@ public class Detail_Product_Activity extends AppCompatActivity  {
                 displayQRCode();
             }
         });
+
+
+        // 6 Info Employee: Hiển dialog thông tin nhân viên đang quản lí sản phẩm
+        txt_Info_Employee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getInfoEmployee();
+            }
+        });
     }
+
+
 
     private void displayQRCode() {
         Dialog dialog = new Dialog(this);
@@ -134,9 +142,15 @@ public class Detail_Product_Activity extends AppCompatActivity  {
     @SuppressLint("SetTextI18n")
     private void displayValueProduct() {
         // Kiểm tra quyền chỉnh sửa product
-        if (!product.getIdUser().equals(Common.currentUser.getIdUser()))
+        if (!product.getIdUser().equals(Common.currentUser.getIdUser()) )
         {
             img_Option_Detail_Product.setVisibility(View.GONE);
+        }
+
+        // Nếu chưa chỉ định nhân viên quản lý sản phẩm thì sẽ ẩn đi
+        if (product.getIdEmployee() == null || product.getIdEmployee().isEmpty() || product.getIdEmployee().equals(" "))
+        {
+            txt_Info_Employee.setVisibility(View.GONE);
         }
 
         // Tên sản phẩm
@@ -209,6 +223,12 @@ public class Detail_Product_Activity extends AppCompatActivity  {
 
         // 1. Insert Ẩn
         btn_InsertHistory_OptionProduct.setVisibility(View.GONE);
+
+        // Nếu người dùng đang đăng sử dụng là loại Nhân viên thì ẩn đi chức năng xóa
+        if (product.getIdEmployee().equals(Common.currentUser.getIdUser()))
+        {
+            btn_Delete_OptionProduct.setVisibility(View.GONE);
+        }
 
         // 2. Update Button
         btn_Update_OptionProduct.setOnClickListener(new View.OnClickListener() {
@@ -297,6 +317,69 @@ public class Detail_Product_Activity extends AppCompatActivity  {
                         });
             }
         });
+    }
+
+    // Lấy thông tin nhân viên quản lí sản phẩm
+    private synchronized void getInfoEmployee() {
+        // Tạo progress dialog
+        ProgressDialog progressDialog = Common.createProgress(this);
+        progressDialog.show();
+        // Gọi đến API - lấy info user
+        Common.api.getInfoUser(product.getIdEmployee())
+                .enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+
+                        User employee = response.body();
+                        if (employee != null)
+                        {
+                            showInfoEmployee(employee);
+                        }
+                        else
+                        {
+                            Toast.makeText(Detail_Product_Activity.this, "Chưa chỉ định nhân viên quản lí", Toast.LENGTH_SHORT).show();
+                        }
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
+                        Toast.makeText(Detail_Product_Activity.this, "Đã có lỗi. Vui lòng thử lại! " , Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+
+                    }
+                });
+    }
+
+
+    // Hiển thi thông tin của nhân viên đang quản lí
+    private void showInfoEmployee(User user) {
+        // Config dialog
+        Dialog dialogInfo = new Dialog(this);
+        dialogInfo.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogInfo.setContentView(R.layout.dialog_info_customer);
+        dialogInfo.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogInfo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // Init view dialog: Ánh xạ view dialog
+        TextView txt_Email          = dialogInfo.findViewById(R.id.txt_Email);
+        TextView txt_Name           = dialogInfo.findViewById(R.id.txt_Name);
+        TextView txt_Phone          = dialogInfo.findViewById(R.id.txt_Phone);
+        TextView txt_Address        = dialogInfo.findViewById(R.id.txt_Address);
+
+        // Set value: Gán giá trị cho text view
+
+        // Email
+        Common.displayValueTextView(txt_Email,user.getEmail());
+        // Name
+        Common.displayValueTextView(txt_Name,user.getName());
+        // Email
+        Common.displayValueTextView(txt_Phone,user.getPhone());
+        // Email
+        Common.displayValueTextView(txt_Address,user.getAddress());
+
+        // Show dialog
+        dialogInfo.show();
     }
 
 }

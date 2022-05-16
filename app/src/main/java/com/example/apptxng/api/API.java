@@ -132,6 +132,10 @@ public interface API {
         @GET("get_list_employee.php")
         Call<List<User>> getListEmployee(@Query("idOwner") String idOwner);
 
+        // Get info user by idUser: Done
+        @GET("get_info_user.php")
+        Call<User> getInfoUser(@Query("idUser") String idUser);
+
     // Update accept user: Done
         @FormUrlEncoded
         @POST("update_accept_user.php")
@@ -204,25 +208,25 @@ public interface API {
     // ******** Product ***********
         // Get Product
         @GET("get_products.php")
-        Call<List<Product>> getProducts(@Query("idUser") String idUser);
+        Call<List<Product>> getProducts(@Query("idUser") String idUser); // Farmer
 
         @GET("get_product.php")
-        Call<Product> getProductByIdProduct(@Query("idProduct") String idProduct);
+        Call<Product> getProductByIdProduct(@Query("idProduct") String idProduct); // Scan
 
         @GET("get_products_manager.php")
-        Call<List<Product>> getProductManager(@Query("idUser") String idUser);
+        Call<List<Product>> getProductManager(@Query("idUser") String idUser); // Manager
 
         @GET("get_products_all.php")
-        Call<List<Product>> getProductAll();
+        Call<List<Product>> getProductAll(); // Admin
 
         @GET("get_products_hot.php")
-        Call<List<Product>> getProductHot();
+        Call<List<Product>> getProductHot(); // Customer
 
         @GET("get_products_by_category.php")
-        Call<List<Product>> getProductByCategory(@Query("idCategory") int idCategory);
+        Call<List<Product>> getProductByCategory(@Query("idCategory") int idCategory); // Customer
 
         @GET("get_product_by_employee.php")
-        Call<List<Product>> getProductByEmployee(@Query("idEmployee") String idEmployee);
+        Call<List<Product>> getProductByEmployee(@Query("idEmployee") String idEmployee); // Employee
     // Insert Product
         @Multipart
         @POST("add_product.php")
@@ -256,6 +260,7 @@ public interface API {
                 @Part("imgOld_Product")     RequestBody imgOld_Product,
                 @Part("idCategory")         RequestBody idCategory,
                 @Part("idBalance")          RequestBody idBalance,
+                @Part("idEmployee")         RequestBody idEmployee,
                 @Part("ingredientProduct")  RequestBody ingredientProduct,
                 @Part("useProduct")         RequestBody useProduct,
                 @Part("guideProduct")       RequestBody guideProduct,

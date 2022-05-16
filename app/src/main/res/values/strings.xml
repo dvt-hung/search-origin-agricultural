@@ -81,6 +81,8 @@
     <string name="title_input_password_old"> Nhập mật khẩu cũ </string>
     <string name="title_password_new"> Mật khẩu mới </string>
     <string name="title_input_password_new"> Nhập mật khẩu mới </string>
+    <string name="title_employee_product"> Nhân viên quản lý </string>
+    <string name="title_non_employee"> Chưa chỉ định nhân viên quản lý sản phẩm </string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

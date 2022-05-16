@@ -152,7 +152,7 @@ public class ScanActivity extends AppCompatActivity {
 
                         //Check type user
                         Intent intent;
-                        if(Common.currentUser.getIdRole() == 4)
+                        if(Common.currentUser.getIdRole() == 4 || Common.currentUser.getIdRole() == 1)
                         {
                             intent = new Intent(ScanActivity.this, Detail_Product_Customer_Activity.class);
                         }
