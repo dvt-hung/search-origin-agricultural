@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -25,6 +26,9 @@ import com.example.apptxng.model.Product;
 import com.example.apptxng.presenter.History_Presenter;
 import com.example.apptxng.presenter.IHistory;
 
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class HistoriesActivity extends AppCompatActivity implements History_Adapter.IListenerHistory, IHistory {
@@ -40,9 +44,13 @@ public class HistoriesActivity extends AppCompatActivity implements History_Adap
 
         // Nhận idProduct
         productTemp = (Product) getIntent().getExtras().getSerializable("product");
+        
+
         // init view: Ánh xạ view
         initView();
     }
+
+
 
     private void initView() {
         img_Close_History_Product           = findViewById(R.id.img_Close_History_Product);
@@ -59,9 +67,15 @@ public class HistoriesActivity extends AppCompatActivity implements History_Adap
         recycler_History.setLayoutManager(layoutManager);
 
         // Kiểm tra quyền thêm lịch sử: Nếu idCurrent bằng với Current User thì được thêm
-        if (!productTemp.getIdCurrent().equals(Common.currentUser.getIdUser()))
+        if (!productTemp.getIdCurrent().equals(Common.currentUser.getIdUser()) )
         {
             img_Insert_History_Product.setVisibility(View.GONE);
+        }
+
+        // Kiểm tra quyền thêm của Nhân viên
+        if(productTemp.getIdEmployee().equals(Common.currentUser.getIdUser()))
+        {
+            img_Insert_History_Product.setVisibility(View.VISIBLE);
         }
     }
 

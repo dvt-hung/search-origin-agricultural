@@ -16,17 +16,25 @@ public class History implements Serializable {
     private String idAuthor;
     private Factory factory;
     private TypeFactory type_factory;
-
+    private Factory factoryReceive;
     public History() {
     }
 
+
+    public Factory getFactoryReceive() {
+        return factoryReceive;
+    }
+
+    public void setFactoryReceive(Factory factoryReceive) {
+        this.factoryReceive = factoryReceive;
+    }
 
     public String getIdAuthor() {
         return idAuthor;
     }
 
-    public void setIdAuthor(String idAuthor) {
-        this.idAuthor = idAuthor;
+    public void setIdAuthor(String idUser) {
+        this.idAuthor = idUser;
     }
 
     public Factory getFactory() {

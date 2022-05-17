@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -63,7 +64,7 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
     private final List<Uri> listPhoto = new ArrayList<>();
     private BottomDialogChoiceFactory choiceFactory;
     private Images_Adapter imagesAdapter;
-
+    private int changeFactory = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,8 +148,9 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
 
                 // Set idAuthor của history
                 historyTemp.setIdAuthor(Common.currentUser.getIdUser());
+
                 // Gọi đến Presenter
-                historyPresenter.InsertHistory(historyTemp,listPhoto);
+                historyPresenter.InsertHistory(historyTemp,listPhoto,changeFactory);
             }
         });
 
@@ -242,7 +244,13 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
                 }
                 else 
                 {
+                    changeFactory = 0;
+                    // Set idFactory
                     historyTemp.setFactory(factoryCurrent);
+
+                    // Set idFactoryReceive
+                    historyTemp.setFactoryReceive(factoryCurrent);
+
                     txt_ResultFactory_History.setVisibility(View.VISIBLE);
                     txt_ResultFactory_History.setText(factoryCurrent.getNameFactory());
                 }
@@ -251,7 +259,6 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
         });
 
     }
-
 
     // Dialog Choice Factory: Mở dialog hiển thị các cơ sở đã liên kết
     private void showDialogChoiceFactory() {
@@ -271,10 +278,12 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
                             assert response.body() != null;
                             for (Factory f : response.body())
                             {
-                                if (f.getIdUser().equals(Common.currentUser.getIdUser()))
+                                if (f.getIdUser().equals(Common.currentUser.getIdUser()) ||
+                                        f.getIdUser().equals(Common.currentUser.getIdOwner()))
                                 {
                                     factoryCurrent = f;
                                     listTemp.remove(f);
+
                                 }
                                 else
                                 {
@@ -290,12 +299,16 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
                             progressDialog.dismiss();
                         }
                     });
+
     }
 
     // Sự kiện khi chọn một cơ sở trong danh sách
     @Override
     public void onClickItemFactory(Factory factory) {
-        historyTemp.setFactory(factory);
+        changeFactory = 1;
+        historyTemp.setFactory(factoryCurrent);
+        historyTemp.setFactoryReceive(factory);
+
         txt_ResultFactory_History.setVisibility(View.VISIBLE);
         txt_ResultFactory_History.setText(factory.getNameFactory());
         choiceFactory.dismiss();
@@ -304,11 +317,22 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
     // OVERRIED METHOD: interface: IHistory
     @Override
     public void successMessage(String message) {
-        Intent intent = new Intent(InsertHistoryActivity.this, Detail_Product_Customer_Activity.class);
-        intent.putExtra("result",true);
-        setResult(RESULT_OK,intent);
+        // Kiểm tra loại người dùng
+        if (Common.currentUser.getIdRole() == 2)
+        {
+            startActivity(new Intent(InsertHistoryActivity.this,ManagerActivity.class));
+        }
+        else if (Common.currentUser.getIdRole() == 3)
+        {
+            startActivity(new Intent(InsertHistoryActivity.this,FarmerActivity.class));
+
+        }
+        else if (Common.currentUser.getIdRole() == 5)
+        {
+            startActivity(new Intent(InsertHistoryActivity.this,EmployeeActivity.class));
+        }
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        finish();
+        finishAffinity();
     }
 
     @Override

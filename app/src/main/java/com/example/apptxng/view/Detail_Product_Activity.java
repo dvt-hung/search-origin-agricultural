@@ -29,6 +29,10 @@ import com.example.apptxng.model.Product;
 import com.example.apptxng.model.ResponsePOST;
 import com.example.apptxng.model.User;
 
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +48,7 @@ public class Detail_Product_Activity extends AppCompatActivity  {
         setContentView(R.layout.activity_detail_product);
         // Get Bundle: Nhận đối tượng product đã truyền qua
         product = (Product) getIntent().getExtras().getSerializable("product");
+
         initView();
     }
 

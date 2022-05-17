@@ -184,6 +184,7 @@
     <string name="choice_factory_history"> Cơ sở hiện tại của sản phẩm </string>
     <string name="choice_factory_history2"> Chọn cơ sở </string>
     <string name="description"> Mô tả của nhật ký</string>
+    <string name="title_author"> Thông tin người tạo nhật ký</string>
     <string name="choice_image_history">Thêm hình ảnh kiểm định </string>
     <string name="empty_factory"> Nhấp vào đây để thêm cơ sở liên kết </string>
     <string name="pick_camera"> Camera </string>

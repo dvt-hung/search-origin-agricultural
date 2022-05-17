@@ -1,10 +1,12 @@
 package com.example.apptxng.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -28,12 +30,16 @@ import com.example.apptxng.model.Common;
 import com.example.apptxng.model.History;
 import com.example.apptxng.model.ImageHistory;
 import com.example.apptxng.model.ResponsePOST;
+import com.example.apptxng.model.User;
 import com.example.apptxng.presenter.History_Presenter;
 import com.example.apptxng.presenter.IHistory;
 import com.example.apptxng.presenter.IImageHistory;
 import com.example.apptxng.presenter.ImageHistory_Presenter;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -48,10 +54,11 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
     private Images_Adapter adapter;
     private ImageHistory_Presenter imageHistoryPresenter;
     private History_Presenter historyPresenter;
-    private TextView txt_Date_History_Detail, txt_Des_History_Detail, txt_TypeFactory_History_Detail,
+    private TextView txt_Info_Author,txt_Date_History_Detail, txt_Des_History_Detail, txt_TypeFactory_History_Detail,
             txt_NameFactory_History_Detail, txt_AddressFactory_History_Detail,txt_PhoneFactory_History_Detail, txt_WebFactory_History_Detail;
     private ImageView img_Back_Detail_History,img_Option_Detail_History;
     private List<ImageHistory> imageHistories;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,11 +70,8 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
         // Nhận history
         historyTemp = (History) getIntent().getExtras().getSerializable("history");
 
-        Log.e("a", "initView: " +  historyTemp.getIdAuthor());
-        Log.e("a", "initView: " +  Common.currentUser.getIdUser());
 
     }
-
     private void initView() {
         RecyclerView recycler_Images_History                = findViewById(R.id.recycler_Images_History);
         txt_Date_History_Detail                             = findViewById(R.id.txt_Date_History_Detail);
@@ -79,6 +83,7 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
         txt_WebFactory_History_Detail                       = findViewById(R.id.txt_WebFactory_History_Detail);
         img_Back_Detail_History                             = findViewById(R.id.img_Back_Detail_History);
         img_Option_Detail_History                           = findViewById(R.id.img_Option_Detail_History);
+        txt_Info_Author                                     = findViewById(R.id.txt_Info_Author);
         imageHistories                                      = new ArrayList<>();
         historyPresenter                                    = new History_Presenter(this,this);
         // Presenter
@@ -92,19 +97,14 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
         recycler_Images_History.setLayoutManager(layoutManager);
 
-    }
 
+    }
 
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        // Kiểm tra loại user
-        if (Common.currentUser.getIdRole() == 4 || !historyTemp.getIdAuthor().equals(Common.currentUser.getIdUser()))
-        {
-            img_Option_Detail_History.setVisibility(View.GONE);
-        }
         // Hiển thị dữ liệu
         displayValue();
         // Load images: Tải hình ảnh của history
@@ -115,20 +115,91 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
     }
 
     private void initEvents() {
+
+        // Back Button: Đóng activity đi
         img_Back_Detail_History.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+
+        // Option Button: Hiển thị dialog có các lựa chọn cho người dùng
         img_Option_Detail_History.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialogOption();
             }
         });
+
+        // Text view Author: Hiển thị dialog thông tin của tác giá
+        txt_Info_Author.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getInfoEmployee();
+            }
+        });
     }
 
+    // Lấy thông tin nhân viên quản lí sản phẩm
+    private synchronized void getInfoEmployee() {
+        // Tạo progress dialog
+        ProgressDialog progressDialog = Common.createProgress(this);
+        progressDialog.show();
+        // Gọi đến API - lấy info user
+        Common.api.getInfoUser(historyTemp.getIdAuthor())
+                .enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                        User employee = response.body();
+                        if (employee != null)
+                        {
+                            showInfoEmployee(employee);
+                        }
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
+                        Toast.makeText(DetailHistoryActivity.this, "Đã có lỗi. Vui lòng thử lại! " , Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+
+                    }
+                });
+    }
+
+
+    // Hiển thi thông tin của nhân viên đang quản lí
+    private void showInfoEmployee(User user) {
+        // Config dialog
+        Dialog dialogInfo = new Dialog(this);
+        dialogInfo.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogInfo.setContentView(R.layout.dialog_info_customer);
+        dialogInfo.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogInfo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // Init view dialog: Ánh xạ view dialog
+        TextView txt_Email          = dialogInfo.findViewById(R.id.txt_Email);
+        TextView txt_Name           = dialogInfo.findViewById(R.id.txt_Name);
+        TextView txt_Phone          = dialogInfo.findViewById(R.id.txt_Phone);
+        TextView txt_Address        = dialogInfo.findViewById(R.id.txt_Address);
+
+        // Set value: Gán giá trị cho text view
+
+        // Email
+        Common.displayValueTextView(txt_Email,user.getEmail());
+        // Name
+        Common.displayValueTextView(txt_Name,user.getName());
+        // Email
+        Common.displayValueTextView(txt_Phone,user.getPhone());
+        // Email
+        Common.displayValueTextView(txt_Address,user.getAddress());
+
+        // Show dialog
+        dialogInfo.show();
+    }
+
+    // HIỂN THỊ DIALOG OPTION
     private void showDialogOption() {
         BottomDialogOption dialogOption = new BottomDialogOption(new BottomDialogOption.IDialogOptionListener() {
             @Override
@@ -260,11 +331,46 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
         checkValueNullForTextView(txt_PhoneFactory_History_Detail,historyTemp.getFactory().getPhoneFactory());
         checkValueNullForTextView(txt_WebFactory_History_Detail,historyTemp.getFactory().getWebFactory());
 
-        // Nếu người dùng hiện tại là người đã viết nhật ký thì có thể update
-        if (!historyTemp.getIdAuthor().equals(Common.currentUser.getIdUser()))
+        // KIỂM TRA NGƯỜI TẠO CÓ HOẶC NGƯỜI SỬ HỮU HIỆN TẠI CÓ ĐÚNG KHÔNG
+        /*
+        * CÁC ĐIỀU KIỆN KHÔNG ĐƯỢC HIỂN THỊ BUTTON OPTION
+        * 1. Nếu người đang xem chi tiết lịch sử là Khách hàng
+        * 2. Nếu tác giả không đúng với người dùng hiện tại
+        * 3. Nếu không phải là chủ của cơ sở sản phẩm đang được lưu giữ
+        * 4. Nếu không phải cùng 1 ngày với lịch sử được tạo
+        * */
+        int ID_ROLE_FARMER = 3; // Id Role của nông dân
+        int ID_ROLE_CUSTOMER = 4; // Id Role của khách hàng
+        int ID_ROLE_EMPLOYEE = 5; // Id Role của nhân viên
+        if (Common.currentUser.getIdRole() == ID_ROLE_CUSTOMER
+                || Common.currentUser.getIdRole() == ID_ROLE_EMPLOYEE && !historyTemp.getIdAuthor().equals(Common.currentUser.getIdUser())
+                || Common.currentUser.getIdRole() == ID_ROLE_FARMER && !historyTemp.getFactory().getIdUser().equals(Common.currentUser.getIdUser())
+                ||!compareDate())
         {
             img_Option_Detail_History.setVisibility(View.GONE);
         }
+
+    }
+
+    // Kiểm tra quyền chỉnh sửa lại nhật ký: Chỉ trong cùng 1 một ngày thì có thể chỉnh sửa
+    private boolean compareDate() {
+
+        // KIỂM TRA NGÀY HIỆN TẠI CÓ CÙNG NGÀY VỚI TẠO NHẬT KÝ KHÔNG
+        String strDateCurrent = Common.dateFormat.format(Calendar.getInstance().getTime());
+        try {
+            Date dateCurrent = Common.dateFormat.parse(strDateCurrent);
+            Date dateProduct = Common.dateFormat.parse(historyTemp.getDateHistory());
+
+            assert dateCurrent != null;
+            if (dateCurrent.compareTo(dateProduct) != 0)
+            {
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 
     // Check value null text view

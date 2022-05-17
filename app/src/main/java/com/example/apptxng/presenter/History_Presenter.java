@@ -35,7 +35,7 @@ public class History_Presenter {
 
 
     // Thêm nhật ký của sản phẩm
-    public synchronized void InsertHistory(History history, List<Uri> image)
+    public synchronized void InsertHistory(History history, List<Uri> image, int change)
     {
         // Kiểm tra dữ liệu
         if (image == null || history.getFactory() == null || history.getDescriptionHistory().isEmpty())
@@ -54,16 +54,25 @@ public class History_Presenter {
             RequestBody idFactory           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getFactory().getIdFactory()));
 
             // Request: idCurrent
-            RequestBody idCurrent           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getFactory().getIdUser()));
+            RequestBody idCurrent           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getFactoryReceive().getIdUser()));
 
             // Request: idAuthor
             RequestBody idAuthor           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getIdAuthor()));
+
+            // Request: idAuthor
+            RequestBody changeFactory           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(change));
 
             // Request: descriptionHistory
             RequestBody descriptionHistory  = RequestBody.create(MediaType.parse("multipart/form-data"), history.getDescriptionHistory());
 
             // Request: dateHistory
             RequestBody dateHistory         = RequestBody.create(MediaType.parse("multipart/form-data"), history.getDateHistory());
+
+            // Request: idFactoryReceive
+            RequestBody idFactoryReceive    = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getFactoryReceive().getIdFactory()));
+
+            // Request: idFactoryReceive
+            RequestBody idTypeFactory    = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getFactoryReceive().getType_factory().getIdTypeFactory()));
 
 
             // Create list multipart body
@@ -78,7 +87,7 @@ public class History_Presenter {
                 // Tạo tên mới cho ảnh
                 String nameImageNew = arraySplitPath[0] + System.currentTimeMillis() + "." + arraySplitPath[1];
 
-//                // MultipartBody: imageHistory
+                // MultipartBody: imageHistory
                 RequestBody requestBodyImage    = RequestBody.create(MediaType.parse("multipart/form-data"),FileUtils.getFile(context,image.get(i)));
 
                 MultipartBody.Part imageHistory = MultipartBody.Part.createFormData("imageHistory[]", nameImageNew,requestBodyImage);
@@ -90,8 +99,9 @@ public class History_Presenter {
             ProgressDialog progress = new ProgressDialog(context);
             progress.setMessage("Vui lòng đợi...");
             progress.show();
+
             // Gọi đến API
-            Common.api.insertHistory(idHistory,idProduct,idFactory,idCurrent,idAuthor ,descriptionHistory,dateHistory,listMultipartImage)
+            Common.api.insertHistory(idHistory,idProduct,idFactory,idCurrent,idAuthor,changeFactory ,descriptionHistory,dateHistory,idFactoryReceive,idTypeFactory,listMultipartImage)
                     .enqueue(new Callback<ResponsePOST>() {
                         @Override
                         public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {

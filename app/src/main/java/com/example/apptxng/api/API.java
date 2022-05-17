@@ -7,6 +7,7 @@ import com.example.apptxng.model.Factory;
 import com.example.apptxng.model.History;
 import com.example.apptxng.model.ImageHistory;
 import com.example.apptxng.model.Product;
+import com.example.apptxng.model.SupplyChain;
 import com.example.apptxng.model.TypeFactory;
 import com.example.apptxng.model.User;
 import com.example.apptxng.model.ResponsePOST;
@@ -342,9 +343,12 @@ public interface API {
             @Part("idProduct")                      RequestBody idProduct,
             @Part("idFactory")                      RequestBody idFactory,
             @Part("idCurrent")                      RequestBody idCurrent,
-            @Part("idAuthor")                      RequestBody  idAuthor,
+            @Part("idAuthor")                       RequestBody  idAuthor,
+            @Part("changeFactory")                  RequestBody  changeFactory,
             @Part("descriptionHistory")             RequestBody descriptionHistory,
             @Part("dateHistory")                    RequestBody dateHistory,
+            @Part("idFactoryReceive")               RequestBody idFactoryReceive,
+            @Part("idTypeFactory")                  RequestBody idTypeFactory,
             @Part List<MultipartBody.Part>          imageHistory
     );
 
@@ -405,6 +409,9 @@ public interface API {
             @Part List<MultipartBody.Part>          imageHistory
     );
 
-
+    // ********** SUPPLY CHAIN **********
+    // Get supply chain: lấy chuỗi cung ứng của sản phẩm
+        @GET("get_supply_chain.php")
+        Call<List<SupplyChain>> getSupplyChain(@Query("idProduct") String idProduct);
 
 }
