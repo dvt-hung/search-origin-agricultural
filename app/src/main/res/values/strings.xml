@@ -120,6 +120,8 @@
     <string name="detail_product">Chi tiết sản phẩm </string>
     <string name="history_product">Nhật ký sản phẩm </string>
     <string name="seen_history_product">Xem nhật ký sản phẩm </string>
+    <string name="supply_chain">Chuỗi cung ứng sản phẩm </string>
+    <string name="title_supply_chain">Chuỗi cung ứng</string>
 
     <string name="choice_image_product"> Hãy chọn ảnh cho sản phẩm </string>
 
@@ -136,6 +138,7 @@
     <string name="quantity_product">Số lượng</string>
     <string name="input_quantity_product">Nhập số lượng sản phẩm</string>
 
+    <string name="title_choice_option">Các lựa chọn</string>
     <string name="choice_category_product">Chọn danh mục cho sản phẩm</string>
     <string name="choice_balance_product">Chọn đơn vị tính cho sản phẩm</string>
     <string name="choice_employee_product">Chọn nhân viên phụ trách</string>
@@ -174,6 +177,7 @@
     <string name="title_link_factory"> Thông tin cơ sở </string>
     <string name="title_info"> Thông tin cá nhân </string>
     <string name="title_employee"> Quản lý nhân viên </string>
+    <string name="title_statistics"> Thống kê sản phẩm </string>
 
     <string name="owner_farm"> Người đại diện </string>
     <string name="input_owner_farm">Nhập tên người đại diện </string>
@@ -218,5 +222,17 @@
     <string name="question_delete_image"> Bạn có chắc là xóa hình này không </string>
     <string name="update_des"> Cập nhật mô tả </string>
     <string name="no_images"> Bạn chưa chọn hình ảnh mới </string>
+
+
+    <!--    THỐNG KÊ    -->
+
+    <string name="title_filter_dialog"> Lựa chọn thống kê </string>
+    <string name="filter_category"> Thống kê theo danh mục </string>
+    <string name="filter_farmer"> Thống kê theo nhà vườn </string>
+    <string name="statistic_day"> Theo ngày lựa chọn </string>
+    <string name="statistic_changed"> Đã chuyển đi </string>
+    <string name="statistic_employee"> Theo nhân viên </string>
+
+
 
 </resources>

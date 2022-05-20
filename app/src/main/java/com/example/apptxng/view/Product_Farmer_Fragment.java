@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.Product_Adapter;
+import com.example.apptxng.model.Common;
 import com.example.apptxng.model.Product;
 import com.example.apptxng.presenter.IProduct;
 import com.example.apptxng.presenter.Product_Presenter;
@@ -71,7 +72,7 @@ public class Product_Farmer_Fragment extends Fragment implements IProduct, Produ
         });
 
         // 2. Hiển thị danh sách sản phẩm
-        productPresenter.getProductFarmer();
+        productPresenter.getProductFarmer(Common.currentUser.getIdUser());
 
 
         // 3. Scan: Chuyển sang activity scan

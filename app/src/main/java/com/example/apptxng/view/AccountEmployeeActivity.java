@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apptxng.R;
-import com.example.apptxng.adapter.Employee_Adapter;
+import com.example.apptxng.adapter.Account_Adapter;
 import com.example.apptxng.model.Common;
 import com.example.apptxng.model.User;
 import com.example.apptxng.presenter.Account_Presenter;
@@ -27,9 +26,9 @@ import com.example.apptxng.presenter.IAccount;
 
 import java.util.List;
 
-public class AccountEmployeeActivity extends AppCompatActivity implements Employee_Adapter.AccountListener, IAccount {
+public class AccountEmployeeActivity extends AppCompatActivity implements Account_Adapter.AccountListener, IAccount {
 
-    private Employee_Adapter employeeAdapter;
+    private Account_Adapter employeeAdapter;
     private Account_Presenter accountPresenter;
     private ImageView img_Add_Account, img_Back_Account;
     @Override
@@ -43,7 +42,7 @@ public class AccountEmployeeActivity extends AppCompatActivity implements Employ
 
     private void initView() {
         RecyclerView recycler_AccountEmployee       = findViewById(R.id.recycler_AccountEmployee);
-        employeeAdapter                             = new Employee_Adapter(this);
+        employeeAdapter                             = new Account_Adapter(this);
         img_Add_Account                             = findViewById(R.id.img_Add_Account);
         img_Back_Account                            = findViewById(R.id.img_Back_Account);
         // Presenter

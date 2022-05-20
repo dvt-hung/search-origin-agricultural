@@ -23,6 +23,12 @@
         android:theme="@style/Theme.AppTXNG"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.StatisticActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.SupplyChainActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.EmployeeActivity"
             android:exported="false" />
         <activity

@@ -319,7 +319,6 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
 
     }
 
-
     // Hiển thị dữ liệu ban đầu
     private void displayValue() {
         txt_Date_History_Detail.setText(historyTemp.getDateHistory());
@@ -339,12 +338,10 @@ public class DetailHistoryActivity extends AppCompatActivity implements Images_A
         * 3. Nếu không phải là chủ của cơ sở sản phẩm đang được lưu giữ
         * 4. Nếu không phải cùng 1 ngày với lịch sử được tạo
         * */
-        int ID_ROLE_FARMER = 3; // Id Role của nông dân
-        int ID_ROLE_CUSTOMER = 4; // Id Role của khách hàng
         int ID_ROLE_EMPLOYEE = 5; // Id Role của nhân viên
-        if (Common.currentUser.getIdRole() == ID_ROLE_CUSTOMER
-                || Common.currentUser.getIdRole() == ID_ROLE_EMPLOYEE && !historyTemp.getIdAuthor().equals(Common.currentUser.getIdUser())
-                || Common.currentUser.getIdRole() == ID_ROLE_FARMER && !historyTemp.getFactory().getIdUser().equals(Common.currentUser.getIdUser())
+        if (Common.currentUser.getIdRole() == Common.ID_ROLE_CUSTOMER
+                || Common.currentUser.getIdRole() == Common.ID_ROLE_EMPLOYEE && !historyTemp.getIdAuthor().equals(Common.currentUser.getIdUser())
+                || Common.currentUser.getIdRole() == Common.ID_ROLE_FARMER && !historyTemp.getFactory().getIdUser().equals(Common.currentUser.getIdUser())
                 ||!compareDate())
         {
             img_Option_Detail_History.setVisibility(View.GONE);

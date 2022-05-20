@@ -35,7 +35,8 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
     private Account_Presenter accountPresenter;
     private View viewSetting;
     private TextView  txt_Error_ChangePassword_Dialog;
-    private LinearLayout layout_Info_Setting_Farmer,layout_Password_Setting_Farmer, layout_Factory_Setting_Farmer, layout_LogOut_Setting_Farmer, layout_Employee_Setting_Farmer;
+    private LinearLayout layout_Info_Setting_Farmer,layout_Password_Setting_Farmer, layout_Factory_Setting_Farmer,
+            layout_LogOut_Setting_Farmer, layout_Employee_Setting_Farmer, layout_Statistic_Setting_Farmer;
     private Dialog dialogSettingFarmer;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +56,7 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
         layout_Factory_Setting_Farmer       = viewSetting.findViewById(R.id.layout_Factory_Setting_Farmer);
         layout_LogOut_Setting_Farmer        = viewSetting.findViewById(R.id.layout_LogOut_Setting_Farmer);
         layout_Employee_Setting_Farmer      = viewSetting.findViewById(R.id.layout_Employee_Setting_Farmer);
+        layout_Statistic_Setting_Farmer     = viewSetting.findViewById(R.id.layout_Statistic_Setting_Farmer);
         accountPresenter                    = new Account_Presenter(this, requireActivity());
     }
 
@@ -113,6 +115,14 @@ public class Setting_Farmer_Fragment extends Fragment implements IAccount {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(requireActivity(), AccountEmployeeActivity.class));
+            }
+        });
+
+        // 6. Statistic: Thống kê sản phẩm
+        layout_Statistic_Setting_Farmer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(requireActivity(), StatisticActivity.class));
             }
         });
     }

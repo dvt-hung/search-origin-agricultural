@@ -25,12 +25,12 @@ public class Factory_Presenter {
         this.context = context;
     }
 
-    public synchronized void getFactoryByID()
+    public synchronized void getFactoryByID(String idUser)
     {
         ProgressDialog progressDialog = Common.createProgress(context);
         progressDialog.show();
 
-        Common.api.getFactoryByID(Common.currentUser.getIdUser())
+        Common.api.getFactoryByID(idUser)
                 .enqueue(new Callback<Factory>() {
                     @Override
                     public void onResponse(@NonNull Call<Factory> call, @NonNull Response<Factory> response) {
@@ -46,13 +46,33 @@ public class Factory_Presenter {
                 });
     }
 
-
     public void getFactory()
     {
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.show();
         progressDialog.setMessage("Đang tải dữ liệu...");
         Common.api.getFactory()
+                .enqueue(new Callback<List<Factory>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Factory>> call, @NonNull Response<List<Factory>> response) {
+                        iFactory.getFactory(response.body());
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<Factory>> call, @NonNull Throwable t) {
+                        iFactory.Exception(t.getMessage());
+                        progressDialog.dismiss();
+                    }
+                });
+    }
+
+    public void getFactoryFilterByAdmin()
+    {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.show();
+        progressDialog.setMessage("Đang tải dữ liệu...");
+        Common.api.getFactoryFilter()
                 .enqueue(new Callback<List<Factory>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Factory>> call, @NonNull Response<List<Factory>> response) {

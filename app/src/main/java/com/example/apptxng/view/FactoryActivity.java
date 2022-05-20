@@ -67,7 +67,7 @@ public class FactoryActivity extends AppCompatActivity implements  IFactory {
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.getFactoryByID();
+        presenter.getFactoryByID(Common.currentUser.getIdUser());
 
         // init events: Khai báo các event trong activity
         initEvents();

@@ -288,6 +288,8 @@ public interface API {
         @GET("get_factory.php")
         Call<List<Factory>> getFactory();
 
+        @GET("get_factory_filter.php")
+        Call<List<Factory>> getFactoryFilter();
         // Get info factory by idUser
         @GET("get_info_factory.php")
         Call<Factory> getFactoryByID(@Query("idUser") String idUser);
@@ -414,4 +416,21 @@ public interface API {
         @GET("get_supply_chain.php")
         Call<List<SupplyChain>> getSupplyChain(@Query("idProduct") String idProduct);
 
+
+        // ********** STATISTIC PRODUCTS **********
+    // LẤY RA DANH SÁCH SẢN PHẨM ĐÃ ĐƯỢC CHUYỂN ĐI THEO IDFACTORY
+    @GET("get_product_changed.php")
+    Call<List<Product>> getProductChanged(@Query("idFactory") int idFactory);
+
+    // LẤY RA DANH SÁCH SẢN PHẨM THEO NGÀY ĐÃ CHỌN CỦA CƠ SỞ KHÁC
+    @GET("get_product_by_date_manager.php")
+    Call<List<Product>> getProductByDateManager(
+            @Query("idFactory") int idFactory,
+            @Query("dateProduct") String dateProduct);
+
+    // LẤY RA DANH SÁCH SẢN PHẨM THEO NGÀY ĐÃ CHỌN CỦA NÔNG DÂN
+    @GET("get_product_by_date_farmer.php")
+    Call<List<Product>> getProductByDateFarmer(
+            @Query("idUser") String idUser,
+            @Query("dateProduct") String dateProduct);
 }

@@ -50,6 +50,7 @@ public class Common {
     public static final String codeCounty = "+84";
 
     public static final String URL = "https://truyxuatnongsan.000webhostapp.com/api/";
+
     public static final API api = Retrofit_Client.getRetrofit(Common.URL).create(API.class);
 
     public static Calendar calendar = Calendar.getInstance();
@@ -57,6 +58,20 @@ public class Common {
     public static final Locale locale = new Locale("vi","VN");
     public static NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
 
+
+    /*
+    * ID ROLE
+    * 1: ADMIN
+    * 2: QUẢN LÝ
+    * 3: NÔNG DÂN
+    * 4: KHÁCH HÀNG
+    * 5: NHÂN VIÊN
+    * */
+    public static int ID_ROLE_ADMIN = 1; // Id Role của nông dân
+    public static int ID_ROLE_MANAGER = 2; // Id Role của nông dân
+    public static int ID_ROLE_FARMER = 3; // Id Role của nông dân
+    public static int ID_ROLE_CUSTOMER = 4; // Id Role của khách hàng
+    public static int ID_ROLE_EMPLOYEE = 5; // Id Role của nhân viên
     @SuppressLint("SimpleDateFormat")
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 

@@ -24,13 +24,13 @@ public class Product_Presenter {
         this.context = context;
     }
 
-    public synchronized void getProductFarmer()
+    public synchronized void getProductFarmer(String idUser)
     {
         // Progress dialog
         ProgressDialog dialog = Common.createProgress(context);
         dialog.show();
 
-        Common.api.getProducts(Common.currentUser.getIdUser())
+        Common.api.getProducts(idUser)
                 .enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
@@ -103,4 +103,6 @@ public class Product_Presenter {
                     }
                 });
     }
+
+
 }

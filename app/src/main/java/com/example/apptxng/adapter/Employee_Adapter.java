@@ -4,8 +4,7 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Switch;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,29 +19,29 @@ import java.util.List;
 public class Employee_Adapter extends RecyclerView.Adapter<Employee_Adapter.EmployeeViewHolder> {
 
     private List<User> employees;
-    private final AccountListener accountListener;
-    public interface AccountListener{
-        void onClickAccount(User user);
-        void onClickSwitch(User user, int status);
+
+    private final IEmployeeListener iEmployeeListener;
+    public interface IEmployeeListener{
+        void onClickEmployee (User employee);
+    }
+
+    public Employee_Adapter(IEmployeeListener iEmployeeListener) {
+        this.iEmployeeListener = iEmployeeListener;
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setEmployees(List<User> userList)
+    public void setEmployees(List<User> list)
     {
-        this.employees = userList;
+        this.employees = list;
         notifyDataSetChanged();
     }
 
 
-    public Employee_Adapter(AccountListener accountListener) {
-        this.accountListener = accountListener;
-    }
-
     @NonNull
     @Override
     public EmployeeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewEmployee = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_account,parent,false);
-        return new EmployeeViewHolder(viewEmployee);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_employee,parent,false);
+        return new EmployeeViewHolder(view);
     }
 
     @Override
@@ -51,39 +50,20 @@ public class Employee_Adapter extends RecyclerView.Adapter<Employee_Adapter.Empl
 
         if (employee != null)
         {
-            // Name
-            holder.txt_Name_Account.setText(employee.getName());
+            // Name Employee
+            Common.displayValueTextView(holder.txt_Name_Employee,employee.getName());
 
-            // Email
-            Common.displayValueTextView(holder.txt_Email_Account, employee.getEmail());
+            // Email Employee
+            Common.displayValueTextView(holder.txt_Email_Employee,employee.getEmail());
 
-            // Phone
-            holder.txt_Phone_Account.setText(employee.getPhone());
+            // Phone Employee
+            Common.displayValueTextView(holder.txt_Phone_Employee,employee.getPhone());
 
-            // Set value switch
-            boolean checked = employee.isAccept() != 0;
-            holder.switch_Account.setChecked(checked);
-
-            // Switch
-            holder.switch_Account.setOnClickListener(new View.OnClickListener() {
+            // Click Layout
+            holder.layout_Employee.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    boolean checked = employee.isAccept() != 0;
-                    holder.switch_Account.setChecked(checked);
-                    int status = 0;
-                    if (!checked)
-                    {
-                        status = 1;
-                    }
-                    accountListener.onClickSwitch(employee,status);
-                }
-            });
-
-            // Layout
-            holder.layout_Account.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    accountListener.onClickAccount(employee);
+                    iEmployeeListener.onClickEmployee(employee);
                 }
             });
         }
@@ -91,7 +71,7 @@ public class Employee_Adapter extends RecyclerView.Adapter<Employee_Adapter.Empl
 
     @Override
     public int getItemCount() {
-        if (employees != null)
+        if(employees != null)
         {
             return employees.size();
         }
@@ -99,19 +79,17 @@ public class Employee_Adapter extends RecyclerView.Adapter<Employee_Adapter.Empl
     }
 
     public static class EmployeeViewHolder extends RecyclerView.ViewHolder {
-        private final TextView txt_Name_Account;
-        private final TextView txt_Email_Account;
-        private final TextView txt_Phone_Account;
-        private final LinearLayout layout_Account;
-        @SuppressLint("UseSwitchCompatOrMaterialCode")
-        private final Switch switch_Account;
+        private final TextView txt_Name_Employee;
+        private final TextView txt_Email_Employee;
+        private final TextView txt_Phone_Employee;
+        private final RelativeLayout layout_Employee;
         public EmployeeViewHolder(@NonNull View itemView) {
             super(itemView);
-            txt_Name_Account        = itemView.findViewById(R.id.txt_Name_Account);
-            txt_Email_Account       = itemView.findViewById(R.id.txt_Email_Account);
-            txt_Phone_Account       = itemView.findViewById(R.id.txt_Phone_Account);
-            layout_Account          = itemView.findViewById(R.id.layout_Account);
-            switch_Account          = itemView.findViewById(R.id.switch_Account);
+
+            txt_Name_Employee           = itemView.findViewById(R.id.txt_Name_Employee);
+            txt_Email_Employee          = itemView.findViewById(R.id.txt_Email_Employee);
+            txt_Phone_Employee          = itemView.findViewById(R.id.txt_Phone_Employee);
+            layout_Employee             = itemView.findViewById(R.id.layout_Employee);
         }
     }
 }

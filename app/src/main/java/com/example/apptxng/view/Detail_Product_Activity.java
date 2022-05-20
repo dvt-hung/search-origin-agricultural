@@ -39,7 +39,7 @@ import retrofit2.Response;
 
 public class Detail_Product_Activity extends AppCompatActivity  {
     private ImageView img_Option_Detail_Product,img_Close_Detail_Product,img_Detail_Product, img_QR_Product;
-    private TextView txt_Balance_Detail_Product,txt_Name_Detail_Product,txt_Des_Detail_Product,txt_Price_Detail_Product
+    private TextView txt_Balance_Detail_Product,txt_Name_Detail_Product,txt_Des_Detail_Product,txt_Price_Detail_Product, txt_Supply_Chain
             ,txt_Ingredient_Detail_Product,txt_Use_Detail_Product, txt_Info_Employee,txt_Guide_Detail_Product, txt_Condition_Detail_Product,txt_Seen_History;
     private Product product;
     @Override
@@ -68,6 +68,7 @@ public class Detail_Product_Activity extends AppCompatActivity  {
         txt_Condition_Detail_Product            = findViewById(R.id.txt_Condition_Detail_Product);
         txt_Seen_History                        = findViewById(R.id.txt_Seen_History);
         txt_Info_Employee                       = findViewById(R.id.txt_Info_Employee);
+        txt_Supply_Chain                        = findViewById(R.id.txt_Supply_Chain);
     }
 
 
@@ -119,6 +120,16 @@ public class Detail_Product_Activity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 getInfoEmployee();
+            }
+        });
+
+        // Supply Chain: Chuyển sang activity hiển thị chuỗi cung ứng theo sản phẩm
+        txt_Supply_Chain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentSupplyChain = new Intent(Detail_Product_Activity.this, SupplyChainActivity.class);
+                intentSupplyChain.putExtra("idProduct", product.getIdProduct()); // Truyền idProduct sang để lấy thông tin
+                startActivity(intentSupplyChain);
             }
         });
     }
@@ -200,7 +211,6 @@ public class Detail_Product_Activity extends AppCompatActivity  {
             view.setText(val);
         }
     }
-
 
     // Show dialog option: Hiển thị các lựa chọn của
     private void showDialogOption() {
@@ -355,7 +365,6 @@ public class Detail_Product_Activity extends AppCompatActivity  {
                     }
                 });
     }
-
 
     // Hiển thi thông tin của nhân viên đang quản lí
     private void showInfoEmployee(User user) {
