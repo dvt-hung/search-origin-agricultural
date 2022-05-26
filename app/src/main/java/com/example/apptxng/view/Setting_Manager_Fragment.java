@@ -29,7 +29,7 @@ import java.util.List;
 
 public class Setting_Manager_Fragment extends Fragment implements IAccount {
 
-    private LinearLayout layout_Info_Setting_Manager, layout_Password_Setting_Manager, layout_LogOut_Setting_Manager,layout_Employee_Setting_Manager;
+    private LinearLayout layout_Statistic_Setting_Manager,layout_Info_Setting_Manager, layout_Password_Setting_Manager, layout_LogOut_Setting_Manager,layout_Employee_Setting_Manager;
     private TextView txt_Error_ChangePassword_Dialog;
     private Account_Presenter accountPresenter;
 
@@ -47,6 +47,7 @@ public class Setting_Manager_Fragment extends Fragment implements IAccount {
         layout_Password_Setting_Manager     = view.findViewById(R.id.layout_Password_Setting_Manager);
         layout_LogOut_Setting_Manager       = view.findViewById(R.id.layout_LogOut_Setting_Manager);
         layout_Employee_Setting_Manager     = view.findViewById(R.id.layout_Employee_Setting_Manager);
+        layout_Statistic_Setting_Manager    = view.findViewById(R.id.layout_Statistic_Setting_Manager);
         accountPresenter                    = new Account_Presenter(this,requireActivity());
     }
 
@@ -91,6 +92,14 @@ public class Setting_Manager_Fragment extends Fragment implements IAccount {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(requireActivity(),AccountEmployeeActivity.class));
+            }
+        });
+
+        // 5. Chuyển activity thống kê
+        layout_Statistic_Setting_Manager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(requireActivity(), StatisticActivity.class));
             }
         });
 

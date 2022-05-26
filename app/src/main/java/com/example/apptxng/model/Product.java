@@ -16,7 +16,6 @@ public class Product implements Serializable {
     private Balance balance;
     private String dateProduct;
     private String qrProduct;
-    private String idCurrent;
     private String ingredientProduct;
     private String useProduct;
     private String guideProduct;
@@ -80,14 +79,6 @@ public class Product implements Serializable {
 
     public void setConditionProduct(String conditionProduct) {
         this.conditionProduct = conditionProduct;
-    }
-
-    public String getIdCurrent() {
-        return idCurrent;
-    }
-
-    public void setIdCurrent(String idCurrent) {
-        this.idCurrent = idCurrent;
     }
 
     public String getQrProduct() {

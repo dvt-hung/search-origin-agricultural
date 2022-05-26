@@ -67,13 +67,13 @@ public class HistoriesActivity extends AppCompatActivity implements History_Adap
         recycler_History.setLayoutManager(layoutManager);
 
         // Kiểm tra quyền thêm lịch sử: Nếu idCurrent bằng với Current User thì được thêm
-        if (!productTemp.getIdCurrent().equals(Common.currentUser.getIdUser()) )
+        if (productTemp.getIdUser().equals(Common.currentUser.getIdUser()))
         {
-            img_Insert_History_Product.setVisibility(View.GONE);
+            img_Insert_History_Product.setVisibility(View.VISIBLE);
         }
 
         // Kiểm tra quyền thêm của Nhân viên
-        if(productTemp.getIdEmployee().equals(Common.currentUser.getIdUser()))
+        if(productTemp.getIdEmployee() != null && productTemp.getIdEmployee().equals(Common.currentUser.getIdUser()))
         {
             img_Insert_History_Product.setVisibility(View.VISIBLE);
         }

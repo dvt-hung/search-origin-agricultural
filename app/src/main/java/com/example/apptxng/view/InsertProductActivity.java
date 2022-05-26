@@ -34,6 +34,7 @@ import com.example.apptxng.adapter.ChoiceType_Adapter;
 import com.example.apptxng.model.Balance;
 import com.example.apptxng.model.Category;
 import com.example.apptxng.model.Common;
+import com.example.apptxng.model.Factory;
 import com.example.apptxng.model.Product;
 import com.example.apptxng.model.User;
 import com.example.apptxng.presenter.IInsertProduct;
@@ -75,6 +76,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
     private List<User> listEmployee = new ArrayList<>() ;
     private Product product;
     private String idProduct;
+    private Factory factoryTemp;
     private final String TITLE_INGREDIENT_I   = "TITLE_INGREDIENT_I";
     private final String TITLE_USE_I          = "TITLE_USE_I";
     private final String TITLE_GUIDE_I        = "TITLE_GUIDE_I";
@@ -100,6 +102,8 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         // initView: Ánh xạ view
         initView();
 
+        // 0. Load danh sách danh mục + đơn vị tính
+        loadListChoiceType();
     }
     // INIT VIEW
     private void initView() {
@@ -137,8 +141,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
     protected void onResume() {
         super.onResume();
 
-        // 0. Load danh sách danh mục + đơn vị tính
-        loadListChoiceType();
+
 
         /*
         * 1. Chọn ảnh cho sản phẩm
@@ -202,9 +205,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         btn_InsertProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 insertProduct();
-
             }
         });
 
@@ -279,17 +280,18 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
 
     // FUN THÊM SẢN PHẨM
     private void insertProduct() {
-        String nameProduct, priceProduct, desProduct, quantityProduct;
+        String nameProduct, priceProduct, desProduct, quantityProduct,ingredient,use,guide,condition,idHistory, desHistory;
+        desHistory = "Khởi tạo sản phẩm";
 
         // Nhận các giá trị được người dùng nhập vào
-        nameProduct = edt_Name_InsertProduct.getText().toString().trim();
-        priceProduct = edt_Price_InsertProduct.getText().toString().trim();
-        desProduct = edt_Des_InsertProduct.getText().toString().trim();
-        quantityProduct = edt_Quantity_InsertProduct.getText().toString().trim();
-        String ingredient   = txt_Result_IngredientProduct.getText().toString().trim();
-        String use          = txt_Result_UseProduct.getText().toString().trim();
-        String guide        = txt_Result_GuideProduct.getText().toString().trim();
-        String condition    = txt_Result_ConditionProduct.getText().toString().trim();
+        nameProduct         = edt_Name_InsertProduct.getText().toString().trim();
+        priceProduct        = edt_Price_InsertProduct.getText().toString().trim();
+        desProduct          = edt_Des_InsertProduct.getText().toString().trim();
+        quantityProduct     = edt_Quantity_InsertProduct.getText().toString().trim();
+        ingredient          = txt_Result_IngredientProduct.getText().toString().trim();
+        use                 = txt_Result_UseProduct.getText().toString().trim();
+        guide               = txt_Result_GuideProduct.getText().toString().trim();
+        condition           = txt_Result_ConditionProduct.getText().toString().trim();
 
 
         // Kiểm tra dữ liễu quan trọng có rỗng hay không
@@ -312,6 +314,9 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
             idProduct = "Product" +Common.calendar.getTime().getTime(); // ID Product
             product.setIdProduct(idProduct);
 
+            idHistory = "History" +Common.calendar.getTime().getTime(); // ID Product
+
+
             // Set ngày cho product
             @SuppressLint("SimpleDateFormat")
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -320,8 +325,10 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
             product.setDateProduct(dateProduct); // Set ngày cho Product
 
             // Gọi đến presenter
-            Log.e("a", "insertProduct: " + product.getIdEmployee() );
-            insertProductPresenter.insertProduct(product);
+            Log.e("a", "insertProduct: ID" + idHistory );
+            Log.e("a", "insertProduct: Des" + desHistory );
+            Log.e("a", "insertProduct: FAC" + factoryTemp.getIdFactory() );
+            insertProductPresenter.insertProduct(product,idHistory,desHistory,factoryTemp.getIdFactory());
         }
 
     }
@@ -331,7 +338,8 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
     private void loadListChoiceType() {
         insertProductPresenter.getCategory();
         insertProductPresenter.getBalance();
-        getListEmployeeAccount(Common.currentUser.getIdUser());
+        insertProductPresenter.getInfoFactory();
+        insertProductPresenter.getListEmployeeAccount(Common.currentUser.getIdUser());
     }
 
     // Dialog: Chọn danh mục cho sản phẩm
@@ -507,6 +515,11 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
     }
 
     @Override
+    public void infoFactory(Factory factory) {
+        factoryTemp = factory;
+    }
+
+    @Override
     public void addProductSuccess(String message) {
         // Chuyển String idProduct sang activity QR Code
         Intent intentQR = new Intent(InsertProductActivity.this,CreateQRCodeActivity.class);
@@ -520,6 +533,11 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
     @Override
     public void addProductFailed(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void listEmployee(List<User> list) {
+        listEmployee = list;
     }
 
     public synchronized void getListEmployeeAccount(String idOwner)

@@ -5,14 +5,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.FileUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.example.apptxng.model.Balance;
 import com.example.apptxng.model.Category;
 import com.example.apptxng.model.Common;
+import com.example.apptxng.model.Factory;
 import com.example.apptxng.model.Product;
 import com.example.apptxng.model.ResponsePOST;
+import com.example.apptxng.model.User;
+import com.example.apptxng.view.InsertProductActivity;
 
 import java.io.File;
 import java.util.List;
@@ -65,7 +69,7 @@ public class Insert_Product_Presenter {
                     });
     }
 
-    public synchronized void insertProduct(Product product){
+    public synchronized void insertProduct(Product product, String idHistory, String desHistory, int idFactory){
         //Kiểm tra dữ liệu
         if (product.getBalance().getIdBalance() == 0 || product.getCategory().getIdCategory() == 0 || product.getImageProduct() == null)
         {
@@ -96,6 +100,12 @@ public class Insert_Product_Presenter {
         RequestBody conditionProduct        = RequestBody.create(MediaType.parse("multipart/form-data"),valueEmpty(product.getConditionProduct()));
         RequestBody idEmployee              = RequestBody.create(MediaType.parse("multipart/form-data"),valueEmpty(product.getIdEmployee()));
 
+        RequestBody idHis              = RequestBody.create(MediaType.parse("multipart/form-data"),idHistory);
+
+        RequestBody desHis              = RequestBody.create(MediaType.parse("multipart/form-data"),desHistory);
+
+        RequestBody idFac              = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(idFactory));
+
         RequestBody requestBodyImage        = RequestBody.create(MediaType.parse("multipart/form-data"),file);
         MultipartBody.Part requestPartImage = MultipartBody.Part.createFormData("imageProduct", nameProductNew,requestBodyImage);
 
@@ -105,7 +115,8 @@ public class Insert_Product_Presenter {
 
         // Call API
         Common.api.addProduct(idProduct,nameProduct,priceProduct,descriptionProduct,quantityProduct, idUser,
-                idCategory, idBalance, idEmployee,dateProduct,ingredientProduct, useProduct, guideProduct, conditionProduct, requestPartImage)
+                idCategory, idBalance, idEmployee,dateProduct,ingredientProduct, useProduct, guideProduct, conditionProduct,
+                requestPartImage,idHis, idFac, desHis)
                 .enqueue(new Callback<ResponsePOST>() {
                     @Override
                     public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {
@@ -140,5 +151,49 @@ public class Insert_Product_Presenter {
             return "";
         }
         return val;
+    }
+
+
+    // ***** LẤY RA INFO FACTORY *****
+    public void getInfoFactory(){
+        // Create Progress Dialog
+        ProgressDialog progressDialog = Common.createProgress(context);
+        progressDialog.show();
+
+        // Call API
+        Common.api.getFactoryByID(Common.currentUser.getIdUser())
+                .enqueue(new Callback<Factory>() {
+                    @Override
+                    public void onResponse(@NonNull Call<Factory> call, @NonNull Response<Factory> response) {
+                        iInsertProduct.infoFactory(response.body());
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<Factory> call, @NonNull Throwable t) {
+                        iInsertProduct.Exception(t.getMessage());
+                        progressDialog.dismiss();
+                    }
+                });
+    }
+
+    public synchronized void getListEmployeeAccount(String idOwner)
+    {
+        ProgressDialog dialog = Common.createProgress(context);
+        dialog.show();
+        Common.api.getListEmployee(idOwner)
+                .enqueue(new Callback<List<User>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<User>> call, @NonNull Response<List<User>> response) {
+                        iInsertProduct.listEmployee(response.body());
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<User>> call, @NonNull Throwable t) {
+                        iInsertProduct.Exception(t.getMessage());
+                        dialog.dismiss();
+                    }
+                });
     }
 }

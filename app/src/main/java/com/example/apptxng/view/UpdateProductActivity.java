@@ -541,6 +541,14 @@ public class UpdateProductActivity extends AppCompatActivity implements ChoiceTy
 
     @Override
     public void success(String message) {
+        if (Common.currentUser.getIdRole() == Common.ID_ROLE_MANAGER)
+        {
+            startActivity(new Intent(UpdateProductActivity.this, ManagerActivity.class));
+        }
+        else if (Common.currentUser.getIdRole() == Common.ID_ROLE_FARMER)
+        {
+            startActivity(new Intent(UpdateProductActivity.this, FarmerActivity.class));
+        }
         finish();
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         progressUpdate.cancel();

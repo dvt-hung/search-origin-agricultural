@@ -211,8 +211,7 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
                 });
     }
 
-    private void showDialogChoiceCurrentFactory()
-    {
+    private void showDialogChoiceCurrentFactory(){
         Dialog dialogChoice = new Dialog(this);
         dialogChoice.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogChoice.setContentView(R.layout.dialog_current_factory);
@@ -362,7 +361,6 @@ public class InsertHistoryActivity extends AppCompatActivity implements Factory_
         historyTemp = null;
         listTemp = null;
     }
-
 
 
 }

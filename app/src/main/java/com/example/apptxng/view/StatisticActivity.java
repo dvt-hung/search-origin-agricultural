@@ -111,7 +111,7 @@ public class StatisticActivity extends AppCompatActivity implements Product_Adap
                         break;
 
                     case R.id.menu_changed:
-                        statisticPresenter.getProductChanged(factoryTemp.getIdFactory());
+                        statisticPresenter.getProductChanged(Common.currentUser.getIdUser());
                         break;
 
                     case R.id.menu_by_employee:
@@ -165,13 +165,11 @@ public class StatisticActivity extends AppCompatActivity implements Product_Adap
         // Kiểm tra người dùng hiện tại: Nông dân, Quản lý cơ sở
         if (Common.currentUser.getIdRole() == Common.ID_ROLE_FARMER)
         {
-            Log.e("a", "getProductByDate: " + Common.currentUser.getIdUser() + " - " + strDatePicker );
-            statisticPresenter.getProductByDateFarmer(Common.currentUser.getIdUser(),strDatePicker);
+            statisticPresenter.getProductByDateFarmer(factoryTemp.getIdFactory(),strDatePicker);
         }
         else if (Common.currentUser.getIdRole() == Common.ID_ROLE_MANAGER)
         {
-            Log.e("a", "getProductByDate: " + factoryTemp.getIdFactory() + " - " + strDatePicker );
-            statisticPresenter.getProductByDateManager(factoryTemp.getIdFactory(),strDatePicker);
+            statisticPresenter.getProductByDateManager(Common.currentUser.getIdUser(),strDatePicker);
         }
     }
 

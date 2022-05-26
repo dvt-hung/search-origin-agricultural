@@ -246,8 +246,11 @@ public interface API {
                 @Part("useProduct")         RequestBody useProduct,
                 @Part("guideProduct")       RequestBody guideProduct,
                 @Part("conditionProduct")   RequestBody conditionProduct,
-                @Part MultipartBody.Part                imageProduct
-        );
+                @Part MultipartBody.Part                imageProduct,
+                @Part("idHistory")              RequestBody idHistory,
+                @Part("idFactory")              RequestBody idFactory,
+                @Part("descriptionHistory")   RequestBody descriptionHistory
+                );
 
         // Update Product
         @Multipart
@@ -344,9 +347,10 @@ public interface API {
             @Part("idHistory")                      RequestBody idHistory,
             @Part("idProduct")                      RequestBody idProduct,
             @Part("idFactory")                      RequestBody idFactory,
-            @Part("idCurrent")                      RequestBody idCurrent,
-            @Part("idAuthor")                       RequestBody  idAuthor,
-            @Part("changeFactory")                  RequestBody  changeFactory,
+            @Part("idUser")                         RequestBody idUser,
+            @Part("idOwnerNew")                     RequestBody idOwnerNew,
+            @Part("idAuthor")                       RequestBody idAuthor,
+            @Part("changeFactory")                  RequestBody changeFactory,
             @Part("descriptionHistory")             RequestBody descriptionHistory,
             @Part("dateHistory")                    RequestBody dateHistory,
             @Part("idFactoryReceive")               RequestBody idFactoryReceive,
@@ -420,17 +424,17 @@ public interface API {
         // ********** STATISTIC PRODUCTS **********
     // LẤY RA DANH SÁCH SẢN PHẨM ĐÃ ĐƯỢC CHUYỂN ĐI THEO IDFACTORY
     @GET("get_product_changed.php")
-    Call<List<Product>> getProductChanged(@Query("idFactory") int idFactory);
+    Call<List<Product>> getProductChanged(@Query("idUser") String idUser);
 
     // LẤY RA DANH SÁCH SẢN PHẨM THEO NGÀY ĐÃ CHỌN CỦA CƠ SỞ KHÁC
     @GET("get_product_by_date_manager.php")
     Call<List<Product>> getProductByDateManager(
-            @Query("idFactory") int idFactory,
+            @Query("idUser") String idUser,
             @Query("dateProduct") String dateProduct);
 
     // LẤY RA DANH SÁCH SẢN PHẨM THEO NGÀY ĐÃ CHỌN CỦA NÔNG DÂN
     @GET("get_product_by_date_farmer.php")
     Call<List<Product>> getProductByDateFarmer(
-            @Query("idUser") String idUser,
+            @Query("idFactory")   int idFactory,
             @Query("dateProduct") String dateProduct);
 }

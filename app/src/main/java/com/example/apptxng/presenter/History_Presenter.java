@@ -53,13 +53,16 @@ public class History_Presenter {
             // Request: idFactory
             RequestBody idFactory           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getFactory().getIdFactory()));
 
-            // Request: idCurrent
-            RequestBody idCurrent           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getFactoryReceive().getIdUser()));
+            // Request: idUser (id chủ sở hữu hiện tại)
+            RequestBody idUser              = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getFactory().getIdUser()));
+
+            // Request: idUser (id chủ sở hữu mới)
+            RequestBody idOwnerNew           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getFactoryReceive().getIdUser()));
 
             // Request: idAuthor
             RequestBody idAuthor           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(history.getIdAuthor()));
 
-            // Request: idAuthor
+            // Request: change
             RequestBody changeFactory           = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(change));
 
             // Request: descriptionHistory
@@ -100,8 +103,8 @@ public class History_Presenter {
             progress.setMessage("Vui lòng đợi...");
             progress.show();
 
-            // Gọi đến API
-            Common.api.insertHistory(idHistory,idProduct,idFactory,idCurrent,idAuthor,changeFactory ,descriptionHistory,dateHistory,idFactoryReceive,idTypeFactory,listMultipartImage)
+            // Gọi đến API: bỏ đi idCurrent
+            Common.api.insertHistory(idHistory,idProduct,idFactory,idUser,idOwnerNew,idAuthor,changeFactory ,descriptionHistory,dateHistory,idFactoryReceive,idTypeFactory,listMultipartImage)
                     .enqueue(new Callback<ResponsePOST>() {
                         @Override
                         public void onResponse(@NonNull Call<ResponsePOST> call, @NonNull Response<ResponsePOST> response) {

@@ -50,13 +50,13 @@ public class Statistic_Activity_Presenter {
 
 
     // ***** LẤY RA CÁC SẢN PHẨM ĐÃ ĐƯỢC CHUYỂN ĐI *****
-    public void getProductChanged(int idFactory){
+    public void getProductChanged(String idUser){
         // Create Progress Dialog
         ProgressDialog progressDialog = Common.createProgress(context);
         progressDialog.show();
 
         // Call API
-        Common.api.getProductChanged(idFactory)
+        Common.api.getProductChanged(idUser)
                 .enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
@@ -120,13 +120,13 @@ public class Statistic_Activity_Presenter {
     }
 
     // ***** LẤY RA DANH SÁCH SẢN PHẨM THEO NGÀY CỦA QUẢN LÝ CƠ SỞ *****
-    public synchronized void getProductByDateManager(int idFactory, String dateProduct) {
+    public synchronized void getProductByDateManager(String idUser, String dateProduct) {
         // Create Progress Dialog
         ProgressDialog dialog = Common.createProgress(context);
         dialog.show();
 
         // Call API
-        Common.api.getProductByDateManager(idFactory,dateProduct)
+        Common.api.getProductByDateManager(idUser,dateProduct)
                 .enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
@@ -143,13 +143,13 @@ public class Statistic_Activity_Presenter {
     }
 
     // ***** LẤY RA DANH SÁCH SẢN PHẨM THEO NGÀY CỦA NÔNG DÂN *****
-    public synchronized void getProductByDateFarmer(String idUser, String dateProduct) {
+    public synchronized void getProductByDateFarmer(int idFactory, String dateProduct) {
         // Create Progress Dialog
         ProgressDialog dialog = Common.createProgress(context);
         dialog.show();
 
         // Call API
-        Common.api.getProductByDateFarmer(idUser,dateProduct)
+        Common.api.getProductByDateFarmer(idFactory,dateProduct)
                 .enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {

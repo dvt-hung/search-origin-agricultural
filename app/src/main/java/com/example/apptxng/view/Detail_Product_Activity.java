@@ -102,7 +102,11 @@ public class Detail_Product_Activity extends AppCompatActivity  {
         img_Option_Detail_Product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialogOption();
+                Bundle bundleUpdate = new Bundle();
+                bundleUpdate.putSerializable("product",product); // Đẩy product vào bundle
+                Intent intentUpdate = new Intent(Detail_Product_Activity.this,UpdateProductActivity.class);
+                intentUpdate.putExtras(bundleUpdate);
+                startActivity(intentUpdate);
             }
         });
 
@@ -158,9 +162,9 @@ public class Detail_Product_Activity extends AppCompatActivity  {
     @SuppressLint("SetTextI18n")
     private void displayValueProduct() {
         // Kiểm tra quyền chỉnh sửa product
-        if (!product.getIdUser().equals(Common.currentUser.getIdUser()) )
+        if (product.getIdUser().equals(Common.currentUser.getIdUser())  )
         {
-            img_Option_Detail_Product.setVisibility(View.GONE);
+            img_Option_Detail_Product.setVisibility(View.VISIBLE);
         }
 
         // Nếu chưa chỉ định nhân viên quản lý sản phẩm thì sẽ ẩn đi
@@ -212,7 +216,7 @@ public class Detail_Product_Activity extends AppCompatActivity  {
         }
     }
 
-    // Show dialog option: Hiển thị các lựa chọn của
+    // Show dialog option: Hiển thị các lựa chọn của (Tạm thời ko sải)
     private void showDialogOption() {
         Dialog dialogOptions = new Dialog(this);
         dialogOptions.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -239,21 +243,18 @@ public class Detail_Product_Activity extends AppCompatActivity  {
         // 1. Insert Ẩn
         btn_InsertHistory_OptionProduct.setVisibility(View.GONE);
 
-        // Nếu người dùng đang đăng sử dụng là loại Nhân viên thì ẩn đi chức năng xóa
-        if (product.getIdEmployee().equals(Common.currentUser.getIdUser()))
+        if (Common.currentUser.getIdRole() == Common.ID_ROLE_MANAGER)
         {
             btn_Delete_OptionProduct.setVisibility(View.GONE);
         }
+
+
 
         // 2. Update Button
         btn_Update_OptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundleUpdate = new Bundle();
-                bundleUpdate.putSerializable("product",product); // Đẩy product vào bundle
-                Intent intentUpdate = new Intent(Detail_Product_Activity.this,UpdateProductActivity.class);
-                intentUpdate.putExtras(bundleUpdate);
-                startActivity(intentUpdate);
+
                 finish();
                 dialogOptions.dismiss();
             }

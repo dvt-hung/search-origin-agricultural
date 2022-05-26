@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.apptxng.R;
 import com.example.apptxng.adapter.Product_Adapter;
+import com.example.apptxng.model.Common;
 import com.example.apptxng.model.Product;
 import com.example.apptxng.presenter.IProduct;
 import com.example.apptxng.presenter.Product_Presenter;
@@ -62,7 +63,7 @@ public class Products_Manager_Fragment extends Fragment implements Product_Adapt
         GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(),2, LinearLayoutManager.VERTICAL,false);
         recycler_Product_Manager.setLayoutManager(layoutManager);
 
-        productPresenter.getProductManager();
+        productPresenter.getProductFarmer(Common.currentUser.getIdUser());
     }
 
     @Override
