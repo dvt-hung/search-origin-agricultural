@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apptxng.R;
+import com.example.apptxng.model.Common;
 import com.example.apptxng.model.User;
 
 import java.util.List;
@@ -53,14 +54,8 @@ public class Customer_Account_Admin_Adapter extends RecyclerView.Adapter<Custome
             holder.txt_Phone_Customer_Account.setText(userCustomer.getPhone());
             boolean checked = userCustomer.isAccept() != 0;
             holder.switch_Customer_Account.setChecked(checked);
-            if (userCustomer.getEmail() == null)
-            {
-                holder.txt_Email_Customer_Account.setText(R.string.title_error_empty_user);
-            }
-            else
-            {
-                holder.txt_Email_Customer_Account.setText(userCustomer.getEmail());
-            }
+
+            Common.displayValueTextView(holder.txt_Email_Customer_Account,userCustomer.getEmail());
 
             // Change accept
             holder.switch_Customer_Account.setOnClickListener(new View.OnClickListener() {

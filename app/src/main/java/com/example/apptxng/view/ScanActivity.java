@@ -3,12 +3,14 @@ package com.example.apptxng.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -80,14 +82,26 @@ public class ScanActivity extends AppCompatActivity {
         surface_Scan.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
+                if(ContextCompat.checkSelfPermission(ScanActivity.this, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(ScanActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
+                }
+
                 try {
-                    if (ActivityCompat.checkSelfPermission(ScanActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                        cameraSource.start(surface_Scan.getHolder());
-                    }
+                    cameraSource.start(surface_Scan.getHolder());
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+//                try {
+//                    if (ActivityCompat.checkSelfPermission(ScanActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+//                        cameraSource.start(surface_Scan.getHolder());
+//                    }
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
 
             @Override
@@ -121,6 +135,7 @@ public class ScanActivity extends AppCompatActivity {
                             if (arrValue[0].equals("idProduct"))
                             {
                                 // Call api
+
                                 getProductByIdProduct(arrValue[1]);
                                 cameraSource.stop();
                             }
@@ -149,6 +164,7 @@ public class ScanActivity extends AppCompatActivity {
 
                         Bundle bundleProduct = new Bundle();
                         bundleProduct.putSerializable("product",product);
+                        Log.e("abc", "receiveDetections: " + product.getNameProduct() );
 
                         //Check type user
                         Intent intent;

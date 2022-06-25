@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -32,8 +33,11 @@ import com.example.apptxng.presenter.IStatistic;
 import com.example.apptxng.presenter.Product_Presenter;
 import com.example.apptxng.presenter.Statistic_Activity_Presenter;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class StatisticActivity extends AppCompatActivity implements Product_Adapter.IProductAdapterListener, IStatistic, Employee_Adapter.IEmployeeListener {
 
@@ -187,7 +191,13 @@ public class StatisticActivity extends AppCompatActivity implements Product_Adap
     // ****************** OVERRIDE METHOD: I PRODUCT ADAPTER ****************
     @Override
     public void onClickProduct(Product product) {
+        // Khi click vào sản phẩm sẽ chuyển sang activity chi tiết sản phẩm
+        Bundle bundleProduct = new Bundle();
+        bundleProduct.putSerializable("product",product);
 
+        Intent intentDetailProduct = new Intent(StatisticActivity.this, Detail_Product_Activity.class);
+        intentDetailProduct.putExtras(bundleProduct);
+        startActivity(intentDetailProduct);
     }
 
     // ****************** OVERRIDE METHOD: I STATISTIC ****************
@@ -203,9 +213,26 @@ public class StatisticActivity extends AppCompatActivity implements Product_Adap
         bottomDialogEmployee.dismiss();
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void listProducts(List<Product> products) {
+
+        showProductList(products);
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void showProductList(List<Product> products) {
+        for (int second = 1; second < products.size(); second++) {
+            int first = second -1;
+            Product pFirst = products.get(first);
+            Product pSecond = products.get(second);
+
+            while (first >= 0 && pFirst.getIdProduct().equals(pSecond.getIdProduct()))
+            {
+                products.remove(pFirst);
+                first--;
+            }
+        }
         txt_Quantity.setText(TEXT_QUANTITY + products.size());
         productAdapter.setProductList(products);
     }

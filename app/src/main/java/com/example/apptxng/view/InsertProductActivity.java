@@ -75,7 +75,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
     private List<Balance> typeBalanceList = new ArrayList<>() ;
     private List<User> listEmployee = new ArrayList<>() ;
     private Product product;
-    private String idProduct;
+    private String idProduct,idHistory;
     private Factory factoryTemp;
     private final String TITLE_INGREDIENT_I   = "TITLE_INGREDIENT_I";
     private final String TITLE_USE_I          = "TITLE_USE_I";
@@ -134,14 +134,11 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         choiceTypeAdapter                   = new ChoiceType_Adapter(this);
         insertProductPresenter              = new Insert_Product_Presenter(this, this);
 
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
 
         /*
         * 1. Chọn ảnh cho sản phẩm
@@ -205,7 +202,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
         btn_InsertProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                insertProduct();
+                        insertProduct();
             }
         });
 
@@ -280,7 +277,7 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
 
     // FUN THÊM SẢN PHẨM
     private void insertProduct() {
-        String nameProduct, priceProduct, desProduct, quantityProduct,ingredient,use,guide,condition,idHistory, desHistory;
+        String nameProduct, priceProduct, desProduct, quantityProduct,ingredient,use,guide,condition, desHistory;
         desHistory = "Khởi tạo sản phẩm";
 
         // Nhận các giá trị được người dùng nhập vào
@@ -311,24 +308,25 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
             product.setGuideProduct(guide);
             product.setConditionProduct(condition);
 
-            idProduct = "Product" +Common.calendar.getTime().getTime(); // ID Product
-            product.setIdProduct(idProduct);
-
-            idHistory = "History" +Common.calendar.getTime().getTime(); // ID Product
-
-
             // Set ngày cho product
             @SuppressLint("SimpleDateFormat")
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date date = Calendar.getInstance().getTime();
+
+
             String dateProduct = formatter.format(date);
             product.setDateProduct(dateProduct); // Set ngày cho Product
 
+            idProduct = "Product" + date.getTime(); // ID Product
+            product.setIdProduct(idProduct);
+
+            idHistory = "History" + date.getTime(); // ID Product
+
+            Log.e("abc", "insertProduct: " + nameProduct + " - " + priceProduct + " - " + idProduct + " - " + idHistory );
             // Gọi đến presenter
-            Log.e("a", "insertProduct: ID" + idHistory );
-            Log.e("a", "insertProduct: Des" + desHistory );
-            Log.e("a", "insertProduct: FAC" + factoryTemp.getIdFactory() );
             insertProductPresenter.insertProduct(product,idHistory,desHistory,factoryTemp.getIdFactory());
+
+
         }
 
     }
@@ -558,5 +556,14 @@ public class InsertProductActivity extends AppCompatActivity implements ChoiceTy
                         dialog.dismiss();
                     }
                 });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        typeBalanceList = null;
+        typeCategoryList = null;
+        idProduct = null;
+        idHistory = null;
     }
 }

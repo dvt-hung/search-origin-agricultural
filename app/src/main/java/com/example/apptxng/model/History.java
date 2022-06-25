@@ -17,9 +17,17 @@ public class History implements Serializable {
     private Factory factory;
     private TypeFactory type_factory;
     private Factory factoryReceive;
+    private int idFactoryReceive;
     public History() {
     }
 
+    public int getIdFactoryReceive() {
+        return idFactoryReceive;
+    }
+
+    public void setIdFactoryReceive(int idFactoryReceive) {
+        this.idFactoryReceive = idFactoryReceive;
+    }
 
     public Factory getFactoryReceive() {
         return factoryReceive;

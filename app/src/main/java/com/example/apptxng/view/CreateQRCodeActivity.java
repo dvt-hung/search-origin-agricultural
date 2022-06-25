@@ -49,7 +49,7 @@ public class CreateQRCodeActivity extends AppCompatActivity {
 
     private ImageView img_QRCode, img_Save_QRCode, img_Finish_QRCode;
     private Uri uriQR;
-
+    private boolean allowed = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,7 +159,8 @@ public class CreateQRCodeActivity extends AppCompatActivity {
                 .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .withListener(new PermissionListener() {
                     @Override public void onPermissionGranted(PermissionGrantedResponse response) {
-                        saveQRCode();}
+                        saveQRCode();
+                    }
                     @Override public void onPermissionDenied(PermissionDeniedResponse response) {
                         /* ... */}
                     @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {

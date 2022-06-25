@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apptxng.R;
+import com.example.apptxng.model.Common;
 import com.example.apptxng.model.User;
 
 import java.util.List;
@@ -54,15 +55,8 @@ public class Manager_Account_Admin_Adapter extends RecyclerView.Adapter<Manager_
             holder.txt_Phone_Manager_Account.setText(manager.getPhone());
             boolean checked = manager.isAccept() != 0;
             holder.switch_Manager_Account.setChecked(checked);
-            if (manager.getEmail() == null)
-            {
-                holder.txt_Email_Manager_Account.setText(R.string.title_error_empty_user);
-            }
-            else
-            {
-                holder.txt_Email_Manager_Account.setText(manager.getPhone());
-            }
 
+            Common.displayValueTextView(holder.txt_Email_Manager_Account,manager.getEmail());
             // Change accept
             // Change accept
             holder.switch_Manager_Account.setOnClickListener(new View.OnClickListener() {

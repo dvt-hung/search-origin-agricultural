@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apptxng.R;
+import com.example.apptxng.model.Common;
 import com.example.apptxng.model.User;
 
 import java.util.List;
@@ -61,6 +62,7 @@ public class Farmer_Account_Admin_Adapter extends RecyclerView.Adapter<Farmer_Ac
             {
                 holder.txt_Email_Farmer_Account.setText(userFarmer.getPhone());
             }
+            Common.displayValueTextView(holder.txt_Email_Farmer_Account,userFarmer.getEmail());
 
             // Click item
             holder.layout_Farmer_Account_Admin.setOnClickListener(new View.OnClickListener() {

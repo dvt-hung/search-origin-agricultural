@@ -20,6 +20,7 @@ import com.example.apptxng.model.Product;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.ProductViewHolder>{
 
@@ -44,6 +45,7 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.Produc
         this.productList = list;
         notifyDataSetChanged();
     }
+
 
 
 
